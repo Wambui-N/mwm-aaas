@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/og';
+import { ImageResponse } from '@vercel/og';
 
 export const runtime = 'edge';
 
@@ -110,7 +110,11 @@ export async function GET(request: Request) {
       }
     );
   } catch (e) {
-    console.log(`${e.message}`);
+    if (e instanceof Error) {
+      console.log(e.message);
+    } else {
+      console.log(e);
+    }
     return new Response(`Failed to generate the image`, {
       status: 500,
     });
