@@ -27,6 +27,46 @@ export default function PricingSection() {
 
   return (
     <section id="pricing" className="py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": "Made with Make Automation Subscription",
+            "description": "Custom automation service for busy founders. $499/month subscription with unlimited requests.",
+            "brand": {
+              "@type": "Brand",
+              "name": "Made with Make"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "499",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "499",
+                "priceCurrency": "USD",
+                "billingIncrement": "P1M",
+                "description": "Monthly subscription"
+              },
+              "availability": "https://schema.org/InStock",
+              "url": "https://madewithmake.com"
+            },
+            "category": "Business Automation Service",
+            "features": [
+              "Unlimited automation requests",
+              "One automation at a time",
+              "Average 48-72hr delivery",
+              "Unlimited revisions",
+              "Full lifecycle management",
+              "24/7 monitoring & support",
+              "Pause or cancel anytime",
+              "No contracts or commitments"
+            ]
+          })
+        }}
+      />
       <div className="max-w-3xl mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

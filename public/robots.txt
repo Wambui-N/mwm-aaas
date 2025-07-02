@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Allow OG image generation
+Allow: /api/og/*
+
+# Sitemap
+Sitemap: https://madewithmake.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow admin or private areas (if any)
+# Disallow: /admin/
+# Disallow: /private/ 

@@ -2,12 +2,58 @@ import { satoshi, cormorantGaramond } from '../../fonts/fonts';
 
 export const metadata = {
   title: 'Terms & Conditions - Made with Make',
-  description: 'Terms and conditions for Made with Make automation subscription service.',
+  description: 'Terms and conditions for Made with Make automation subscription service. Learn about our $499/month subscription model, project scope, and client responsibilities.',
+  keywords: [
+    'Made with Make terms',
+    'automation service terms',
+    'subscription terms',
+    'business automation terms',
+    'service agreement'
+  ],
+  openGraph: {
+    title: 'Terms & Conditions - Made with Make',
+    description: 'Terms and conditions for Made with Make automation subscription service.',
+    url: 'https://madewithmake.com/terms',
+    images: [
+      {
+        url: 'https://madewithmake.com/api/og?title=Terms%20%26%20Conditions&subtitle=Made%20with%20Make%20Automation%20Service',
+        width: 1200,
+        height: 630,
+        alt: 'Terms & Conditions - Made with Make',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'https://madewithmake.com/terms',
+  },
 };
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://madewithmake.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Terms & Conditions",
+                "item": "https://madewithmake.com/terms"
+              }
+            ]
+          })
+        }}
+      />
       {/* Simple Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6 py-4">

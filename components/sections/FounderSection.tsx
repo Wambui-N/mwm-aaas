@@ -7,6 +7,34 @@ import { Linkedin } from "lucide-react";
 export default function FounderSection() {
   return (
     <section id="founder" className="py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Wambui Ndung'u",
+            "jobTitle": "Founder & Automation Specialist",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Made with Make"
+            },
+            "description": "Founder of Made with Make, helping founders streamline operations through automation",
+            "image": "https://madewithmake.com/founder.png",
+            "url": "https://madewithmake.com",
+            "sameAs": [
+              "https://www.linkedin.com/in/wambui-ndungu-210409193/"
+            ],
+            "knowsAbout": [
+              "Business Automation",
+              "Workflow Optimization",
+              "Make.com",
+              "Process Automation",
+              "Founder Operations"
+            ]
+          })
+        }}
+      />
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

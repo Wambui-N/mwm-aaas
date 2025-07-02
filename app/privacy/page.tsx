@@ -2,12 +2,58 @@ import { satoshi, cormorantGaramond } from '../../fonts/fonts';
 
 export const metadata = {
   title: 'Privacy Policy - Made with Make',
-  description: 'Privacy policy for Made with Make automation subscription service.',
+  description: 'Privacy policy for Made with Make automation subscription service. Learn how we collect, use, and protect your information.',
+  keywords: [
+    'Made with Make privacy',
+    'automation service privacy',
+    'data protection',
+    'privacy policy',
+    'GDPR compliance'
+  ],
+  openGraph: {
+    title: 'Privacy Policy - Made with Make',
+    description: 'Privacy policy for Made with Make automation subscription service.',
+    url: 'https://madewithmake.com/privacy',
+    images: [
+      {
+        url: 'https://madewithmake.com/api/og?title=Privacy%20Policy&subtitle=Made%20with%20Make%20Automation%20Service',
+        width: 1200,
+        height: 630,
+        alt: 'Privacy Policy - Made with Make',
+      },
+    ],
+  },
+  alternates: {
+    canonical: 'https://madewithmake.com/privacy',
+  },
 };
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://madewithmake.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Privacy Policy",
+                "item": "https://madewithmake.com/privacy"
+              }
+            ]
+          })
+        }}
+      />
       {/* Simple Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6 py-4">

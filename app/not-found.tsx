@@ -3,7 +3,14 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Page Not Found - Made with Make',
-  description: 'The page you are looking for could not be found.',
+  description: 'The page you are looking for could not be found. Return to Made with Make automation services.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+  alternates: {
+    canonical: 'https://madewithmake.com/404',
+  },
 };
 
 export default function NotFound() {
