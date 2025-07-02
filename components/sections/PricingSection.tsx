@@ -1,0 +1,76 @@
+'use client';
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { CheckCircle } from 'lucide-react';
+
+const features = [
+  "Unlimited automation requests",
+  "One automation at a time", 
+  "Average 48-72hr delivery",
+  "Unlimited revisions",
+  "Full lifecycle management",
+  "24/7 monitoring & support",
+  "Pause or cancel anytime",
+  "No contracts or commitments"
+];
+
+export default function PricingSection() {
+  const scrollToBookCall = () => {
+    const element = document.getElementById('book-call');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section id="pricing" className="py-24">
+      <div className="max-w-3xl mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-display font-semibold text-black mb-4">
+            One subscription. Zero headaches.
+          </h2>
+          <p className="text-lg text-gray-600 mb-12">
+            Simple, transparent pricing that scales with your ambitions
+          </p>
+
+          <motion.div whileHover={{ y: -4 }}>
+            <Card className="p-8 border-2 border-gray-100 hover:border-gray-200 transition-colors bg-white">
+              <CardContent className="p-0">
+                <div className="mb-8">
+                  <div className="text-5xl font-bold text-black mb-2">$499</div>
+                  <div className="text-gray-600">per month</div>
+                </div>
+
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button 
+                    onClick={scrollToBookCall}
+                    className="w-full bg-black hover:bg-gray-800 text-white py-3 mb-8"
+                  >
+                    Start with discovery call
+                  </Button>
+                </motion.div>
+
+                <div className="grid md:grid-cols-2 gap-4 text-left">
+                  {features.map((feature, index) => (
+                    <div key={index} className="flex items-center space-x-3">
+                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+} 
