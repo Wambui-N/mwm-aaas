@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     default: 'Made with Make - Automation Subscriptions for Busy Founders',
     template: '%s | Made with Make'
   },
-  description: 'Fix one bottleneck at a time. $499/month automation service that handles everything for you. Custom automations for your specific workflows.',
+  description: 'Fix one bottleneck at a time. $620/month automation service that handles everything for you. Custom automations for your specific workflows.',
   keywords: [
     'automation service',
     'business automation',
@@ -19,7 +19,12 @@ export const metadata: Metadata = {
     'business process automation',
     'subscription automation',
     'custom automation',
-    'automation consulting'
+    'automation consulting',
+    'AI automation',
+    'business process optimization',
+    'workflow efficiency',
+    'founder operations',
+    'business scaling automation'
   ],
   authors: [{ name: 'Wambui Ndung\'u' }],
   creator: 'Wambui Ndung\'u',
@@ -29,13 +34,22 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  other: {
+    'ai-content-type': 'business-service',
+    'ai-target-audience': 'founders, entrepreneurs, business owners',
+    'ai-service-category': 'automation, business-processes, workflow-optimization',
+    'ai-geographic-focus': 'worldwide',
+    'ai-business-model': 'subscription-service',
+    'ai-pricing-model': 'monthly-subscription',
+    'ai-service-delivery': 'digital-automation',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://madewithmake.com',
     siteName: 'Made with Make',
     title: 'Made with Make - Automation Subscriptions for Busy Founders',
-    description: 'Fix one bottleneck at a time. $499/month automation service that handles everything for you. Custom automations for your specific workflows.',
+    description: 'Fix one bottleneck at a time. $620/month automation service that handles everything for you. Custom automations for your specific workflows.',
     images: [
       {
         url: 'https://madewithmake.com/api/og?title=Made%20with%20Make&subtitle=Automation%20Subscriptions%20for%20Busy%20Founders',
@@ -48,7 +62,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Made with Make - Automation Subscriptions for Busy Founders',
-    description: 'Fix one bottleneck at a time. $499/month automation service that handles everything for you.',
+    description: 'Fix one bottleneck at a time. $620/month automation service that handles everything for you.',
     images: ['https://madewithmake.com/api/og?title=Made%20with%20Make&subtitle=Automation%20Subscriptions%20for%20Busy%20Founders'],
     creator: '@madewithmake',
   },
@@ -88,7 +102,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#000000" />
         
-        {/* Structured Data */}
+        {/* Enhanced Structured Data for AI/LLM Understanding */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -98,16 +112,26 @@ export default function RootLayout({
               "name": "Made with Make",
               "url": "https://madewithmake.com",
               "logo": "https://madewithmake.com/Vector.svg",
-              "description": "Automation subscription service for busy founders",
+              "description": "Automation subscription service for busy founders. We build custom business automations using Make.com to streamline operations and eliminate bottlenecks.",
               "foundingDate": "2024",
               "founder": {
                 "@type": "Person",
-                "name": "Wambui Ndung'u"
+                "name": "Wambui Ndung'u",
+                "jobTitle": "Founder & Automation Specialist",
+                "description": "Founder of Made with Make, helping founders streamline operations through automation",
+                "knowsAbout": [
+                  "Business Automation",
+                  "Workflow Optimization", 
+                  "Make.com",
+                  "Process Automation",
+                  "Founder Operations"
+                ]
               },
               "contactPoint": {
                 "@type": "ContactPoint",
                 "contactType": "customer service",
-                "email": "wambui@madewithmake.com"
+                "email": "wambui@madewithmake.com",
+                "availableLanguage": "English"
               },
               "sameAs": [
                 "https://www.linkedin.com/company/made-with-make/"
@@ -115,7 +139,41 @@ export default function RootLayout({
               "address": {
                 "@type": "PostalAddress",
                 "addressCountry": "KE"
-              }
+              },
+              "serviceArea": {
+                "@type": "GeoCircle",
+                "geoMidpoint": {
+                  "@type": "GeoCoordinates",
+                  "latitude": 0,
+                  "longitude": 0
+                },
+                "geoRadius": "40075000"
+              },
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Automation Services",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Custom Business Automation",
+                      "description": "Tailored automation solutions for business processes"
+                    },
+                    "price": "620",
+                    "priceCurrency": "USD",
+                    "priceSpecification": {
+                      "@type": "UnitPriceSpecification",
+                      "price": "620",
+                      "priceCurrency": "USD",
+                      "billingIncrement": "P1M"
+                    }
+                  }
+                ]
+              },
+              "keywords": "automation service, business automation, workflow automation, founder automation, Make.com automation, Zapier alternative",
+              "category": "Business Services",
+              "industry": "Technology Services"
             })
           }}
         />

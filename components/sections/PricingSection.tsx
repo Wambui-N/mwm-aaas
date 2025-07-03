@@ -33,19 +33,19 @@ export default function PricingSection() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Product",
-            "name": "Made with Make Automation Subscription",
-            "description": "Custom automation service for busy founders. $499/month subscription with unlimited requests.",
+            "name": "Made with Make Automations",
+            "description": "Custom automation service for busy founders. $620/month subscription with unlimited requests.",
             "brand": {
               "@type": "Brand",
               "name": "Made with Make"
             },
             "offers": {
               "@type": "Offer",
-              "price": "499",
+              "price": "620",
               "priceCurrency": "USD",
               "priceSpecification": {
                 "@type": "UnitPriceSpecification",
-                "price": "499",
+                "price": "620",
                 "priceCurrency": "USD",
                 "billingIncrement": "P1M",
                 "description": "Monthly subscription"
@@ -85,7 +85,7 @@ export default function PricingSection() {
             <Card className="p-8 border-2 border-gray-100 hover:border-gray-200 transition-colors bg-white">
               <CardContent className="p-0">
                 <div className="mb-8">
-                  <div className="text-5xl font-bold text-black mb-2">$499</div>
+                  <div className="text-5xl font-bold text-black mb-2">$620</div>
                   <div className="text-gray-600">per month</div>
                 </div>
 

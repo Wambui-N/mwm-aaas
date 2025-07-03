@@ -2,17 +2,24 @@ import { satoshi, cormorantGaramond } from '../../fonts/fonts';
 
 export const metadata = {
   title: 'Terms & Conditions - Made with Make',
-  description: 'Terms and conditions for Made with Make automation subscription service. Learn about our $499/month subscription model, project scope, and client responsibilities.',
+  description: 'Terms and conditions for Made with Make Automations service. Learn about our $620/month subscription model, project scope, and client responsibilities.',
   keywords: [
     'Made with Make terms',
     'automation service terms',
     'subscription terms',
     'business automation terms',
-    'service agreement'
+    'service agreement',
+    'automation service legal',
+    'business automation terms'
   ],
+  other: {
+    'ai-content-type': 'legal-document',
+    'ai-document-type': 'terms-and-conditions',
+    'ai-business-context': 'automation-service',
+  },
   openGraph: {
     title: 'Terms & Conditions - Made with Make',
-    description: 'Terms and conditions for Made with Make automation subscription service.',
+    description: 'Terms and conditions for Made with Make Automations service.',
     url: 'https://madewithmake.com/terms',
     images: [
       {
@@ -111,7 +118,7 @@ export default function TermsPage() {
                   2. Subscription & Payments
                 </h2>
                 <ul className="text-gray-700 leading-relaxed space-y-2">
-                  <li>• The subscription is billed monthly at $499 via Paystack.</li>
+                  <li>• The subscription is billed monthly at $620 via Paystack.</li>
                   <li>• You may pause or cancel at any time—no long-term contracts.</li>
                   <li>• All charges are non-refundable once a billing cycle begins, unless otherwise agreed in writing.</li>
                 </ul>

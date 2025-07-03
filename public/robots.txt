@@ -4,6 +4,25 @@ Allow: /
 # Allow OG image generation
 Allow: /api/og/*
 
+# Allow AI/LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
 # Sitemap
 Sitemap: https://madewithmake.com/sitemap.xml
 

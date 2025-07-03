@@ -30,7 +30,7 @@ export default function TestimonialSection() {
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    }, 5000);
+    }, 10000); // Increased from 5000ms to 8000ms (8 seconds)
 
     return () => clearInterval(timer);
   }, []);

@@ -2,24 +2,28 @@ import { satoshi, cormorantGaramond } from '../../fonts/fonts';
 
 export const metadata = {
   title: 'Privacy Policy - Made with Make',
-  description: 'Privacy policy for Made with Make automation subscription service. Learn how we collect, use, and protect your information.',
+  description: 'Privacy policy for Made with Make Automations service. Learn how we collect, use, and protect your information.',
   keywords: [
     'Made with Make privacy',
     'automation service privacy',
     'data protection',
     'privacy policy',
-    'GDPR compliance'
+    'GDPR compliance',
+    'automation service data protection',
+    'business automation privacy'
   ],
+  other: {
+    'ai-content-type': 'legal-document',
+    'ai-document-type': 'privacy-policy',
+    'ai-business-context': 'automation-service',
+  },
   openGraph: {
     title: 'Privacy Policy - Made with Make',
-    description: 'Privacy policy for Made with Make automation subscription service.',
+    description: 'Privacy policy for Made with Make Automations service.',
     url: 'https://madewithmake.com/privacy',
     images: [
       {
         url: 'https://madewithmake.com/api/og?title=Privacy%20Policy&subtitle=Made%20with%20Make%20Automation%20Service',
-        width: 1200,
-        height: 630,
-        alt: 'Privacy Policy - Made with Make',
       },
     ],
   },
