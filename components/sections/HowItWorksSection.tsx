@@ -10,21 +10,21 @@ const steps = [
     step: "01",
     title: "Subscribe",
     description:
-      "Join the automation subscription and kick things off with a quick strategy call. We’ll get clear on your workflows, goals, and the repetitive tasks holding you back.",
+      "Join the subscription starting with a brief strategy call where we'll identify your workflows, goals, and bottlenecks.",
     icon: <Target className="w-6 h-6" />,
   },
   {
     step: "02",
     title: "Identify",
     description:
-      "We meet weekly to review what’s working and what’s wasting your time. Together, we’ll prioritize automations that free you up and move the business forward.",
+    "We meet weekly (or as need) to review what’s working and what need to be automated. ",
     icon: <Brain className="w-6 h-6" />,
   },
   {
     step: "03",
     title: "Automate",
     description:
-      "I build, test, and launch one custom automation at a time—tailored to your exact workflow.It runs quietly in the background, saving you hours each week.",
+      "I will build, test, and launch one automation at a time, tailored to your exact workflow.",
     icon: <Gauge className="w-6 h-6" />,
   },
 ];
@@ -68,7 +68,7 @@ export default function HowItWorksSection() {
               whileHover={{ y: -4 }}
               className="text-center"
             >
-              <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors">
+              <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors h-full flex flex-col">
                 <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center text-white mx-auto mb-6">
                   {item.icon}
                 </div>
@@ -76,7 +76,7 @@ export default function HowItWorksSection() {
                 <h3 className="text-xl font-semibold text-black mb-3">
                   {item.title}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-600 text-sm leading-relaxed flex-1">
                   {item.description}
                 </p>
               </div>

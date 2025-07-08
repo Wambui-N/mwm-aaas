@@ -65,7 +65,7 @@ export default function Navigation() {
                 }}
                 className="w-2 h-2 bg-green-500 rounded-full"
               />
-              <span className="text-xs font-medium text-green-700">Taking new clients</span>
+              <span className="text-xs font-medium text-green-700">Start Today</span>
             </motion.div>
             
             <button 

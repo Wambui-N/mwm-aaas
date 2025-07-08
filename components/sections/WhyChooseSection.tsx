@@ -7,23 +7,23 @@ import { fadeIn, stagger } from '@/lib/animations';
 
 const features = [
   {
-    title: "Lightning fast",
-    description: "Most automations delivered within 48-72 hours",
-    icon: <Zap className="w-5 h-5" />
-  },
-  {
-    title: "Zero learning curve", 
-    description: "You focus on business. I handle the technical complexity",
+    title: "You get a partner, not a platform",
+    description: "I meet with you, understand your business, and handle all the work - completely done-for-you.",
     icon: <Shield className="w-5 h-5" />
   },
   {
-    title: "Full management",
-    description: "Build, deploy, monitor, maintain, and optimize everything", 
+    title: "Fast results",
+    description: "Most automations are built and deployed within the first 48-72 hours of our engagement.",
+    icon: <Zap className="w-5 h-5" />
+  },
+  {
+    title: "You still get full control",
+    description: "Every automation includes a video walkthrough so you understand exactly how everything works.",
     icon: <Settings className="w-5 h-5" />
   },
   {
-    title: "Transparent pricing",
-    description: "One flat rate. No hidden fees or surprise charges",
+    title: "You're not locked in",
+    description: "No contracts or long-term commitments required. Pause or cancel your subscription anytime.",
     icon: <CheckCircle className="w-5 h-5" />
   }
 ];
@@ -43,7 +43,7 @@ export default function WhyChooseSection() {
             Why choose Made with Make
           </motion.h2>
           <motion.p variants={fadeIn} className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Built specifically for founders who need results, not excuses
+          No more admin drag. Just calm, consistent progress.
           </motion.p>
         </motion.div>
 

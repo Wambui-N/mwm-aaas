@@ -7,16 +7,16 @@ import { ArrowRight, Zap, CheckCircle, Settings, Sparkles } from "lucide-react";
 
 export default function HeroSection() {
   const scrollToBookCall = () => {
-    const element = document.getElementById('book-call');
+    const element = document.getElementById("book-call");
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const scrollToPricing = () => {
-    const element = document.getElementById('pricing');
+    const element = document.getElementById("pricing");
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -34,24 +34,23 @@ export default function HeroSection() {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-medium text-black mb-6 leading-tight font-display">
-            Custom automations
+          Less manual work.
             <br />
-            for your specific workflows
+            More time for what matters.
           </h1>
 
-          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-             Let's partner up to systematically automate your most
-            time-consuming tasks, freeing your team to focus on revenue-driving
-            activities.
+          <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+            I help lean teams automate time-consuming tasks one at a time and
+            allow them to scale without hiring more staff.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button 
+              <Button
                 onClick={scrollToBookCall}
                 className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-base group"
               >
-                Book discovery call
+                Get started today
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>

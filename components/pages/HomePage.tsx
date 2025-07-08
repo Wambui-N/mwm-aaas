@@ -3,6 +3,7 @@
 import React from 'react';
 import Navigation from '@/components/layout/Navigation';
 import HeroSection from '@/components/sections/HeroSection';
+import WhatsSlowingSection from '@/components/sections/WhatsSlowingSection';
 import HowItWorksSection from '@/components/sections/HowItWorksSection';
 import FounderSection from '@/components/sections/FounderSection';
 import WhatToExpectSection from '@/components/sections/WhatToExpectSection';
@@ -18,14 +19,15 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       <Navigation />
       <HeroSection />
+      <WhatsSlowingSection />
       <HowItWorksSection />
-      <FounderSection />
-      <WhatToExpectSection />
       <WhyChooseSection />
       <TestimonialSection />
       <PricingSection />
-      <FAQSection />
       <FinalCTASection />
+      <WhatToExpectSection />
+      <FAQSection />
+      <FounderSection />
       <Footer />
     </div>
   );
