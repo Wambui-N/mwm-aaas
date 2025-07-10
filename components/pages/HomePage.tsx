@@ -19,10 +19,10 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       <Navigation />
       <HeroSection />
+      <TestimonialSection />
       <WhatsSlowingSection />
       <HowItWorksSection />
       <WhyChooseSection />
-      <TestimonialSection />
       <PricingSection />
       <FinalCTASection />
       <WhatToExpectSection />
