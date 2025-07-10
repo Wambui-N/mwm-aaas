@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { fadeIn, stagger } from "@/lib/animations";
 
 const testimonials = [
   {
@@ -30,7 +31,7 @@ export default function TestimonialSection() {
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    }, 10000); // Increased from 5000ms to 8000ms (8 seconds)
+    }, 10000);
 
     return () => clearInterval(timer);
   }, []);
@@ -66,21 +67,30 @@ export default function TestimonialSection() {
   };
 
   return (
-    <section className="py-24 bg-gray-50">
-      <div className="max-w-4xl mx-auto px-6">
+    <section className="py-24">
+      <div className="max-w-5xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="initial"
+          whileInView="animate"
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          variants={stagger}
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl  text-black mb-4 font-display font-semibold">
+          <motion.h2 
+            variants={fadeIn}
+            className="text-3xl md:text-4xl font-display font-semibold text-black mb-4"
+          >
             Kind words from past projects
-          </h2>
+          </motion.h2>
         </motion.div>
 
-        <div className="relative">
+        <motion.div
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={fadeIn}
+          className="relative"
+        >
           {/* Testimonial Carousel */}
           <div className="relative h-[400px] overflow-hidden">
             <AnimatePresence initial={false} custom={direction}>
@@ -134,14 +144,14 @@ export default function TestimonialSection() {
 
           {/* Navigation Arrows */}
           <button
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors border border-gray-100"
             onClick={() => paginate(-1)}
           >
             <ChevronLeft className="w-5 h-5 text-gray-600" />
           </button>
           
           <button
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors border border-gray-100"
             onClick={() => paginate(1)}
           >
             <ChevronRight className="w-5 h-5 text-gray-600" />
@@ -162,7 +172,7 @@ export default function TestimonialSection() {
               />
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
