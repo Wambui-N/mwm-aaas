@@ -58,12 +58,6 @@ export default function RootLayout({
             __html: JSON.stringify(generateStructuredData('organization')),
           }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(generateStructuredData('faq')),
-          }}
-        />
       </head>
       <body
         className={`${satoshi.variable} ${cormorantGaramond.variable} font-sans`}
