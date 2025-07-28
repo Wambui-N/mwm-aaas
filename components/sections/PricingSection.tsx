@@ -85,8 +85,17 @@ export default function PricingSection() {
             <Card className="p-8 border-2 border-gray-100 hover:border-gray-200 transition-colors bg-white">
               <CardContent className="p-0">
                 <div className="mb-8">
-                  <div className="text-5xl font-bold text-black mb-2">$620</div>
+                  <div className="mb-2">
+                    <div className="text-2xl text-gray-400 line-through mb-1">$1,792</div>
+                    <div className="text-5xl font-bold text-black">$896</div>
+                    <div className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full mt-2">
+                      50% OFF - Limited Time
+                    </div>
+                  </div>
                   <div className="text-gray-600">per month</div>
+                  <div className="text-sm text-gray-500 mt-3 italic">
+                    I only work with up to 5 clients at any given time to ensure each receives exceptional attention and results.
+                  </div>
                 </div>
 
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
