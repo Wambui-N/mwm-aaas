@@ -21,7 +21,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      {process.env.NODE_ENV === 'development' && <EnvTest />}
+      {/* {process.env.NODE_ENV === 'development' && <EnvTest />} */}
       <HeroSection />
       <TestimonialSection />
       <CaseStudiesSection />
