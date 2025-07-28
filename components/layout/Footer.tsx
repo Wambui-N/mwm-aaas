@@ -15,6 +15,18 @@ export default function Footer() {
               </svg>
             </div>
             <span className="text-lg font-semibold">Made with Make</span>
+            <a
+              className="ml-onclick-form"
+              href="#"
+              onClick={e => {
+                e.preventDefault();
+                if (typeof window !== 'undefined' && typeof window.ml === 'function') {
+                  window.ml('show', 'DlIfr4', true);
+                }
+              }}
+            >
+              Click here to show form
+            </a>
           </div>
           
           <div className="flex items-center space-x-6">

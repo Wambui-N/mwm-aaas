@@ -4,6 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
 
+
+
 export default function FounderSection() {
   return (
     <section id="founder" className="py-24">

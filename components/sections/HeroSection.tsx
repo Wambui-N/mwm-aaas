@@ -34,14 +34,13 @@ export default function HeroSection() {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-medium text-black mb-6 leading-tight font-display">
-          Less manual work.
+          Sick of doing work
             <br />
-            More time for what matters.
+            that software should handle?
           </h1>
 
           <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-            I help lean teams automate time-consuming tasks one at a time and
-            allow them to scale without hiring more staff.
+          I partner with lean teams to remove their bottlenecks, one automation at a time, so they can <strong>scale without hiring more people</strong>.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -50,7 +49,7 @@ export default function HeroSection() {
                 onClick={scrollToBookCall}
                 className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-base group"
               >
-                Get started today
+               Apply to Work With Me
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>

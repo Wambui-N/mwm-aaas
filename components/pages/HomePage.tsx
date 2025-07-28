@@ -9,10 +9,12 @@ import FounderSection from '@/components/sections/FounderSection';
 import WhatToExpectSection from '@/components/sections/WhatToExpectSection';
 import WhyChooseSection from '@/components/sections/WhyChooseSection';
 import TestimonialSection from '@/components/sections/TestimonialSection';
+import CaseStudiesSection from '@/components/sections/CaseStudiesSection';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import FinalCTASection from '@/components/sections/FinalCTASection';
 import Footer from '@/components/layout/Footer';
+import NewsletterSection from '../sections/NewsletterSection';
 
 export default function HomePage() {
   return (
@@ -20,6 +22,7 @@ export default function HomePage() {
       <Navigation />
       <HeroSection />
       <TestimonialSection />
+      {/* <CaseStudiesSection /> */}
       <WhatsSlowingSection />
       <HowItWorksSection />
       <WhyChooseSection />
@@ -28,6 +31,7 @@ export default function HomePage() {
       <WhatToExpectSection />
       <FAQSection />
       <FounderSection />
+      <NewsletterSection />
       <Footer />
     </div>
   );

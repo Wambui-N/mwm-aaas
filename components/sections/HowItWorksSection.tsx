@@ -83,6 +83,29 @@ export default function HowItWorksSection() {
             </motion.div>
           ))}
         </motion.div>
+
+        <motion.div
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={fadeIn}
+          className="text-center mt-16"
+        >
+          <div className="bg-white rounded-2xl p-8 border border-gray-100 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-display font-semibold text-black mb-4">
+              Find out what you could automate first
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Free 30-minute strategy call to identify your biggest automation opportunities
+            </p>
+            <a
+              href="#book-call"
+              className="inline-flex items-center justify-center px-8 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
+            >
+              Let's talk
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
