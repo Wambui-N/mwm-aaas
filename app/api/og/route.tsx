@@ -1,6 +1,8 @@
 import { ImageResponse } from '@vercel/og';
 
+// Using edge runtime only
 export const runtime = 'edge';
+export const dynamic = 'force-static';
 
 export async function GET(request: Request) {
   try {
@@ -119,4 +121,4 @@ export async function GET(request: Request) {
       status: 500,
     });
   }
-} 
+}

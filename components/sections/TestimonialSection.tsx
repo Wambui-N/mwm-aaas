@@ -92,7 +92,7 @@ export default function TestimonialSection() {
           className="relative"
         >
           {/* Testimonial Carousel */}
-          <div className="relative h-[400px] overflow-hidden">
+          <div className="relative h-[250px] overflow-hidden">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
                 key={currentIndex}

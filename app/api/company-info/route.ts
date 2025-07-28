@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-static';
+
 export async function GET() {
   const companyInfo = {
     "@context": "https://schema.org",
@@ -122,4 +124,4 @@ export async function GET() {
       'Cache-Control': 'public, max-age=3600'
     }
   });
-} 
+}

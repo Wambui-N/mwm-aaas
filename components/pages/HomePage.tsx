@@ -15,14 +15,16 @@ import FAQSection from '@/components/sections/FAQSection';
 import FinalCTASection from '@/components/sections/FinalCTASection';
 import Footer from '@/components/layout/Footer';
 import NewsletterSection from '../sections/NewsletterSection';
+import { EnvTest } from '@/components/debug/EnvTest';
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
+      {process.env.NODE_ENV === 'development' && <EnvTest />}
       <HeroSection />
       <TestimonialSection />
-      {/* <CaseStudiesSection /> */}
+      <CaseStudiesSection />
       <WhatsSlowingSection />
       <HowItWorksSection />
       <WhyChooseSection />
@@ -33,6 +35,7 @@ export default function HomePage() {
       <FounderSection />
       <NewsletterSection />
       <Footer />
+
     </div>
   );
-} 
+}
