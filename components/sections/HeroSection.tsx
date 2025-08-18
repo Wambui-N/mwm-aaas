@@ -53,7 +53,7 @@ export default function HeroSection() {
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            {/* <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button
                 onClick={scrollToPricing}
                 variant="outline"
@@ -61,7 +61,7 @@ export default function HeroSection() {
               >
                 See pricing
               </Button>
-            </motion.div>
+            </motion.div> */}
           </div>
         </motion.div>
 

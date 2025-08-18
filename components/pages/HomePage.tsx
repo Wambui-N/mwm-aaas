@@ -28,7 +28,7 @@ export default function HomePage() {
       <WhatsSlowingSection />
       <HowItWorksSection />
       <WhyChooseSection />
-      <PricingSection />
+      {/* <PricingSection /> */}
       <FinalCTASection />
       <WhatToExpectSection />
       <FAQSection />
