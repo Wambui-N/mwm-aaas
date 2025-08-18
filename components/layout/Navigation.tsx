@@ -75,12 +75,12 @@ export default function Navigation() {
               <span className="text-xs font-medium text-green-700">Start Today</span>
             </motion.div>
             
-            <button 
+            {/* <button 
               onClick={scrollToPricing}
               className="text-gray-600 hover:text-black transition-colors text-sm"
             >
               Pricing
-            </button>
+            </button> */}
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button 
                 onClick={scrollToBookCall}
