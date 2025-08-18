@@ -2,7 +2,7 @@ import { satoshi, cormorantGaramond } from '../../fonts/fonts';
 
 export const metadata = {
   title: 'Terms & Conditions - Made with Make',
-  description: 'Terms and conditions for Made with Make Automations service. Learn about our $620/month subscription model, project scope, and client responsibilities.',
+  description: 'Terms and conditions for Made with Make Automations service. Learn about our subscription model, project scope, and client responsibilities.',
   keywords: [
     'Made with Make terms',
     'automation service terms',
@@ -118,7 +118,7 @@ export default function TermsPage() {
                   2. Subscription & Payments
                 </h2>
                 <ul className="text-gray-700 leading-relaxed space-y-2">
-                  <li>• The subscription is billed monthly at $620 via Paystack.</li>
+                  <li>• The subscription is billed monthly.</li>
                   <li>• You may pause or cancel at any time—no long-term contracts.</li>
                   <li>• All charges are non-refundable once a billing cycle begins, unless otherwise agreed in writing.</li>
                 </ul>

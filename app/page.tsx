@@ -5,7 +5,7 @@ import { generatePageMetadata, generateStructuredData } from '@/lib/seo';
 
 export const metadata: Metadata = generatePageMetadata(
   'Made with Make - Automation Subscriptions for Busy Founders',
-  'Fix one bottleneck at a time. $620/month automation service that handles everything for you. Custom automations for your specific workflows. Book your strategy call today.',
+  'Fix one bottleneck at a time. Automation service that handles everything for you. Custom automations for your specific workflows. Book your strategy call today.',
   '',
   ['Wambui Ndung\'u', 'strategy call', 'automation consultation']
 );
@@ -21,7 +21,7 @@ export default function Home() {
         
         <h2>Business Model</h2>
         <ul>
-          <li>Monthly subscription: $620 USD</li>
+          <li>Monthly subscription</li>
           <li>Unlimited automation requests</li>
           <li>One automation at a time</li>
           <li>Average delivery: 48-72 hours</li>

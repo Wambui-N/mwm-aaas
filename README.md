@@ -6,7 +6,7 @@
 
 ## Business Model
 
-- **Pricing**: $620 USD/month
+- **Pricing**: tbd USD/month
 - **Service**: Unlimited automation requests
 - **Delivery**: One automation at a time, average 48-72 hours
 - **Flexibility**: Pause or cancel anytime, no contracts

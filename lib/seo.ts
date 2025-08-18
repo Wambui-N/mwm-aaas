@@ -34,7 +34,7 @@ export const defaultMetadata: Metadata = {
     default: `${siteConfig.name} - ${siteConfig.description}`,
     template: `%s | ${siteConfig.name}`,
   },
-  description: 'Fix one bottleneck at a time. $620/month automation service that handles everything for you. Custom automations for your specific workflows.',
+  description: 'Fix one bottleneck at a time. Automation service that handles everything for you. Custom automations for your specific workflows.',
   keywords: [
     'automation service',
     'business automation',
@@ -82,7 +82,7 @@ export const defaultMetadata: Metadata = {
     url: siteConfig.url,
     siteName: siteConfig.name,
     title: `${siteConfig.name} - ${siteConfig.description}`,
-    description: 'Fix one bottleneck at a time. $620/month automation service that handles everything for you. Custom automations for your specific workflows.',
+    description: 'Fix one bottleneck at a time. Automation service that handles everything for you. Custom automations for your specific workflows.',
     images: [
       {
         url: siteConfig.ogImage,
@@ -95,7 +95,7 @@ export const defaultMetadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: `${siteConfig.name} - ${siteConfig.description}`,
-    description: 'Fix one bottleneck at a time. $620/month automation service that handles everything for you.',
+    description: 'Fix one bottleneck at a time. Automation service that handles everything for you.',
     images: [siteConfig.ogImage],
     creator: '@madewithmake',
     site: '@madewithmake',
@@ -214,7 +214,7 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
         ...baseData,
         "@type": "Service",
         "name": `${siteConfig.name} Automation Service`,
-        "description": "Custom automation service for busy founders. $620/month subscription that handles everything for you.",
+        "description": "Custom automation service for busy founders. Subscription that handles everything for you.",
         "provider": {
           "@type": "Organization",
           "name": siteConfig.name,
@@ -322,7 +322,7 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
             "name": "How much does the service cost?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Our service costs $620 USD per month for unlimited automation requests, with one automation delivered at a time within 48-72 hours."
+              "text": "Our service costs  USD per month for unlimited automation requests, with one automation delivered at a time within 48-72 hours."
             }
           },
           {

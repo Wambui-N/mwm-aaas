@@ -34,7 +34,7 @@ export default function PricingSection() {
             "@context": "https://schema.org",
             "@type": "Product",
             "name": "Made with Make Automations",
-            "description": "Custom automation service for busy founders. $620/month subscription with unlimited requests.",
+            "description": "Custom automation service for busy founders. Subscription with unlimited requests.",
             "brand": {
               "@type": "Brand",
               "name": "Made with Make"
