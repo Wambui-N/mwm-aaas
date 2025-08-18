@@ -27,7 +27,7 @@ const caseStudies: CaseStudy[] = [
     title: "How a Leadership Development Firm Cut Proposal Time From Hours to 2 Minutes",
     company: "Founder's Freedom",
     excerpt:
-      "Founders Freedom stopped wasting hours creating proposals from scratch and losing leads to forgotten follow-ups—now they generate professional proposals in just 2 minutes with automated reminders.",
+      "Founders Freedom cut proposal creation from hours to 2 minutes and stopped losing leads to forgotten follow-ups.",
     imageUrl: "/ff.jpg",
     notionUrl: "https://www.papermark.com/view/cmegqs5ty0008l804wci7bjb6",
   },
