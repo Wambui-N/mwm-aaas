@@ -68,8 +68,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-100 mt-8 pt-8 text-center">
-          <p className="text-gray-500 text-sm">
+        <div className="border-t border-gray-100 mt-8 pt-8">
+          <p className="text-center text-gray-700 font-medium mb-4">
+            Consult. Build. Execute.
+          </p>
+          <p className="text-gray-500 text-sm text-center">
             © 2025 Made with Make. All rights reserved.
           </p>
         </div>

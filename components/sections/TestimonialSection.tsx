@@ -80,7 +80,7 @@ export default function TestimonialSection() {
             variants={fadeIn}
             className="text-3xl md:text-4xl font-display font-semibold text-black mb-4"
           >
-            Kind words from past projects
+            Client feedback
           </motion.h2>
         </motion.div>
 

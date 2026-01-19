@@ -2,28 +2,28 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Shield, Settings, CheckCircle } from 'lucide-react';
+import { Zap, Shield, Settings, CheckCircle, Brain } from 'lucide-react';
 import { fadeIn, stagger } from '@/lib/animations';
 
 const features = [
   {
-    title: "You get a partner, not a platform",
-    description: "I meet with you, understand your business, and handle all the work - completely done-for-you.",
-    icon: <Shield className="w-5 h-5" />
+    title: "We think before we build",
+    description: "Strategy and analysis come first. We design solutions based on your actual operations, not assumptions.",
+    icon: <Brain className="w-5 h-5" />
   },
   {
-    title: "Fast results",
-    description: "Most automations are built and deployed within the first 48-72 hours of our engagement.",
+    title: "We own execution",
+    description: "Consulting doesn't stop at recommendations. We build, test, and deploy the systems ourselves.",
     icon: <Zap className="w-5 h-5" />
   },
   {
-    title: "You still get full control",
-    description: "Every automation includes a video walkthrough so you understand exactly how everything works.",
+    title: "Real-world operations, not demos",
+    description: "We design for reliability and adoption in your environment, not for flashy presentations.",
     icon: <Settings className="w-5 h-5" />
   },
   {
-    title: "You're not locked in",
-    description: "No contracts or long-term commitments required. Pause or cancel your subscription anytime.",
+    title: "Impact over complexity",
+    description: "We focus on what actually moves the needle for your business, not the fanciest technology.",
     icon: <CheckCircle className="w-5 h-5" />
   }
 ];
@@ -40,10 +40,10 @@ export default function WhyChooseSection() {
           className="text-center mb-16"
         >
           <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-display font-semibold text-black mb-4">
-            Why choose Made with Make
+            What makes us different
           </motion.h2>
           <motion.p variants={fadeIn} className="text-lg text-gray-600 max-w-2xl mx-auto">
-          No more admin drag. Just calm, consistent progress.
+            No strategy decks that go nowhere. No builders without context.
           </motion.p>
         </motion.div>
 

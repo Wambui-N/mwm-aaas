@@ -30,11 +30,10 @@ export default function FinalCTASection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-display font-semibold text-black mb-6">
-            Ready to get your time back?
+            Ready to automate with clarity and execution?
           </h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Book a 30-minute discovery call and find out how automation can save
-            you hours every week.{" "}
+            If you want automation that actually works , let's talk.
           </p>
 
           <div className="h-[600px] w-full">

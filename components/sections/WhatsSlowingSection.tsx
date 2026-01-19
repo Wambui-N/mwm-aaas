@@ -25,63 +25,39 @@ export default function WhatsSlowingSection() {
               variants={fadeIn}
               className="text-3xl md:text-4xl font-display font-semibold text-black"
             >
-              What's slowing you down?
+              Most automation projects fail before they start
             </motion.h2>
           </motion.div>
 
           {/* Right Column - Content */}
           <motion.div variants={fadeIn} className="space-y-6">
             <p className="text-lg text-gray-700 leading-relaxed">
-              Running a business comes with a lot of moving parts. You're
-              managing leads, talking to customers, sending updates, chasing
-              payments…
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              At first, it feels manageable. But over time, small tasks start
-              piling up. You find yourself doing the same things over and over:
+              Not because tools don't exist , but because:
             </p>
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-red-400 rounded-full flex-shrink-0"></div>
-                <span className="text-gray-800">Following up with clients</span>
+                <span className="text-gray-800">Teams don't know what to automate first</span>
               </li>
               <li className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-red-400 rounded-full flex-shrink-0"></div>
-                <span className="text-gray-800">Qualifying leads</span>
+                <span className="text-gray-800">Advice is given without ownership of execution</span>
               </li>
               <li className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-red-400 rounded-full flex-shrink-0"></div>
                 <span className="text-gray-800">
-                  Drafting proposals or reports
+                  Systems are built without understanding real workflows
                 </span>
               </li>
               <li className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-red-400 rounded-full flex-shrink-0"></div>
                 <span className="text-gray-800">
-                  Moving data from one tool to another
-                </span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-red-400 rounded-full flex-shrink-0"></div>
-                <span className="text-gray-800">
-                  Sending invoices and tracking payments
-                </span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-red-400 rounded-full flex-shrink-0"></div>
-                <span className="text-gray-800">
-                  Remembering to post content or send emails
+                  Automations break, stall, or never get adopted
                 </span>
               </li>
             </ul>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              These bottlenecks don't just waste time. They slow your business
-              down. That's where I come in.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              I partner with growing teams that want to scale without hiring
-              more staff. I help you stay focused on the work that matters,
-              while I quietly fix the backend, one automation at a time.
+            <p className="text-lg text-gray-700 leading-relaxed font-semibold">
+              Automation needs thinking and doing , not one or the other.
             </p>
           </motion.div>
         </motion.div>

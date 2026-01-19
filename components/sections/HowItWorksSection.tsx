@@ -8,23 +8,37 @@ import { fadeIn, stagger } from "@/lib/animations";
 const steps = [
   {
     step: "01",
-    title: "Subscribe",
+    title: "Discovery & Consulting",
     description:
-      "Join the subscription starting with a brief strategy call where we'll identify your workflows, goals, and bottlenecks.",
+      "We start with a deep dive into your operations, goals, and constraints to understand where automation will actually create value.",
     icon: <Target className="w-6 h-6" />,
   },
   {
     step: "02",
-    title: "Identify",
+    title: "Automation Strategy & Roadmap",
     description:
-    "We meet weekly (or as need) to review what’s working and what need to be automated. ",
+      "We map opportunities, prioritize by impact, and define a clear execution plan.",
     icon: <Brain className="w-6 h-6" />,
   },
   {
     step: "03",
-    title: "Automate",
+    title: "System Design",
     description:
-      "I will build, test, and launch one automation at a time, tailored to your exact workflow.",
+      "We design workflows, integrations, and data flows before implementation begins.",
+    icon: <Gauge className="w-6 h-6" />,
+  },
+  {
+    step: "04",
+    title: "Execution & Implementation",
+    description:
+      "We build, test, and deploy automations using Make, AI tools, APIs, and modern platforms.",
+    icon: <Gauge className="w-6 h-6" />,
+  },
+  {
+    step: "05",
+    title: "Review & Handover",
+    description:
+      "We validate performance, document systems, and ensure your team understands what was built.",
     icon: <Gauge className="w-6 h-6" />,
   },
 ];
@@ -44,13 +58,13 @@ export default function HowItWorksSection() {
             variants={fadeIn}
             className="text-3xl md:text-4xl font-display font-semibold text-black mb-4"
           >
-            How it works
+            Our approach
           </motion.h2>
           <motion.p
             variants={fadeIn}
             className="text-lg text-gray-600 max-w-2xl mx-auto"
           >
-            Three simple steps to automate your business operations
+            From insight to implementation , a proven process
           </motion.p>
         </motion.div>
 
@@ -59,7 +73,7 @@ export default function HowItWorksSection() {
           whileInView="animate"
           viewport={{ once: true }}
           variants={stagger}
-          className="grid md:grid-cols-3 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {steps.map((item, index) => (
             <motion.div
@@ -93,16 +107,16 @@ export default function HowItWorksSection() {
         >
           <div className="bg-white rounded-2xl p-8 border border-gray-100 max-w-2xl mx-auto">
             <h3 className="text-2xl font-display font-semibold text-black mb-4">
-              Find out what you could automate first
+              Ready to get started?
             </h3>
             <p className="text-gray-600 mb-6">
-              Free 30-minute strategy call to identify your biggest automation opportunities
+              Book a discovery call to discuss your automation needs and explore how we can help
             </p>
             <a
               href="#book-call"
               className="inline-flex items-center justify-center px-8 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
             >
-              Let's talk
+              Book a discovery call
             </a>
           </div>
         </motion.div>

@@ -86,7 +86,7 @@ export default function Navigation() {
                 onClick={scrollToBookCall}
                 className="bg-black hover:bg-gray-800 text-white text-sm px-4 py-2 h-9"
               >
-                Book call
+                Book a discovery call
               </Button>
             </motion.div>
           </div>

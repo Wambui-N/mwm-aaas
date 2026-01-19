@@ -2,13 +2,14 @@ import { satoshi, cormorantGaramond } from '../../fonts/fonts';
 
 export const metadata = {
   title: 'Terms & Conditions - Made with Make',
-  description: 'Terms and conditions for Made with Make Automations service. Learn about our subscription model, project scope, and client responsibilities.',
+  description: 'Terms and conditions for Made with Make consulting and automation services. Learn about our engagement model, project scope, and client responsibilities.',
   keywords: [
     'Made with Make terms',
+    'automation consulting terms',
     'automation service terms',
-    'subscription terms',
     'business automation terms',
     'service agreement',
+    'consulting terms',
     'automation service legal',
     'business automation terms'
   ],
@@ -97,7 +98,7 @@ export default function TermsPage() {
           <div className="prose prose-lg max-w-none">
             <div className="bg-gray-50 rounded-lg p-8 mb-8">
               <p className="text-lg text-gray-700 leading-relaxed">
-                Welcome to Made With Make. By subscribing to our automation service, you agree to the following terms:
+                Welcome to Made With Make. By engaging our consulting and automation services, you agree to the following terms:
               </p>
             </div>
 
@@ -108,19 +109,20 @@ export default function TermsPage() {
                   1. Service Description
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
-                  We provide tailored automation services through a subscription model. Subscribers can submit unlimited requests, with one active automation built at a time. Automations are designed based on your business needs and workflows.
+                  We provide automation consulting and execution services. Our engagements combine strategic planning with hands-on implementation. Services include process audits, automation strategy, system design, implementation, and optimization. Each engagement is tailored to your specific needs and workflows.
                 </p>
               </section>
 
               {/* Section 2 */}
               <section>
                 <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
-                  2. Subscription & Payments
+                  2. Engagement Structure & Payments
                 </h2>
                 <ul className="text-gray-700 leading-relaxed space-y-2">
-                  <li>• The subscription is billed monthly.</li>
-                  <li>• You may pause or cancel at any time—no long-term contracts.</li>
-                  <li>• All charges are non-refundable once a billing cycle begins, unless otherwise agreed in writing.</li>
+                  <li>• Engagements are scoped and priced transparently based on your specific needs.</li>
+                  <li>• Each engagement may include consulting, implementation, and optimization phases.</li>
+                  <li>• Payment terms and schedules will be agreed upon before work begins.</li>
+                  <li>• All charges are non-refundable once work has commenced, unless otherwise agreed in writing.</li>
                 </ul>
               </section>
 
@@ -130,9 +132,10 @@ export default function TermsPage() {
                   3. Project Scope
                 </h2>
                 <ul className="text-gray-700 leading-relaxed space-y-2">
-                  <li>• Only one active automation will be worked on at a time.</li>
-                  <li>• We do not offer full software development, third-party tool tech support, or team training beyond automation walkthroughs.</li>
-                  <li>• Any work beyond standard automation may require a custom agreement.</li>
+                  <li>• The scope of each engagement will be clearly defined and agreed upon before work begins.</li>
+                  <li>• We provide automation consulting, strategy, design, and implementation services.</li>
+                  <li>• We do not offer full software/app development, third-party tool tech support, or marketing services.</li>
+                  <li>• Any work beyond the agreed scope may require a separate agreement or additional fees.</li>
                 </ul>
               </section>
 
@@ -161,11 +164,12 @@ export default function TermsPage() {
               {/* Section 6 */}
               <section>
                 <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
-                  6. Support & Revisions
+                  6. Support & Optimization
                 </h2>
                 <ul className="text-gray-700 leading-relaxed space-y-2">
-                  <li>• We provide ongoing support and maintenance for any automation built during your subscription.</li>
-                  <li>• Requests for changes or improvements will be added to your backlog and handled in the same "one at a time" flow.</li>
+                  <li>• Support terms will be outlined in your engagement agreement.</li>
+                  <li>• We can provide ongoing support, optimization, and scaling services under separate arrangements.</li>
+                  <li>• Post-implementation refinements and adjustments may be included or arranged separately based on the engagement scope.</li>
                 </ul>
               </section>
 

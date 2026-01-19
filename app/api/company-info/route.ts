@@ -9,19 +9,20 @@ export async function GET() {
     "name": "Made with Make",
     "url": "https://madewithmake.com",
     "logo": "https://madewithmake.com/Vector.svg",
-    "description": "Automation subscription service for busy founders. We build custom business automations using Make.com to streamline operations and eliminate bottlenecks.",
+    "description": "Automation and AI consulting firm that combines strategy with execution. We help teams identify automation opportunities, design systems, and implement scalable workflows.",
     "foundingDate": "2024",
     "founder": {
       "@type": "Person",
       "name": "Wambui Ndung'u",
-      "jobTitle": "Founder & Automation Specialist",
-      "description": "Founder of Made with Make, helping founders streamline operations through automation",
+      "jobTitle": "Founder & Automation Consultant",
+      "description": "Founder of Made with Make, providing automation consulting and implementation services",
       "knowsAbout": [
+        "Automation Consulting",
         "Business Automation",
         "Workflow Optimization",
         "Make.com",
-        "Process Automation",
-        "Founder Operations"
+        "AI Integration",
+        "Process Automation"
       ]
     },
     "contactPoint": {
@@ -48,42 +49,50 @@ export async function GET() {
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Automation Services",
+      "name": "Consulting & Implementation Services",
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Custom Business Automation",
-            "description": "Tailored automation solutions for business processes"
-          },
-          "price": "620",
-          "priceCurrency": "USD",
-          "priceSpecification": {
-            "@type": "UnitPriceSpecification",
-            "price": "620",
-            "priceCurrency": "USD",
-            "billingIncrement": "P1M"
+            "name": "Automation Consulting",
+            "description": "Process audits, opportunity assessment, architecture and tool selection, strategy and roadmap design"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Automation Execution",
+            "description": "Make.com workflows, AI integrations, API connections, process automation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Optimization & Scaling",
+            "description": "Performance improvements, system refinement, business expansion support"
           }
         }
       ]
     },
-    "keywords": "automation service, business automation, workflow automation, founder automation, Make.com automation, Zapier alternative",
+    "keywords": "automation consulting, automation execution, business automation, AI consulting, workflow automation, Make.com automation, automation strategy",
     "category": "Business Services",
     "industry": "Technology Services",
-    "businessModel": "subscription-service",
-    "pricingModel": "monthly-subscription",
-    "serviceDelivery": "digital-automation",
-    "targetAudience": "founders, entrepreneurs, business owners",
+    "businessModel": "consulting-and-execution",
+    "serviceDelivery": "consulting, implementation, automation",
+    "targetAudience": "founders, entrepreneurs, business owners, leadership teams",
     "geographicFocus": "worldwide",
     "services": [
-      "Lead qualification systems",
-      "Email marketing sequences", 
-      "CRM integrations",
-      "Data synchronization",
-      "Reporting dashboards",
-      "Workflow optimizations",
-      "Custom integrations"
+      "Automation consulting",
+      "Process audits",
+      "Automation strategy and roadmap",
+      "Make.com workflows", 
+      "AI integrations",
+      "API connections",
+      "System design",
+      "Performance optimization"
     ],
     "technologyStack": {
       "primary": "Make.com (formerly Integromat)",
@@ -100,19 +109,16 @@ export async function GET() {
         "Any tool with API"
       ]
     },
-    "pricing": {
-      "monthly": 620,
-      "currency": "USD",
-      "includes": [
-        "Unlimited automation requests",
-        "One automation at a time",
-        "Average 48-72hr delivery",
-        "Unlimited revisions",
-        "Full lifecycle management",
-        "24/7 monitoring & support",
-        "Pause or cancel anytime",
-        "No contracts or commitments"
-      ]
+    "engagementModel": {
+      "approach": "Consulting and execution combined",
+      "phases": [
+        "Discovery & Consulting",
+        "Automation Strategy & Roadmap",
+        "System Design",
+        "Execution & Implementation",
+        "Review & Handover"
+      ],
+      "description": "Each engagement is structured around your needs and may include a consulting phase, an implementation phase, and an optimization phase. Projects are scoped clearly and priced transparently."
     }
   };
 

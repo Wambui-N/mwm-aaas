@@ -5,22 +5,44 @@ import { motion } from 'framer-motion';
 import { CheckCircle, XCircle } from 'lucide-react';
 import { fadeIn, stagger } from '@/lib/animations';
 
-const includedItems = [
-  "Weekly strategy/check-in calls",
-  "One active automation request at a time",
-  "Unlimited backlog requests (we'll queue them)",
-  "Tailored automations built around your tools and workflows",
-  "Revisions, testing, and ongoing improvements",
-  "Full support and documentation for each automation"
+const whatWeOffer = [
+  {
+    category: "Automation & AI Consulting",
+    items: [
+      "Process audits",
+      "Automation opportunity assessment",
+      "Architecture & tool selection",
+      "Strategy and roadmap design"
+    ]
+  },
+  {
+    category: "Automation Execution",
+    items: [
+      "Make.com workflows",
+      "AI integrations",
+      "API connections",
+      "Process automation"
+    ]
+  },
+  {
+    category: "Optimization & Scaling",
+    items: [
+      "Performance improvements",
+      "System refinement",
+      "Expansion as your business grows"
+    ]
+  }
 ];
 
-const notIncludedItems = [
-  "Multiple active builds at the same time",
-  "Full-scale software/app development",
-  "Tech support for tools outside your automations",
-  "Marketing or copywriting services",
-  "Team training (unless part of the automation delivery)"
-];
+const whoWeWorkWith = {
+  goodFit: [
+    "Founders and leadership teams",
+    "Growing businesses",
+    "Organizations seeking operational efficiency",
+    "Teams that want a partner, not just advice"
+  ],
+  notAFit: "If you're only looking for ideas or templates, we're not the right fit."
+};
 
 export default function WhatToExpectSection() {
   return (
@@ -34,10 +56,10 @@ export default function WhatToExpectSection() {
           className="text-center mb-16"
         >
           <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-display font-semibold text-black mb-4">
-            Service Details
+            What we offer
           </motion.h2>
           <motion.p variants={fadeIn} className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Clear expectations for a successful partnership
+            Consulting and execution services designed for real results
           </motion.p>
         </motion.div>
 
@@ -48,36 +70,50 @@ export default function WhatToExpectSection() {
           variants={stagger}
           className="grid md:grid-cols-2 gap-8"
         >
-          {/* What's Included */}
-          <motion.div variants={fadeIn} className="bg-white rounded-2xl p-8 border border-gray-100">
-            <div className="flex items-center space-x-2 mb-6">
-              <CheckCircle className="w-6 h-6 text-green-500" />
-              <h3 className="text-xl font-semibold text-black">What's Included</h3>
-            </div>
-            <ul className="space-y-4">
-              {includedItems.map((item, index) => (
-                <li key={index} className="flex items-start space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600">{item}</span>
-                </li>
-              ))}
-            </ul>
+          {/* Services Column */}
+          <motion.div variants={fadeIn} className="space-y-6">
+            {whatWeOffer.map((service, index) => (
+              <div key={index} className="bg-white rounded-2xl p-6 border border-gray-100">
+                <h3 className="text-lg font-semibold text-black mb-4">{service.category}</h3>
+                <ul className="space-y-2">
+                  {service.items.map((item, itemIndex) => (
+                    <li key={itemIndex} className="flex items-start space-x-2">
+                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-600 text-sm">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </motion.div>
 
-          {/* What's Not Included */}
-          <motion.div variants={fadeIn} className="bg-white rounded-2xl p-8 border border-gray-100">
-            <div className="flex items-center space-x-2 mb-6">
-              <XCircle className="w-6 h-6 text-red-500" />
-              <h3 className="text-xl font-semibold text-black">What's Not Included</h3>
+          {/* Who We Work With Column */}
+          <motion.div variants={fadeIn} className="space-y-6">
+            <div className="bg-white rounded-2xl p-8 border border-gray-100">
+              <div className="flex items-center space-x-2 mb-6">
+                <CheckCircle className="w-6 h-6 text-green-500" />
+                <h3 className="text-xl font-semibold text-black">Who we work with</h3>
+              </div>
+              <p className="text-gray-600 mb-4">We work best with:</p>
+              <ul className="space-y-3">
+                {whoWeWorkWith.goodFit.map((item, index) => (
+                  <li key={index} className="flex items-start space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 pt-6 border-t border-gray-100">
+                <p className="text-gray-600 italic">{whoWeWorkWith.notAFit}</p>
+              </div>
             </div>
-            <ul className="space-y-4">
-              {notIncludedItems.map((item, index) => (
-                <li key={index} className="flex items-start space-x-3">
-                  <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600">{item}</span>
-                </li>
-              ))}
-            </ul>
+            
+            <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+              <h3 className="text-xl font-semibold text-black mb-4">How engagements work</h3>
+              <p className="text-gray-600">
+                Each engagement is structured around your needs and may include a consulting phase, an implementation phase, and an optimization phase. Projects are scoped clearly and priced transparently.
+              </p>
+            </div>
           </motion.div>
         </motion.div>
       </div>

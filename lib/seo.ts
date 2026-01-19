@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 
 export const siteConfig = {
   name: 'Made with Make',
-  description: 'Automation Subscriptions for Busy Founders',
+  description: 'Automation & AI Consulting , with Execution',
   url: 'https://madewithmake.com',
-  ogImage: 'https://madewithmake.com/api/og?title=Made%20with%20Make&subtitle=Automation%20Subscriptions%20for%20Busy%20Founders',
+  ogImage: 'https://madewithmake.com/api/og?title=Made%20with%20Make&subtitle=Automation%20%26%20AI%20Consulting%20%E2%80%94%20with%20Execution',
   links: {
     twitter: 'https://twitter.com/madewithmake',
     linkedin: 'https://www.linkedin.com/company/made-with-make/',
@@ -12,7 +12,7 @@ export const siteConfig = {
   },
   contact: {
     email: 'wambui@madewithmake.com',
-    phone: '+254-712137749', // Add your actual phone number
+    phone: '+254-712137749',
   },
   business: {
     founded: '2025',
@@ -20,11 +20,6 @@ export const siteConfig = {
     category: 'Business Services',
     location: 'Kenya',
     timezone: 'Africa/Nairobi',
-  },
-  pricing: {
-    monthly: 620,
-    currency: 'USD',
-    billingCycle: 'monthly',
   },
 };
 
@@ -34,28 +29,28 @@ export const defaultMetadata: Metadata = {
     default: `${siteConfig.name} - ${siteConfig.description}`,
     template: `%s | ${siteConfig.name}`,
   },
-  description: 'Fix one bottleneck at a time. Automation service that handles everything for you. Custom automations for your specific workflows.',
+  description: 'We consult and execute automation solutions that work. From identifying opportunities to implementing scalable AI-powered workflows , end to end.',
   keywords: [
-    'automation service',
-    'business automation',
-    'workflow automation',
-    'founder automation',
-    'Make.com automation',
-    'Zapier alternative',
-    'business process automation',
-    'subscription automation',
-    'custom automation',
     'automation consulting',
-    'AI automation',
+    'automation execution',
+    'business automation',
+    'AI consulting',
+    'workflow automation',
+    'automation implementation',
+    'Make.com automation',
+    'process automation',
+    'automation strategy',
+    'automation roadmap',
+    'custom automation',
+    'AI integration',
     'business process optimization',
     'workflow efficiency',
-    'founder operations',
-    'business scaling automation',
-    'no-code automation',
-    'business process improvement',
     'operational efficiency',
-    'automation strategy',
-    'business automation consulting',
+    'automation services',
+    'consulting and implementation',
+    'automation consulting services',
+    'business process consulting',
+    'automation strategy consulting',
   ],
   authors: [{ name: 'Wambui Ndung\'u' }],
   creator: 'Wambui Ndung\'u',
@@ -67,13 +62,12 @@ export const defaultMetadata: Metadata = {
   },
   other: {
     'ai-content-type': 'business-service',
-    'ai-target-audience': 'founders, entrepreneurs, business owners',
-    'ai-service-category': 'automation, business-processes, workflow-optimization',
+    'ai-target-audience': 'founders, entrepreneurs, business owners, leadership teams',
+    'ai-service-category': 'automation-consulting, automation-implementation, business-processes, workflow-optimization',
     'ai-geographic-focus': 'worldwide',
-    'ai-business-model': 'subscription-service',
-    'ai-pricing-model': 'monthly-subscription',
-    'ai-service-delivery': 'digital-automation',
-    'ai-expertise': 'Make.com, workflow automation, business process optimization',
+    'ai-business-model': 'consulting-and-execution',
+    'ai-service-delivery': 'consulting, implementation, automation',
+    'ai-expertise': 'Make.com, workflow automation, AI integration, business process optimization, automation strategy',
     'ai-industry': 'technology services, business consulting, automation',
   },
   openGraph: {
@@ -82,7 +76,7 @@ export const defaultMetadata: Metadata = {
     url: siteConfig.url,
     siteName: siteConfig.name,
     title: `${siteConfig.name} - ${siteConfig.description}`,
-    description: 'Fix one bottleneck at a time. Automation service that handles everything for you. Custom automations for your specific workflows.',
+    description: 'We consult and execute automation solutions that work. From identifying opportunities to implementing scalable AI-powered workflows , end to end.',
     images: [
       {
         url: siteConfig.ogImage,
@@ -95,7 +89,7 @@ export const defaultMetadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: `${siteConfig.name} - ${siteConfig.description}`,
-    description: 'Fix one bottleneck at a time. Automation service that handles everything for you.',
+    description: 'We consult and execute automation solutions that work. Strategy-led. Execution-driven. No handoffs.',
     images: [siteConfig.ogImage],
     creator: '@madewithmake',
     site: '@madewithmake',
@@ -137,19 +131,20 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
         "name": siteConfig.name,
         "url": siteConfig.url,
         "logo": `${siteConfig.url}/Vector.svg`,
-        "description": "Automation subscription service for busy founders. We build custom business automations using Make.com to streamline operations and eliminate bottlenecks.",
+        "description": "Automation and AI consulting firm that combines strategy with execution. We help teams identify automation opportunities, design systems, and implement scalable workflows.",
         "foundingDate": siteConfig.business.founded,
         "founder": {
           "@type": "Person",
           "name": "Wambui Ndung'u",
-          "jobTitle": "Founder & Automation Specialist",
-          "description": "Founder of Made with Make, helping founders streamline operations through automation",
+          "jobTitle": "Founder & Automation Consultant",
+          "description": "Founder of Made with Make, providing automation consulting and implementation services",
           "knowsAbout": [
+            "Automation Consulting",
             "Business Automation",
             "Workflow Optimization", 
             "Make.com",
-            "Process Automation",
-            "Founder Operations"
+            "AI Integration",
+            "Process Automation"
           ],
           "url": `${siteConfig.url}/about`,
           "sameAs": [
@@ -184,27 +179,35 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
         },
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Automation Services",
+          "name": "Automation Consulting & Execution Services",
           "itemListElement": [
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Custom Business Automation",
-                "description": "Tailored automation solutions for business processes"
-              },
-              "price": siteConfig.pricing.monthly.toString(),
-              "priceCurrency": siteConfig.pricing.currency,
-              "priceSpecification": {
-                "@type": "UnitPriceSpecification",
-                "price": siteConfig.pricing.monthly.toString(),
-                "priceCurrency": siteConfig.pricing.currency,
-                "billingIncrement": "P1M"
+                "name": "Automation Consulting",
+                "description": "Process audits, opportunity assessment, strategy and roadmap design"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Automation Execution",
+                "description": "Implementation of Make.com workflows, AI integrations, and custom automations"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Optimization & Scaling",
+                "description": "Performance improvements and system refinement"
               }
             }
           ]
         },
-        "keywords": "automation service, business automation, workflow automation, founder automation, Make.com automation, Zapier alternative",
+        "keywords": "automation consulting, automation execution, business automation, AI consulting, workflow automation, Make.com automation, automation strategy",
         "category": siteConfig.business.category,
         "industry": siteConfig.business.industry
       };
@@ -213,8 +216,8 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
       return {
         ...baseData,
         "@type": "Service",
-        "name": `${siteConfig.name} Automation Service`,
-        "description": "Custom automation service for busy founders. Subscription that handles everything for you.",
+        "name": `${siteConfig.name} Automation Consulting & Execution`,
+        "description": "Automation and AI consulting combined with hands-on execution. From insight to implementation.",
         "provider": {
           "@type": "Organization",
           "name": siteConfig.name,
@@ -224,19 +227,7 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
             "name": "Wambui Ndung'u"
           }
         },
-        "offers": {
-          "@type": "Offer",
-          "price": siteConfig.pricing.monthly.toString(),
-          "priceCurrency": siteConfig.pricing.currency,
-          "priceSpecification": {
-            "@type": "UnitPriceSpecification",
-            "price": siteConfig.pricing.monthly.toString(),
-            "priceCurrency": siteConfig.pricing.currency,
-            "billingIncrement": "P1M"
-          },
-          "description": "Monthly subscription for unlimited automation requests"
-        },
-        "serviceType": "Business Automation",
+        "serviceType": "Business Automation Consulting",
         "areaServed": "Worldwide",
         "availableChannel": {
           "@type": "ServiceChannel",
@@ -244,46 +235,38 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
         },
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Automation Services",
+          "name": "Consulting & Implementation Services",
           "itemListElement": [
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Lead Qualification Automation",
-                "description": "Automated lead scoring and qualification systems"
+                "name": "Automation Consulting",
+                "description": "Process audits, opportunity assessment, architecture and tool selection, strategy and roadmap design"
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Email Marketing Automation",
-                "description": "Automated email sequences and drip campaigns"
+                "name": "Automation Execution",
+                "description": "Make.com workflows, AI integrations, API connections, process automation"
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "CRM Integration",
-                "description": "Seamless integration between business tools"
+                "name": "System Design",
+                "description": "Workflow design, integration architecture, data flow planning"
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Data Synchronization",
-                "description": "Real-time data sync across platforms"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Reporting Dashboards",
-                "description": "Automated reporting and analytics"
+                "name": "Optimization & Scaling",
+                "description": "Performance improvements, system refinement, business expansion support"
               }
             }
           ]
@@ -314,15 +297,15 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
             "name": "What is Made with Make?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Made with Make is a subscription-based automation service for busy founders. We build custom business automations using Make.com to streamline operations and eliminate bottlenecks."
+              "text": "Made with Make is an automation and AI consulting firm that combines strategy with execution. We help teams identify what to automate, design the right systems, and implement scalable workflows end to end."
             }
           },
           {
             "@type": "Question",
-            "name": "How much does the service cost?",
+            "name": "What's the difference between consulting and execution?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Our service costs  USD per month for unlimited automation requests, with one automation delivered at a time within 48-72 hours."
+              "text": "Consulting includes process audits, opportunity assessment, and strategy design. Execution means we actually build, test, and deploy the systems ourselves. We do both , from insight to implementation."
             }
           },
           {
@@ -335,18 +318,18 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
           },
           {
             "@type": "Question",
-            "name": "How long does it take to get an automation?",
+            "name": "How are engagements structured?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "We typically deliver automations within 48-72 hours, with unlimited revisions included in your subscription."
+              "text": "Each engagement is tailored to your needs. Typically, there's a consulting phase (discovery and strategy), an implementation phase (building and deploying), and an optimization phase (refinement). Projects are scoped clearly and priced transparently."
             }
           },
           {
             "@type": "Question",
-            "name": "Can I pause or cancel my subscription?",
+            "name": "Do you provide strategy only or implementation too?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes, you can pause or cancel your subscription at any time with no long-term commitments required."
+              "text": "We provide both. Unlike traditional consultants, we own the execution. We don't hand you a deck and disappear , we build, test, and deploy the systems ourselves."
             }
           }
         ]

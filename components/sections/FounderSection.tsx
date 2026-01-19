@@ -77,31 +77,24 @@ export default function FounderSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <h2 className="text-3xl md:text-4xl font-display font-semibold text-black mb-4">
-                Meet Wambui Ndung'u
+                About MadewithMake
               </h2>
 
               <div className="space-y-6 text-gray-600 leading-relaxed">
                 <p>
-                  I enjoy problem solving. I probably took apart one too many
-                  devices as a kid, but instead of becoming an engineer, I fell
-                  in love with programming. So I studied mathematics and
-                  computer science.
+                  MadewithMake exists to close the gap between automation advice and real implementation.
                 </p>
 
                 <p>
-                  After my brief encounter with a corporate job, I decided to
-                  take the leap and start a business.
+                  We believe automation should simplify work , not create more confusion. That's why we work across both consulting and execution, ensuring ideas become reliable systems.
                 </p>
 
                 <p>
-                  Made With Make started from my obsession with breaking things
-                  down to understand how they work, and my constant mission to
-                  find the simplest way to get the best result.
+                  Founded by Wambui Ndung'u, who brings a background in mathematics, computer science, and a passion for breaking down complex problems into elegant solutions.
                 </p>
 
                 <p>
-                  Now I help founders streamline their operations, free up their
-                  time, and finally scale without burning out.
+                  We help teams understand their processes, identify high-impact opportunities, and build automation systems that actually work in the real world.
                 </p>
               </div>
             </motion.div>

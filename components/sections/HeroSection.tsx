@@ -30,17 +30,17 @@ export default function HeroSection() {
         >
           <div className="inline-flex items-center px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700 mb-8">
             <Sparkles className="w-3 h-3 mr-2" />
-            Automation subscription for busy founders
+            Automation & AI Consulting , with Execution
           </div>
 
           <h1 className="text-5xl md:text-6xl font-medium text-black mb-6 leading-tight font-display">
-          Sick of doing work
+            We consult and execute
             <br />
-            that software should handle?
+            automation solutions that work
           </h1>
 
           <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-          I partner with lean teams to remove their bottlenecks, one automation at a time, so they can <strong>scale without hiring more people</strong>.
+            MadewithMake helps teams identify what to automate, design the right systems, and implement scalable AI-powered workflows , end to end.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -49,7 +49,7 @@ export default function HeroSection() {
                 onClick={scrollToBookCall}
                 className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-base group"
               >
-               Apply to Work With Me
+                Book a discovery call
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>

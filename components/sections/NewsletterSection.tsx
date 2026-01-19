@@ -62,7 +62,7 @@ export default function NewsletterSection() {
     <section id="newsletter" className="py-24 bg-gray-50">
       <div className="max-w-2xl mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-display font-semibold text-black mb-6">
-          Making It Make Sense Newsletter
+          Making IT Make Sense Newsletter
         </h2>
         <p className="mb-4 text-gray-600">
           Because you didn’t build a business just to become its busiest

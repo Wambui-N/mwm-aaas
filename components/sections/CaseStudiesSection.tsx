@@ -50,10 +50,10 @@ export default function CaseStudiesSection() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-display font-semibold text-black mb-4">
-            Real results from real clients
+            Case studies
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            See how automation has transformed businesses like yours
+            See how our consulting and execution approach delivers results
           </p>
         </div>
         <div className="relative">

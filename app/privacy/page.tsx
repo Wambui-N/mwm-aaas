@@ -2,7 +2,7 @@ import { satoshi, cormorantGaramond } from '../../fonts/fonts';
 
 export const metadata = {
   title: 'Privacy Policy - Made with Make',
-  description: 'Privacy policy for Made with Make Automations service. Learn how we collect, use, and protect your information.',
+  description: 'Privacy policy for Made with Make consulting and automation services. Learn how we collect, use, and protect your information.',
   keywords: [
     'Made with Make privacy',
     'automation service privacy',
