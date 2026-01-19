@@ -90,7 +90,7 @@ export default function TermsPage() {
               Terms & Conditions
             </h1>
             <p className="text-gray-600 text-lg">
-              Last Updated: July 2025
+              Last updated: January 2026
             </p>
           </div>
 

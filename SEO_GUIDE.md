@@ -269,5 +269,5 @@ For SEO-related questions or issues:
 
 ---
 
-*Last updated: July 2025*
-*Version: 1.0* 
+*Last updated: January 2026*
+*Version: 2.0* 
