@@ -14,7 +14,7 @@ interface CaseStudy {
 
 const caseStudies: CaseStudy[] = [
   {
-    id: "2",
+    id: "1",
     title: "How a Leadership Development Firm Cut Proposal Time From Hours to 2 Minutes",
     company: "Founder's Freedom",
     excerpt:
