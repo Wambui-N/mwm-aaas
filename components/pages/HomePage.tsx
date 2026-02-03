@@ -16,6 +16,7 @@ import FAQSection from '@/components/sections/FAQSection';
 import FinalCTASection from '@/components/sections/FinalCTASection';
 import Footer from '@/components/layout/Footer';
 import NewsletterSection from '../sections/NewsletterSection';
+import Shelfcue from '../sections/shelfcue';
 import { EnvTest } from '@/components/debug/EnvTest';
 
 export default function HomePage() {
@@ -30,7 +31,8 @@ export default function HomePage() {
       <WhatsSlowingSection />
       <HowItWorksSection />
       <WhyChooseSection />
-      {/* <PricingSection /> */}
+      {/* <PricingSection /> */}  
+      <Shelfcue /> 
       <FinalCTASection />
       <WhatToExpectSection />
       <FAQSection />

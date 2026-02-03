@@ -14,15 +14,6 @@ interface CaseStudy {
 
 const caseStudies: CaseStudy[] = [
   {
-    id: "1",
-    title: "How One Consulting Firm Cut Proposal Writing Time by 50%",
-    company: "Triple C Advisory",
-    excerpt:
-      "Triple C Advisory stopped wasting days on manual proposal writing and now generates comprehensive 15-page proposals in just 8 minutes.",
-    imageUrl: "/tca.jpg",
-    notionUrl: "https://www.papermark.com/view/cmegp1sug0001le044jkptz7z",
-  },
-  {
     id: "2",
     title: "How a Leadership Development Firm Cut Proposal Time From Hours to 2 Minutes",
     company: "Founder's Freedom",
