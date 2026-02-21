@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CaseStudy {
@@ -10,6 +11,7 @@ interface CaseStudy {
   excerpt: string;
   imageUrl: string;
   notionUrl: string;
+  metrics?: string[];
 }
 
 const caseStudies: CaseStudy[] = [
@@ -21,6 +23,27 @@ const caseStudies: CaseStudy[] = [
       "Founders Freedom cut proposal creation from hours to 2 minutes and stopped losing leads to forgotten follow-ups.",
     imageUrl: "/ff.jpg",
     notionUrl: "https://www.papermark.com/view/cmegqs5ty0008l804wci7bjb6",
+    metrics: ["94% lead qualification accuracy", "Proposal time: hours → 2 min"],
+  },
+  {
+    id: "2",
+    title: "Automated Client Onboarding for a Service Agency",
+    company: "Service Agency",
+    excerpt:
+      "Streamlined onboarding with automated intake forms, CRM sync, and welcome sequences.",
+    imageUrl: "https://placehold.co/320x192/f3f4f6/9ca3af?text=Case+Study",
+    notionUrl: "#",
+    metrics: ["80% less manual data entry", "Same-day onboarding"],
+  },
+  {
+    id: "3",
+    title: "AI-Powered Lead Scoring and Routing",
+    company: "B2B SaaS",
+    excerpt:
+      "Built a lead scoring workflow that routes hot leads to sales within minutes.",
+    imageUrl: "https://placehold.co/320x192/f3f4f6/9ca3af?text=Case+Study",
+    notionUrl: "#",
+    metrics: ["3x faster lead response", "Automated qualification"],
   },
 ];
 
@@ -93,9 +116,21 @@ export default function CaseStudiesSection() {
                     {study.title}
                   </h3>
                   <p className="text-sm text-gray-500 mb-3">{study.company}</p>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4 h-16 overflow-hidden">
+                  <p className="text-gray-600 text-sm leading-relaxed mb-3">
                     {study.excerpt}
                   </p>
+                  {study.metrics && study.metrics.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {study.metrics.map((m, i) => (
+                        <span
+                          key={i}
+                          className="inline-block px-2 py-1 bg-green-50 text-green-800 text-xs font-medium rounded"
+                        >
+                          {m}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   <div className="bg-gray-50 rounded-lg p-3 group-hover:bg-blue-50 transition-colors">
                     <p className="text-sm font-medium text-black group-hover:text-blue-600">
                       Read full case study →
@@ -105,6 +140,15 @@ export default function CaseStudiesSection() {
               </a>
             ))}
           </div>
+        </div>
+        <div className="text-center mt-12">
+          <Link
+            href="/services"
+            className="inline-flex items-center text-black font-medium hover:opacity-80 transition-opacity"
+          >
+            Explore Services
+            <ChevronRight className="ml-1 w-4 h-4" />
+          </Link>
         </div>
       </div>
       <style jsx>{`

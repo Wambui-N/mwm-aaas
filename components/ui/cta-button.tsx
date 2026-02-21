@@ -25,9 +25,9 @@ export default function CTAButton({
   const baseClasses = "font-medium transition-all duration-200";
   
   const variantClasses = {
-    primary: "bg-black hover:bg-gray-800 text-white",
+    primary: "bg-brand-orange hover:bg-brand-orange/90 text-white",
     secondary: "bg-gray-100 hover:bg-gray-200 text-black",
-    outline: "border border-gray-300 hover:border-gray-400 text-black"
+    outline: "border border-brand-grey hover:border-brand-black text-brand-black"
   };
 
   const sizeClasses = {

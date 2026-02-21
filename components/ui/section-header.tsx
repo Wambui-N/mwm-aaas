@@ -19,7 +19,7 @@ export default function SectionHeader({ title, subtitle, className = "" }: Secti
       variants={stagger}
       className={`text-center mb-16 ${className}`}
     >
-      <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-bold text-black mb-4">
+      <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-bold text-brand-black mb-4">
         {title}
       </motion.h2>
       {subtitle && (

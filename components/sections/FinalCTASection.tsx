@@ -33,7 +33,7 @@ export default function FinalCTASection() {
             Ready to automate with clarity and execution?
           </h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            If you want automation that actually works , let's talk.
+            Took the scorecard? Want help implementing your results? Book a discovery call and let&apos;s talk.
           </p>
 
           <div className="h-[600px] w-full">

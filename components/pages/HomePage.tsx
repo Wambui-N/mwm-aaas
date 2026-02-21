@@ -3,6 +3,7 @@
 import React from 'react';
 import Navigation from '@/components/layout/Navigation';
 import HeroSection from '@/components/sections/HeroSection';
+import AboutSnapshotSection from '@/components/sections/AboutSnapshotSection';
 import PositioningStripSection from '@/components/sections/PositioningStripSection';
 import WhatsSlowingSection from '@/components/sections/WhatsSlowingSection';
 import HowItWorksSection from '@/components/sections/HowItWorksSection';
@@ -25,14 +26,15 @@ export default function HomePage() {
       <Navigation />
       {/* {process.env.NODE_ENV === 'development' && <EnvTest />} */}
       <HeroSection />
+      <AboutSnapshotSection />
+      <CaseStudiesSection />
       <PositioningStripSection />
       <TestimonialSection />
-      <CaseStudiesSection />
       <WhatsSlowingSection />
       <HowItWorksSection />
       <WhyChooseSection />
       {/* <PricingSection /> */}  
-      <Shelfcue /> 
+      {/* <Shelfcue />  */}
       <FinalCTASection />
       <WhatToExpectSection />
       <FAQSection />

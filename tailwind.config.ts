@@ -65,6 +65,11 @@ const config: Config = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+        brand: {
+          orange: '#e65032',
+          grey: '#c5d6d0',
+          black: '#141010',
+        },
       },
       keyframes: {
         'accordion-down': {

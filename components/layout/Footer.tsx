@@ -36,6 +36,24 @@ export default function Footer() {
 
           <div className="flex items-center space-x-6">
             <a
+              href="/services"
+              className="text-gray-500 hover:text-black transition-colors text-sm"
+            >
+              Services
+            </a>
+            <a
+              href="/blog"
+              className="text-gray-500 hover:text-black transition-colors text-sm"
+            >
+              Blog
+            </a>
+            <a
+              href="/resources"
+              className="text-gray-500 hover:text-black transition-colors text-sm"
+            >
+              Resources
+            </a>
+            <a
               href="/terms"
               className="text-gray-500 hover:text-black transition-colors text-sm"
             >

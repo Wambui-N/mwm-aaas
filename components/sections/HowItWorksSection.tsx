@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Target, Brain, Gauge } from "lucide-react";
 import { fadeIn, stagger } from "@/lib/animations";
+import { scorecardUrl } from "@/lib/links";
 
 const steps = [
   {
@@ -83,7 +84,7 @@ export default function HowItWorksSection() {
               className="text-center"
             >
               <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors h-full flex flex-col">
-                <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center text-white mx-auto mb-6">
+                <div className="w-12 h-12 bg-brand-black rounded-xl flex items-center justify-center text-white mx-auto mb-6">
                   {item.icon}
                 </div>
                 <div className="text-sm text-gray-500 mb-2">{item.step}</div>
@@ -110,14 +111,26 @@ export default function HowItWorksSection() {
               Ready to get started?
             </h3>
             <p className="text-gray-600 mb-6">
-              Book a discovery call to discuss your automation needs and explore how we can help
+              Take the Automation Readiness Scorecard first, or book a discovery call to discuss your needs.
             </p>
-            <a
-              href="#book-call"
-              className="inline-flex items-center justify-center px-8 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
-            >
-              Book a discovery call
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {scorecardUrl && (
+                <a
+                  href={scorecardUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-8 py-3 bg-brand-orange text-white font-medium rounded-lg hover:bg-brand-orange/90 transition-colors"
+                >
+                  Take the Scorecard
+                </a>
+              )}
+                <a
+                  href="#book-call"
+                  className="inline-flex items-center justify-center px-8 py-3 border border-brand-grey font-medium rounded-lg hover:border-brand-black text-brand-black transition-colors"
+                >
+                Book a discovery call
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>

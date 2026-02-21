@@ -4,17 +4,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, CheckCircle, Settings, Sparkles } from "lucide-react";
+import { scorecardUrl, calBookingAnchor } from "@/lib/links";
 
 export default function HeroSection() {
   const scrollToBookCall = () => {
-    const element = document.getElementById("book-call");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const scrollToPricing = () => {
-    const element = document.getElementById("pricing");
+    const element = document.getElementById(calBookingAnchor.replace("#", ""));
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -28,12 +22,12 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700 mb-8">
+          <div className="inline-flex items-center px-3 py-1 bg-brand-grey/40 rounded-full text-sm text-brand-black mb-8">
             <Sparkles className="w-3 h-3 mr-2" />
             Automation & AI Consulting , with Execution
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-medium text-black mb-6 leading-tight font-display">
+          <h1 className="text-5xl md:text-6xl font-medium text-brand-black mb-6 leading-tight font-display">
             We consult and execute
             <br />
             automation solutions that work
@@ -44,24 +38,40 @@ export default function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {scorecardUrl ? (
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  asChild
+                  variant="accent"
+                  className="px-8 py-3 text-base group"
+                >
+                  <a href={scorecardUrl} target="_blank" rel="noopener noreferrer">
+                    Take the Scorecard
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </Button>
+              </motion.div>
+            ) : (
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  onClick={scrollToBookCall}
+                  variant="default"
+                  className="px-8 py-3 text-base group"
+                >
+                  Book a discovery call
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </motion.div>
+            )}
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button
                 onClick={scrollToBookCall}
-                className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-base group"
+                variant="outline"
+                className="px-8 py-3 text-base border-brand-grey hover:border-brand-black text-brand-black"
               >
                 Book a discovery call
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>
-            {/* <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button
-                onClick={scrollToPricing}
-                variant="outline"
-                className="px-8 py-3 text-base border-gray-300 hover:border-gray-400"
-              >
-                See pricing
-              </Button>
-            </motion.div> */}
           </div>
         </motion.div>
 
@@ -72,7 +82,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mt-20"
         >
-          <div className="bg-gray-50 rounded-2xl p-8 max-w-2xl mx-auto border border-gray-100">
+          <div className="bg-brand-grey/20 rounded-2xl p-8 max-w-2xl mx-auto border border-brand-grey/50">
             <div className="flex items-center justify-between mb-6">
               <div className="flex space-x-2">
                 <div className="w-3 h-3 bg-red-400 rounded-full"></div>
