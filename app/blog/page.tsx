@@ -20,7 +20,7 @@ type BlogPageProps = {
 };
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const resolvedParams = await (searchParams ?? Promise.resolve({}));
+  const resolvedParams: { tag?: string } = await (searchParams ?? Promise.resolve({}));
   const activeTag = resolvedParams.tag ?? null;
 
   const allPosts = getAllPosts();
