@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/seo";
-import { getAllPosts } from "@/lib/content/blog";
+import { getAllPosts, getTopTags } from "@/lib/content/blog";
 import { getAllResources } from "@/lib/content/resources";
 
 export const dynamic = "force-static";
@@ -15,12 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: "weekly",
       priority: 1,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,
@@ -62,5 +56,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...blogPosts, ...resources];
+  // Tag filter pages (navigated to via /blog?tag=...)
+  const tagPages: MetadataRoute.Sitemap = getTopTags(10).map((tag) => ({
+    url: `${baseUrl}/blog?tag=${encodeURIComponent(tag)}`,
+    lastModified: currentDate,
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...blogPosts, ...resources, ...tagPages];
 }

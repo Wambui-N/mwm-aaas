@@ -1,0 +1,42 @@
+'use client';
+
+import { InfiniteSlider } from '@/components/ui/infinite-slider';
+import { cn } from '@/lib/utils';
+
+type Logo = {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+};
+
+type LogoCloudProps = React.ComponentProps<'div'> & {
+  logos: Logo[];
+};
+
+export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
+  return (
+    <div
+      {...props}
+      className={cn(
+        'overflow-hidden py-4 [mask-image:linear-gradient(to_right,transparent,black,transparent)]',
+        className
+      )}
+    >
+      <InfiniteSlider gap={48} reverse={false} duration={40} durationOnHover={80}>
+        {logos.map((logo) => (
+          <img
+            alt={logo.alt}
+            aria-hidden="true"
+            className="pointer-events-none h-5 select-none opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 duration-300"
+            height={logo.height ?? 20}
+            key={`logo-${logo.alt}`}
+            loading="lazy"
+            src={logo.src}
+            width={logo.width ?? 'auto'}
+          />
+        ))}
+      </InfiniteSlider>
+    </div>
+  );
+}

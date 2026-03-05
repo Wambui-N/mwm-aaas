@@ -7,7 +7,7 @@ import {
   getResourcesByType,
   type ResourceType,
 } from "@/lib/content/resources";
-import Navigation from "@/components/layout/Navigation";
+import NavigationWrapper from "@/components/layout/NavigationWrapper";
 import Footer from "@/components/layout/Footer";
 import NewsletterSection from "@/components/sections/NewsletterSection";
 import { Calculator, FileCheck, ListChecks, ArrowRight } from "lucide-react";
@@ -57,7 +57,7 @@ export default function ResourcesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
+      <NavigationWrapper />
       <main className="pt-12 pb-24">
         <div className="max-w-4xl mx-auto px-6">
           <div className="mb-16">

@@ -4,32 +4,13 @@ import React from "react";
 import { motion } from "framer-motion";
 import { fadeIn, stagger } from "@/lib/animations";
 import { Testimonial } from "@/components/ui/design-testimonial";
+import SectionHeader from "../ui/section-header";
 
 export default function TestimonialSection() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24">
       <div className="mx-auto max-w-6xl px-6">
-        <motion.div
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={stagger}
-          className="mb-12 text-center md:mb-16"
-        >
-          <motion.h2
-            variants={fadeIn}
-            className="mb-4 text-3xl font-display font-semibold text-brand-black md:text-4xl"
-          >
-            Client feedback
-          </motion.h2>
-          <motion.p
-            variants={fadeIn}
-            className="mx-auto max-w-2xl text-sm text-gray-600 md:text-base"
-          >
-            Real results from founders and teams who trusted us to design and
-            automate their systems.
-          </motion.p>
-        </motion.div>
+        <SectionHeader title="Client feedback" />
 
         <motion.div
           initial="initial"

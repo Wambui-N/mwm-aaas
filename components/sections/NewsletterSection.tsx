@@ -59,7 +59,7 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section id="newsletter" className="py-24 bg-gray-50">
+    <section id="newsletter" className="py-24">
       <div className="max-w-2xl mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-display font-semibold text-black mb-6">
           Making IT Make Sense Newsletter

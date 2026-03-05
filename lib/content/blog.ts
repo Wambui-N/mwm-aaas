@@ -72,6 +72,23 @@ export function getPost(
   return null;
 }
 
+/**
+ * Returns the top `count` tags sorted by frequency across all blog posts.
+ */
+export function getTopTags(count = 4): string[] {
+  const posts = getAllPosts();
+  const freq: Record<string, number> = {};
+  for (const post of posts) {
+    for (const tag of post.tags) {
+      freq[tag] = (freq[tag] ?? 0) + 1;
+    }
+  }
+  return Object.entries(freq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, count)
+    .map(([tag]) => tag);
+}
+
 export function getRelatedPosts(currentSlug: string, count = 2): BlogPost[] {
   const current = getPost(currentSlug);
   if (!current) return [];

@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import Navigation from '@/components/layout/Navigation';
+import Navigation, { type NavigationProps } from '@/components/layout/Navigation';
 import HeroSection from '@/components/sections/HeroSection';
+import ProspectFitSection from '@/components/sections/ProspectFitSection';
 import AboutSnapshotSection from '@/components/sections/AboutSnapshotSection';
 import PositioningStripSection from '@/components/sections/PositioningStripSection';
 import WhatsSlowingSection from '@/components/sections/WhatsSlowingSection';
@@ -20,27 +21,28 @@ import NewsletterSection from '../sections/NewsletterSection';
 import Shelfcue from '../sections/shelfcue';
 import { EnvTest } from '@/components/debug/EnvTest';
 
-export default function HomePage() {
+export default function HomePage({ topTags = [] }: NavigationProps) {
   return (
-    <div className="min-h-screen bg-white">
-      <Navigation />
+    <div className="min-h-screen bg-brand-grey/10">
+      <Navigation topTags={topTags} />
       {/* {process.env.NODE_ENV === 'development' && <EnvTest />} */}
       <HeroSection />
-      {/* <AboutSnapshotSection /> */}
-      <CaseStudiesSection />
-      <PositioningStripSection />
+      <ProspectFitSection />
       <TestimonialSection />
-      <WhatsSlowingSection />
-      <HowItWorksSection />
-      <WhyChooseSection />
-      {/* <PricingSection />  */}
-      {/* <Shelfcue />  */}
-      <FinalCTASection />
-      <WhatToExpectSection />
-      <FAQSection />
       <FounderSection />
       <NewsletterSection />
+      <FinalCTASection />
       <Footer />
+      {/* <AboutSnapshotSection /> */}
+      {/* <CaseStudiesSection /> */}
+      {/* <PositioningStripSection /> */}
+      {/* <WhatsSlowingSection /> */}
+      {/* <HowItWorksSection /> */}
+      {/* <WhyChooseSection /> */}
+      {/* <PricingSection />  */}
+      {/* <Shelfcue />  */}
+      {/* <WhatToExpectSection /> */}
+      {/* <FAQSection /> */}
     </div>
   );
 }

@@ -109,10 +109,10 @@ export default function CaseStudiesSection() {
         </div>
         <div className="text-center mt-12">
           <Link
-            href="/services"
+            href="/resources"
             className="inline-flex items-center text-black font-medium hover:opacity-80 transition-opacity"
           >
-            Explore Services
+            Explore Resources
             <ChevronRight className="ml-1 w-4 h-4" />
           </Link>
         </div>

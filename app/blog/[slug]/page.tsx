@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { siteConfig } from "@/lib/seo";
 import { getPost, getAllPosts, getRelatedPosts } from "@/lib/content/blog";
-import Navigation from "@/components/layout/Navigation";
+import NavigationWrapper from "@/components/layout/NavigationWrapper";
 import Footer from "@/components/layout/Footer";
 import PostLayout from "@/components/blog/PostLayout";
 
@@ -59,7 +59,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
+      <NavigationWrapper />
       <main className="pt-12 pb-24">
         <PostLayout
           post={post.data}

@@ -70,7 +70,7 @@ export function Testimonial() {
     <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative w-full max-w-5xl mx-auto overflow-hidden rounded-3xl border border-gray-100 bg-white px-6 py-10 md:px-10 md:py-14 shadow-sm"
+      className="relative w-full max-w-5xl mx-auto h-[500px] overflow-hidden rounded-3xl border border-gray-100 bg-white/50 px-6 py-10 md:px-10 md:py-14 shadow-sm"
     >
       {/* Oversized index number - positioned to bleed off left edge */}
       <motion.div
@@ -118,7 +118,7 @@ export function Testimonial() {
         </div>
 
         {/* Center - main content */}
-        <div className="flex-1 pl-10 py-4 md:py-6">
+        <div className="flex-1 pl-10 py-4 md:py-6 h-full ">
           {/* Company badge */}
           <AnimatePresence mode="wait">
             <motion.div
@@ -129,7 +129,7 @@ export function Testimonial() {
               transition={{ duration: 0.4 }}
               className="mb-8"
             >
-              <span className="inline-flex items-center gap-2 rounded-full border border-brand-grey/70 px-3 py-1 text-xs font-mono uppercase tracking-[0.16em] text-gray-500">
+              <span className="inline-flex items-center gap-2 rounded-full border bg-brand-grey/20 border-brand-grey/70 px-3 py-1 text-xs font-mono uppercase tracking-[0.16em] text-gray-500">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-orange" />
                 {current.company}
               </span>
@@ -213,7 +213,7 @@ export function Testimonial() {
               <motion.button
                 type="button"
                 onClick={goPrev}
-                className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-brand-grey/70 bg-white"
+                className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-brand-grey/70 bg-brand-grey/20"
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.div
@@ -242,7 +242,7 @@ export function Testimonial() {
               <motion.button
                 type="button"
                 onClick={goNext}
-                className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-brand-grey/70 bg-white"
+                className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-brand-grey/70 bg-brand-grey/20"
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.div

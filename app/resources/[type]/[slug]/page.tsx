@@ -10,7 +10,7 @@ import {
   type ResourceType,
 } from "@/lib/content/resources";
 import { scorecardUrl, bookingUrl } from "@/lib/links";
-import Navigation from "@/components/layout/Navigation";
+import NavigationWrapper from "@/components/layout/NavigationWrapper";
 import Footer from "@/components/layout/Footer";
 import ToolRenderer from "@/components/tools/ToolRenderer";
 import { Calculator, FileCheck, ListChecks, ArrowRight } from "lucide-react";
@@ -56,7 +56,7 @@ export default async function ResourceDetailPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
+      <NavigationWrapper />
       <main className="pt-12 pb-24">
         <div className="max-w-3xl mx-auto px-6">
           <Link

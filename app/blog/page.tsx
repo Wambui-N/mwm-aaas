@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { generatePageMetadata } from "@/lib/seo";
 import { getAllPosts } from "@/lib/content/blog";
-import Navigation from "@/components/layout/Navigation";
+import NavigationWrapper from "@/components/layout/NavigationWrapper";
 import Footer from "@/components/layout/Footer";
 import { format } from "date-fns";
 import { ArrowRight } from "lucide-react";
@@ -15,13 +15,23 @@ export const metadata: Metadata = generatePageMetadata(
   ["automation blog", "Make.com tips", "workflow automation", "AI consulting", "making it make sense"]
 );
 
-export default function BlogPage() {
-  const posts = getAllPosts();
+type BlogPageProps = {
+  searchParams?: Promise<{ tag?: string }>;
+};
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  const resolvedParams = await (searchParams ?? Promise.resolve({}));
+  const activeTag = resolvedParams.tag ?? null;
+
+  const allPosts = getAllPosts();
+  const posts = activeTag
+    ? allPosts.filter((p) => p.tags.includes(activeTag))
+    : allPosts;
   const [featured, ...rest] = posts;
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
+      <NavigationWrapper />
       <main className="pt-12 pb-24">
         <div className="max-w-6xl mx-auto px-6">
 
@@ -31,12 +41,29 @@ export default function BlogPage() {
               Newsletter &amp; Blog
             </p>
             <h1 className="text-4xl md:text-5xl font-display font-semibold text-brand-black mb-4">
-              Making IT Make Sense
+              {activeTag
+                ? `Posts tagged "${activeTag}"`
+                : 'Making IT Make Sense'}
             </h1>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Practical insights on automation, AI, and workflow design,
-              for founders and operators who want to build smarter.
-            </p>
+            {activeTag ? (
+              <div className="flex items-center gap-3">
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Showing articles tagged with{' '}
+                  <span className="font-medium text-brand-black">{activeTag}</span>.
+                </p>
+                <Link
+                  href="/blog"
+                  className="text-sm text-brand-orange hover:underline shrink-0"
+                >
+                  Clear filter
+                </Link>
+              </div>
+            ) : (
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Practical insights on automation, AI, and workflow design,
+                for founders and operators who want to build smarter.
+              </p>
+            )}
           </div>
 
           {posts.length === 0 ? (
@@ -77,6 +104,19 @@ export default function BlogPage() {
                       <p className="text-gray-600 leading-relaxed mb-4 max-w-xl">
                         {featured.description}
                       </p>
+                      {featured.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mb-3">
+                          {featured.tags.slice(0, 4).map((tag) => (
+                            <Link
+                              key={tag}
+                              href={`/blog?tag=${encodeURIComponent(tag)}`}
+                              className="text-xs px-2 py-0.5 rounded-full bg-brand-grey/30 text-brand-black hover:bg-brand-orange/10 hover:text-brand-orange transition-colors"
+                            >
+                              {tag}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                       {featured.author && (
                         <p className="text-sm text-gray-400">{featured.author}</p>
                       )}
@@ -121,6 +161,19 @@ export default function BlogPage() {
                           <p className="text-sm text-gray-500 leading-relaxed flex-1">
                             {post.description}
                           </p>
+                          {post.tags.length > 0 && (
+                            <div className="mt-3 flex flex-wrap gap-1">
+                              {post.tags.slice(0, 3).map((tag) => (
+                                <Link
+                                  key={tag}
+                                  href={`/blog?tag=${encodeURIComponent(tag)}`}
+                                  className="text-xs px-2 py-0.5 rounded-full bg-brand-grey/30 text-brand-black hover:bg-brand-orange/10 hover:text-brand-orange transition-colors"
+                                >
+                                  {tag}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
                           <div className="mt-4 flex items-center gap-1 text-xs font-medium text-brand-orange opacity-0 group-hover:opacity-100 transition-opacity">
                             Read <ArrowRight className="w-3.5 h-3.5" />
                           </div>
