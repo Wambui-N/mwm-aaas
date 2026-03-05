@@ -75,63 +75,7 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Simple visual element */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-20"
-        >
-          <div className="bg-brand-grey/20 rounded-2xl p-8 max-w-2xl mx-auto border border-brand-grey/50">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-              </div>
-              <span className="text-sm text-gray-500">
-                Automation Dashboard
-              </span>
-            </div>
-
-            <div className="space-y-3">
-              <motion.div
-                whileHover={{ scale: 1.01 }}
-                className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100"
-              >
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span className="text-sm font-medium">
-                    Lead qualification
-                  </span>
-                </div>
-                <span className="text-sm text-gray-600">94% accuracy</span>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ scale: 1.01 }}
-                className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100"
-              >
-                <div className="flex items-center space-x-3">
-                  <Zap className="w-4 h-4 text-blue-500" />
-                  <span className="text-sm font-medium">Email sequences</span>
-                </div>
-                <span className="text-sm text-gray-600">847 sent today</span>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ scale: 1.01 }}
-                className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100"
-              >
-                <div className="flex items-center space-x-3">
-                  <Settings className="w-4 h-4 text-purple-500" />
-                  <span className="text-sm font-medium">CRM sync</span>
-                </div>
-                <span className="text-sm text-gray-600">Real-time</span>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
+        
       </div>
     </section>
   );

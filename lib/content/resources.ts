@@ -57,6 +57,16 @@ const resourcesData: Resource[] = [
     external: false,
     component: "WebhookTester",
   },
+  {
+    slug: "document-signer",
+    title: "Document Signer",
+    description:
+      "Sign a PDF directly in your browser. Draw or type your signature, place it on any page, and download the signed file. Nothing leaves your device.",
+    type: "tool",
+    url: "#",
+    external: false,
+    component: "DocumentSigner",
+  },
 ];
 
 export function getAllResources(): Resource[] {

@@ -26,14 +26,14 @@ export default function HomePage() {
       <Navigation />
       {/* {process.env.NODE_ENV === 'development' && <EnvTest />} */}
       <HeroSection />
-      <AboutSnapshotSection />
+      {/* <AboutSnapshotSection /> */}
       <CaseStudiesSection />
       <PositioningStripSection />
       <TestimonialSection />
       <WhatsSlowingSection />
       <HowItWorksSection />
       <WhyChooseSection />
-      {/* <PricingSection /> */}  
+      {/* <PricingSection />  */}
       {/* <Shelfcue />  */}
       <FinalCTASection />
       <WhatToExpectSection />
@@ -41,7 +41,6 @@ export default function HomePage() {
       <FounderSection />
       <NewsletterSection />
       <Footer />
-
     </div>
   );
 }

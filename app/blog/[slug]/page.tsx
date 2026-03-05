@@ -1,16 +1,11 @@
 import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { generatePageMetadata } from "@/lib/seo";
-import { getPost } from "@/lib/content/blog";
-import { scorecardUrl, bookingUrl } from "@/lib/links";
+import { siteConfig } from "@/lib/seo";
+import { getPost, getAllPosts, getRelatedPosts } from "@/lib/content/blog";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
-import { format } from "date-fns";
-import { ArrowRight } from "lucide-react";
+import PostLayout from "@/components/blog/PostLayout";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -20,18 +15,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return { title: "Post Not Found" };
-  return generatePageMetadata(
-    post.data.title,
-    post.data.description,
-    `blog/${slug}`,
-    []
-  );
+
+  const { data } = post;
+  const url = `${siteConfig.url}/blog/${slug}`;
+  const ogImage = data.image ?? siteConfig.ogImage;
+
+  return {
+    title: `${data.title} | ${siteConfig.name}`,
+    description: data.description,
+    alternates: {
+      canonical: data.canonical ?? url,
+    },
+    keywords: data.tags.length > 0 ? data.tags : undefined,
+    openGraph: {
+      type: "article",
+      url,
+      title: data.title,
+      description: data.description,
+      publishedTime: data.date,
+      authors: data.author ? [data.author] : undefined,
+      tags: data.tags.length > 0 ? data.tags : undefined,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: data.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: data.title,
+      description: data.description,
+      images: [ogImage],
+    },
+  };
 }
 
 export async function generateStaticParams() {
-  const { getAllPosts } = await import("@/lib/content/blog");
-  const posts = getAllPosts();
-  return posts.map((p) => ({ slug: p.slug }));
+  return getAllPosts().map((p) => ({ slug: p.slug }));
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -39,64 +55,17 @@ export default async function BlogPostPage({ params }: Props) {
   const post = getPost(slug);
   if (!post) notFound();
 
+  const related = getRelatedPosts(slug, 2);
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
       <main className="pt-12 pb-24">
-        <article className="max-w-3xl mx-auto px-6">
-          <header className="mb-10">
-            <Link
-              href="/blog"
-              className="text-sm text-gray-500 hover:text-black mb-6 inline-block"
-            >
-              ← Back to Blog
-            </Link>
-            <time
-              dateTime={post.data.date}
-              className="text-sm text-gray-500 block mb-2"
-            >
-              {format(new Date(post.data.date), "MMMM d, yyyy")}
-            </time>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold text-black mb-4">
-              {post.data.title}
-            </h1>
-            {post.data.author && (
-              <p className="text-gray-600">{post.data.author}</p>
-            )}
-          </header>
-
-          <div className="prose prose-lg max-w-none prose-headings:font-display prose-p:text-gray-700 prose-li:text-gray-700">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
-          </div>
-
-          <aside className="mt-16 p-8 bg-gray-50 rounded-2xl border border-gray-100">
-            <h2 className="text-xl font-display font-semibold text-black mb-4">
-              Ready to automate?
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Take the Automation Readiness Scorecard to see where you stand, or book a discovery call to discuss your needs.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              {scorecardUrl ? (
-                <a
-                  href={scorecardUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
-                >
-                  Take the Scorecard
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </a>
-              ) : null}
-              <Link
-                href={bookingUrl}
-                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 font-medium rounded-lg hover:border-gray-400 transition-colors"
-              >
-                Book a Discovery Call
-              </Link>
-            </div>
-          </aside>
-        </article>
+        <PostLayout
+          post={post.data}
+          content={post.content}
+          relatedPosts={related}
+        />
       </main>
       <Footer />
     </div>

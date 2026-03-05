@@ -6,6 +6,15 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: { unoptimized: true },
+  webpack: (config) => {
+    // pdfjs-dist's NodeCanvasFactory does require('canvas') which is a native Node module.
+    // Alias it to an empty stub for ALL builds so webpack never tries to resolve it.
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      canvas: require("path").resolve(__dirname, "lib/stubs/canvas.js"),
+    };
+    return config;
+  },
   env: {
     // Make sure environment variables are available at build time
     NEXT_PUBLIC_CALCOM_API_KEY: process.env.NEXT_PUBLIC_CALCOM_API_KEY,

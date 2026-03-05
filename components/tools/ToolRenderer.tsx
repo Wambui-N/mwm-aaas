@@ -26,6 +26,10 @@ const toolComponents: Record<string, React.ComponentType<any>> = {
     ssr: false,
     loading: Loading,
   }) as React.ComponentType,
+  DocumentSigner: dynamic(() => import("@/components/tools/DocumentSigner"), {
+    ssr: false,
+    loading: Loading,
+  }) as React.ComponentType,
 };
 
 export default function ToolRenderer({ componentKey }: { componentKey: string }) {
