@@ -11,11 +11,11 @@ import { LogoCloud } from '@/components/ui/logo-cloud-3';
 
 const LOGOS = [
   {
-    src: 'https://svgl.app/library/make.svg',
+    src: 'https://www.google.com/s2/favicons?domain=make.com&sz=64',
     alt: 'Make.com',
   },
   {
-    src: 'https://svgl.app/library/google_sheets.svg',
+    src: 'https://svgl.app/library/google-sheets.svg',
     alt: 'Google Sheets',
   },
   {
@@ -23,7 +23,7 @@ const LOGOS = [
     alt: 'Slack',
   },
   {
-    src: 'https://svgl.app/library/airtable.svg',
+    src: 'https://www.google.com/s2/favicons?domain=airtable.com&sz=64',
     alt: 'Airtable',
   },
   {
@@ -31,24 +31,64 @@ const LOGOS = [
     alt: 'Notion',
   },
   {
-    src: 'https://svgl.app/library/openai_wordmark_light.svg',
-    alt: 'OpenAI',
+    src: 'https://www.google.com/s2/favicons?domain=tally.so&sz=64',
+    alt: 'Tally',
   },
   {
-    src: 'https://svgl.app/library/gmail.svg',
-    alt: 'Gmail',
+    src: 'https://svgl.app/library/cal.svg',
+    alt: 'Cal.com',
   },
   {
-    src: 'https://svgl.app/library/hubspot.svg',
-    alt: 'HubSpot',
+    src: 'https://www.google.com/s2/favicons?domain=clickup.com&sz=64',
+    alt: 'ClickUp',
   },
   {
-    src: 'https://svgl.app/library/zapier.svg',
-    alt: 'Zapier',
+    src: 'https://svgl.app/library/openai.svg',
+    alt: 'ChatGPT',
   },
   {
-    src: 'https://svgl.app/library/typeform.svg',
+    src: 'https://www.google.com/s2/favicons?domain=typeform.com&sz=64',
     alt: 'Typeform',
+  },
+  {
+    src: 'https://svgl.app/library/whatsapp-icon.svg',
+    alt: 'WhatsApp',
+  },
+  {
+    src: 'https://svgl.app/library/anthropic_black.svg',
+    alt: 'Claude',
+  },
+  {
+    src: 'https://svgl.app/library/calendly.svg',
+    alt: 'Calendly',
+  },
+  {
+    src: 'https://svgl.app/library/drive.svg',
+    alt: 'Google Drive',
+  },
+  {
+    src: 'https://www.google.com/s2/favicons?domain=forms.google.com&sz=64',
+    alt: 'Google Forms',
+  },
+  {
+    src: 'https://svgl.app/library/linkedin.svg',
+    alt: 'LinkedIn',
+  },
+  {
+    src: 'https://svgl.app/library/instagram-icon.svg',
+    alt: 'Instagram',
+  },
+  {
+    src: 'https://svgl.app/library/perplexity.svg',
+    alt: 'Perplexity',
+  },
+  {
+    src: 'https://svgl.app/library/deepseek.svg',
+    alt: 'DeepSeek',
+  },
+  {
+    src: 'https://svgl.app/library/google-calendar.svg',
+    alt: 'Google Calendar',
   },
 ];
 
@@ -121,7 +161,7 @@ export default function ProspectFitSection() {
           </motion.ul>
 
           {/* CTA */}
-          <motion.div
+          {/* <motion.div
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
@@ -150,12 +190,12 @@ export default function ProspectFitSection() {
             >
               Or book a free discovery call
             </a>
-          </motion.div>
+          </motion.div> */}
 
           {/* Logo cloud divider */}
           <motion.div variants={itemVariants}>
-            <p className="text-center text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
-              Tools I work with
+            <p className="text-center text-xs font-semibold uppercase tracking-widest text-brand-black/80 mb-4">
+            Some of the tools I work with
             </p>
             <div className="mx-auto mb-4 h-px max-w-xs bg-gray-200 [mask-image:linear-gradient(to_right,transparent,black,transparent)]" />
             <LogoCloud logos={LOGOS} className="max-w-3xl mx-auto" />

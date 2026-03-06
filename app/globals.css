@@ -88,3 +88,31 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+/* ── Hero floating tools background animations ─────────────────────────────── */
+@keyframes hero-spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes hero-spin-slow-reverse {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+.hero-animate-spin-slow {
+  animation: hero-spin-slow 60s linear infinite;
+}
+
+.hero-animate-spin-slow-reverse {
+  animation: hero-spin-slow-reverse 80s linear infinite;
+}
+
+/* Counter-rotate badges so they stay upright as the orbit turns */
+.hero-badge-counter {
+  animation: hero-spin-slow-reverse 60s linear infinite;
+}
+
+.hero-badge-counter-rev {
+  animation: hero-spin-slow 80s linear infinite;
+}

@@ -55,7 +55,7 @@ export default async function ResourceDetailPage({ params }: Props) {
   );
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-brand-grey/10">
       <NavigationWrapper />
       <main className="pt-12 pb-24">
         <div className="max-w-3xl mx-auto px-6">
@@ -114,7 +114,7 @@ export default async function ResourceDetailPage({ params }: Props) {
               <p className="text-sm font-bold text-brand-black mb-4 uppercase tracking-wide">
                 Other tools —{" "}
                 <span className="font-normal normal-case text-gray-500">
-                  Try our other free tools!
+                  Try our other tools!
                 </span>
               </p>
               <div className="grid gap-3 sm:grid-cols-2">
@@ -148,34 +148,25 @@ export default async function ResourceDetailPage({ params }: Props) {
             </section>
           )}
 
-          <aside className="p-8 bg-gray-50 rounded-2xl border border-gray-100">
-            <h2 className="text-xl font-display font-semibold text-brand-black mb-4">
-              Ready to automate?
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Take the Automation Readiness Scorecard to see where you stand, or
-              book a discovery call.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              {scorecardUrl ? (
-                <a
-                  href={scorecardUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-brand-orange text-white font-medium rounded-lg hover:bg-brand-orange/90 transition-colors"
-                >
-                  Take the Scorecard
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </a>
-              ) : null}
-              <Link
-                href={bookingUrl}
-                className="inline-flex items-center justify-center px-6 py-3 border border-brand-grey font-medium rounded-lg hover:border-brand-black text-brand-black transition-colors"
-              >
-                Book a Discovery Call
-              </Link>
-            </div>
-          </aside>
+          
+          {/* booking CTA */}
+        <aside className="mt-8 rounded-2xl border border-gray-100 bg-gray-50 p-8">
+          <h2 className="text-xl font-display font-semibold text-brand-black mb-3">
+          Want more customised help?
+          </h2>
+          <p className="text-gray-600 mb-6">
+            If you&apos;d like to talk through how this could work in your own
+            business, you can request a free consultation and we&apos;ll figure
+            out what makes sense for you.
+          </p>
+          <Link
+            href="/contact-us"
+            className="inline-flex items-center justify-center rounded-lg bg-brand-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-orange/90"
+          >
+            Get a free consultation
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </aside>
         </div>
       </main>
       <Footer />

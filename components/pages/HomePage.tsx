@@ -15,9 +15,9 @@ import TestimonialSection from '@/components/sections/TestimonialSection';
 import CaseStudiesSection from '@/components/sections/CaseStudiesSection';
 import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
-import FinalCTASection from '@/components/sections/FinalCTASection';
 import Footer from '@/components/layout/Footer';
-import NewsletterSection from '../sections/NewsletterSection';
+import HomeConsultCtaSection from '@/components/sections/HomeConsultCtaSection';
+import FinalCTASection from '@/components/sections/FinalCTASection';
 import Shelfcue from '../sections/shelfcue';
 import { EnvTest } from '@/components/debug/EnvTest';
 
@@ -30,9 +30,9 @@ export default function HomePage({ topTags = [] }: NavigationProps) {
       <ProspectFitSection />
       <TestimonialSection />
       <FounderSection />
-      <NewsletterSection />
-      <FinalCTASection />
+      <HomeConsultCtaSection />
       <Footer />
+      {/* <FinalCTASection /> */}
       {/* <AboutSnapshotSection /> */}
       {/* <CaseStudiesSection /> */}
       {/* <PositioningStripSection /> */}

@@ -2,13 +2,12 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Linkedin } from "lucide-react";
-
-
+import { Linkedin, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function FounderSection() {
   return (
-    <section id="founder" className="py-24">
+    <section id="founder" className="py-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -37,67 +36,79 @@ export default function FounderSection() {
           })
         }}
       />
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="grid lg:grid-cols-5 gap-12 items-center"
+          className="grid gap-10 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,3fr)] lg:min-h-[360px]"
         >
-          {/* Photo */}
-          <div className="lg:col-span-2">
-            <div className="relative">
-              <div className="aspect-square bg-none rounded-2xl overflow-hidden">
-                <img
-                  src="/founder.png"
-                  alt="Wambui Ndung'u"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <motion.a
-                href="https://www.linkedin.com/in/wambui-ndungu-210409193/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute top-4 right-4 p-2 bg-white/50 rounded-full hover:bg-white/80 transition-colors"
-                initial={{ opacity: 0.7 }}
-                whileHover={{ opacity: 1, scale: 1.1 }}
-              >
-                <Linkedin className="w-6 h-6 text-gray-800" />
-              </motion.a>
+          {/* Left: photo spanning the section height */}
+          <div className="relative h-full">
+            <div className="h-full overflow-hidden rounded-2xl bg-gray-100">
+              <img
+                src="/founder.jpg"
+                alt="Wambui Ndung'u"
+                className="h-full w-full object-cover"
+              />
             </div>
           </div>
 
-          {/* Content */}
-          <div className="lg:col-span-3">
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h2 className="text-3xl md:text-4xl font-display font-semibold text-black mb-4">
-                About MadewithMake
+          {/* Right: top intro + bottom story/actions */}
+          <div className="flex h-full flex-col justify-between">
+            {/* Top block: title + name + short line */}
+            <div>
+              <p className="mb-2 text-xs font-medium uppercase tracking-[0.25em] text-brand-black/80">
+                Founder
+              </p>
+              <h2 className="mb-3 text-3xl font-display font-semibold text-brand-black md:text-4xl">
+                Wambui Ndung&apos;u
               </h2>
+              <p className="max-w-xl text-sm text-gray-500">
+                Automation consultant &amp; problem solver for established teams.
+              </p>
+            </div>
 
-              <div className="space-y-6 text-gray-600 leading-relaxed">
+            {/* Bottom block: story + social + CTA */}
+            <div className="mt-8 space-y-5 text-base leading-normal text-brand-black/80">
+              <div className="space-y-4">
                 <p>
-                  MadewithMake exists to close the gap between automation advice and real implementation.
+                  I partner with established teams to automate their manual workflows so work runs smoother,
+                  errors drop, and people can focus on the work that actually moves the business forward.
                 </p>
-
                 <p>
-                  We believe automation should simplify work , not create more confusion. That's why we work across both consulting and execution, ensuring ideas become reliable systems.
+                  Whether it&apos;s automating repetitive tasks, tightening up messy processes, or designing
+                  better systems, my goal is to make technology work for you.
                 </p>
-
-                <p>
-                  Founded by Wambui Ndung'u, who brings a background in mathematics, computer science, and a passion for breaking down complex problems into elegant solutions.
-                </p>
-
-                <p>
-                  We help teams understand their processes, identify high-impact opportunities, and build automation systems that actually work in the real world.
-                </p>
+                {/* <p>
+                  The right automation frees up your time to focus on what really matters: growing your
+                  business and serving your customers.
+                </p> */}
               </div>
-            </motion.div>
+
+              <div className="mt-4 flex flex-col items-start gap-3">
+                <a
+                  href="https://www.linkedin.com/in/wambui-ndungu-210409193/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-brand-grey/60 bg-white text-brand-black shadow-sm hover:border-brand-black hover:bg-brand-grey/20 transition-colors"
+                  aria-label="Connect with Wambui on LinkedIn"
+                >
+                  <Linkedin className="h-4 w-4" />
+                </a>
+                <Button
+                  asChild
+                  variant="accent"
+                  className="px-5 py-2 text-xs md:text-sm"
+                >
+                  <a href="/contact-us">
+                    Get a free consultation
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

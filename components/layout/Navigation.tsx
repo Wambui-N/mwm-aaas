@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { scorecardUrl } from '@/lib/links';
@@ -108,6 +109,7 @@ export interface NavigationProps {
 
 export default function Navigation({ topTags = [] }: NavigationProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const router = useRouter();
 
   const tagItems = topTags.map((tag) => ({
     label: tag.charAt(0).toUpperCase() + tag.slice(1),
@@ -161,11 +163,15 @@ export default function Navigation({ topTags = [] }: NavigationProps) {
                         'data-[state=open]:bg-brand-grey/20 data-[state=open]:text-brand-black',
                         'focus:bg-brand-grey/20 h-9 px-3'
                       )}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        router.push('/blog');
+                      }}
                     >
                       Articles
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="w-[640px] p-3 space-y-0.5">
+                      <ul className="w-[320px] p-3 space-y-0.5">
                         {/* All articles + Case studies */}
                         {ARTICLES_STATIC.map((item) => (
                           <DropdownItem key={item.href} {...item} />
@@ -198,11 +204,15 @@ export default function Navigation({ topTags = [] }: NavigationProps) {
                         'data-[state=open]:bg-brand-grey/20 data-[state=open]:text-brand-black',
                         'focus:bg-brand-grey/20 h-9 px-3'
                       )}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        router.push('/resources');
+                      }}
                     >
                       Resources
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="w-[640px] p-3 space-y-0.5">
+                      <ul className="w-[320px] p-3 space-y-0.5">
                         {RESOURCES_ITEMS.map((item) => (
                           <DropdownItem key={item.href} {...item} />
                         ))}

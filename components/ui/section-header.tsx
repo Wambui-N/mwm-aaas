@@ -17,7 +17,7 @@ export default function SectionHeader({ title, subtitle, className = "" }: Secti
       whileInView="animate"
       viewport={{ once: true }}
       variants={stagger}
-      className={`text-center mb-16 ${className}`}
+      className={`text-center mb-4 ${className}`}
     >
       <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-display font-semibold text-black mb-4">
         {title}

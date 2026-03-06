@@ -4,7 +4,6 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { format } from "date-fns";
 import { ArrowRight, Tag } from "lucide-react";
-import { scorecardUrl, bookingUrl } from "@/lib/links";
 import NewsletterSection from "@/components/sections/NewsletterSection";
 import type { BlogPost } from "@/lib/content/blog";
 
@@ -87,7 +86,7 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
           )}
 
           {/* Tags */}
-          {post.tags.length > 0 && (
+          {/* {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-8">
               {post.tags.map((tag) => (
                 <span
@@ -99,7 +98,7 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
                 </span>
               ))}
             </div>
-          )}
+          )} */}
 
           {/* Hero image */}
           {post.image && (
@@ -183,38 +182,27 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
         )}
 
         {/* Newsletter subscribe */}
-        <div className="mt-16 -mx-6">
+        {/* <div className="mt-16 -mx-6">
           <NewsletterSection />
-        </div>
+        </div> */}
 
-        {/* Scorecard / booking CTA */}
-        <aside className="mt-8 p-8 bg-gray-50 rounded-2xl border border-gray-100">
+        {/* booking CTA */}
+        <aside className="mt-8 rounded-2xl border border-gray-100 bg-gray-50 p-8">
           <h2 className="text-xl font-display font-semibold text-brand-black mb-3">
-            Ready to automate?
+          Want help automating your business?
           </h2>
           <p className="text-gray-600 mb-6">
-            Take the Automation Readiness Scorecard to see where you stand, or
-            book a discovery call to discuss your needs.
+            If you&apos;d like to talk through how this could work in your own
+            business, you can request a free consultation and we&apos;ll figure
+            out what makes sense together.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            {scorecardUrl ? (
-              <a
-                href={scorecardUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-6 py-3 bg-brand-orange text-white font-medium rounded-lg hover:bg-brand-orange/90 transition-colors"
-              >
-                Take the Scorecard
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </a>
-            ) : null}
-            <Link
-              href={bookingUrl}
-              className="inline-flex items-center justify-center px-6 py-3 border border-brand-grey font-medium rounded-lg hover:border-brand-black text-brand-black transition-colors"
-            >
-              Book a Discovery Call
-            </Link>
-          </div>
+          <Link
+            href="/contact-us"
+            className="inline-flex items-center justify-center rounded-lg bg-brand-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-orange/90"
+          >
+            Get a free consultation
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
         </aside>
       </article>
     </>

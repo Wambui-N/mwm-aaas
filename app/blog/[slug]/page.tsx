@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: Props) {
   const related = getRelatedPosts(slug, 2);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <NavigationWrapper />
       <main className="pt-12 pb-24">
         <PostLayout

@@ -59,16 +59,14 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section id="newsletter" className="py-24">
+    <section id="newsletter" className="py-12">
       <div className="max-w-2xl mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-display font-semibold text-black mb-6">
           Making IT Make Sense Newsletter
         </h2>
         <p className="mb-4 text-gray-600">
-          Because you didn’t build a business just to become its busiest
-          employee. <br />
-          Weekly automations, systems, and AI tips, for founders who value time,
-          clarity, and momentum.
+          I&apos;m always learning and testing new ideas in automation and AI; what works, what doesn&apos;t, and how to keep things simple.
+          If you want to follow along and steal the best bits, simply sign up for the newsletter below.
         </p>
         <form
           ref={formRef}
@@ -92,9 +90,8 @@ export default function NewsletterSection() {
         </form>
         {status && (
           <div
-            className={`mt-4 text-center ${
-              status.type === "success" ? "text-green-600" : "text-red-600"
-            }`}
+            className={`mt-4 text-center ${status.type === "success" ? "text-green-600" : "text-red-600"
+              }`}
           >
             {status.message}
           </div>
