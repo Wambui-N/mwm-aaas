@@ -17,6 +17,7 @@ import PricingSection from '@/components/sections/PricingSection';
 import FAQSection from '@/components/sections/FAQSection';
 import Footer from '@/components/layout/Footer';
 import HomeConsultCtaSection from '@/components/sections/HomeConsultCtaSection';
+import HomeAssessmentCtaSection from '@/components/sections/HomeAssessmentCtaSection';
 import FinalCTASection from '@/components/sections/FinalCTASection';
 import Shelfcue from '../sections/shelfcue';
 import { EnvTest } from '@/components/debug/EnvTest';
@@ -28,6 +29,7 @@ export default function HomePage({ topTags = [] }: NavigationProps) {
       {/* {process.env.NODE_ENV === 'development' && <EnvTest />} */}
       <HeroSection />
       <ProspectFitSection />
+      <HomeAssessmentCtaSection />
       <TestimonialSection />
       <FounderSection />
       <HomeConsultCtaSection />

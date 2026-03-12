@@ -39,7 +39,7 @@ export default function CaseStudiesSection() {
 
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-display font-semibold text-black mb-4">
             Case studies
@@ -69,7 +69,7 @@ export default function CaseStudiesSection() {
           )}
           <div
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scrollbar-hide pb-6 px-2"
+            className="flex gap-6 overflow-x-auto scrollbar-hide pb-6 px-2 snap-x snap-mandatory"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             tabIndex={0}
             aria-label="Case studies list"
@@ -80,7 +80,7 @@ export default function CaseStudiesSection() {
                 href={study.notionUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 w-80 bg-white border border-gray-100 rounded-2xl overflow-hidden hover:border-gray-200 transition-all hover:shadow-lg hover:scale-[1.02] cursor-pointer group"
+                className="flex-shrink-0 w-[85vw] max-w-[20rem] bg-white border border-gray-100 rounded-2xl overflow-hidden hover:border-gray-200 transition-all hover:shadow-lg hover:scale-[1.02] cursor-pointer group snap-start"
               >
                 <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
                   <img

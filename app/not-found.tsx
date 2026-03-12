@@ -1,4 +1,4 @@
-import { satoshi, cormorantGaramond } from '../fonts/fonts';
+import { brule } from '../fonts/fonts';
 import Link from 'next/link';
 
 export const metadata = {
@@ -41,14 +41,14 @@ export default function NotFound() {
         <div className="text-center max-w-2xl mx-auto">
           {/* 404 Number */}
           <div className="mb-8">
-            <h1 className={`${cormorantGaramond.className} text-8xl md:text-9xl font-bold text-gray-200 mb-4`}>
+            <h1 className={`${brule.className} text-8xl md:text-9xl font-bold text-gray-200 mb-4`}>
               404
             </h1>
           </div>
 
           {/* Main Message */}
           <div className="mb-8">
-            <h2 className={`${cormorantGaramond.className} text-3xl md:text-4xl font-semibold text-gray-900 mb-4`}>
+            <h2 className={`${brule.className} text-3xl md:text-4xl font-semibold text-gray-900 mb-4`}>
               Page Not Found
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed">

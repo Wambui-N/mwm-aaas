@@ -70,11 +70,11 @@ export function Testimonial() {
     <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative w-full max-w-5xl mx-auto h-[500px] overflow-hidden rounded-3xl border border-gray-100 bg-white/50 px-6 py-10 md:px-10 md:py-14 shadow-sm"
+      className="relative w-full max-w-5xl mx-auto h-[380px] overflow-hidden rounded-3xl border border-gray-100 bg-white/50 px-6 py-10 shadow-sm sm:h-[450px] md:h-[500px] md:px-10 md:py-14"
     >
       {/* Oversized index number - positioned to bleed off left edge */}
       <motion.div
-        className="pointer-events-none absolute -left-6 top-1/2 -translate-y-1/2 select-none text-[18rem] font-bold leading-none tracking-tighter text-brand-black/5 md:-left-10 md:text-[22rem]"
+        className="pointer-events-none absolute -left-6 top-1/2 -translate-y-1/2 select-none text-[12rem] font-bold leading-none tracking-tighter text-brand-black/5 sm:text-[18rem] md:-left-10 md:text-[22rem]"
         style={{ x: numberX, y: numberY }}
       >
         <AnimatePresence mode="wait">

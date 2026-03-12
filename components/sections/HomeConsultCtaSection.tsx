@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 export default function HomeConsultCtaSection() {
   return (
     <section className="py-16 ">
-      <div className="max-w-3xl mx-auto px-6">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <div className="rounded-2xl text-center border border-gray-100 bg-gray-50 px-6 py-8 md:px-8 md:py-10">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 mb-3">
             Free consultation
@@ -22,7 +22,7 @@ export default function HomeConsultCtaSection() {
           </p>
           <Link
             href="/contact-us"
-            className="inline-flex items-center justify-center rounded-lg bg-brand-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-orange/90"
+            className="inline-flex w-full sm:w-auto items-center justify-center rounded-lg bg-brand-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-orange/90"
           >
             Get a free consultation
             <ArrowRight className="ml-2 h-4 w-4" />

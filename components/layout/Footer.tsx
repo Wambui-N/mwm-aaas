@@ -5,8 +5,8 @@ import { Workflow, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-100 py-12 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
+    <footer className="border-t border-gray-100 bg-white pt-12 pb-[calc(3rem+env(safe-area-inset-bottom))]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <button
@@ -34,7 +34,7 @@ export default function Footer() {
             </button>
           </div>
 
-          <div className="flex items-center space-x-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <a
               href="/blog"
               className="text-gray-500 hover:text-black transition-colors text-sm"

@@ -1,4 +1,4 @@
-import { satoshi, cormorantGaramond } from '../../fonts/fonts';
+import { brule } from '../../fonts/fonts';
 
 export const metadata = {
   title: 'Terms & Conditions - Made with Make',
@@ -86,7 +86,7 @@ export default function TermsPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className={`${cormorantGaramond.className} text-4xl md:text-5xl font-bold text-gray-900 mb-4`}>
+            <h1 className={`${brule.className} text-4xl md:text-5xl font-bold text-gray-900 mb-4`}>
               Terms & Conditions
             </h1>
             <p className="text-gray-600 text-lg">
@@ -105,7 +105,7 @@ export default function TermsPage() {
             <div className="space-y-8">
               {/* Section 1 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   1. Service Description
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
@@ -115,7 +115,7 @@ export default function TermsPage() {
 
               {/* Section 2 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   2. Engagement Structure & Payments
                 </h2>
                 <ul className="text-gray-700 leading-relaxed space-y-2">
@@ -128,7 +128,7 @@ export default function TermsPage() {
 
               {/* Section 3 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   3. Project Scope
                 </h2>
                 <ul className="text-gray-700 leading-relaxed space-y-2">
@@ -141,7 +141,7 @@ export default function TermsPage() {
 
               {/* Section 4 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   4. Client Responsibilities
                 </h2>
                 <ul className="text-gray-700 leading-relaxed space-y-2">
@@ -152,7 +152,7 @@ export default function TermsPage() {
 
               {/* Section 5 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   5. Intellectual Property
                 </h2>
                 <ul className="text-gray-700 leading-relaxed space-y-2">
@@ -163,7 +163,7 @@ export default function TermsPage() {
 
               {/* Section 6 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   6. Support & Optimization
                 </h2>
                 <ul className="text-gray-700 leading-relaxed space-y-2">
@@ -175,7 +175,7 @@ export default function TermsPage() {
 
               {/* Section 7 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   7. Disclaimer
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
@@ -185,7 +185,7 @@ export default function TermsPage() {
 
               {/* Section 8 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   8. Changes to Terms
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
@@ -195,7 +195,7 @@ export default function TermsPage() {
 
               {/* Section 9 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   9. Contact
                 </h2>
                 <p className="text-gray-700 leading-relaxed">

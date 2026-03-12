@@ -1,0 +1,104 @@
+---
+title: "How to Set Up Automated Reporting and Status Updates"
+description: "Manually pulling data from different tools to build weekly reports is one of the biggest hidden time costs in service businesses. Here's how to automate your reporting so it builds and sends itself."
+date: "2026-03-12"
+author: "Wambui Ndung'u"
+image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+category: "Operations"
+tags: ["automation", "Make.com", "reporting", "Google Sheets", "Slack"]
+---
+
+Every week, someone on your team pulls numbers from ClickUp, adds data from Google Sheets, checks the project status in Notion, and formats it all into an update. It takes an hour. The output is a report that takes five minutes to read.
+
+That ratio is wrong. Here's how to flip it.
+
+## What Automated Reporting Does
+
+An automated reporting setup pulls data from your tools on a schedule, formats it into a summary, and delivers it — to your inbox, a Slack channel, or a shared document — without anyone manually doing anything.
+
+The report is always up to date. It always goes out on time. And nobody's Sunday evening is spent chasing numbers.
+
+## How It Works: Step by Step
+
+### Step 1: Define exactly what your report needs to contain
+
+This is the most important step. Before touching any automation, write out the specific data points your weekly report needs to include. For example:
+
+- Number of active projects
+- Tasks completed this week vs. planned
+- Overdue tasks (and who owns them)
+- New leads received this week
+- Invoices sent and paid this week
+
+The clearer this list, the easier the automation is to build.
+
+> 📸 *Screenshot: Simple table of report fields and their data sources*
+
+### Step 2: Make sure your data lives in the right places
+
+Automated reporting only works if the underlying data is clean and consistently stored. Before building, check:
+
+- Are project statuses being kept up to date in ClickUp or Notion?
+- Is lead data in Airtable or a Google Sheet?
+- Are invoice statuses recorded in your billing tool?
+
+If the data isn't reliable, the report won't be reliable. Fix the data hygiene first.
+
+### Step 3: Use Google Sheets as your reporting hub
+
+Google Sheets works well as a central place to pull data into before formatting a report. Make.com can write data from multiple sources into a single sheet on a schedule.
+
+Create a sheet with one row per week and columns for each data point you identified in Step 1.
+
+> 📸 *Screenshot: Google Sheet with weekly reporting columns and example data*
+
+### Step 4: Build the Make.com data-pull scenario
+
+Create a scheduled Make.com scenario that runs every Friday afternoon (or whenever makes sense for your team). It should:
+
+1. **Get data from ClickUp** — number of tasks completed, overdue tasks
+2. **Get data from Airtable** — new leads this week
+3. **Get data from your invoicing tool** — invoices sent and paid
+4. **Write all data to your Google Sheet** — one row per week
+
+> 📸 *Screenshot: Make.com scenario with multiple "Get" modules feeding into a Google Sheets "Add Row" module*
+
+### Step 5: Format and send the report
+
+Once the data is in the sheet, Make.com can format it into a readable summary and send it. Options:
+
+**Option A — Slack summary:** Use Make.com to post a formatted message in your team Slack channel. Use text formatting to make it scannable.
+
+**Option B — Email report:** Send a formatted HTML email to yourself and any stakeholders. Make.com's Gmail module supports HTML formatting.
+
+**Option C — Google Doc or Notion page:** Create or update a weekly report page automatically. Share the link in Slack.
+
+> 📸 *Screenshot: Slack message showing a formatted weekly report posted automatically*
+
+### Step 6: Add a client-facing version (optional)
+
+If you send weekly updates to clients, the same system can generate a client-specific version — pulling only the data relevant to their project and sending it automatically to them on a set day.
+
+> 📸 *Screenshot: Make.com scenario with a filter for client-specific data before sending*
+
+## Tools You'll Need
+
+- **Make.com** — the automation engine
+- **ClickUp or Notion** — for project and task data
+- **Airtable or Google Sheets** — for lead and CRM data
+- **Google Sheets** — as the reporting hub
+- **Gmail or Slack** — for report delivery
+
+## Common Mistakes to Avoid
+
+**Reporting on data that nobody acts on.** Before automating, ask: does anyone actually use this data to make decisions? If not, don't automate it — simplify the report first.
+
+**Not scheduling it at the right time.** A Friday afternoon report lands when people are wrapping up. A Monday morning report is ready when people are planning. Think about when the report is most useful.
+
+**Letting the underlying data go stale.** Automated reports are only as good as the data feeding them. Make sure your team has a clear habit of keeping task statuses and project records updated.
+
+## What to Do Next
+
+With reporting running automatically, the final piece of the puzzle is getting your content and social media on autopilot. [Read the next post on automating social media scheduling →](https://madewithmake.com/blog/automate-social-media-scheduling)
+
+Or [book a free consultation](https://madewithmake.com/contact-us) to map out your reporting setup.

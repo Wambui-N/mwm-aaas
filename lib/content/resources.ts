@@ -18,36 +18,6 @@ export interface Resource {
 
 const resourcesData: Resource[] = [
   {
-    slug: "pomodoro-focus-timer",
-    title: "Pomodoro Focus Timer",
-    description:
-      "A simple Pomodoro timer to stay focused in work blocks. Set your intervals, track sessions, and build a habit of deep work.",
-    type: "tool",
-    url: "#",
-    external: false,
-    component: "PomodoroTimer",
-  },
-  {
-    slug: "json-to-csv-converter",
-    title: "JSON to CSV Converter",
-    description:
-      "Convert JSON data to CSV for spreadsheets, imports, or reporting. Paste JSON and download a clean CSV file.",
-    type: "tool",
-    url: "#",
-    external: false,
-    component: "JsonToCsvConverter",
-  },
-  {
-    slug: "sheets-to-csv-converter",
-    title: "Sheets to CSV Converter",
-    description:
-      "Export or convert Google Sheets–style data to CSV. Useful for moving data between tools or preparing files for automation.",
-    type: "tool",
-    url: "#",
-    external: false,
-    component: "SheetsToCsvConverter",
-  },
-  {
     slug: "webhook-tester",
     title: "Webhook Tester / Inspector",
     description:
@@ -66,6 +36,16 @@ const resourcesData: Resource[] = [
     url: "#",
     external: false,
     component: "DocumentSigner",
+  },
+  {
+    slug: "10-workflows-to-automate-first",
+    title: "10 Workflows to Automate First",
+    description:
+      "The highest-impact manual tasks to automate in your business — what each one is, why it matters, and exactly how to get started.",
+    type: "checklist",
+    url: "#",
+    external: false,
+    component: "WorkflowsToAutomateChecklist",
   },
 ];
 

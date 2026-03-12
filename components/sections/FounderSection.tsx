@@ -36,7 +36,7 @@ export default function FounderSection() {
           })
         }}
       />
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -46,7 +46,7 @@ export default function FounderSection() {
         >
           {/* Left: photo spanning the section height */}
           <div className="relative h-full">
-            <div className="h-full overflow-hidden rounded-2xl bg-gray-100">
+            <div className="h-full max-h-[50vh] overflow-hidden rounded-2xl bg-gray-100 sm:max-h-none">
               <img
                 src="/founder.jpg"
                 alt="Wambui Ndung'u"

@@ -23,7 +23,7 @@ type ResourcesPageProps = {
   searchParams?: Promise<{ type?: string }>;
 };
 
-const VALID_FILTER_TYPES: ResourceType[] = ["tool", "template"];
+const VALID_FILTER_TYPES: ResourceType[] = ["tool", "template", "checklist"];
 
 const TYPE_ICONS: Record<ResourceType, React.ElementType> = {
   tool: Wrench,
@@ -60,7 +60,7 @@ export default async function ResourcesPage({
     <div className="min-h-screen bg-brand-grey/10">
       <NavigationWrapper />
       <main className="pt-12 pb-24">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
           {/* Header */}
           <div className="mb-10 text-center">
@@ -68,14 +68,18 @@ export default async function ResourcesPage({
               {activeType
                 ? activeType === "tool"
                   ? "Tools"
-                  : "Templates"
+                  : activeType === "template"
+                  ? "Templates"
+                  : "Checklists"
                 : "Resources"}
             </h1>
             <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">
-              {activeType
-                ? activeType === "tool"
-                  ? "Interactive utilities to make your work easier."
-                  : "Ready-made structures you can download and adapt to your own workflows."
+              {activeType === "tool"
+                ? "Interactive utilities to make your work easier."
+                : activeType === "template"
+                ? "Ready-made structures you can download and adapt to your own workflows."
+                : activeType === "checklist"
+                ? "Step-by-step checklists to help you decide what to automate first."
                 : "Free tools and templates to help you work smarter and automate faster."}
             </p>
           </div>
@@ -115,6 +119,16 @@ export default async function ResourcesPage({
                 }`}
               >
                 Templates
+              </Link>
+              <Link
+                href="/resources?type=checklist"
+                className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
+                  activeType === "checklist"
+                    ? "bg-brand-orange text-white"
+                    : "bg-brand-grey/30 text-brand-black hover:bg-brand-orange/10 hover:text-brand-orange"
+                }`}
+              >
+                Checklists
               </Link>
             </div>
           </div>

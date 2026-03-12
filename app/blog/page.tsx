@@ -45,7 +45,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     <div className="min-h-screen bg-brand-grey/10">
       <NavigationWrapper />
       <main className="pt-12 pb-24">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
           {/* Header */}
           <div className="mb-12 text-center">

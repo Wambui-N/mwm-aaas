@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { satoshi, cormorantGaramond } from "../fonts/fonts";
+import { brule } from "../fonts/fonts";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from '@vercel/analytics/next';
 import { defaultMetadata, generateStructuredData } from '@/lib/seo';
@@ -73,7 +73,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${satoshi.variable} ${cormorantGaramond.variable} font-sans`}
+        className={`${brule.variable} font-sans`}
       >
         {children}
         <SpeedInsights />

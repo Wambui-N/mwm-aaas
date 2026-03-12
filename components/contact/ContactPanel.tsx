@@ -74,7 +74,7 @@ export default function ContactPanel() {
             key={id}
             onClick={() => setSelected(id)}
             className={cn(
-              'group relative flex flex-col items-start gap-3 rounded-2xl border p-6 text-left transition-all duration-200',
+              'group relative flex flex-col items-start gap-3 rounded-2xl border p-5 text-left transition-all duration-200 sm:p-6',
               selected === id
                 ? 'border-brand-orange bg-brand-orange/5 shadow-sm'
                 : 'border-gray-200 bg-white hover:border-brand-grey hover:shadow-sm'

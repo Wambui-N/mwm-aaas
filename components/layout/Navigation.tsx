@@ -58,6 +58,12 @@ const RESOURCES_ITEMS = [
     description: 'Ready-to-use workflow templates.',
     icon: FileText,
   },
+  {
+    label: 'Checklists',
+    href: '/resources?type=checklist',
+    description: 'Step-by-step checklists to help you choose what to automate first.',
+    icon: FileText,
+  },
 ];
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -131,7 +137,7 @@ export default function Navigation({ topTags = [] }: NavigationProps) {
           <Link
             href="/"
             aria-label="Made with Make — Home"
-            className="flex items-center space-x-2 focus:outline-none"
+            className="flex min-w-0 items-center space-x-2 focus:outline-none"
           >
             <span className="w-8 h-8 flex items-center justify-center">
               <svg width="32" height="28" viewBox="0 0 539 468" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,7 +148,9 @@ export default function Navigation({ topTags = [] }: NavigationProps) {
                 />
               </svg>
             </span>
-            <span className="text-lg font-semibold text-brand-black">Made with Make</span>
+            <span className="truncate text-base font-semibold text-brand-black sm:text-lg">
+              Made with Make
+            </span>
           </Link>
 
           {/* Right side: desktop nav + CTA + mobile toggle */}
@@ -241,7 +249,7 @@ export default function Navigation({ topTags = [] }: NavigationProps) {
 
             {/* Mobile hamburger (phones only) */}
             <button
-              className="sm:hidden p-2 rounded-md text-brand-black hover:bg-brand-grey/20 transition-colors"
+              className="sm:hidden min-h-[44px] min-w-[44px] p-2.5 rounded-md text-brand-black hover:bg-brand-grey/20 transition-colors"
               onClick={() => setMobileOpen((v) => !v)}
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             >
@@ -323,7 +331,7 @@ function MobileSection({ label, children }: { label: string; children: React.Rea
   return (
     <div>
       <button
-        className="flex w-full items-center justify-between py-2.5 text-sm font-semibold text-brand-black"
+        className="flex min-h-[44px] w-full items-center justify-between py-3 text-sm font-semibold text-brand-black"
         onClick={() => setOpen((v) => !v)}
       >
         {label}
@@ -361,7 +369,7 @@ function MobileLink({
     <Link
       href={href}
       onClick={onClick}
-      className="block py-2 text-sm text-gray-600 hover:text-brand-black transition-colors"
+      className="block min-h-[44px] py-3 text-sm text-gray-600 hover:text-brand-black transition-colors"
     >
       {children}
     </Link>

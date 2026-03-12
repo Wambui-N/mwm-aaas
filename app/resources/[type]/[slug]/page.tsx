@@ -12,6 +12,7 @@ import {
 import { scorecardUrl, bookingUrl } from "@/lib/links";
 import NavigationWrapper from "@/components/layout/NavigationWrapper";
 import Footer from "@/components/layout/Footer";
+import { ConsultCta } from "@/components/sections/ConsultCta";
 import ToolRenderer from "@/components/tools/ToolRenderer";
 import { Calculator, FileCheck, ListChecks, ArrowRight } from "lucide-react";
 
@@ -109,7 +110,7 @@ export default async function ResourceDetailPage({ params }: Props) {
           </article>
 
           {/* Other tools */}
-          {otherTools.length > 0 && (
+          {/* {otherTools.length > 0 && (
             <section className="mb-10">
               <p className="text-sm font-bold text-brand-black mb-4 uppercase tracking-wide">
                 Other tools —{" "}
@@ -146,27 +147,24 @@ export default async function ResourceDetailPage({ params }: Props) {
                 })}
               </div>
             </section>
-          )}
+          )} */}
 
           
           {/* booking CTA */}
-        <aside className="mt-8 rounded-2xl border border-gray-100 bg-gray-50 p-8">
-          <h2 className="text-xl font-display font-semibold text-brand-black mb-3">
-          Want more customised help?
-          </h2>
-          <p className="text-gray-600 mb-6">
-            If you&apos;d like to talk through how this could work in your own
-            business, you can request a free consultation and we&apos;ll figure
-            out what makes sense for you.
-          </p>
-          <Link
-            href="/contact-us"
-            className="inline-flex items-center justify-center rounded-lg bg-brand-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-orange/90"
-          >
-            Get a free consultation
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </aside>
+          <ConsultCta
+            heading={
+              resource.type === "checklist"
+                ? "Want help actually building these workflows?"
+                : "Want more customised help?"
+            }
+            body={
+              resource.type === "checklist"
+                ? "If you’d like to talk through which of these workflows make the most sense for your business, you can request a free consultation and we’ll prioritise the first 2–3 together."
+                : undefined
+            }
+            variant="dark"
+            className="mt-8"
+          />
         </div>
       </main>
       <Footer />

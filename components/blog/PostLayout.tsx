@@ -187,11 +187,11 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
         </div> */}
 
         {/* booking CTA */}
-        <aside className="mt-8 rounded-2xl border border-gray-100 bg-gray-50 p-8">
-          <h2 className="text-xl font-display font-semibold text-brand-black mb-3">
+        <aside className="mt-8 rounded-2xl bg-brand-black p-8 text-white">
+          <h2 className="text-xl font-display font-semibold text-brand-white mb-3">
           Want help automating your business?
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-brand-grey mb-6">
             If you&apos;d like to talk through how this could work in your own
             business, you can request a free consultation and we&apos;ll figure
             out what makes sense together.

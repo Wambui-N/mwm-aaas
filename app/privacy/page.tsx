@@ -1,4 +1,4 @@
-import { satoshi, cormorantGaramond } from '../../fonts/fonts';
+import { brule } from '../../fonts/fonts';
 
 export const metadata = {
   title: 'Privacy Policy - Made with Make',
@@ -82,7 +82,7 @@ export default function PrivacyPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className={`${cormorantGaramond.className} text-4xl md:text-5xl font-bold text-gray-900 mb-4`}>
+            <h1 className={`${brule.className} text-4xl md:text-5xl font-bold text-gray-900 mb-4`}>
               Privacy Policy
             </h1>
             <p className="text-gray-600 text-lg">
@@ -101,7 +101,7 @@ export default function PrivacyPage() {
             <div className="space-y-8">
               {/* Section 1 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   1. Information We Collect
                 </h2>
                 <p className="text-gray-700 leading-relaxed mb-3">
@@ -116,7 +116,7 @@ export default function PrivacyPage() {
 
               {/* Section 2 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   2. How We Use It
                 </h2>
                 <p className="text-gray-700 leading-relaxed mb-3">
@@ -132,7 +132,7 @@ export default function PrivacyPage() {
 
               {/* Section 3 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   3. Data Sharing
                 </h2>
                 <p className="text-gray-700 leading-relaxed mb-3">
@@ -146,7 +146,7 @@ export default function PrivacyPage() {
 
               {/* Section 4 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   4. Data Security
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
@@ -156,7 +156,7 @@ export default function PrivacyPage() {
 
               {/* Section 5 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   5. Your Choices
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
@@ -170,7 +170,7 @@ export default function PrivacyPage() {
 
               {/* Section 6 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   6. Cookies
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
@@ -180,7 +180,7 @@ export default function PrivacyPage() {
 
               {/* Section 7 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   7. Changes to This Policy
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
@@ -190,7 +190,7 @@ export default function PrivacyPage() {
 
               {/* Section 8 */}
               <section>
-                <h2 className={`${cormorantGaramond.className} text-2xl font-semibold text-gray-900 mb-4`}>
+                <h2 className={`${brule.className} text-2xl font-semibold text-gray-900 mb-4`}>
                   8. Contact
                 </h2>
                 <p className="text-gray-700 leading-relaxed">

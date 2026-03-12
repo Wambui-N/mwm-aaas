@@ -18,12 +18,12 @@ export default function TallyEmbed() {
       <iframe
         src="https://tally.so/r/mDZWMb"
         width="100%"
-        height={720}
         frameBorder={0}
         loading="lazy"
         title="Free consultation request form"
         aria-label="Contact form — fill this to help us prepare for your meeting"
         onLoad={() => setLoaded(true)}
+        style={{ height: "min(720px, 70vh)" }}
         className={loaded ? 'opacity-100 transition-opacity duration-300' : 'opacity-0'}
       />
     </div>

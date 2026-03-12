@@ -10,9 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-satoshi)', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-cormorant-garamond)', 'Georgia', 'serif'],
-        display: ['var(--font-cormorant-garamond)', 'Georgia', 'serif'],
+        sans: ['system-ui', 'sans-serif'],
+        serif: ['var(--font-brule)', 'Georgia', 'serif'],
+        display: ['var(--font-brule)', 'Georgia', 'serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -95,6 +95,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography'),
+  ],
 };
 export default config;
