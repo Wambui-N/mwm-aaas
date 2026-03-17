@@ -1,6 +1,6 @@
 ---
 title: "How to Automate Contract Sending and Signature Collection (So Nothing Gets Stuck in Someone's Inbox)"
-description: "Manually attaching contracts, emailing them, and chasing signatures is one of the most unnecessary tasks in any service business. Here's how to automate the full contract lifecycle — from sending to signing to filing — so nothing slips through the cracks."
+description: "Manually attaching contracts, emailing them, and chasing signatures is one of the most time consuming tasks in any service business. Here's how to automate the full contract lifecycle, from sending to signing to filing, so nothing slips through the cracks."
 date: "2026-03-11"
 author: "Wambui Ndung'u"
 image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=80"
@@ -8,7 +8,7 @@ category: "Automation"
 tags: ["automation", "Make.com", "contracts", "e-signature", "client management"]
 ---
 
-The client said yes. You've got verbal confirmation. You're excited. And then — you spend the next three days chasing a signature on a contract that's sitting in their inbox, unopened, buried under 200 other emails.
+The client said yes. You've got verbal confirmation. You're excited. And then, you spend the next three days chasing a signature on a contract that's sitting in their inbox, unopened, buried under 200 other emails.
 
 This happens in almost every service business. And it doesn't have to.
 
@@ -44,13 +44,11 @@ Once this automation is running, here's what the contract process looks like:
 
 1. ✅ A trigger fires (deal won, proposal approved, or payment received)
 2. ✅ A contract is generated automatically from your template with the correct client details
-3. ✅ It's sent to the client for signature — no manual email required
+3. ✅ It's sent to the client for signature, no manual email required
 4. ✅ Automatic reminders go out at day 3 and day 7 if unsigned
 5. ✅ You're notified the moment it's signed
 6. ✅ The signed PDF is filed in the right Google Drive folder automatically
-7. ✅ Your onboarding sequence kicks off automatically — without you doing a thing
-
-> 💡 **Time to build this:** About 45–60 minutes across your e-signature tool and Make.com. The automation then runs indefinitely on its own.
+7. ✅ Your onboarding sequence kicks off automatically
 
 ---
 
@@ -74,9 +72,27 @@ For most small-to-mid-size service businesses, **PandaDoc** is the best starting
 
 ### Step 2: Build Your Contract Template
 
-In your chosen e-signature tool, create your standard contract with placeholder variables — just like you did for your proposal template.
+In your chosen e-signature tool, create your standard contract with placeholder variables.
 
 Include variables for anything that changes between clients:
+
+```
+[client_name]
+[company_name]
+[project_scope]
+[start_date]
+[project_value]
+[payment_terms]
+[delivery_date]
+[client_email]
+```
+
+![PandaDoc template editor showing placeholder variable fields marked in the document](/pandadoc-template.png)
+
+
+Once your template is set up, you won't need to edit the contract itself again, only the variables change. The legal language, the terms, the layout, all of it stays the same. Only the client-specific details get swapped in.
+
+If on a budget, or just want to test things out first, you can create a template on google docs with the variables: 
 
 ```
 {{client_name}}
@@ -88,10 +104,6 @@ Include variables for anything that changes between clients:
 {{delivery_date}}
 {{client_email}}
 ```
-
-> 📸 *Screenshot: PandaDoc template editor showing placeholder variable fields marked in the document*
-
-Once your template is set up, you'll never edit the contract itself again — only the variables change. The legal language, the terms, the layout — all of it stays the same. Only the client-specific details get swapped in.
 
 > ✅ **After this step:** You have a contract template that can be populated instantly with any client's details.
 
@@ -108,11 +120,9 @@ If you use a CRM (like HubSpot or Pipedrive), the trigger is: *deal moved to "Wo
 If clients fill in a "ready to proceed" form (a good practice), use that form submission as the trigger.
 
 **Option C — Manual Trigger**
-If your deals happen via phone or in-person, you can use a simple Make.com webhook you trigger manually — a button in your browser or a Slack command.
+If your deals happen via phone or in-person, you can use a simple Make.com webhook you trigger manually, a button in your browser or a Slack command.
 
-> 📸 *Screenshot: Make.com trigger module options — showing Airtable "Record Updated" and Tally "New Submission" as examples*
-
-> ⚠️ **Important:** Make sure your trigger only fires when you're *genuinely* ready to send a contract. A contract going out prematurely — before you've actually confirmed the deal — is worse than a delayed one.
+> ⚠️ **Important:** Make sure your trigger only fires when you're *genuinely* ready to send a contract. A contract going out prematurely before you've actually confirmed the deal is worse than a delayed one.
 
 > ✅ **After this step:** You know exactly what event starts the automation.
 
@@ -137,9 +147,7 @@ Use the PandaDoc "Send Document" module. Add the client's name and email address
 **Module 5 — Notify Yourself**
 Send a Slack message or email to yourself confirming the contract has been sent. Include the client name and a link to the document in PandaDoc.
 
-> 📸 *Screenshot: Full Make.com scenario showing all five modules connected*
-
-> 📸 *Screenshot: Close-up of the PandaDoc "Create Document from Template" module with variable mappings visible*
+![Full Make.com scenario showing all five modules connected](/automate-contract-sending-and-signature-collection.png)
 
 ---
 
@@ -151,9 +159,7 @@ A good reminder schedule:
 - **Day 3:** Friendly nudge — *"Just wanted to make sure this didn't get buried!"*
 - **Day 7:** Slightly firmer — *"We're holding your project slot until this is signed."*
 
-These reminders send *from inside your e-signature tool* — you don't need additional Make.com modules for this. Just configure it once in the tool settings.
-
-> 📸 *Screenshot: PandaDoc reminder settings panel with day 3 and day 7 reminders configured*
+These reminders send *from inside your e-signature tool* You don't need additional Make.com modules for this. Just configure it once in the tool settings.
 
 > 💡 **Pro tip:** Keep reminder emails short and conversational. A one-line reminder that sounds like *you* wrote it gets signed faster than a formal automated notice.
 
@@ -171,9 +177,7 @@ This is where the automation really pays off. When PandaDoc fires a "Document Si
 
 All of this happens within seconds of the client clicking "Sign."
 
-> 📸 *Screenshot: Make.com scenario triggered by the PandaDoc "Document Signed" webhook event*
-
-> ✅ **After this step:** You have an end-to-end contract workflow — from trigger to sending to signing to onboarding — that runs automatically.
+> ✅ **After this step:** You have an end-to-end contract workflow from trigger to sending to signing to onboarding that runs automatically.
 
 ---
 
@@ -185,14 +189,14 @@ All of this happens within seconds of the client clicking "Sign."
 | **Make.com** | Automation engine | Free tier available |
 | **Google Drive** | Filing signed contracts | Free |
 | **Gmail or Slack** | Internal notifications | Free |
-| **Your CRM** (Airtable, HubSpot, etc.) | Trigger + deal tracking | Varies |
+| **Your CRM** (Airtable, HubSpot, Google Sheets, etc.) | Trigger + deal tracking | Varies |
 
 ---
 
 ## Common Mistakes to Avoid
 
 **Sending contracts before they've actually been confirmed.**
-Automation is fast — sometimes too fast. Make sure your trigger only fires when the deal is *genuinely* done. A contract sent before a client expects it can feel pushy. Add a manual approval step if you're unsure.
+Automation is fast, sometimes too fast. Make sure your trigger only fires when the deal is *genuinely* done. A contract sent before a client expects it can feel pushy. Add a manual approval step if you're unsure.
 
 **Not testing the variable mapping before going live.**
 Run a test with dummy data. Check every single placeholder: does it populate correctly? Is the formatting right? Is the date format what you expected? Fix these in testing, not when a real client is on the receiving end.
@@ -201,7 +205,7 @@ Run a test with dummy data. Check every single placeholder: does it populate cor
 You should always know when a contract goes out. Don't build an automation that sends contracts silently. A quick Slack or email alert keeps you in the loop without slowing anything down.
 
 **Not filing signed contracts in a consistent place.**
-A signed contract that exists only in your email inbox is a contract waiting to get lost. Always include a step that saves the signed PDF to a named folder in Google Drive — something like `Clients > [Client Name] > Contracts`.
+A signed contract that exists only in your email inbox is a contract waiting to get lost. Always include a step that saves the signed PDF to a named folder in Google Drive, something like `Clients > [Client Name] > Contracts`.
 
 **Using one contract template for everything.**
 If you have multiple types of work (retainer, one-off project, consultancy), build a template for each one. The extra 20 minutes per template will save you hours of awkward edits down the line.
@@ -217,14 +221,12 @@ You now have a complete contract workflow that:
 - Files everything in the right place
 - Kicks off onboarding without any manual handoff
 
-Your client experience is now consistent, professional, and fast — from the moment they say yes.
+Your client experience is now consistent, professional, and fast, from the moment they say yes.
 
 ---
 
 ## What to Do Next
 
-Contract signing is the gateway to onboarding. The next step is making sure everything that follows the signature — the welcome email, the project setup, the kickoff call — happens just as automatically.
+Contract signing is the gateway to onboarding. The next step is making sure everything that follows the signature; the welcome email, the project setup and the kickoff call happens just as automatically.
 
-[Read the next post: How to Build an Automated Client Onboarding Flow →](https://madewithmake.com/blog/automate-client-onboarding)
-
-Or if you'd like help mapping this out for your specific contract setup, [book a free consultation here](https://madewithmake.com/contact-us).
+If you'd like help mapping this out for your specific contract setup, [book a free consultation here](https://madewithmake.com/contact-us) and I'll guide you through it.
