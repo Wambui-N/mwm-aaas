@@ -1,0 +1,234 @@
+---
+title: "How to Automate Invoice and Payment Follow-Up (And Stop Chasing Clients for Money)"
+description: "Chasing unpaid invoices manually is time-consuming and uncomfortable. Here's how to set up an automated payment follow-up system that sends reminders on a schedule, stops the moment you get paid, and escalates to you only when a human conversation is actually needed."
+date: "2026-03-09"
+author: "Wambui Ndung'u"
+image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80"
+category: "Operations"
+tags: ["automation", "Make.com", "invoicing", "payments", "cash flow"]
+---
+
+You've done the work. You've delivered. You sent the invoice. And now you're sitting there two weeks later, wondering whether it's been seen, whether it got lost, whether it's awkward to follow up again.
+
+Chasing money is uncomfortable. It shouldn't be part of your job. And with the right automation, it won't be.
+
+By the end of this post, you'll have a system that follows up on unpaid invoices automatically, adjusts the tone as the days go by, stops the moment payment lands, and alerts you only when a human conversation is genuinely needed.
+
+---
+
+## Why Manual Invoice Follow-Up Always Breaks Down
+
+The psychology is simple: following up on money feels awkward, so most people delay it longer than they should.
+
+When follow-up is manual, here's what typically happens:
+
+- Invoice sent on day 1
+- Due date passes — nothing
+- Day 5 or 6 — you send a "just checking in" email (slightly anxious)
+- Day 12 — you send another, more apologetic email
+- Day 20 — you consider if it's worth the awkwardness to call
+
+Meanwhile, your cash flow suffers, your mental energy is spent, and the client — who often just forgot — is only a well-timed nudge away from paying.
+
+**Automated follow-up removes the awkwardness entirely.** The system sends reminders consistently because it isn't embarrassed. And clients who know reminders will keep coming tend to pay faster.
+
+---
+
+## What You'll Be Able to Do After This
+
+Once this automation is live:
+
+1. ✅ Overdue invoices are detected automatically
+2. ✅ A polite reminder goes out at Day 3
+3. ✅ A firmer follow-up goes at Day 7
+4. ✅ A final notice goes at Day 14
+5. ✅ All reminders stop the moment payment is recorded
+6. ✅ You receive a personal alert if an invoice remains unpaid after Day 14 — that's when *you* step in
+
+> 💡 **Time to build this:** About 45–60 minutes. The hardest part is writing emails that sound human. The Make.com logic itself takes under 30 minutes.
+
+---
+
+## How It Works: Step by Step
+
+### Step 1: Choose Your Invoicing Tool
+
+Your invoicing tool needs to connect with Make.com so the automation knows when invoices are overdue and when they've been paid. Here are the best-supported options:
+
+| Tool | Make.com Integration | Best For | Cost |
+|---|---|---|---|
+| **Wave** | ✅ Native | Freelancers & small agencies | Free |
+| **QuickBooks** | ✅ Native | Growing businesses with accountants | From ~$18/mo |
+| **Stripe** | ✅ Native | Card payments & subscriptions | Per-transaction fees |
+| **FreshBooks** | ✅ Native | Service-based businesses | From ~$17/mo |
+| **Xero** | ✅ Native | UK/AU/NZ businesses | From ~$15/mo |
+
+If you don't have a preference yet, **Wave** is an excellent free starting point. It handles invoicing cleanly and the Make.com integration covers what you need.
+
+> 💡 **Pro tip:** If you currently send invoices via email as PDFs, you won't be able to automate the "invoice paid" detection — there's nothing to detect. You need to move to a proper invoicing tool first. Wave takes about 20 minutes to set up.
+
+---
+
+### Step 2: Set Up Your Invoice Trigger in Make.com
+
+There are two ways to detect overdue invoices in Make.com:
+
+**Option A — Scheduled check (works with most tools)**
+Create a Make.com scenario that runs once per day. It fetches all open invoices from your invoicing tool, filters for any that are past their due date, and for each one, checks the number of days overdue.
+
+**Option B — Webhook trigger (PandaDoc, Stripe)**
+Some tools fire a webhook when an invoice status changes to "overdue." If your tool supports this, it's cleaner and more real-time.
+
+> 📸 *Screenshot: Make.com scenario with a scheduled trigger set to run daily, with a "Get Invoices" module filtering for overdue status*
+
+For the daily check approach, your filter condition would be:
+
+```
+Invoice Status = "Unpaid"
+AND Due Date < Today's Date
+```
+
+> ✅ **After this step:** Make.com is scanning your invoicing tool daily and identifying which invoices need follow-up.
+
+---
+
+### Step 3: Write Your Reminder Emails
+
+This is the step most people get wrong. Automated reminders don't have to sound automated. Write them in your actual voice — the way you'd speak to a client you like.
+
+Here are three templates that work:
+
+**Day 3 — Friendly reminder**
+> *Hi {{first_name}},*
+>
+> *Just a quick note to check in — invoice #{{invoice_number}} for {{invoice_amount}} was due on {{due_date}}.*
+>
+> *If you've already sent payment, please ignore this. If not, here's the link to pay online: {{payment_link}}.*
+>
+> *Thanks so much,*
+> *{{your_name}}*
+
+**Day 7 — Gentle follow-up**
+> *Hi {{first_name}},*
+>
+> *Following up on invoice #{{invoice_number}} for {{invoice_amount}}, which is now 7 days overdue.*
+>
+> *Please let me know if anything has come up, or if there's a better way to get this sorted. Payment link: {{payment_link}}.*
+>
+> *{{your_name}}*
+
+**Day 14 — Final notice**
+> *Hi {{first_name}},*
+>
+> *This is a final notice regarding invoice #{{invoice_number}} for {{invoice_amount}}, now 14 days past due.*
+>
+> *Please arrange payment today, or reply to this email if there's something we need to discuss.*
+>
+> *Payment link: {{payment_link}}*
+>
+> *{{your_name}}*
+
+> 📸 *Screenshot: Gmail module in Make.com showing the Day 3 reminder email with variable fields mapped*
+
+> 💡 **Pro tip:** Read each email out loud before saving it. If it sounds like a system generated it, rewrite it. Clients respond to emails that sound like a person wrote them.
+
+---
+
+### Step 4: Add Conditional Logic — "Has This Been Paid?"
+
+Before each reminder sends, Make.com needs to check whether the invoice has been paid since the last check. If it has, stop. If it hasn't, send the reminder.
+
+Use a **Filter** or **Router** module in Make.com to check the invoice status at each stage:
+
+```
+IF Invoice Status = "Paid" → Stop / do nothing
+IF Invoice Status = "Unpaid" AND Days Overdue = 3 → Send Day 3 email
+IF Invoice Status = "Unpaid" AND Days Overdue = 7 → Send Day 7 email
+IF Invoice Status = "Unpaid" AND Days Overdue = 14 → Send Day 14 email + alert me
+```
+
+> 📸 *Screenshot: Make.com Router module with filter conditions checking invoice status and days overdue*
+
+> ⚠️ **This is the most important part of the whole system.** Test the "paid" filter extensively before going live. The worst thing this automation can do is chase a client who already paid.
+
+> ✅ **After this step:** Reminders are conditional — they only send when the invoice is actually still unpaid.
+
+---
+
+### Step 5: Escalate to Yourself After Day 14
+
+If an invoice is still unpaid after the final notice, the automation should stop sending automated emails and alert you personally. At this point, a real conversation is more appropriate than another reminder.
+
+Add a module that sends you a Slack message or email with:
+
+- Client name
+- Invoice number and amount
+- Number of days overdue
+- Link to the invoice in your invoicing tool
+
+> 📸 *Screenshot: Slack notification sent to yourself showing invoice details — client name, amount, days overdue*
+
+> 💡 **Pro tip:** When you reach this point, a phone call almost always works better than an email. The automation flags it; you make the call.
+
+---
+
+### Step 6: Stop Reminders When Payment Is Received
+
+When payment is recorded in your invoicing tool, Make.com should immediately update a field in your tracker (Airtable or Google Sheets) to mark the invoice as paid. The daily check scenario sees this status and skips it from that point forward.
+
+If your invoicing tool supports webhooks, you can also trigger an instant "payment received" confirmation email to the client — a nice professional touch that happens without you doing anything.
+
+> 📸 *Screenshot: Make.com webhook trigger on payment received, sending a "thank you" confirmation email*
+
+---
+
+## Tools You'll Need
+
+| Tool | Purpose | Cost |
+|---|---|---|
+| **Wave / QuickBooks / Stripe** | Invoicing + payment detection | Free–$18/mo |
+| **Make.com** | Automation logic + scheduling | Free tier available |
+| **Gmail** | Sending reminder emails | Free |
+| **Slack** | Personal escalation alerts | Free |
+| **Airtable or Google Sheets** | Invoice tracking log (optional) | Free |
+
+---
+
+## Common Mistakes to Avoid
+
+**Sending reminders that sound like they came from a robot.**
+Automated doesn't have to mean cold. Your clients should not be able to tell the difference between an automated reminder and one you wrote personally. If they can, rewrite the email.
+
+**Not testing the "paid" filter before going live.**
+This cannot be overstated. Set up a test invoice, mark it as paid, and confirm the automation skips it. Then try with an overdue one. Don't trust it until you've tested both paths.
+
+**Starting reminders on day 1.**
+Day 1 is too aggressive — it implies you don't trust the client. Day 3 is the right balance: timely without being pushy.
+
+**Using the same tone for all three emails.**
+Each email should escalate slightly in urgency. Day 3 is friendly. Day 7 is firmer. Day 14 is clear and direct. If all three sound the same, the progression loses its effect.
+
+**Not having a payment link in every email.**
+Every reminder should contain a direct payment link. Friction is the enemy of payment. Make it as easy as possible for the client to pay the moment they see the email.
+
+---
+
+## What You've Just Built
+
+You now have a payment follow-up system that:
+- Checks for overdue invoices automatically every day
+- Sends professionally written, human-sounding reminders on a schedule
+- Stops automatically the moment payment is received
+- Escalates to you — and only you — when a real conversation is needed
+
+You'll get paid faster. You'll spend zero energy on chasing. And your client relationships won't suffer from awkward follow-ups.
+
+---
+
+## What to Do Next
+
+With invoicing running automatically, the next win is making sure your lead pipeline is just as well-managed. Leads that don't get followed up quickly go cold — the same way invoices that don't get chased go unpaid.
+
+[Read the next post: How to Set Up Automated Lead Follow-Up →](https://madewithmake.com/blog/automate-lead-followup)
+
+Or [book a free consultation](https://madewithmake.com/contact-us) if you'd like help setting this up for your specific invoicing workflow.

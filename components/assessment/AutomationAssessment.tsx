@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import Link from "next/link";
+import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
+type PageType = "intro" | "question" | "contact";
 type Area = "operations" | "clients" | "tools";
+type ProfileKey = "manual" | "patchwork" | "systems";
 
 type Question = {
   id: string;
@@ -90,100 +92,6 @@ type Scores = {
   overall: number;
 };
 
-type ProfileKey = "manual" | "patchwork" | "systems";
-
-const PROFILE_COPY: Record<
-  ProfileKey,
-  { label: string; color: string; headline: string; body: string }
-> = {
-  manual: {
-    label: "The Manual Machine",
-    color: "bg-red-50 text-red-900 border-red-200",
-    headline: "Most things still run on human effort.",
-    body: "Right now, your team is keeping everything moving through memory, spreadsheets, and one-off fixes. That's normal at this stage — and also exactly where automation starts to pay off quickly.",
-  },
-  patchwork: {
-    label: "The Patchwork Operator",
-    color: "bg-yellow-50 text-yellow-900 border-yellow-200",
-    headline: "You have pieces in place, but they don't fully connect.",
-    body: "Some workflows are automated or systemised, but there are still gaps where work falls through the cracks, data is duplicated, or things depend on the right person remembering what to do.",
-  },
-  systems: {
-    label: "The Systems Builder",
-    color: "bg-emerald-50 text-emerald-900 border-emerald-200",
-    headline: "You think in systems — now it's about refinement.",
-    body: "You already have solid processes and some automations in place. The next step is optimising the highest leverage workflows and designing a roadmap for where to go next.",
-  },
-};
-
-const GAP_CARDS: Record<
-  Area,
-  { title: string; body: string; cta: string; href: string }[]
-> = {
-  operations: [
-    {
-      title: "Your core workflows live in people's heads",
-      body: "Start by documenting the 2–3 workflows you run most often — onboarding, delivery, or reporting. Once it's written down, it's much easier to spot which steps should be automated.",
-      cta: "Use the 10-workflow checklist to choose what to document first.",
-      href: "/resources/checklist/10-workflows-to-automate-first",
-    },
-    {
-      title: "No standard starting point for projects",
-      body: "If every project is set up from scratch, task creation is a quick win. A single template for 'how we start a project' can save dozens of clicks every week.",
-      cta: "Read the guide on automating internal task creation.",
-      href:
-        "/blog/how-to-automate-internal-task-creation-when-a-new-project-starts",
-    },
-    {
-      title: "Reporting steals more time than it should",
-      body: "Weekly or monthly updates shouldn't require manual number-chasing. Once your metrics are clear, you can automate how they're pulled and shared.",
-      cta: "Read the guide on automated reporting and status updates.",
-      href: "/blog/how-to-set-up-automated-reporting-and-status-updates",
-    },
-  ],
-  clients: [
-    {
-      title: "Leads wait too long for a response",
-      body: "Speed to response is one of the biggest drivers of conversion. An automated acknowledgement and a simple follow-up flow can transform your pipeline.",
-      cta: "Read the guide on automated lead follow-up.",
-      href: "/blog/how-to-set-up-automated-lead-follow-up",
-    },
-    {
-      title: "You chase invoices manually",
-      body: "If you or your team are nudging clients one by one, you're doing work a system could handle for you — and it's uncomfortable work at that.",
-      cta: "Read the guide on automating invoice and payment follow-up.",
-      href: "/blog/how-to-automate-invoice-and-payment-follow-up",
-    },
-    {
-      title: "Onboarding is inconsistent client to client",
-      body: "When onboarding depends on who remembers what, you get uneven experiences. A simple sequence and a few automations can make this smooth and repeatable.",
-      cta: "Read the guide on building an automated client onboarding flow.",
-      href: "/blog/how-to-build-an-automated-client-onboarding-flow",
-    },
-  ],
-  tools: [
-    {
-      title: "Your tools don't talk to each other",
-      body: "Copy-pasting data between tools is a clear signal for automation. Start with one high-frequency handoff — like form submissions into your CRM.",
-      cta: "Use the checklist to pick your first integration.",
-      href: "/resources/checklist/10-workflows-to-automate-first",
-    },
-    {
-      title: "Reporting requires digging in multiple places",
-      body: "If you have to open three tools to answer a basic question, you likely need a simple 'source of truth' and a few automations to keep it up to date.",
-      cta: "Read the guide on eliminating manual data entry.",
-      href:
-        "/blog/how-to-eliminate-manual-data-entry-between-your-business-tools",
-    },
-    {
-      title: "Automations exist, but there's no roadmap",
-      body: "Scattered one-off automations can be fragile. A simple roadmap — which workflows to automate in what order — keeps changes strategic instead of reactive.",
-      cta: "Book a free consultation to prioritise your next 2–3 automations.",
-      href: "/contact-us",
-    },
-  ],
-};
-
 function computeScores(answers: Record<string, number | null>): Scores | null {
   const areaTotals: Record<Area, { sum: number; count: number }> = {
     operations: { sum: 0, count: 0 },
@@ -225,18 +133,19 @@ function pickProfile(overallPercent: number): ProfileKey {
   return "systems";
 }
 
-function weakestArea(scores: Scores): Area {
-  const entries: [Area, number][] = [
-    ["operations", scores.operations],
-    ["clients", scores.clients],
-    ["tools", scores.tools],
-  ];
-  return entries.reduce((weakest, current) =>
-    current[1] < weakest[1] ? current : weakest
-  )[0];
+const PROFILE_SLUG: Record<ProfileKey, string> = {
+  manual: "manual-machine",
+  patchwork: "patchwork-operator",
+  systems: "systems-builder",
+};
+
+function validateEmail(v: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 }
 
-export function AutomationAssessment() {
+export function AutomationAssessment({ fullPage }: { fullPage?: boolean }) {
+  const router = useRouter();
+
   const [answers, setAnswers] = useState<Record<string, number | null>>(() => {
     const initial: Record<string, number | null> = {};
     QUESTIONS.forEach((q) => {
@@ -246,312 +155,341 @@ export function AutomationAssessment() {
   });
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [nameError, setNameError] = useState("");
 
   const scores = useMemo(() => computeScores(answers), [answers]);
 
-  const totalQuestions = QUESTIONS.length;
-  const currentQuestion = QUESTIONS[currentIndex];
+  // Pages: intro, questions..., name, email
+  const pages = useMemo(() => {
+    const p: { type: PageType; id: string; question?: Question }[] = [];
+    p.push({ type: "intro", id: "intro" });
+    for (const q of QUESTIONS) p.push({ type: "question", id: q.id, question: q });
+    p.push({ type: "contact", id: "name" });
+    p.push({ type: "contact", id: "email" });
+    return p;
+  }, []);
+
+  const totalSteps = QUESTIONS.length + 2; // questions + 2 contact steps
+  const currentPage = pages[currentIndex];
   const answeredCount = QUESTIONS.filter((q) => answers[q.id] != null).length;
   const progressPercent = Math.round(
-    (answeredCount / totalQuestions) * 100
+    ((answeredCount + (name ? 1 : 0) + (email ? 1 : 0)) / totalSteps) * 100
   );
+
+  // keyboard navigation
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      // Don't intercept when typing in inputs
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      )
+        return;
+      if (e.key === "ArrowLeft") setCurrentIndex((i) => Math.max(0, i - 1));
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const handleAnswer = (id: string, value: number) => {
     setAnswers((prev) => ({ ...prev, [id]: value }));
-
-    // Advance to next question after a short delay
     setTimeout(() => {
-      setCurrentIndex((prevIndex) => {
-        if (prevIndex < totalQuestions - 1) {
-          return prevIndex + 1;
-        }
-        // Last question answered -> show results
-        setSubmitted(true);
-        return prevIndex;
-      });
-    }, 150);
+      setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, pages.length - 1));
+    }, 180);
   };
 
-  const handlePrev = () => {
-    setSubmitted(false);
-    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev));
-  };
+  const goPrev = () => setCurrentIndex((i) => Math.max(0, i - 1));
+  const goNext = () => setCurrentIndex((i) => Math.min(i + 1, pages.length - 1));
 
-  const handleSeeResults = () => {
-    if (answeredCount === totalQuestions) {
-      setSubmitted(true);
+  const submitContacts = () => {
+    let hasError = false;
+    if (!name.trim()) {
+      setNameError("Please enter your name.");
+      hasError = true;
+    } else {
+      setNameError("");
     }
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      hasError = true;
+    } else {
+      setEmailError("");
+    }
+    if (hasError) return;
+
+    const allScores = computeScores(answers);
+    if (!allScores) return;
+
+    const profileKey = pickProfile(allScores.overall);
+
+    // Persist result to localStorage so result page can read it
+    localStorage.setItem(
+      "latestAssessmentResult",
+      JSON.stringify({
+        scores: allScores,
+        profile: profileKey,
+        name,
+        email,
+        completedAt: new Date().toISOString(),
+      })
+    );
+
+    router.push(`/assessment/results/${PROFILE_SLUG[profileKey]}`);
   };
-
-  const profile: ProfileKey | null =
-    submitted && scores ? pickProfile(scores.overall) : null;
-  const weakest: Area | null =
-    submitted && scores ? weakestArea(scores) : null;
-
-  const gapCards =
-    submitted && weakest ? GAP_CARDS[weakest].slice(0, 3) : [];
 
   return (
-    <section className="rounded-2xl border border-gray-100 bg-white/80 p-6 md:p-8 shadow-sm">
-      <header className="mb-6 md:mb-8">
-        <p className="inline-flex items-center rounded-full bg-brand-grey/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-black/80">
-          Assessment
-        </p>
-        <h1 className="mt-3 text-2xl md:text-3xl font-display font-semibold text-brand-black">
-          Automation Readiness Assessment
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm md:text-base text-gray-600">
-          Answer 10 quick questions to see where your business is currently
-          relying on manual effort, how your systems stack up across{" "}
-          <b>Operations &amp; Workflows</b>, <b>Client &amp; Lead Management</b>
-          , and <b>Tools &amp; Systems</b>, and what to focus on next.
-        </p>
-
-        {/* Progress bar */}
-        <div className="mt-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-            Question {answeredCount + (answers[currentQuestion.id] == null ? 0 : 0)}/{totalQuestions} ·{" "}
-            {currentQuestion.area === "operations"
-              ? "Operations & Workflows"
-              : currentQuestion.area === "clients"
-              ? "Client & Lead Management"
-              : "Tools & Systems"}
-          </p>
-          <div className="h-1.5 w-full max-w-xs overflow-hidden rounded-full bg-brand-grey/30 md:ml-auto">
-            <div
-              className="h-full rounded-full bg-brand-orange transition-[width] duration-300"
-              style={{ width: `${progressPercent}%` }}
-            />
+    <div
+      className={`${
+        fullPage ? "min-h-screen flex items-center justify-center" : ""
+      }`}
+    >
+      <div className="w-full">
+        <div className="mx-auto max-w-2xl">
+          {/* Brand wordmark */}
+          <div className="mb-6 flex items-center justify-between">
+            <span className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-black/60">
+              Made with Make
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-black/40">
+              The Automation Gap Audit
+            </span>
           </div>
-        </div>
-      </header>
 
-      {/* Single-question flow */}
-      <div className="space-y-6">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentQuestion.id}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="rounded-xl border border-gray-100 bg-white px-4 py-5 md:px-5 md:py-6"
-          >
-            <div className="mb-2 flex items-baseline justify-between gap-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-                {currentQuestion.area === "operations"
-                  ? "Operations & Workflows"
-                  : currentQuestion.area === "clients"
-                  ? "Client & Lead Management"
-                  : "Tools & Systems"}{" "}
-                · Q{currentIndex + 1}
-              </p>
-            </div>
-            <p className="mb-4 text-base md:text-lg font-medium text-brand-black">
-              {currentQuestion.label}
-            </p>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {ANSWER_OPTIONS.map((opt) => {
-                const selected = answers[currentQuestion.id] === opt.value;
-                return (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    onClick={() => handleAnswer(currentQuestion.id, opt.value)}
-                    className={`rounded-full border px-4 py-2 text-[13px] text-left font-medium transition-colors ${
-                      selected
-                        ? "border-brand-orange bg-brand-orange text-white"
-                        : "border-gray-200 bg-gray-50 text-gray-700 hover:border-brand-orange/70 hover:bg-brand-orange/5"
-                    }`}
-                  >
-                    {opt.label}
-                  </button>
-                );
-              })}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        <div className="flex items-center justify-between text-xs text-gray-500">
-          <button
-            type="button"
-            onClick={handlePrev}
-            disabled={currentIndex === 0}
-            className="disabled:cursor-not-allowed disabled:text-gray-300 hover:text-brand-black transition-colors"
-          >
-            ← Previous question
-          </button>
-          <button
-            type="button"
-            onClick={handleSeeResults}
-            disabled={answeredCount < totalQuestions}
-            className="inline-flex items-center rounded-full border border-gray-300 bg-white px-3 py-1.5 font-medium text-gray-700 transition-colors disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 hover:border-brand-orange/70 hover:text-brand-black"
-          >
-            See my results
-            <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-          </button>
-        </div>
-      </div>
-
-      {submitted && scores && profile && (
-        <motion.section
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="mt-8 rounded-2xl border border-gray-100 bg-gray-50/80 p-5 md:p-6"
-        >
-          <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-                Your profile
-              </p>
-              <div
-                className={`mt-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold ${PROFILE_COPY[profile].color}`}
-              >
-                <span>{PROFILE_COPY[profile].label}</span>
-                <span className="text-[10px] opacity-80">
-                  ({scores.overall}% overall)
-                </span>
-              </div>
-              <h2 className="mt-3 text-lg font-display font-semibold text-brand-black">
-                {PROFILE_COPY[profile].headline}
-              </h2>
-              <p className="mt-1 text-sm text-gray-600">
-                {PROFILE_COPY[profile].body}
-              </p>
-            </div>
-            <div className="w-full max-w-xs rounded-xl bg-white p-4 shadow-sm">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-                Area scores
-              </p>
-              {(["operations", "clients", "tools"] as Area[]).map((area) => {
-                const label =
-                  area === "operations"
+          {/* Progress bar */}
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-2">
+              <div className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                {currentPage?.type === "question"
+                  ? currentPage.question?.area === "operations"
                     ? "Operations & Workflows"
-                    : area === "clients"
+                    : currentPage.question?.area === "clients"
                     ? "Client & Lead Management"
-                    : "Tools & Systems";
-                const value = scores[area];
-                return (
-                  <div key={area} className="mb-2 last:mb-0">
-                    <div className="mb-1 flex items-center justify-between text-[11px] text-gray-600">
-                      <span>{label}</span>
-                      <span className="font-medium text-brand-black">
-                        {value}%
-                      </span>
-                    </div>
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-brand-grey/30">
-                      <div
-                        className="h-full rounded-full bg-brand-orange"
-                        style={{ width: `${value}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+                    : "Tools & Systems"
+                  : currentPage?.type === "intro"
+                  ? "Welcome"
+                  : "Your details"}
+              </div>
+              <div className="text-xs text-gray-400 tabular-nums">
+                {Math.min(answeredCount, QUESTIONS.length)} / {QUESTIONS.length}
+              </div>
+            </div>
+            <div className="h-1 w-full overflow-hidden rounded-full bg-gray-100">
+              <motion.div
+                className="h-full rounded-full bg-brand-orange"
+                initial={false}
+                animate={{ width: `${progressPercent}%` }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+              />
             </div>
           </div>
 
-          {/* Gap cards */}
-          {gapCards.length > 0 && (
-            <div className="mt-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500 mb-2">
-                Your next 2–3 moves
-              </p>
-              <p className="mb-4 text-sm text-gray-600">
-                Based on your lowest-scoring area, here are a few focused moves
-                that will create the most leverage. Pick one to start with — you
-                don&apos;t need to fix everything at once.
-              </p>
-              <div className="grid gap-4 md:grid-cols-3">
-                {gapCards.map((gap) => (
-                  <div
-                    key={gap.title}
-                    className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-4 text-left"
+          <AnimatePresence mode="wait">
+            {/* ─── INTRO ─────────────────────────────────────────── */}
+            {currentPage?.type === "intro" && (
+              <motion.div
+                key="intro"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="rounded-2xl border border-gray-100 bg-white px-6 py-10 text-center shadow-sm"
+              >
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-orange mb-4">
+                  The Automation Gap Audit
+                </p>
+                <h1 className="text-2xl md:text-3xl font-display font-semibold text-brand-black mb-4 leading-tight">
+                  Find out where your business is bleeding time.
+                </h1>
+                <p className="text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
+                  10 questions across Operations, Client Management, and your
+                  Tools stack. You&apos;ll leave with a clear picture of where
+                  you are — and exactly where to focus first.
+                </p>
+                <button
+                  onClick={() => setCurrentIndex((i) => i + 1)}
+                  className="inline-flex items-center rounded-lg bg-brand-black px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand-black/90"
+                >
+                  Start the audit
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </button>
+                <p className="mt-4 text-xs text-gray-400">
+                  Takes about 5 minutes · Results emailed to you
+                </p>
+              </motion.div>
+            )}
+
+            {/* ─── QUESTION ──────────────────────────────────────── */}
+            {currentPage?.type === "question" && currentPage.question && (
+              <motion.div
+                key={currentPage.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className="rounded-2xl border border-gray-100 bg-white px-6 py-8 shadow-sm"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-orange mb-3">
+                  {currentPage.question.area === "operations"
+                    ? "Operations & Workflows"
+                    : currentPage.question.area === "clients"
+                    ? "Client & Lead Management"
+                    : "Tools & Systems"}
+                </p>
+                <h2 className="text-lg md:text-xl font-semibold text-brand-black mb-6 leading-snug">
+                  {currentPage.question.label}
+                </h2>
+                <div className="grid gap-2.5">
+                  {ANSWER_OPTIONS.map((opt) => {
+                    const selected =
+                      answers[currentPage.question!.id] === opt.value;
+                    return (
+                      <motion.button
+                        key={opt.value}
+                        onClick={() =>
+                          handleAnswer(currentPage.question!.id, opt.value)
+                        }
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        className={`w-full text-left rounded-lg border px-4 py-3.5 text-sm font-medium transition-colors ${
+                          selected
+                            ? "bg-brand-black border-brand-black text-white"
+                            : "bg-white border-gray-200 text-gray-800 hover:border-brand-orange/60 hover:bg-brand-orange/5"
+                        }`}
+                      >
+                        {opt.label}
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+
+            {/* ─── CONTACT (name) ────────────────────────────────── */}
+            {currentPage?.type === "contact" && currentPage.id === "name" && (
+              <motion.div
+                key="contact-name"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className="rounded-2xl border border-gray-100 bg-white px-6 py-8 shadow-sm"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-orange mb-3">
+                  Almost there
+                </p>
+                <h2 className="text-lg md:text-xl font-semibold text-brand-black mb-2 leading-snug">
+                  What should we call you?
+                </h2>
+                <p className="text-sm text-gray-500 mb-6">
+                  We&apos;ll use your name to personalise your results.
+                </p>
+                <input
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    if (nameError) setNameError("");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && name.trim()) goNext();
+                  }}
+                  autoFocus
+                  className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm text-brand-black placeholder:text-gray-400 focus:border-brand-orange focus:outline-none"
+                  placeholder="Your full name"
+                />
+                {nameError && (
+                  <p className="mt-1 text-xs text-red-500">{nameError}</p>
+                )}
+                <div className="mt-5 flex items-center justify-between">
+                  <button
+                    onClick={goPrev}
+                    className="text-sm text-gray-400 hover:text-brand-black transition-colors"
                   >
-                    <h3 className="text-sm font-semibold text-brand-black mb-2">
-                      {gap.title}
-                    </h3>
-                    <p className="text-xs text-gray-600 flex-1 mb-3">
-                      {gap.body}
-                    </p>
-                    <Link
-                      href={gap.href}
-                      className="mt-auto inline-flex items-center text-xs font-semibold text-brand-orange hover:underline"
-                    >
-                      {gap.cta}
-                      <ArrowRight className="ml-1.5 h-3 w-3" />
-                    </Link>
-                  </div>
-                ))}
-              </div>
+                    ← Previous
+                  </button>
+                  <button
+                    onClick={goNext}
+                    disabled={!name.trim()}
+                    className="inline-flex items-center rounded-lg bg-brand-black px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-40 transition-colors hover:bg-brand-black/90"
+                  >
+                    Next
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ─── CONTACT (email) ───────────────────────────────── */}
+            {currentPage?.type === "contact" && currentPage.id === "email" && (
+              <motion.div
+                key="contact-email"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className="rounded-2xl border border-gray-100 bg-white px-6 py-8 shadow-sm"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-orange mb-3">
+                  Last step
+                </p>
+                <h2 className="text-lg md:text-xl font-semibold text-brand-black mb-2 leading-snug">
+                  Where should we send your results{name ? `, ${name.split(" ")[0]}` : ""}?
+                </h2>
+                <p className="text-sm text-gray-500 mb-6">
+                  Your full personalised report will be emailed to you.
+                </p>
+                <input
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (emailError) setEmailError("");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") submitContacts();
+                  }}
+                  autoFocus
+                  type="email"
+                  className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm text-brand-black placeholder:text-gray-400 focus:border-brand-orange focus:outline-none"
+                  placeholder="you@company.com"
+                />
+                {emailError && (
+                  <p className="mt-1 text-xs text-red-500">{emailError}</p>
+                )}
+                <div className="mt-5 flex items-center justify-between">
+                  <button
+                    onClick={goPrev}
+                    className="text-sm text-gray-400 hover:text-brand-black transition-colors"
+                  >
+                    ← Previous
+                  </button>
+                  <button
+                    onClick={submitContacts}
+                    className="inline-flex items-center rounded-lg bg-brand-orange px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-orange/90"
+                  >
+                    See my results
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Prev button shown on question pages */}
+          {currentPage?.type === "question" && (
+            <div className="mt-4">
+              <button
+                onClick={goPrev}
+                disabled={currentIndex === 0}
+                className="text-sm text-gray-400 hover:text-brand-black transition-colors disabled:opacity-30"
+              >
+                ← Previous question
+              </button>
             </div>
           )}
-
-          {/* Tailored CTA */}
-          <div className="mt-6 rounded-xl border border-gray-200 bg-white px-4 py-4 md:px-5 md:py-5">
-            {profile === "manual" && (
-              <>
-                <h3 className="text-sm font-display font-semibold text-brand-black mb-1">
-                  Start with the quickest wins.
-                </h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  The goal is not to automate everything at once — it&apos;s to
-                  pick 1–2 workflows that will immediately reduce manual effort.
-                  The checklist is a good place to choose your first moves.
-                </p>
-                <Link
-                  href="/resources/checklist/10-workflows-to-automate-first"
-                  className="inline-flex items-center text-sm font-semibold text-brand-orange hover:underline"
-                >
-                  Open the &quot;10 Workflows to Automate First&quot; checklist
-                  <ArrowRight className="ml-1.5 h-4 w-4" />
-                </Link>
-              </>
-            )}
-            {profile === "patchwork" && (
-              <>
-                <h3 className="text-sm font-display font-semibold text-brand-black mb-1">
-                  You&apos;re ready for a systems conversation.
-                </h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  You have building blocks in place — the next step is deciding
-                  which 2–3 workflows to connect and automate first. That&apos;s
-                  exactly what we cover in a free consultation.
-                </p>
-                <Link
-                  href="/contact-us"
-                  className="inline-flex items-center text-sm font-semibold text-brand-orange hover:underline"
-                >
-                  Book a free consultation
-                  <ArrowRight className="ml-1.5 h-4 w-4" />
-                </Link>
-              </>
-            )}
-            {profile === "systems" && (
-              <>
-                <h3 className="text-sm font-display font-semibold text-brand-black mb-1">
-                  You&apos;re ready for a strategy roadmap.
-                </h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  You&apos;re already thinking in systems — now it&apos;s about
-                  sharpening what you have and designing a roadmap for the next
-                  12–18 months of automation work.
-                </p>
-                <Link
-                  href="/contact-us"
-                  className="inline-flex items-center text-sm font-semibold text-brand-orange hover:underline"
-                >
-                  Book a strategy call
-                  <ArrowRight className="ml-1.5 h-4 w-4" />
-                </Link>
-              </>
-            )}
-          </div>
-        </motion.section>
-      )}
-    </section>
+        </div>
+      </div>
+    </div>
   );
 }
-

@@ -77,7 +77,7 @@ export default function HeroSection() {
                 className="w-full sm:w-auto px-8 py-3 text-base group"
               >
                 <a href="/assessment">
-                  Take the automation assessment
+                  Take the Automation Gap Audit
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>

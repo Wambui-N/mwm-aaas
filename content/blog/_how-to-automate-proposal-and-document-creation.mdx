@@ -1,0 +1,204 @@
+---
+title: "How to Automate Proposal and Document Creation (And Stop Starting From Scratch)"
+description: "If you're building proposals manually every time a new lead comes in, you're losing hours every week. Here's how to automate the entire document creation process using a simple form and Make.com — so a filled-in form becomes a finished, ready-to-send proposal in under a minute."
+date: "2026-03-07"
+author: "Wambui Ndung'u"
+image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80"
+category: "Automation"
+tags: ["automation", "Make.com", "proposals", "document creation", "agencies"]
+---
+
+Picture this: a hot lead just filled in your contact form. They want a proposal by end of week. You open your last proposal, start deleting their old client's name, search for where you wrote the budget figure, realise the scope section needs updating, and spend the next hour copy-pasting, reformatting, and second-guessing whether you saved the right version.
+
+That is not a business problem. That is a systems problem — and it has a clean solution.
+
+By the end of this post, you'll have a working automation that takes the information from a form submission and produces a complete, correctly formatted, ready-to-send proposal in under 60 seconds. No copy-pasting. No version confusion. No formatting errors.
+
+---
+
+## Why Manual Proposal Creation Is Costing You More Than You Think
+
+Let's do the honest maths.
+
+A single proposal takes 45 minutes to build manually. You send five proposals a month. That's **3 hours and 45 minutes** — every single month — not thinking, not strategising, not doing anything creative. Just moving information from one place to another.
+
+And that's when everything goes right. When it goes wrong? Wrong client name on the cover page. Last month's pricing still in the budget section. A scope section you forgot to update. These aren't careless mistakes — they're *inevitable* ones when you're assembling documents by hand under pressure.
+
+The real cost isn't just time. It's the first impression. A proposal with errors signals disorder before the project has even started.
+
+The fix is straightforward: build the proposal once as a template, and let an automation fill it in every time.
+
+---
+
+## What You'll Be Able to Do After This
+
+Here's what your workflow will look like once this automation is set up:
+
+1. ✅ Fill in a simple form with the project details
+2. ✅ A copy of your proposal template is created automatically
+3. ✅ Every placeholder is replaced with the real client information
+4. ✅ The finished proposal lands in your Google Drive (or your inbox) within seconds
+5. ✅ Optionally, the proposal is sent directly to the client for review
+
+You fill in one form. You get a finished proposal. That's it.
+
+> 💡 **Time to build this:** About 30–45 minutes, mostly in Make.com. No coding required. Once it's live, it runs every time — forever.
+
+---
+
+## How It Works: Step by Step
+
+### Step 1: Build Your Proposal Template in Google Docs
+
+Open Google Docs and build your standard proposal layout. This should be your *best* proposal — the one you'd want every client to receive. Include all the sections you typically include:
+
+- Introduction / context
+- Scope of work
+- Deliverables
+- Timeline
+- Investment / pricing
+- Terms and next steps
+
+Wherever client-specific information goes, replace it with a **placeholder variable** in double curly braces. These are the spots the automation will fill in automatically.
+
+```
+{{client_name}}
+{{company_name}}
+{{project_scope}}
+{{budget}}
+{{start_date}}
+{{delivery_date}}
+{{your_name}}
+```
+
+> 📸 *Screenshot: Google Doc proposal template with placeholder variables highlighted in yellow*
+
+> 💡 **Pro tip:** Keep your variables consistent. If you use `{{client_name}}` in one place, don't use `{{Client Name}}` in another — the automation is case-sensitive. Write them down in a list so you remember them all.
+
+Once your template is saved, note the **File ID** from the Google Docs URL — you'll need it in Make.com later.
+
+> ✅ **After this step:** You have one master proposal template with clearly marked placeholders. You'll never edit this document directly again — only the variables change.
+
+---
+
+### Step 2: Create Your Intake Form in Tally
+
+Now build the form that captures everything your proposal needs. Use **Tally** (free and excellent) or Typeform.
+
+Your form fields should map **directly** to the variables in your template. One variable = one form field.
+
+| Template Variable | Form Field Label |
+|---|---|
+| `{{client_name}}` | Client's Full Name |
+| `{{company_name}}` | Company / Organisation |
+| `{{project_scope}}` | What does this project involve? |
+| `{{budget}}` | Project Budget |
+| `{{start_date}}` | Desired Start Date |
+| `{{delivery_date}}` | Expected Delivery Date |
+
+Keep the form focused. Only ask for what the *document* needs. You can ask additional discovery questions separately.
+
+> 📸 *Screenshot: Tally form showing the fields above, with field labels visible*
+
+> 💡 **Pro tip:** In Tally, you can use hidden fields to pre-populate things like today's date or your own name — useful for variables like `{{proposal_date}}` and `{{your_name}}` so you don't have to type them every time.
+
+> ✅ **After this step:** You have a form that, when submitted, contains all the information needed to build a complete proposal.
+
+---
+
+### Step 3: Set Up the Automation in Make.com
+
+This is the part where the magic happens. You'll build a **scenario** in Make.com — a chain of connected modules that each do one thing. Here's what your scenario needs to do:
+
+**Module 1 — Tally: Watch for New Submissions**
+This is your trigger. Make.com watches your Tally form and fires the scenario every time someone submits it.
+
+**Module 2 — Google Drive: Copy a File**
+Make.com creates a fresh copy of your proposal template in Google Drive. This is important — you never edit the original template, only copies.
+
+Set the destination folder to wherever you store client proposals. Name the copy something like: `Proposal — {{client_name}} — {{today's date}}`.
+
+**Module 3 — Google Docs: Replace Text in a Document**
+This is where the placeholders get swapped out. For each variable in your template, map the corresponding form field response.
+
+Make.com will go through the document and replace every instance of `{{client_name}}` with the actual name from the form, `{{budget}}` with the actual budget, and so on.
+
+**Module 4 — Gmail (Optional): Send the Document**
+If you want the proposal delivered automatically — to yourself for review, or directly to the client — add a Gmail module here. Attach the newly created Google Doc as a PDF and send.
+
+> 📸 *Screenshot: Make.com scenario showing all four modules connected in sequence*
+
+> 📸 *Screenshot: Close-up of the Google Docs "Replace Text" module with variable mappings*
+
+> 💡 **Pro tip:** Use Make.com's "Convert to PDF" module before the Gmail step if you want to send a PDF rather than a Google Doc link. Clients are more likely to open a PDF attachment.
+
+> ✅ **After this step:** Your automation is live. Every form submission now produces a finished proposal in your Google Drive within seconds.
+
+---
+
+### Step 4: Add a Review Step (Recommended for the First Month)
+
+Speed is great — but accuracy matters more. Before your proposal goes to a client automatically, you probably want to check it first.
+
+Add an intermediate step: instead of emailing the client directly, have Make.com send the document **to you** first, with a short note: *"New proposal created for {{client_name}} — review here: [link]"*.
+
+You review it. If it looks good, you forward it to the client manually. If something needs adjusting, you do it in the copy.
+
+Once you've run this 10–15 times and you trust the output completely, you can remove the review step and let it go straight to the client.
+
+> 📸 *Screenshot: Gmail notification to yourself with proposal link and client name in subject line*
+
+---
+
+## Tools You'll Need
+
+| Tool | Purpose | Cost |
+|---|---|---|
+| **Tally** | Intake form | Free |
+| **Google Docs** | Proposal template | Free |
+| **Google Drive** | Document storage | Free |
+| **Make.com** | Automation engine | Free tier available |
+| **Gmail** | Sending the proposal | Free |
+
+You can run this entire workflow without spending a penny. The Make.com free tier gives you enough operations for several proposals per month. If you're doing more, the Core plan is around $9/month.
+
+---
+
+## Common Mistakes to Avoid
+
+**Not standardising your template before automating.**
+If your proposals are all different shapes and sizes, automation will just make them consistently messy. Before you build any of this, spend an afternoon creating *one* proposal you're proud of. That's what you automate.
+
+**Using too many variables.**
+Every variable is a field on the form. The longer the form, the more friction there is to fill it in. Start with the essentials — name, company, scope, price, date. You can always add more later.
+
+**Mismatched variable names.**
+`{{client_name}}` and `{{Client_Name}}` are different things to Google Docs. Make sure every placeholder in your template matches exactly what you've mapped in Make.com.
+
+**Skipping the review step on launch day.**
+Run the automation at least five times with real data before trusting it completely. Check that the formatting looks right, all variables populated correctly, and nothing was skipped.
+
+**Sending the wrong file to a client.**
+Make sure the "Copy a File" module is set up correctly — it should copy the *template*, not overwrite it. Double-check the file IDs in Make.com.
+
+---
+
+## What You've Just Built
+
+You now have a system that:
+- Captures project details through a simple form
+- Builds a professionally formatted proposal automatically
+- Stores it in the right folder in Google Drive
+- (Optionally) sends it to you or the client without you lifting a finger
+
+That's not a small thing. That's hours back every month, zero formatting errors, and a consistent client experience from day one.
+
+---
+
+## What to Do Next
+
+Proposals are step one. Once the client says yes, the next manual bottleneck is usually the contract — attaching it, sending it, chasing signatures.
+
+[Read the next post: How to Automate Contract Sending and Signature Collection →](https://madewithmake.com/blog/automate-contract-sending)
+
+Or if you'd like help setting this up for your specific proposal format, [book a free consultation](https://madewithmake.com/contact-us) and we'll map it out together.

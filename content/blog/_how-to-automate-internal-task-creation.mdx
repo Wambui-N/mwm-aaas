@@ -1,0 +1,221 @@
+---
+title: "How to Automate Internal Task Creation When a New Project Starts (And Stop Setting Up the Same Things Every Time)"
+description: "Creating project tasks manually every time a new client comes on board is slow, inconsistent, and completely avoidable. Here's how to build an automation that sets up your entire project structure — tasks, assignments, and due dates — the moment a new project kicks off."
+date: "2026-03-10"
+author: "Wambui Ndung'u"
+image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=80"
+category: "Operations"
+tags: ["automation", "Make.com", "ClickUp", "Notion", "project management"]
+---
+
+New project confirmed. Now someone has to set it up.
+
+Open ClickUp. Create a new space. Add the folders. Start creating tasks — copy the names from last time, rename them for this client, assign each one, set the due dates, add descriptions. Thirty minutes later, you've got a project that looks exactly like the last five you set up. By hand. Again.
+
+This is not a value-adding activity. It's the kind of thing that should have been automated six months ago.
+
+By the end of this post, you'll have a system that creates your full project structure — tasks, assignees, due dates, and all — within seconds of a new project being confirmed. No manual setup. No forgotten tasks. Same structure every time.
+
+---
+
+## Why Manual Project Setup Is Riskier Than It Looks
+
+The obvious issue is time. But the deeper issue is consistency.
+
+When project setup is manual, it's different every time. One project has a "Design Review" task; the next one doesn't. One project has correct due dates; the next one has placeholders that never got updated. One project has tasks assigned to the right people; the next one is all assigned to you because you forgot to reassign them.
+
+These inconsistencies create confusion for your team, missed deadlines, and extra back-and-forth that should never happen.
+
+An automated project setup creates the same structure every time — every task, every assignee, every due date calculated from the project start date — before your team has even seen the Slack notification.
+
+---
+
+## What You'll Be Able to Do After This
+
+Once this automation is in place:
+
+1. ✅ A trigger fires when a new project is confirmed
+2. ✅ A new project/space/folder is created in your PM tool automatically
+3. ✅ Every standard task is created from your template
+4. ✅ Tasks are assigned to the right team members
+5. ✅ Due dates are set automatically, calculated from the project start date
+6. ✅ Your team is notified in Slack that the project is live and ready
+
+The project is fully structured and ready to work on before anyone has touched a keyboard.
+
+> 💡 **Time to build this:** About 45–60 minutes, most of which is spent building and refining your project template. The Make.com scenario is relatively straightforward once the template is ready.
+
+---
+
+## How It Works: Step by Step
+
+### Step 1: Build Your Project Template
+
+This is the most important step — and it's the one most people skip in their rush to build the automation.
+
+Before you automate project creation, you need a clear, tested project template. This is the gold standard for what every project should look like when it starts. Think of it as the skeleton that every project is built on.
+
+**In ClickUp:**
+Create a List template with all your standard tasks, organised into sections (phases). For each task, define:
+- Task name
+- Description (what "done" looks like)
+- Default assignee (or the role responsible)
+- Due offset (how many days from the project start date this task should be due)
+- Priority level
+
+**In Notion:**
+Create a template page with a database of tasks. Use the same structure: task name, assignee, days from start, status.
+
+> 📸 *Screenshot: ClickUp List template showing tasks organised into phases (Discovery, Design, Development, Review, Launch)*
+
+> 💡 **Pro tip:** Start with your most common project type. Don't try to build a universal template that covers every scenario — it won't work cleanly. Build one solid template for your standard project, then create additional templates for variations.
+
+Here's an example structure for a web project:
+
+| Phase | Task | Assignee | Days from Start |
+|---|---|---|---|
+| Discovery | Send intake form | Project Manager | Day 1 |
+| Discovery | Review intake form responses | Project Lead | Day 3 |
+| Discovery | Kickoff call | Project Lead | Day 5 |
+| Design | Create initial concepts | Designer | Day 10 |
+| Design | Client review — Round 1 | Client | Day 14 |
+| Design | Revisions | Designer | Day 17 |
+| Development | Build — Phase 1 | Developer | Day 21 |
+| Review | Internal QA | Project Lead | Day 28 |
+| Review | Client UAT | Client | Day 32 |
+| Launch | Go live | Developer | Day 35 |
+| Launch | Post-launch check | Project Lead | Day 37 |
+
+> ✅ **After this step:** You have a tested, consistent project template. This is the blueprint your automation will use for every project.
+
+---
+
+### Step 2: Choose Your Trigger
+
+Your trigger is the event that confirms a new project is starting. Pick the one that best fits how your business works:
+
+**Option A — Contract Signed**
+If you're using the contract automation from an earlier post, the "Document Signed" webhook is the cleanest trigger. Project setup happens the moment the contract is signed — no delay.
+
+**Option B — CRM Stage Change**
+If you use a CRM, trigger when a deal moves to "Won" or "Active Project."
+
+**Option C — Form Submission**
+If clients fill in a project-start form (confirming scope, start date, key contacts), use that as the trigger. This has the advantage of passing project-specific data (like the actual start date) directly into Make.com.
+
+**Option D — Manual Trigger (Webhook)**
+If your deals close in a less structured way (phone calls, in-person meetings), create a simple webhook you can trigger manually from your browser or via a Slack command.
+
+> 📸 *Screenshot: Make.com trigger module showing "PandaDoc — Document Signed" webhook as the starting point*
+
+> ✅ **After this step:** You know exactly what fires the automation, and you've confirmed it will only fire for real, confirmed projects.
+
+---
+
+### Step 3: Build the Make.com Scenario
+
+Here's the full scenario structure:
+
+**Module 1 — Your Trigger**
+Whatever event you chose above. This starts everything.
+
+**Module 2 — Get Project Details**
+Pull the client name, project name, start date, and any other relevant info from your CRM, form response, or contract data.
+
+**Module 3 — Create the Project in ClickUp or Notion**
+Use the ClickUp "Create a List" module (or Notion "Create a Page") to create the new project. Set the name using the client's name and project type: e.g. `{{client_name}} — Website Redesign`.
+
+**Module 4 — Create Tasks in a Loop**
+For each task in your template, use a ClickUp "Create a Task" module. Map the following:
+
+- **Name** → task name from your template
+- **Assignee** → team member (fixed values, or dynamic if you pass assignees in the trigger data)
+- **Due date** → calculated: `project_start_date + days_offset`
+
+If you have 15 tasks in your template, you'll have 15 "Create Task" modules, or you can use Make.com's **Iterator** module to loop through an array of task definitions — this is cleaner for large templates.
+
+> 📸 *Screenshot: Make.com scenario showing the full task creation loop with ClickUp modules*
+
+> 📸 *Screenshot: Close-up of a single ClickUp "Create Task" module with name, assignee, and calculated due date mapped*
+
+> 💡 **Pro tip:** Store your task template as a JSON array in Make.com's data store or in a Google Sheet. When you need to update the template, you only update one place — not 15 separate modules.
+
+**Module 5 — Send a Slack Notification**
+Post a message to your team channel confirming the project is live. Include:
+- Client name
+- Project name
+- Start date
+- Link to the new project in ClickUp or Notion
+
+> 📸 *Screenshot: Slack notification showing project name, client name, start date, and a direct link to ClickUp*
+
+---
+
+### Step 4: Test It Thoroughly
+
+Before this automation touches a real project:
+
+1. Run it with dummy data — a fake client name and project
+2. Check that all tasks were created correctly in ClickUp
+3. Verify the due dates are right (Day 1 = project start date, Day 10 = 10 days later, etc.)
+4. Confirm assignees are correct
+5. Check the Slack message looks right
+
+Fix anything that's off. Then run it again. Only move to live once it's consistently producing clean results.
+
+> 📸 *Screenshot: ClickUp project created by automation showing all tasks with due dates and assignees*
+
+> ⚠️ **Don't rush the testing phase.** A project with wrong due dates or incorrect assignees creates confusion from day one. Ten minutes of testing saves hours of fixing.
+
+---
+
+## Tools You'll Need
+
+| Tool | Purpose | Cost |
+|---|---|---|
+| **Make.com** | Automation engine | Free tier available |
+| **ClickUp or Notion** | Project management + task creation | Free tier available |
+| **Google Sheets** (optional) | Storing task template as a list | Free |
+| **Slack** | Team notifications | Free |
+| **PandaDoc / Airtable / Tally** | Trigger source | Varies |
+
+---
+
+## Common Mistakes to Avoid
+
+**Building the automation before you've standardised the project template.**
+If your projects don't have a consistent structure yet, automating them will just automate inconsistency. Spend time on the template first — it's the most valuable thing you'll build.
+
+**Hardcoding assignees you'll need to change later.**
+If team members change, you don't want to rebuild your Make.com scenario. Store assignees in a configuration table (Airtable or Google Sheets) and reference them dynamically.
+
+**Not calculating due dates relative to the project start date.**
+Fixed dates in a template become wrong immediately. Always calculate due dates as `project_start_date + X days`. This makes the template reusable for any project, regardless of start date.
+
+**Skipping the Slack notification.**
+Your team needs to know a new project exists. Don't assume they'll notice it in ClickUp. The Slack message is the signal that gets them looking.
+
+**Not updating the template when your process changes.**
+Your project template is a living document. When you learn a better way to run a project, update the template. The automation will reflect the improvement from the next project onwards.
+
+---
+
+## What You've Just Built
+
+You now have a project setup automation that:
+- Creates a fully structured project the moment it's confirmed
+- Sets up every task with the right assignee and due date
+- Notifies your team with all the context they need
+- Does all of this consistently — without variation, without delay, without manual effort
+
+Every project gets the same professional start. Every team member knows what they're doing from day one.
+
+---
+
+## What to Do Next
+
+With project setup automated, the next layer is keeping clients and stakeholders informed without extra effort on your part. Automated status updates and weekly reports are the natural progression.
+
+[Read the next post: How to Set Up Automated Reporting and Status Updates →](https://madewithmake.com/blog/automate-reporting-status-updates)
+
+Or if you'd like help building this for your specific project management tool, [book a free consultation](https://madewithmake.com/contact-us).

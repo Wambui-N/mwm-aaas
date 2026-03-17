@@ -1,0 +1,247 @@
+---
+title: "How to Automate Social Media Scheduling and Content Repurposing (So You Stay Consistent Without Living Online)"
+description: "Manually posting content every day is a significant time drain — and it's entirely unnecessary. Here's how to batch your content, schedule it automatically, repurpose it across platforms, and track what went out — without opening Instagram at 9am every morning."
+date: "2026-03-06"
+author: "Wambui Ndung'u"
+image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&q=80"
+category: "Marketing"
+tags: ["automation", "Make.com", "social media", "content", "LinkedIn"]
+---
+
+Consistency on social media isn't about willpower. It's about systems.
+
+The people who show up daily on LinkedIn, Instagram, and Twitter aren't necessarily more disciplined than you — they've just separated the *creating* from the *publishing*. They sit down once a week, write everything, and let automation handle the rest.
+
+This post shows you exactly how to do that. By the end, you'll have a content calendar that feeds directly into your scheduling tool, a repurposing system that turns one piece of content into three, and a posting process that runs without you needing to open any app.
+
+---
+
+## What Social Media Automation Actually Does (And Doesn't Do)
+
+Let's be honest about the boundaries.
+
+**Automation can handle:**
+- Publishing content from a central queue at optimal times
+- Repurposing a LinkedIn post into shorter formats for other channels
+- Notifying you when it's time to add new content to the queue
+- Tracking what was posted, when, and where in a simple log
+
+**Automation cannot replace:**
+- Your thinking, perspective, and voice
+- The actual writing and creation
+- Genuine engagement with comments and replies
+
+The goal isn't to automate creativity — it's to automate distribution. You create once, intentionally. Automation makes sure it reaches people consistently.
+
+---
+
+## What You'll Be Able to Do After This
+
+Once this system is live:
+
+1. ✅ Write content in batches — once a week, once a fortnight — in your content calendar
+2. ✅ Approved posts are automatically handed off to your scheduling tool
+3. ✅ Each LinkedIn post is automatically repurposed into shorter Twitter/X formats
+4. ✅ Content goes live at the right times — with no manual posting
+5. ✅ A log of every post (what went out, when, on which platform) is maintained automatically
+6. ✅ You get a reminder when your content queue is running low
+
+> 💡 **Time to build this:** About 60–90 minutes to set up the content calendar, scheduling tool connection, and repurposing logic. The batching habit is what takes consistent practice — but the system makes the habit easier to keep.
+
+---
+
+## How It Works: Step by Step
+
+### Step 1: Set Up Your Content Calendar
+
+Your content calendar is the heart of the system. This is where you write, store, and approve content before it goes anywhere.
+
+Use **Notion** or **Google Sheets** — both work well. Create a table (or database in Notion) with these columns:
+
+| Column | Purpose |
+|---|---|
+| Post Content | The full text of the post |
+| Platform | LinkedIn, Instagram, Twitter/X, etc. |
+| Publish Date | When it should go out |
+| Publish Time | Specific time (or leave for optimal auto-scheduling) |
+| Status | Draft / Approved / Scheduled / Published |
+| Post Type | Educational, Story, Promotional, Engagement |
+| Visual Required? | Yes / No — does this need an image or video? |
+| Repurpose To | Other platforms this post should be adapted for |
+| Notes | Internal notes, hashtags, links |
+
+> 📸 *Screenshot: Notion content calendar database showing the columns above with 3–4 sample posts in different status stages*
+
+> 📸 *Screenshot: Google Sheets version of the content calendar, with colour-coded status column*
+
+**The key habit:** Write content in batches. Block 90 minutes once a week (or once a fortnight) to fill your calendar with upcoming posts. When you batch your writing, you get into a flow state — the ideas build on each other, the quality goes up, and you're not starting from scratch every day.
+
+> 💡 **Pro tip:** Plan your content themes before writing. For example: Monday = educational automation tip, Wednesday = client story or case study, Friday = behind-the-scenes or personal post. This structure removes the "what should I post today?" friction entirely.
+
+---
+
+### Step 2: Connect Your Calendar to a Scheduling Tool
+
+Once a post is marked "Approved" in your content calendar, Make.com picks it up and pushes it to your scheduling tool.
+
+**Recommended scheduling tools:**
+
+| Tool | Best For | Cost |
+|---|---|---|
+| **Buffer** | Simple, multi-platform scheduling | Free tier available |
+| **Hypefury** | LinkedIn and Twitter specialists | From ~$19/mo |
+| **Later** | Visual content + Instagram focus | Free tier available |
+| **Publer** | Budget-friendly multi-platform | From ~$12/mo |
+
+For LinkedIn-focused professionals, **Hypefury** is excellent. For multi-platform scheduling, **Buffer** covers the most ground at the lowest cost.
+
+**The Make.com scenario:**
+
+**Module 1 — Notion or Google Sheets: Watch for Approved Posts**
+Set up a scheduled trigger that checks your content calendar every morning (e.g. 7am daily) for posts with:
+- `Status = "Approved"`
+- `Publish Date = Today or in the future`
+- `Status ≠ "Scheduled"` (so you don't duplicate)
+
+**Module 2 — Scheduling Tool: Create a Post**
+For each approved post found, create a scheduled post in your scheduling tool. Map:
+- Post content → post text
+- Publish date + time → scheduled time
+- Platform → target channel
+
+**Module 3 — Notion / Google Sheets: Update Status**
+Update the post status from "Approved" to "Scheduled" so it isn't picked up again.
+
+> 📸 *Screenshot: Make.com scenario showing the Google Sheets/Notion trigger, Buffer module, and status update module*
+
+> ✅ **After this step:** Every post you mark "Approved" in your calendar gets automatically scheduled to go out at the right time. You never have to manually post again.
+
+---
+
+### Step 3: Set Up Repurposing Rules
+
+This is where you get significant leverage. One piece of content → three or more posts on different platforms.
+
+Here's the most common repurposing logic:
+
+**LinkedIn long-form post (600–1200 words) →**
+- Twitter/X thread (break into 5–8 shorter tweets)
+- A shorter Instagram caption (core message + call to action)
+- A newsletter intro (slightly expanded into a section)
+
+You don't need AI to do this — you can use template-based repurposing rules in Make.com with basic text manipulation. But if you want to go further, connecting Make.com to an AI module (like OpenAI) lets you generate repurposed versions automatically.
+
+**Basic repurposing in Make.com (no AI):**
+
+For Twitter/X, the simplest approach is:
+- Take the first sentence of the LinkedIn post as Tweet 1
+- Take the second paragraph as Tweet 2
+- Take the key takeaway as Tweet 3
+- End with a link to your full post or profile
+
+> 📸 *Screenshot: Make.com Text module splitting a LinkedIn post into sections for Twitter thread creation*
+
+**Advanced repurposing with AI:**
+
+Add an OpenAI module after the "post approved" trigger:
+
+```
+Prompt: "Take this LinkedIn post and rewrite it as a 5-tweet Twitter thread. 
+Keep the core message, but make each tweet stand alone. 
+Start with a strong hook. End with a call to action.
+
+Post: {{post_content}}"
+```
+
+The output goes back into your content calendar as a new row — with Status = "Draft" — so you can review and approve before it goes live.
+
+> 📸 *Screenshot: Make.com OpenAI module with the repurposing prompt, connected to a "Create Row in Notion" module for the repurposed version*
+
+> 💡 **Pro tip:** Always review AI-repurposed content before approving it. AI is a good first draft — not a final one. The repurposing module saves you 80% of the effort; you finish the last 20%.
+
+---
+
+### Step 4: Set Up a Queue Reminder
+
+If your content calendar is empty for the coming week, you want to know — ideally before it's urgent.
+
+Set up a simple Make.com scenario that runs every Sunday evening and checks:
+- How many posts in your calendar have `Status = "Approved"` and `Publish Date = next 7 days`?
+- If fewer than 3 (or whatever your target is), send yourself a Slack message: *"⚠️ Your content queue is running low — less than 3 posts scheduled for this week. Time to top it up."*
+
+> 📸 *Screenshot: Make.com scheduled scenario running every Sunday, counting approved posts and sending a Slack alert if below threshold*
+
+> 💡 **Pro tip:** Set your threshold higher than you think — 5 or 7 posts. By the time you see a "running low" alert, you want to have enough buffer that it doesn't feel urgent.
+
+---
+
+### Step 5: Keep a Publishing Log
+
+Track what went out, when, and on which platform. This is your content archive — useful for:
+- Seeing what content performed well (so you can repeat it)
+- Avoiding duplicate posts
+- Reporting to clients on social media output
+- Looking back at content themes over time
+
+When Make.com sends a post to your scheduling tool, also add a row to a "Published Log" sheet in Google Sheets with:
+- Date published
+- Platform
+- Post type
+- First line of content (for easy scanning)
+- Status: "Published"
+
+> 📸 *Screenshot: Google Sheets publishing log showing dates, platforms, post types, and post previews in rows*
+
+---
+
+## Tools You'll Need
+
+| Tool | Purpose | Cost |
+|---|---|---|
+| **Notion or Google Sheets** | Content calendar | Free |
+| **Buffer / Hypefury / Later** | Scheduling and publishing | Free–$19/mo |
+| **Make.com** | Automation engine | Free tier available |
+| **OpenAI (optional)** | AI-powered repurposing | ~$0.02–$0.10 per post |
+| **Slack** | Queue reminder alerts | Free |
+
+---
+
+## Common Mistakes to Avoid
+
+**Trying to automate posting without having a batching habit first.**
+The system only works if content is going into the calendar. Without the batching habit, the pipeline runs dry within a week and you're back to scrambling. Build the habit first — even manually for a month — then automate the distribution.
+
+**Posting the exact same text on every platform.**
+LinkedIn, Instagram, and Twitter/X have completely different norms and audiences. A long LinkedIn post copy-pasted to Twitter is awkward and gets ignored. Use the repurposing step to adapt content for each platform.
+
+**Setting it up and forgetting to check the queue.**
+Even with reminders, check your content calendar once a week. Things shift. You may want to swap a scheduled post for something more timely. The system handles distribution — you still steer the strategy.
+
+**Automating content you're not proud of.**
+Speed of publishing is irrelevant if the content isn't good. Before automating anything, spend time developing your content strategy. What topics do you want to own? What would make someone stop scrolling? Answer those questions first.
+
+**Not reviewing AI-repurposed content before approving.**
+AI gets the structure right; it doesn't always get your voice right. Always review before approving. The time savings are still significant even with a review step.
+
+---
+
+## What You've Just Built
+
+You now have a content distribution system that:
+- Pulls approved posts from your calendar automatically
+- Schedules them to go out at the right time on the right platforms
+- Repurposes one piece of content into multiple formats
+- Alerts you when your queue is running low
+- Keeps a complete publishing log
+
+Your social media presence becomes consistent — not because you're working harder, but because your system is doing the distribution work for you.
+
+---
+
+## What to Do Next
+
+Content consistency is one part of showing up online. The other is making sure the leads that come through your content are being followed up properly.
+
+[Read the post on automated lead follow-up →](https://madewithmake.com/blog/automate-lead-followup)
+
+Or if you'd like help setting up a content calendar and scheduling automation for your specific platforms, [book a free consultation here](https://madewithmake.com/contact-us).

@@ -177,7 +177,7 @@ export default function WorkflowsToAutomateChecklist() {
     await downloadChecklistPdf({
       title: "10 Workflows to Automate First",
       subtitle:
-        "The highest-impact manual tasks to automate in your business — what each one is, why it matters, and exactly how to get started.",
+        "The highest-impact manual tasks to automate in your business, what each one is, why it matters, and exactly how to get started.",
       items: ITEMS.map(({ number, title, desc, howTo, tools, guideSlug }) => ({
         number,
         title,

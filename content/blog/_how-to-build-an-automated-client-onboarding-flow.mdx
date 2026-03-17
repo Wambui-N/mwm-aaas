@@ -1,0 +1,265 @@
+---
+title: "How to Build an Automated Client Onboarding Flow (That Makes a Great First Impression Every Time)"
+description: "Client onboarding is one of the highest-impact workflows to automate. Here's how to build a flow that welcomes new clients, sets up their project, collects what you need, and gets everything moving — without manual effort, delays, or forgotten steps."
+date: "2026-03-05"
+author: "Wambui Ndung'u"
+image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
+category: "Client Management"
+tags: ["automation", "Make.com", "onboarding", "client management", "agencies"]
+---
+
+The moment a client signs is your first real chance to show them what working with you is like.
+
+If that moment is followed by silence — no welcome email, no clear next steps, no communication for a day or two while you scramble to set things up — you've already created doubt. They're wondering if they made the right choice.
+
+Now imagine the opposite: they sign the contract, and within 30 seconds they have a warm welcome email in their inbox, a link to book the kickoff call, an intake form to gather what you need, and a clear sense of what happens next. You didn't do any of that manually. It all ran automatically.
+
+That's what this post teaches you to build.
+
+---
+
+## What Manual Onboarding Actually Looks Like
+
+Be honest with yourself for a moment. Here's what most agency onboarding looks like in practice:
+
+- Contract signed on Monday
+- Welcome email sent… Wednesday (because you were in meetings Tuesday)
+- Project created in ClickUp… Thursday (because you forgot Wednesday)
+- Team notified via Slack… Friday (a one-liner, no context)
+- Intake form sent… the following Monday (you had to remember it existed)
+- Kickoff call scheduled… a week after that (back-and-forth over email)
+
+Each delay sends a signal. Not intentionally — but it does. And by the time the kickoff call finally happens, the initial excitement has cooled.
+
+The good news: every single one of those steps can be triggered automatically, instantly, and consistently — every time a new client signs.
+
+---
+
+## What You'll Be Able to Do After This
+
+Once this automation is running:
+
+1. ✅ The moment a contract is signed (or payment received), the flow kicks off
+2. ✅ A personalised welcome email lands in the client's inbox within seconds
+3. ✅ An intake form is sent automatically to collect what you need to start
+4. ✅ A new project is created in your PM tool with the right structure
+5. ✅ Tasks are assigned to the relevant team members
+6. ✅ Your team gets a Slack notification with all the key details
+7. ✅ A follow-up reminder goes out if the intake form isn't submitted within 3 days
+
+No delays. No forgotten steps. Consistent every time — regardless of what day it is or how busy you are.
+
+> 💡 **Time to build this:** 1–2 hours across your tools. Most of that time is writing your welcome email and building the project template. The Make.com scenario itself takes around 30 minutes.
+
+---
+
+## How It Works: Step by Step
+
+### Step 1: Map Out Your Ideal Onboarding Sequence
+
+Before touching any tool, write down every single thing that *should* happen when a new client comes on board. Be thorough. Include:
+
+- What the client needs to *receive* (emails, links, forms)
+- What your team needs to *do* (project setup, task assignments, notifications)
+- What information you need to *collect* (intake form responses)
+- What needs to be *filed or stored* (contract copies, client details in your CRM)
+
+A typical sequence looks like this:
+
+| Step | What Happens | Who/What Does It |
+|---|---|---|
+| 1 | Welcome email + kickoff booking link | Automation → Client |
+| 2 | Intake form sent | Automation → Client |
+| 3 | New project created in PM tool | Automation → ClickUp/Notion |
+| 4 | Tasks created + assigned | Automation → Team |
+| 5 | Team notified | Automation → Slack |
+| 6 | Client added to CRM | Automation → Airtable/HubSpot |
+| 7 | Follow-up if intake form not submitted | Automation → Client (Day 3) |
+
+> 📸 *Screenshot: Onboarding checklist in a Google Doc or Notion page — your blueprint before you build*
+
+> ✅ **After this step:** You have a clear picture of everything the automation needs to do. Don't skip this step — it makes the build 10x faster.
+
+---
+
+### Step 2: Choose Your Trigger
+
+Your trigger is the single event that kicks the entire onboarding sequence off. Pick the most reliable signal that a client is confirmed:
+
+**Contract signed (Recommended)**
+If you're using PandaDoc or DocuSign, Make.com can listen for a "Document Signed" webhook. This is the cleanest trigger — it fires the moment both parties have signed.
+
+**Payment received**
+If you use Stripe, Make.com can trigger on a successful payment. Useful if you take an upfront deposit before starting.
+
+**Form submitted**
+If you have a "ready to start" form that clients fill in after signing, this works well. It also captures useful information you can pass into the rest of the sequence.
+
+> 📸 *Screenshot: Make.com trigger module — showing PandaDoc "Document Signed" webhook as the trigger*
+
+> ⚠️ **Important:** Whatever you choose, make sure the trigger only fires for confirmed clients — not prospects or leads. Test this carefully before going live.
+
+---
+
+### Step 3: Send the Welcome Email
+
+Your first action after the trigger fires is the welcome email. This sets the tone for the entire relationship.
+
+**What to include:**
+- A warm, genuine opening (write it in your voice — not "Dear Valued Client")
+- A clear statement of what happens next — so they know what to expect
+- A link to book the kickoff call via Calendly or Cal.com
+- A link to the intake form they need to complete
+- Your contact details if they have questions
+
+**What to avoid:**
+- Walls of text
+- Corporate-speak
+- Anything that sounds like it was written by a lawyer
+
+> 📸 *Screenshot: Gmail template editor in Make.com showing the welcome email with personalisation variables*
+
+Here's a simple structure that works:
+
+> *Hi {{first_name}},*
+>
+> *Welcome — we're so glad to have you on board. This is the beginning of something good.*
+>
+> *Here's what happens next:*
+> *1. Fill in this short intake form so we can hit the ground running: [link]*
+> *2. Book your kickoff call here — pick a time that works for you: [Calendly link]*
+>
+> *I'll be in touch ahead of the call. If anything comes up before then, reply to this email.*
+>
+> *Looking forward to it,*
+> *[Your Name]*
+
+Short. Clear. Human.
+
+> 💡 **Pro tip:** In Make.com's Gmail module, you can use the client's first name, company name, and project name as variables — pulled directly from the trigger data. It feels personal even though it's automated.
+
+---
+
+### Step 4: Send the Intake Form
+
+Within the same automation (or a few minutes later), send the intake form. Use **Tally** to build a form that captures everything you need before work begins. Common fields include:
+
+- Business goals for this project
+- Target audience / key stakeholders
+- Brand assets (logo, fonts, colours) — Tally supports file uploads
+- Access credentials or tool invites needed
+- Key dates or deadlines
+- Any important context or background
+
+> 📸 *Screenshot: Tally intake form with example fields, showing file upload option*
+
+> 💡 **Pro tip:** Keep the intake form separate from the welcome email — don't put everything in one email. Welcome first, form second. It's easier to process, and completion rates are higher when you're not overwhelming someone on day one.
+
+---
+
+### Step 5: Create the Project in Your PM Tool
+
+At the same time as the client emails, Make.com creates the project in your project management tool.
+
+**In ClickUp:**
+Use the "Create a Folder" or "Create a List" module to create a new project space. Apply your project template using the ClickUp "Create Task" module in a loop — one module call per task in your standard project structure.
+
+**In Notion:**
+Use the "Create a Page" module to create a new project page from a template. Set the project name using the client's name from your trigger data.
+
+> 📸 *Screenshot: Make.com module creating a new ClickUp project with the client name set as the project title*
+
+For each task, set:
+- **Assignee** — mapped to a team member (you can use a fixed value or make it dynamic)
+- **Due date** — calculated as X days from the project start date using Make.com's date functions
+- **Priority** — based on your standard project setup
+
+> ✅ **After this step:** A fully structured project exists in your PM tool before the kickoff call even happens. Your team can see it, prepare for it, and hit the ground running.
+
+---
+
+### Step 6: Notify Your Team in Slack
+
+Once the project is created, send an automatic Slack message to your team channel (or the relevant people) with:
+
+- Client name and company
+- Project name
+- Kickoff call date (if it's been booked)
+- Link to the project in ClickUp or Notion
+
+> 📸 *Screenshot: Slack notification sent via Make.com showing client name, project link, and next steps*
+
+> 💡 **Pro tip:** Include a direct link to the intake form response in the Slack message so your team can review it before the kickoff call — without asking you to forward it.
+
+---
+
+### Step 7: Set a Follow-Up Reminder for the Intake Form
+
+Not every client submits the intake form right away. Build in a contingency: if the form hasn't been submitted within 3 days, Make.com sends a gentle nudge automatically.
+
+To set this up:
+1. After sending the intake form, Make.com writes the submission time to a field in Airtable (or a Google Sheet)
+2. A separate scheduled scenario runs daily and checks for clients where "Intake Form Submitted = No" and "Days Since Onboarding > 3"
+3. If found, it sends a short follow-up email: *"Hi {{first_name}}, just a quick reminder to fill in the intake form before our kickoff call — it really helps us prepare. Here's the link: [link]"*
+
+> 📸 *Screenshot: Make.com scheduled scenario checking for unsubmitted intake forms and sending follow-up emails*
+
+> ✅ **After this step:** You never have to chase a client for their intake form manually again.
+
+---
+
+## Tools You'll Need
+
+| Tool | Purpose | Cost |
+|---|---|---|
+| **Make.com** | Automation engine — connects everything | Free tier available |
+| **PandaDoc or Stripe** | Trigger (contract signed / payment) | Varies |
+| **Gmail** | Welcome and follow-up emails | Free |
+| **Tally** | Intake form | Free |
+| **Calendly or Cal.com** | Kickoff call booking | Free tier available |
+| **ClickUp or Notion** | Project creation and task setup | Free tier available |
+| **Slack** | Internal team notifications | Free |
+| **Airtable** | Client tracking + follow-up logic | Free tier available |
+
+---
+
+## Common Mistakes to Avoid
+
+**Trying to automate the entire onboarding before you've standardised it.**
+If your current onboarding is different for every client, automating it will just automate the chaos. Standardise first — decide what *always* happens — then automate that.
+
+**Making the welcome email feel like it came from a system.**
+The welcome email is a relationship moment. Read it out loud. If it sounds robotic, rewrite it. Automation handles the delivery, not the writing.
+
+**Not having a project template ready before building the Make.com scenario.**
+Your PM tool needs a template to copy from. If that template doesn't exist, Make.com has nothing to work with. Build the template first, test it manually, then automate it.
+
+**Sending everything in one big email.**
+Welcome email, intake form, kickoff booking, project details, terms — all in one message is overwhelming. Break it into at least two touchpoints: welcome first, intake form second.
+
+**Not testing with a real email address before going live.**
+Always send a test run to yourself before the automation touches a real client. Check every email, every link, every form, every Slack message. This takes 10 minutes and saves enormous embarrassment.
+
+---
+
+## What You've Just Built
+
+You now have a client onboarding system that:
+- Fires instantly when a deal is confirmed
+- Welcomes new clients professionally and personally
+- Collects everything you need to start work
+- Creates and structures the project in your PM tool
+- Notifies your team with context
+- Follows up automatically if the intake form isn't returned
+
+Your clients get a great first experience. Your team has everything they need. And you didn't spend a single minute doing it manually.
+
+---
+
+## What to Do Next
+
+With onboarding running automatically, the natural next step is making sure your billing cycle starts just as smoothly. Once a project kicks off, your invoicing should follow a clear, automatic schedule.
+
+[Read the next post: How to Automate Invoice and Payment Follow-Up →](https://madewithmake.com/blog/automate-invoice-payment-followup)
+
+Or if you'd like help designing this flow for your specific client process, [book a free consultation here](https://madewithmake.com/contact-us).

@@ -1,0 +1,250 @@
+---
+title: "How to Set Up Automated Lead Follow-Up (So No Enquiry Ever Goes Cold)"
+description: "Most leads go cold not because they weren't interested — but because the follow-up was too slow or too inconsistent. Here's how to automate your lead response so every enquiry gets an instant, personalised reply — and the right people are notified immediately."
+date: "2026-03-12"
+author: "Wambui Ndung'u"
+image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=80"
+category: "Automation"
+tags: ["automation", "Make.com", "lead management", "CRM", "agencies"]
+---
+
+Someone just filled in your contact form. They're interested. They're warm. And right now — in the next 5 minutes — they're deciding whether to also fill in the form on your competitor's website.
+
+The business that responds first wins the conversation. Not necessarily the contract, but the conversation. And the conversation is where trust starts.
+
+The problem? You're in a meeting. You're focused. You didn't see the notification. And by the time you get back to them, it's been four hours.
+
+This post shows you how to fix that — without gluing yourself to your inbox.
+
+---
+
+## Why Speed in Lead Response Actually Matters
+
+Research from Harvard Business Review found that businesses that contacted leads within one hour were **7x more likely** to have a meaningful conversation than those who waited just two hours. Seven times.
+
+This isn't about being pushy. It's about being present at the moment someone is most interested.
+
+Automated follow-up doesn't replace the personal conversation — it *ensures* it happens. You respond instantly (even while you're in a meeting), buy yourself time, and signal from the very first interaction that you're organised and reliable.
+
+---
+
+## What You'll Be Able to Do After This
+
+Once this automation is running:
+
+1. ✅ Every new enquiry gets an instant, personalised acknowledgement email
+2. ✅ The lead's details are added to your tracker automatically
+3. ✅ You and your team are notified in Slack within seconds
+4. ✅ If you haven't followed up personally within 24 hours, a second email goes out automatically with a booking link
+5. ✅ Every lead is tagged and categorised based on what they're looking for
+
+You stay in control. You just don't have to be online every second to make it work.
+
+> 💡 **Time to build this:** About 45–60 minutes. The Make.com scenario itself takes around 20–25 minutes. The rest is setting up your form and writing your emails.
+
+---
+
+## How It Works: Step by Step
+
+### Step 1: Set Up a Consistent Lead Capture Form
+
+For this automation to work, your leads need to come through a single, consistent channel. If enquiries are currently arriving via Instagram DMs, email, LinkedIn messages, WhatsApp, and your contact form all at once — start by pointing people to one place: a form.
+
+Use **Tally** (free) or Typeform to build a clean contact form. At minimum, capture:
+
+- First name
+- Email address
+- Company / organisation
+- What they're looking for
+- How they heard about you
+
+> 📸 *Screenshot: Tally contact form showing the five fields above, with a clean, simple layout*
+
+> 💡 **Pro tip:** Add a "How urgent is this?" field with options like "Just exploring," "Within the next month," and "ASAP." This helps you prioritise follow-up without any manual sorting.
+
+> ✅ **After this step:** Every lead comes through one channel, with consistent data you can act on.
+
+---
+
+### Step 2: Create Your Lead Tracker
+
+Before you build the automation, create a simple lead tracker where all submissions will be stored. Use **Airtable** (recommended) or a Google Sheet.
+
+Your tracker should have these columns:
+
+| Column | Purpose |
+|---|---|
+| Name | From form |
+| Email | From form |
+| Company | From form |
+| Enquiry | What they're looking for |
+| Source | How they heard about you |
+| Date Received | Auto-populated by Make.com |
+| Urgency | From the form (if you added that field) |
+| Response Sent | Yes / No — update this manually after you reply |
+| Follow-Up Sent | Yes / No — auto-updated by Make.com |
+| Status | New / In Progress / Won / Lost |
+| Notes | Free text — your personal notes |
+
+> 📸 *Screenshot: Airtable lead tracker base showing the columns above with a few sample rows*
+
+> 💡 **Pro tip:** Add a "Source" column and keep it updated. Over time, you'll see exactly which channels bring in the leads most likely to convert — that's valuable data that usually goes uncollected.
+
+> ✅ **After this step:** You have a single source of truth for every lead that comes in.
+
+---
+
+### Step 3: Build the Make.com Scenario
+
+Your Make.com scenario fires every time someone submits your Tally form. Here's what it needs to do:
+
+**Module 1 — Tally: Watch for New Submissions**
+This is your trigger. Make.com monitors your Tally form and fires the scenario every time a new response comes in.
+
+**Module 2 — Airtable: Create a Record**
+Immediately adds the lead's details to your tracker. Map each form field to the corresponding Airtable column. Also set the "Date Received" to today's date and "Response Sent" to "No."
+
+**Module 3 — Gmail: Send Acknowledgement Email**
+Sends the acknowledgement email to the prospect within seconds of their form submission. More on writing this in Step 4.
+
+**Module 4 — Slack: Send Notification**
+Posts a message to your #leads Slack channel (or sends a direct message to you) with:
+- Lead's name and company
+- What they're looking for
+- The enquiry urgency level
+- A link to the Airtable record
+
+> 📸 *Screenshot: Make.com scenario showing all four modules connected in sequence*
+
+> 📸 *Screenshot: Slack notification showing a new lead alert with name, company, and enquiry summary*
+
+> ✅ **After this step:** Every new lead is tracked, acknowledged, and brought to your attention automatically — whether you're at your desk or not.
+
+---
+
+### Step 4: Write the Acknowledgement Email
+
+This email goes out within seconds of the form submission. It's often the first piece of writing a lead sees from you — which means it's doing real relationship work even though it's automated.
+
+**What it needs to do:**
+- Confirm their message was received (removes anxiety on their end)
+- Set a clear expectation for when they'll hear from you personally
+- Give them something useful in the meantime — a relevant resource, your most useful blog post, or a link to learn more about your work
+- Feel warm and personal, not automated
+
+Here's a template that works:
+
+> *Hi {{first_name}},*
+>
+> *Thanks for getting in touch — I've received your message about {{enquiry_topic}}.*
+>
+> *I'll be back in touch within {{response_timeframe}} to talk through how I can help. In the meantime, you might find this useful: {{relevant_link}}.*
+>
+> *Talk soon,*
+> *{{your_name}}*
+
+Keep it short. The goal is not to sell — it's to confirm you're real, you're responsive, and you'll be in touch.
+
+> 📸 *Screenshot: Gmail module in Make.com showing the acknowledgement email template with variables highlighted*
+
+> ⚠️ **Read this email out loud before saving it.** If it sounds like a bot wrote it, rewrite it. The test is simple: would you send this exact message to a friend who asked for a recommendation?
+
+---
+
+### Step 5: Add the 24-Hour Follow-Up
+
+If you haven't personally responded within 24 hours, Make.com sends a second email automatically. This is your safety net — the lead doesn't go cold just because you got busy.
+
+The email is short and direct:
+
+> *Hi {{first_name}},*
+>
+> *Just following up on your enquiry — I'd love to connect and hear more about what you're working on.*
+>
+> *Here's a link to book a quick call at a time that works for you: {{calendly_link}}*
+>
+> *{{your_name}}*
+
+**How to build the 24-hour delay in Make.com:**
+
+Set up a separate, scheduled scenario that runs every morning. It checks your Airtable tracker for any leads where:
+- `Response Sent = No`
+- `Date Received < 24 hours ago`
+- `Follow-Up Sent = No`
+
+If it finds any, it sends the follow-up email and updates the "Follow-Up Sent" field to "Yes."
+
+> 📸 *Screenshot: Make.com scheduled scenario with Airtable filter conditions and Gmail follow-up module*
+
+> 💡 **Pro tip:** Once you send the follow-up, update the "Follow-Up Sent" field in Airtable. This prevents the scenario from sending multiple follow-ups to the same lead.
+
+---
+
+### Step 6: Tag and Categorise Leads Automatically
+
+As your tracker grows, it becomes hard to prioritise without good categorisation. Use Make.com to automatically tag leads based on what they enquire about:
+
+- If the enquiry mentions "social media" → tag as `Content`
+- If it mentions "website" → tag as `Web Development`
+- If it mentions "automation" or "Make.com" → tag as `Automation`
+
+You can do basic keyword matching in Make.com using the "Text parser" module to search for keywords in the enquiry field.
+
+> 📸 *Screenshot: Make.com Text Parser module checking for keywords in the enquiry field and setting an Airtable tag*
+
+> ✅ **After this step:** Your lead tracker is organised, searchable, and tells you at a glance where each lead came from and what they want.
+
+---
+
+## Tools You'll Need
+
+| Tool | Purpose | Cost |
+|---|---|---|
+| **Tally** | Lead capture form | Free |
+| **Airtable** | Lead tracker | Free tier available |
+| **Make.com** | Automation engine | Free tier available |
+| **Gmail** | Acknowledgement + follow-up emails | Free |
+| **Calendly or Cal.com** | Booking link in follow-up email | Free tier available |
+| **Slack** | Instant lead notifications | Free |
+
+---
+
+## Common Mistakes to Avoid
+
+**Making the acknowledgement email sound automated.**
+The whole point of this email is to feel human. Clients should think you wrote it yourself. If there's any doubt, rewrite it. Test it by sending it to a friend and asking if it sounds like you.
+
+**Not having a clear call to action in the follow-up email.**
+Every follow-up email should have one thing the prospect can do — book a call, reply with a question, read a resource. Don't leave them with a message and nothing to click.
+
+**Letting leads pile up in the tracker without updating statuses.**
+The tracker is only useful if you keep it updated. Build a 5-minute habit at the end of every workday to update the status of each lead you've been in contact with. The automation gets them in; you keep them moving.
+
+**Sending to all platforms instead of one form.**
+If you don't consolidate your lead capture into one form, the automation can't fire. The first step is always directing enquiries to a single, consistent channel.
+
+**Setting the 24-hour follow-up to repeat.**
+Make sure the follow-up only sends once per lead. If the scenario doesn't check for "Follow-Up Sent = Yes," it'll send the same email every day. That's not a nudge — that's spam.
+
+---
+
+## What You've Just Built
+
+You now have a lead follow-up system that:
+- Acknowledges every enquiry within seconds
+- Tracks every lead in a central, organised database
+- Keeps you and your team instantly informed
+- Follows up automatically if you don't get to it in time
+- Categorises and tags leads without any manual effort
+
+From the lead's perspective, you're always on top of things — even when you're not at your desk.
+
+---
+
+## What to Do Next
+
+Now that no lead goes cold, the next step is making sure the booking process is just as frictionless. When a lead is ready to talk, they should be able to book instantly — without any back-and-forth.
+
+[Read the next post: How to Automate Meeting Scheduling and Cut Out the Back-and-Forth →](https://madewithmake.com/blog/automate-meeting-scheduling)
+
+Or [book a free consultation](https://madewithmake.com/contact-us) to set this up for your specific lead flow.

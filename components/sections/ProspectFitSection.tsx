@@ -11,6 +11,10 @@ import { LogoCloud } from '@/components/ui/logo-cloud-3';
 
 const LOGOS = [
   {
+    src: 'https://www.google.com/s2/favicons?domain=shelfcue.com&sz=64',
+    alt: 'ShelfCue',
+  },
+  {
     src: 'https://www.google.com/s2/favicons?domain=make.com&sz=64',
     alt: 'Make.com',
   },
