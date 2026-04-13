@@ -59,7 +59,7 @@ export default function FounderSection() {
           <div className="flex h-full flex-col justify-between">
             {/* Top block: title + name + short line */}
             <div>
-              <p className="mb-2 text-xs font-medium uppercase tracking-[0.25em] text-brand-black/80">
+              <p className="mb-2 text-xs font-medium uppercase tracking-[0.25em] text-brand-orange">
                 Founder
               </p>
               <h2 className="mb-3 text-3xl font-display font-semibold text-brand-black md:text-4xl">
@@ -74,12 +74,12 @@ export default function FounderSection() {
             <div className="mt-8 space-y-5 text-base leading-normal text-brand-black/80">
               <div className="space-y-4">
                 <p>
-                  I partner with established teams to automate their manual workflows so work runs smoother,
-                  errors drop, and people can focus on the work that actually moves the business forward.
+                I built my first automation to stop doing something I hated doing manually. That was it,
+                no grand vision, just a problem I wanted to go away. It worked. Then I built another one.
                 </p>
                 <p>
-                  Whether it&apos;s automating repetitive tasks, tightening up messy processes, or designing
-                  better systems, my goal is to make technology work for you.
+                Turns out, finding a messy workflow and making the repetitive parts disappear is genuinely fun for me.
+                That probably says something about me. It definitely explains the business.
                 </p>
                 {/* <p>
                   The right automation frees up your time to focus on what really matters: growing your
@@ -102,8 +102,8 @@ export default function FounderSection() {
                   variant="accent"
                   className="px-5 py-2 text-xs md:text-sm"
                 >
-                  <a href="/contact-us">
-                    Get a free consultation
+                  <a href="/assessment">
+                  Take the Automation Gap Audit
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </a>
                 </Button>

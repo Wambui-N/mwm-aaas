@@ -65,7 +65,7 @@ export default function DeliveryProcessSection() {
                 <h3 className="text-2xl font-medium text-brand-black">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-base leading-relaxed text-gray-700">
+                <p className="mt-2 mb-6 text-base leading-relaxed text-gray-700">
                   {step.body}
                 </p>
               </div>

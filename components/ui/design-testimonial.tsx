@@ -17,13 +17,6 @@ const testimonials = [
     company: "Founder's Freedom",
     initials: "JK",
   },
-  {
-    quote:
-      "Collaborating with you was a highly professional and rewarding experience. The proposal automation solution has significantly enhanced our efficiency, reduced operational strain, and improved the overall quality of our proposals.",
-    author: "Felix Kirui",
-    company: "Triple C Advisory",
-    initials: "FK",
-  },
 ];
 
 export function Testimonial() {
