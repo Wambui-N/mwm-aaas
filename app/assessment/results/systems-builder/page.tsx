@@ -25,6 +25,14 @@ export default function SystemsBuilderPage() {
           label: "Book a strategy call",
           href: "/contact-us",
         },
+        diagnosisCopy: {
+          operations:
+            "Your biggest leverage is in operational resilience — making your systems less dependent on specific people and more self-sustaining. Think about what breaks when someone is out, and which manual handoffs are still lurking.",
+          clients:
+            "At your stage, client management gaps are usually about scale and consistency rather than setup. Tightening the edges of your pipeline — faster follow-up, cleaner onboarding, better visibility — compounds quickly.",
+          tools:
+            "You've got automations, but they may be fragile or unmonitored. The move is building a more deliberate systems architecture — connected tools, automated monitoring, and a clear roadmap for what to improve next.",
+        },
         gapCards: [
           {
             title: "Automations exist, but there's no roadmap",

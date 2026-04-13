@@ -79,7 +79,7 @@ export default function HeroSection() {
                 variant="outline"
                 className="w-full sm:w-auto px-8 py-4 text-base group"
               >
-                <a href="/resources">
+                <a href="#">
                   See how it works
                   <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>

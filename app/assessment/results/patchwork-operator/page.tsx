@@ -25,6 +25,14 @@ export default function PatchworkOperatorPage() {
           label: "Book a free consultation",
           href: "/contact-us",
         },
+        diagnosisCopy: {
+          operations:
+            "You have processes, but they're inconsistent — some steps are documented, others live with specific team members. The opportunity is in standardising the most frequent workflows so execution doesn't depend on who's available.",
+          clients:
+            "Leads are coming in but the follow-through isn't reliable. Speed and consistency in your client management pipeline will have an outsized impact — especially tightening response time and onboarding steps.",
+          tools:
+            "You have tools, but they're operating as silos. Connecting the ones you already have — so data flows automatically rather than being copied by hand — is the highest-leverage move at this stage.",
+        },
         gapCards: [
           {
             title: "Leads wait too long for a response",

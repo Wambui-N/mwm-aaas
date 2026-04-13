@@ -25,6 +25,14 @@ export default function ManualMachinePage() {
           label: "Get the free checklist",
           href: "/resources/checklist/10-workflows-to-automate-first",
         },
+        diagnosisCopy: {
+          operations:
+            "Your day-to-day workflows are held together by people rather than systems. Even a single documented, repeatable process will save time immediately — and make everything else easier to automate.",
+          clients:
+            "Leads and clients are falling through the cracks because follow-up depends on someone remembering. A simple automated acknowledgement and follow-up sequence is often the highest-ROI first move.",
+          tools:
+            "Your tools aren't connected, so information lives in silos. Picking one high-frequency handoff to automate — like form submissions flowing into a spreadsheet or CRM — can remove hours of manual work each week.",
+        },
         gapCards: [
           {
             title: "Your core workflows live in people's heads",
