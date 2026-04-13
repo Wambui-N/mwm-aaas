@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { calBookingAnchor } from "@/lib/links";
 
 // ─── HeroSection ──────────────────────────────────────────────────────────────
@@ -35,7 +35,7 @@ export default function HeroSection() {
 
   return (
     <section className="relative pt-16 pb-16 sm:pt-24 sm:pb-24 overflow-hidden">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -43,42 +43,45 @@ export default function HeroSection() {
         >
           <motion.h1
             variants={itemVariants}
-            className="text-2xl sm:text-3xl md:text-4xl font-medium text-brand-black mb-6 leading-tight font-display"
+            className="text-4xl sm:text-4xl md:text-5xl font-medium text-brand-black mb-6 leading-tight font-display"
           >
-            Automation consulting for established teams
+            Your team is too good <br /> to be doing this manually.
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
-            className="text-lg text-gray-700 mb-2 max-w-4xl mx-auto leading-normal"
+            className="text-lg text-gray-700 mb-8 max-w-4xl mx-auto leading-relaxed text-balance"
           >
-            I automate <b>manual workflows</b> for established teams, so work
-            runs smoother and you can focus on growth.
-          </motion.p>
-
-          <motion.p
-            variants={itemVariants}
-            className="text-lg text-gray-700 mb-10 max-w-4xl mx-auto leading-normal"
-          >
-            At Made with Make, that means <b>auditing your processes</b>,
-            designing <b>smart automations</b>, and implementing{" "}
-            <b>systems that work in the background</b> while you focus on
-            growing your business and serving customers.
+            You've built a real business. But somewhere between growing from 5 people to 25, 
+            <b> the operations stopped keeping up</b>. Now your best people are spending their mornings 
+            on admin that <b> a well-built system could do overnight</b>.
           </motion.p>
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-4 mt-10 justify-center"
           >
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button
                 asChild
                 variant="accent"
-                className="w-full sm:w-auto px-8 py-3 text-base group"
+                className="w-full sm:w-auto px-8 py-4 text-base group"
               >
                 <a href="/assessment">
                   Take the Automation Gap Audit
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                asChild
+                variant="outline"
+                className="w-full sm:w-auto px-8 py-4 text-base group"
+              >
+                <a href="/resources">
+                  See how it works
+                  <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
             </motion.div>

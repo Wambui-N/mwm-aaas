@@ -13,13 +13,35 @@ const OUTCOMES = [
 
 const STATS = [
   { number: "10", label: "Questions" },
-  { number: "3", label: "Minutes" },
+  { number: "5", label: "Minutes" },
   { number: "1", label: "Clear next step" },
 ];
 
 export default function HomeAssessmentCtaSection() {
   return (
     <section className="py-10 border-t border-brand-grey/20">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="rounded-2xl p-5 sm:p-6"
+        >
+          <p className="text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-orange">
+            Start Here
+          </p>
+          <h2 className="my-6 text-center text-3xl font-display font-semibold leading-tight text-brand-black md:text-4xl">
+            Not sure where your biggest
+            <br />
+            bottleneck actually is?
+          </h2>
+          <p className="my-3 mx-auto max-w-2xl text-center text-base leading-relaxed text-gray-700">
+            That's exactly what the Automation Gap Audit is for. Ten questions across your operations, client management,
+            and tools stack. You'll leave knowing where you're losing the most, and what to fix first.
+          </p>
+        </motion.div>
+      </div>
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         {/* Card */}
         <div
@@ -55,7 +77,7 @@ export default function HomeAssessmentCtaSection() {
 
               {/* Headline */}
               <h2 className="mb-7 font-display text-[clamp(24px,3.2vw,34px)] font-semibold leading-[1.12] tracking-tight text-white">
-                In 3 minutes, know{" "}
+                In 5 minutes, know{" "}
                 <em className="not-italic text-brand-orange">exactly</em>{" "}
                 what to automate first.
               </h2>
