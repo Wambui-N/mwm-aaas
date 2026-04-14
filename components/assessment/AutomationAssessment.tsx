@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { IntakeForm } from "./IntakeForm";
 
@@ -19,199 +18,166 @@ type AnswerOption = {
   value: number;
 };
 
-type Area = "operations" | "clients" | "tools";
 type ProfileKey = "manual" | "patchwork" | "systems";
 
 type Question = {
   id: string;
-  area: Area;
   label: string;
   options: AnswerOption[];
 };
 
 // ─── Questions ────────────────────────────────────────────────────────────────
+// Scoring guide: 3 = strong systems, 2 = partial, 1 = mostly manual, 0 = chaotic/undefined
+// Q7 max is 2; all others max 3. Total max = 29.
 
 const QUESTIONS: Question[] = [
   {
     id: "q1",
-    area: "operations",
     label:
       "When you sign a new client, how many different tools, spreadsheets, or group chats does your team have to touch to get them set up?",
     options: [
       { label: "1–2 — it's simple and centralised", value: 3 },
-      { label: "3–4 — manageable but scattered", value: 2 },
+      { label: "3–4 — manageable but a bit scattered", value: 2 },
       { label: "5 or more — it's honestly chaotic", value: 1 },
       { label: "We don't have a set process for this", value: 0 },
     ],
   },
   {
     id: "q2",
-    area: "operations",
     label:
-      "Think about your most skilled, highly-paid team members. How much of their week is spent manually moving data, formatting documents, or chasing follow-ups?",
+      "Think about your most skilled, highly-paid team members. How much of their week is spent manually moving data between systems, formatting documents, or chasing follow-ups?",
     options: [
       { label: "Almost none — that work is automated or delegated", value: 3 },
-      { label: "A few hours — it's annoying but manageable", value: 2 },
+      { label: "A few hours — noticeable but manageable", value: 2 },
       { label: "A significant chunk — more than I'd like to admit", value: 1 },
       { label: "Most of their time, honestly", value: 0 },
     ],
   },
   {
     id: "q3",
-    area: "operations",
     label:
       "You've grown past your original core team. Honestly, how are your daily operations running right now?",
     options: [
       { label: "Like clockwork — fully documented and consistent", value: 3 },
-      { label: "Mostly fine, but the cracks are starting to show", value: 2 },
+      { label: "Mostly fine, but the cracks are showing", value: 1 },
       { label: "Everything runs on memory and goodwill", value: 0 },
     ],
   },
   {
     id: "q4",
-    area: "clients",
-    label:
-      "When a high-value lead comes in right now — how long before they hear from you, and who is responsible for making that happen?",
-    options: [
-      { label: "Within minutes — it's automated and consistent", value: 3 },
-      { label: "Within a few hours — someone picks it up manually", value: 2 },
-      { label: "It depends on who sees it first", value: 1 },
-      { label: "Honestly, some fall through the cracks", value: 0 },
-    ],
-  },
-  {
-    id: "q5",
-    area: "clients",
-    label:
-      "Has a lead, proposal, or unpaid invoice ever gone quiet because the follow-up just didn't happen?",
-    options: [
-      { label: "Never — we have a reliable system for this", value: 3 },
-      { label: "Rarely — but it has happened", value: 2 },
-      { label: "More often than I'd like", value: 1 },
-      { label: "Regularly — it's a known problem", value: 0 },
-    ],
-  },
-  {
-    id: "q6",
-    area: "clients",
     label:
       "What happens right now when a custom proposal needs to go out to a high-value lead?",
     options: [
       { label: "It goes out fast — we have a template and system for it", value: 3 },
       { label: "Someone puts it together manually — takes a few hours", value: 2 },
-      { label: "It takes a day or more and involves several people", value: 1 },
-      { label: "It's inconsistent — depends on who's available", value: 0 },
+      { label: "It takes a full day or more and involves several people", value: 1 },
+      { label: "It's inconsistent — depends who's available and remembers", value: 0 },
+    ],
+  },
+  {
+    id: "q5",
+    label:
+      "If we decided to automate your biggest bottleneck tomorrow, is that workflow currently documented step-by-step, or does it mostly live in someone's head?",
+    options: [
+      { label: "Fully documented — we could hand it over today", value: 3 },
+      { label: "Partially documented — some key steps are written down", value: 2 },
+      { label: "Mostly lives in someone's head", value: 1 },
+      { label: "We haven't identified our main bottleneck yet", value: 0 },
+    ],
+  },
+  {
+    id: "q6",
+    label:
+      "Have you tried to build automations (like Zaps or Make scenarios) in the past?",
+    options: [
+      { label: "Yes — and they still work reliably", value: 3 },
+      { label: "Yes — they worked for a while, then broke", value: 2 },
+      { label: "Yes — we gave up after it broke", value: 0 },
+      { label: "No — we haven't attempted it yet", value: 1 },
     ],
   },
   {
     id: "q7",
-    area: "tools",
     label:
-      "Your team copies data between tools by hand — because the tools don't talk to each other.",
+      "If you could completely eliminate one messy, manual task from your team's plate tomorrow, which area is currently causing the biggest drag on your growth?",
     options: [
-      { label: "Never — our tools are connected", value: 3 },
-      { label: "Occasionally for edge cases", value: 2 },
-      { label: "Regularly for certain workflows", value: 1 },
-      { label: "Constantly — it's how most things get done", value: 0 },
+      { label: "Client onboarding and data setup", value: 1 },
+      { label: "Proposal generation and sales follow-ups", value: 1 },
+      { label: "Moving data between tools and fixing manual errors", value: 1 },
+      { label: "We've mostly addressed our major bottlenecks", value: 3 },
     ],
   },
   {
     id: "q8",
-    area: "tools",
     label:
-      "If we decided to automate your biggest bottleneck tomorrow — is that workflow currently documented step by step, or does it mostly live in someone's head?",
+      "How is your leadership team currently approaching AI and automation?",
     options: [
-      { label: "Fully documented — we could hand it over today", value: 3 },
-      { label: "Partially documented — some of it is written down", value: 2 },
-      { label: "Mostly in people's heads", value: 1 },
-      { label: "What bottleneck? We haven't identified it yet", value: 0 },
+      {
+        label:
+          "We're mostly looking for the right AI tools or software to buy to speed things up",
+        value: 0,
+      },
+      {
+        label:
+          "We know we need to scale, but we need to fix our underlying processes before adding more tools",
+        value: 3,
+      },
     ],
   },
   {
     id: "q9",
-    area: "tools",
     label:
-      "Have you tried to build automations before — a Zap, a Make scenario, a spreadsheet formula — and watched it quietly break within a few weeks?",
+      "When it comes to solving these operational leaks, what type of help are you actually looking for right now?",
     options: [
-      { label: "No — we haven't tried yet", value: 2 },
-      { label: "Yes — and it still works", value: 3 },
-      { label: "Yes — and it broke, we're not sure why", value: 1 },
-      { label: "Yes — and we gave up after it broke", value: 0 },
+      {
+        label: "Someone to give us a strategy deck so our team can try to build it",
+        value: 1,
+      },
+      {
+        label:
+          "A partner to audit the process, build the systems, and hand them over fully documented",
+        value: 3,
+      },
+      { label: "We're just exploring and not ready to bring anyone in", value: 0 },
     ],
   },
   {
     id: "q10",
-    area: "tools",
-    label: "How many people are currently on your team, including yourself?",
+    label:
+      "Be honest: how much longer can your business sustain its current manual workflows before operations start breaking or growth completely stalls?",
     options: [
-      { label: "Just me (1–2 people)", value: 1 },
-      { label: "Small team (3–10 people)", value: 2 },
-      { label: "Growing team (11–30 people)", value: 3 },
-      { label: "Established team (30+ people)", value: 2 },
+      { label: "We're already hitting the ceiling — we need to fix this now", value: 0 },
+      { label: "We can manage for another 3–6 months, but it's getting painful", value: 1 },
+      { label: "We're fine for now, just seeing what's out there", value: 2 },
     ],
   },
 ];
 
 // ─── Scoring ──────────────────────────────────────────────────────────────────
+// Max total = 29 (Q7 max 2 due to 3-option scale, all others max 3 each... wait:
+// Q1–Q6: max 3 each = 18, Q7 max 3, Q8 max 3, Q9 max 3, Q10 max 2 → total max 29)
 
-type RawScores = {
-  operations: number; // max 9
-  clients: number;    // max 9
-  tools: number;      // max 11
-};
-
-type Scores = {
-  operations: number; // percentage
-  clients: number;
-  tools: number;
-  overall: number;
-};
-
-const AREA_MAX: Record<Area, number> = {
-  operations: 9,
-  clients: 9,
-  tools: 11,
-};
 const TOTAL_MAX = 29;
 
-function computeRawScores(answers: Record<string, number>): RawScores {
-  const ops = (answers["q1"] ?? 0) + (answers["q2"] ?? 0) + (answers["q3"] ?? 0);
-  const cli = (answers["q4"] ?? 0) + (answers["q5"] ?? 0) + (answers["q6"] ?? 0);
-  const tls =
-    (answers["q7"] ?? 0) +
-    (answers["q8"] ?? 0) +
-    (answers["q9"] ?? 0) +
-    (answers["q10"] ?? 0);
-  return { operations: ops, clients: cli, tools: tls };
+function computeOverallScore(answers: Record<string, number>): number {
+  const total = Object.values(answers).reduce((sum, v) => sum + v, 0);
+  return Math.round((total / TOTAL_MAX) * 100);
 }
 
-function computeScores(raw: RawScores): Scores {
-  const total = raw.operations + raw.clients + raw.tools;
-  return {
-    operations: Math.round((raw.operations / AREA_MAX.operations) * 100),
-    clients: Math.round((raw.clients / AREA_MAX.clients) * 100),
-    tools: Math.round((raw.tools / AREA_MAX.tools) * 100),
-    overall: Math.round((total / TOTAL_MAX) * 100),
-  };
-}
-
-function pickDiagnosisArea(raw: RawScores): Area {
-  // Normalise to percentages for fair comparison
-  const pcts: Record<Area, number> = {
-    operations: raw.operations / AREA_MAX.operations,
-    clients: raw.clients / AREA_MAX.clients,
-    tools: raw.tools / AREA_MAX.tools,
-  };
-  // Tie-break order: clients > operations > tools
-  const order: Area[] = ["clients", "operations", "tools"];
-  return order.reduce((lowest, area) =>
-    pcts[area] < pcts[lowest] ? area : lowest
-  );
+function buildAnswerLabels(answers: Record<string, number>): Record<string, string> {
+  return QUESTIONS.reduce<Record<string, string>>((acc, q) => {
+    const selectedValue = answers[q.id];
+    const selectedOption = q.options.find((opt) => opt.value === selectedValue);
+    if (selectedOption) {
+      acc[q.id] = selectedOption.label;
+    }
+    return acc;
+  }, {});
 }
 
 function pickProfile(overallPercent: number): ProfileKey {
-  if (overallPercent <= 35) return "manual";
-  if (overallPercent <= 65) return "patchwork";
+  if (overallPercent <= 34) return "manual";
+  if (overallPercent <= 64) return "patchwork";
   return "systems";
 }
 
@@ -225,12 +191,6 @@ const PROFILE_LABEL: Record<ProfileKey, string> = {
   manual: "The Manual Machine",
   patchwork: "The Patchwork Operator",
   systems: "The Systems Builder",
-};
-
-const AREA_LABEL: Record<Area, string> = {
-  operations: "Operations",
-  clients: "Client management",
-  tools: "Your tools",
 };
 
 // ─── Main component ───────────────────────────────────────────────────────────
@@ -281,19 +241,15 @@ export function AutomationAssessment({ fullPage }: { fullPage?: boolean }) {
     const isLastQuestion = currentQuestion === QUESTIONS.length - 1;
 
     if (isLastQuestion) {
-      // Compute and save, then navigate
-      const raw = computeRawScores(newAnswers);
-      const scores = computeScores(raw);
-      const diagnosisArea = pickDiagnosisArea(raw);
-      const profileKey = pickProfile(scores.overall);
+      const scoreOverall = computeOverallScore(newAnswers);
+      const profileKey = pickProfile(scoreOverall);
+      const answerLabels = buildAnswerLabels(newAnswers);
 
       localStorage.setItem(
         "latestAssessmentResult",
         JSON.stringify({
-          scores,
-          rawScores: raw,
+          scoreOverall,
           profile: profileKey,
-          diagnosisArea,
           name: intake.name,
           email: intake.email,
           industry: intake.industry,
@@ -311,11 +267,9 @@ export function AutomationAssessment({ fullPage }: { fullPage?: boolean }) {
           industry: intake.industry,
           profile: profileKey,
           profileLabel: PROFILE_LABEL[profileKey],
-          diagnosisArea,
-          scoreOverall: scores.overall,
-          scoreOperations: scores.operations,
-          scoreClients: scores.clients,
-          scoreTools: scores.tools,
+          scoreOverall,
+          answers: newAnswers,
+          answerLabels,
         }),
       }).catch((err) => console.error("[assessment] submit error:", err));
 
@@ -347,13 +301,7 @@ export function AutomationAssessment({ fullPage }: { fullPage?: boolean }) {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
               <div className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                {step === "intake"
-                  ? "About you"
-                  : currentQ?.area === "operations"
-                  ? "Operations"
-                  : currentQ?.area === "clients"
-                  ? "Client management"
-                  : "Your tools"}
+                {step === "intake" ? "About you" : "The Audit"}
               </div>
               <div className="text-xs text-gray-400 tabular-nums">
                 {step === "intake" ? "0" : answeredCount} / {QUESTIONS.length}
@@ -394,7 +342,7 @@ export function AutomationAssessment({ fullPage }: { fullPage?: boolean }) {
                 className="rounded-2xl border border-gray-100 bg-white px-6 py-8 shadow-sm"
               >
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-orange mb-3">
-                  {AREA_LABEL[currentQ.area]}
+                  Question {currentQuestion + 1} of {QUESTIONS.length}
                 </p>
                 <h2 className="text-lg md:text-xl font-semibold text-brand-black mb-6 leading-snug">
                   {currentQ.label}

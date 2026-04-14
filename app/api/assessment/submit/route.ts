@@ -6,23 +6,17 @@ export type AssessmentSubmitPayload = {
   name: string;
   email: string;
   industry: string;
-  profile: string;         // "manual" | "patchwork" | "systems"
-  profileLabel: string;    // "The Manual Machine" etc.
-  diagnosisArea: string;   // "operations" | "clients" | "tools"
-  scoreOverall: number;    // 0-100
-  scoreOperations: number;
-  scoreClients: number;
-  scoreTools: number;
+  profile: string;      // "manual" | "patchwork" | "systems"
+  profileLabel: string; // "The Manual Machine" etc.
+  scoreOverall: number; // 0-100
+  answers?: Record<string, number>;
+  answerLabels?: Record<string, string>;
 };
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.MAILERLITE_API_KEY;
   const groupId = process.env.MAILERLITE_GROUP_ID;
-
-  if (!apiKey) {
-    console.warn("[assessment/submit] MAILERLITE_API_KEY is not set — skipping.");
-    return NextResponse.json({ ok: false, reason: "api_key_missing" }, { status: 200 });
-  }
+  const makeSheetsWebhookUrl = process.env.MAKE_SHEETS_WEBHOOK_URL;
 
   let body: AssessmentSubmitPayload;
   try {
@@ -37,11 +31,9 @@ export async function POST(req: NextRequest) {
     industry,
     profile,
     profileLabel,
-    diagnosisArea,
     scoreOverall,
-    scoreOperations,
-    scoreClients,
-    scoreTools,
+    answers,
+    answerLabels,
   } = body;
 
   if (!email || !name) {
@@ -57,35 +49,50 @@ export async function POST(req: NextRequest) {
       audit_industry: industry,
       audit_profile: profile,
       audit_profile_label: profileLabel,
-      audit_diagnosis_area: diagnosisArea,
       audit_score_overall: scoreOverall,
-      audit_score_operations: scoreOperations,
-      audit_score_clients: scoreClients,
-      audit_score_tools: scoreTools,
     },
     // Add to group if configured
     ...(groupId ? { groups: [groupId] } : {}),
   };
 
   try {
-    const res = await fetch(`${MAILERLITE_API}/subscribers`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify(subscriberPayload),
-    });
+    if (!apiKey) {
+      console.warn("[assessment/submit] MAILERLITE_API_KEY is not set — skipping.");
+    } else {
+      const res = await fetch(`${MAILERLITE_API}/subscribers`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(subscriberPayload),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok) {
-      console.error("[assessment/submit] MailerLite error:", data);
-      return NextResponse.json(
-        { ok: false, reason: "mailerlite_error", detail: data },
-        { status: 200 } // 200 so client doesn't surface an error to the user
-      );
+      if (!res.ok) {
+        console.error("[assessment/submit] MailerLite error:", data);
+      }
+    }
+
+    // Fire-and-forget: send to Make webhook for Google Sheets logging.
+    if (makeSheetsWebhookUrl) {
+      fetch(makeSheetsWebhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          industry,
+          profile,
+          profileLabel,
+          scoreOverall,
+          answers,
+          answerLabels,
+          submittedAt: new Date().toISOString(),
+        }),
+      }).catch((err) => console.error("[assessment/submit] Make webhook error:", err));
     }
 
     return NextResponse.json({ ok: true });
