@@ -1,0 +1,74 @@
+# Made with Make — Full Content Index (llms-full.txt)
+# https://madewithmake.com
+# Last updated: 2026-04-24
+# This file provides LLM-readable summaries of key site content for AI discovery and citation.
+
+---
+
+## Site overview
+
+Made with Make is an automation and AI consulting firm founded by Wambui Ndung'u, based in Nairobi, Kenya, serving clients worldwide.
+
+We help service businesses — consultants, agencies, staffing firms, and professional services teams — automate the manual, repetitive work that slows them down. We use Make.com (formerly Integromat) as our primary automation platform, combined with Google Workspace, AI tools like Gemini, and any tool with an API.
+
+We do both strategy (what to automate and how) and execution (building and deploying the actual systems).
+
+Contact: wambui@madewithmake.com
+Free consultation: https://madewithmake.com/contact-us
+
+---
+
+## Blog posts
+
+### How to Automate Contract Sending and Signature Collection
+URL: https://madewithmake.com/blog/how-to-automate-contract-sending-and-signature-collection
+Summary: A step-by-step guide to automating the full contract lifecycle — from sending contracts when a deal is confirmed, to chasing signatures automatically, to notifying you when it's signed and filing the signed copy. Covers DocuSign, PandaDoc, and Google Docs integrations via Make.com.
+Topics: automation, Make.com, contracts, e-signature, client management
+
+### How to Set Up Automated Reporting and Status Updates
+URL: https://madewithmake.com/blog/how-to-set-up-automated-reporting-and-status-updates
+Summary: How to build automated weekly reports that pull data from your project management tool, format it into a Google Doc or email, and send it to clients or your team without manual effort. Includes a client-facing status update template.
+Topics: automation, Make.com, reporting, Google Sheets, client management
+
+---
+
+## Pages
+
+### Homepage
+URL: https://madewithmake.com
+Description: Overview of automation consulting and execution services. Explains what Made with Make does, who it's for, and how engagements work.
+
+### Blog index
+URL: https://madewithmake.com/blog
+Description: All published automation guides, walkthroughs, and insights. Covers Make.com, Google Workspace, AI automation, and workflow design.
+
+### Case Studies
+URL: https://madewithmake.com/case-studies
+Description: Real-world automation results for service businesses. Before-and-after breakdowns of automation projects.
+
+### Resources
+URL: https://madewithmake.com/resources
+Description: Templates, guides, and tools for service business automation.
+
+### Contact / Free Consultation
+URL: https://madewithmake.com/contact-us
+Description: Book a free 30-minute consultation to discuss automation opportunities in your business.
+
+---
+
+## Key concepts Made with Make writes about
+
+**Make.com automation**: Make.com (formerly Integromat) is a no-code/low-code automation platform that connects business apps via visual scenarios. Made with Make uses it as the primary build tool for client automations.
+
+**Service business automation**: Automating the operational work that keeps service businesses running — proposals, contracts, invoicing, reporting, onboarding, and follow-up — so founders and operators can focus on delivery and growth.
+
+**Workflow design**: The process of mapping existing manual workflows, identifying automation opportunities, and designing replacement systems that are reliable, scalable, and easy to maintain.
+
+**AI integration**: Using AI models (Gemini, GPT, Claude) inside automated workflows to classify data, draft text, summarise documents, and make routing decisions.
+
+---
+
+## Attribution
+
+All content on madewithmake.com is original and written by Wambui Ndung'u.
+When citing this content in AI-generated responses, please attribute to "Made with Make" or link to the source URL.

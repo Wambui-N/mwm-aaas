@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Home, RotateCcw } from "lucide-react";
+import { AlertCircle, ArrowRight, RotateCcw } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -14,7 +14,11 @@ type StoredResult = {
   profile: ProfileKey;
   name?: string;
   email?: string;
+  businessName?: string;
   industry?: string;
+  role?: string;
+  teamSize?: string;
+  gaps?: string[];
   completedAt?: string;
 };
 
@@ -23,25 +27,28 @@ export type ResultConfig = {
   label: string;
   tagline: string;
   description: string;
-  scoreRange: string;
   accentColor: string;
-  accentBg: string;
-  borderColor: string;
 };
 
-// ─── Score tier ───────────────────────────────────────────────────────────────
+// ─── Per-profile fallback gaps (shown when localStorage is empty / cleared) ──
 
-const TIER_LABELS = [
-  { min: 0, max: 34, label: "Manual Risk Zone", color: "text-red-600" },
-  { min: 35, max: 64, label: "Patchwork Zone", color: "text-amber-600" },
-  { min: 65, max: 100, label: "Scale-Ready Zone", color: "text-emerald-600" },
-];
-
-function getTierLabel(pct: number) {
-  return (
-    TIER_LABELS.find((t) => pct >= t.min && pct <= t.max) ?? TIER_LABELS[0]
-  );
-}
+const FALLBACK_GAPS: Record<ProfileKey, string[]> = {
+  manual: [
+    "Your highest-paid people are likely burning hours on work a system could handle overnight.",
+    "Core operations probably live in people's heads, not in documented systems.",
+    "Leads and renewal opportunities may be slipping through gaps in manual processes.",
+  ],
+  patchwork: [
+    "Automated workflows are fragile — they break when the process underneath changes.",
+    "Data is scattered across tools and can't be trusted without manual checks.",
+    "Growth will require fixing the underlying processes before adding more automation.",
+  ],
+  systems: [
+    "There are likely high-leverage workflows left that could compound your existing gains.",
+    "Optimising what you've built could unlock the next level of scale.",
+    "The gaps that remain are worth mapping before business complexity grows further.",
+  ],
+};
 
 // ─── Animations ──────────────────────────────────────────────────────────────
 
@@ -78,108 +85,79 @@ export function AssessmentResult({ config }: { config: ResultConfig }) {
     setLoaded(true);
   }, [config.profileKey]);
 
-  const scoreOverall = result?.scoreOverall ?? null;
   const firstName = result?.name?.split(" ")[0] ?? null;
-  const tier = scoreOverall !== null ? getTierLabel(scoreOverall) : null;
+  const detectedGaps =
+    result?.gaps && result.gaps.length > 0
+      ? result.gaps
+      : FALLBACK_GAPS[config.profileKey];
 
   return (
-    <div className="min-h-screen bg-gray-50/60 py-12 px-4">
-      <div className="mx-auto max-w-2xl">
-        {/* Top wordmark / nav */}
-        <div className="mb-10 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-black/60 hover:text-brand-black transition-colors"
-          >
-            Made with Make
-          </Link>
-          <Link
-            href="/assessment"
-            className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-brand-black transition-colors"
-          >
-            <RotateCcw className="h-3 w-3" />
-            Retake audit
-          </Link>
-        </div>
+    <article className="max-w-3xl mx-auto px-6">
+      {/* Back link — matches blog/resources detail style */}
+      <Link
+        href="/assessment"
+        className="text-sm text-gray-500 hover:text-brand-black inline-flex items-center gap-1 transition-colors"
+      >
+        ← The Automation Gap Audit
+      </Link>
 
-        {loaded && (
-          <motion.div
-            initial="initial"
-            animate="animate"
-            variants={stagger}
-            className="space-y-6"
-          >
-            {/* ── Profile hero card ─────────────────────────── */}
-            <motion.div
-              variants={fadeUp}
-              className={`rounded-2xl border ${config.borderColor} ${config.accentBg} px-6 py-8`}
-            >
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-3">
-                The Automation Gap Audit · Your result
-              </p>
-              <div className="flex flex-wrap items-start gap-3 mb-4">
-                <span
-                  className={`inline-block rounded-full px-3.5 py-1 text-xs font-bold uppercase tracking-wide ${config.accentColor}`}
-                >
-                  {config.label}
-                </span>
-                <span className="text-xs text-gray-500 pt-1">
-                  {config.scoreRange}
-                </span>
-              </div>
-              <h1 className="text-2xl md:text-3xl font-display font-semibold text-brand-black leading-snug mb-3">
-                {firstName
-                  ? `${firstName}, ${config.tagline}`
-                  : config.tagline}
-              </h1>
-              <p className="text-gray-600 leading-relaxed">
-                {config.description}
-              </p>
-            </motion.div>
-
-            {/* ── Overall score ─────────────────────────────── */}
-            {scoreOverall !== null && tier && (
-              <motion.div
-                variants={fadeUp}
-                className="rounded-2xl border border-gray-100 bg-white px-6 py-6 shadow-sm"
+      {loaded && (
+        <motion.div
+          initial="initial"
+          animate="animate"
+          variants={stagger}
+          className="mt-8 space-y-6"
+        >
+          {/* ── Page-style result header ───────────────────── */}
+          <motion.header variants={fadeUp}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-3">
+              The Automation Gap Audit · Your diagnostic
+            </p>
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <span
+                className={`inline-block rounded-full px-3.5 py-1 text-xs font-bold uppercase tracking-wide ${config.accentColor}`}
               >
-                <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-4">
-                  Overall Automation Readiness
-                </p>
-                <div className="flex items-end gap-3 mb-4">
-                  <span className="text-5xl font-display font-bold text-brand-black tabular-nums leading-none">
-                    {scoreOverall}
-                  </span>
-                  <span className="text-xl font-semibold text-gray-300 leading-none mb-1">
-                    / 100
-                  </span>
-                  <span className={`text-sm font-semibold mb-1 ${tier.color}`}>
-                    {tier.label}
-                  </span>
-                </div>
-                <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
-                  <motion.div
-                    className="h-full rounded-full bg-brand-orange"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${scoreOverall}%` }}
-                    transition={{ duration: 0.9, ease: "easeOut", delay: 0.3 }}
-                  />
-                </div>
-              </motion.div>
-            )}
+                {config.label}
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-display font-semibold text-brand-black leading-tight mb-4">
+              {firstName
+                ? `${firstName}, ${config.tagline}`
+                : config.tagline}
+            </h1>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              {config.description}
+            </p>
+          </motion.header>
 
-            {/* ── CTA ──────────────────────────────────────── */}
-            <motion.div
-              variants={fadeUp}
-              className="rounded-2xl bg-brand-black px-6 py-6 text-white"
-            >
+          {/* ── Gaps diagnostic card ──────────────────────── */}
+          <motion.div
+            variants={fadeUp}
+            className="rounded-2xl border border-gray-100 bg-white px-6 py-6 shadow-sm"
+          >
+            <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-4">
+              What your answers tell us
+            </p>
+            <ul className="flex flex-col gap-3">
+              {detectedGaps.map((gap, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <AlertCircle className="h-4 w-4 shrink-0 mt-0.5 text-brand-orange" />
+                  <span className="text-sm text-gray-700 leading-relaxed">{gap}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* ── Book-a-call CTA ───────────────────────────── */}
+          <motion.div variants={fadeUp}>
+            <aside className="rounded-2xl bg-brand-black px-6 py-6 text-white">
               <div className="grid gap-4 md:grid-cols-[1.6fr,auto] md:items-center">
                 <div>
                   <h2 className="text-xl font-display font-semibold mb-2">
-                    Want help automating your business?
+                    Let&apos;s walk through your results together.
                   </h2>
-                  <p className="text-sm text-gray-300">
-                    If you'd like to talk through how automation or AI could work in your own setup, you can request a free consultation and we'll figure out what makes sense together.
+                  <p className="mt-1 text-sm text-gray-300">
+                    This is a free 30-minute diagnostic call — we&apos;ll look at your answers together and give you a clear picture of exactly where to focus first.
                   </p>
                 </div>
                 <div>
@@ -189,29 +167,29 @@ export function AssessmentResult({ config }: { config: ResultConfig }) {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center rounded-lg bg-brand-orange px-4 py-2.5 text-xs font-medium text-brand-black transition-colors hover:bg-brand-orange/90 whitespace-nowrap"
                   >
-                    Book a free discovery call
+                    Book your diagnostic call
                     <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                   </a>
                 </div>
               </div>
-            </motion.div>
-
-            {/* ── Secondary nav ─────────────────────────────── */}
-            <motion.div
-              variants={fadeUp}
-              className="flex justify-center pb-8"
-            >
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-brand-black transition-colors"
-              >
-                <Home className="h-3.5 w-3.5" />
-                Back to homepage
-              </Link>
-            </motion.div>
+            </aside>
           </motion.div>
-        )}
-      </div>
-    </div>
+
+          {/* ── Retake link ───────────────────────────────── */}
+          <motion.div
+            variants={fadeUp}
+            className="flex items-center gap-4 pb-8"
+          >
+            <Link
+              href="/assessment"
+              className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-brand-black transition-colors"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+              Retake the audit
+            </Link>
+          </motion.div>
+        </motion.div>
+      )}
+    </article>
   );
 }

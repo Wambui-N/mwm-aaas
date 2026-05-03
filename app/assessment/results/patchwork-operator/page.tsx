@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { AssessmentResult } from "@/components/assessment/AssessmentResult";
+import NavigationWrapper from "@/components/layout/NavigationWrapper";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Your Result: The Patchwork Operator | The Automation Gap Audit",
@@ -10,18 +12,21 @@ export const metadata: Metadata = {
 
 export default function PatchworkOperatorPage() {
   return (
-    <AssessmentResult
-      config={{
-        profileKey: "patchwork",
-        label: "The Patchwork Operator",
-        tagline: "you have pieces in place, but they don't fully connect.",
-        description:
-          "Some workflows are automated or systemised, but there are still gaps where work falls through the cracks, data is duplicated, or things depend on the right person remembering what to do. You're close to a much more resilient setup — you just need to join the dots.",
-        scoreRange: "Score: 35–64%",
-        accentColor: "bg-amber-100 text-amber-800",
-        accentBg: "bg-amber-50/60",
-        borderColor: "border-amber-100",
-      }}
-    />
+    <div className="min-h-screen bg-brand-grey/10">
+      <NavigationWrapper />
+      <main className="pt-12 pb-24">
+        <AssessmentResult
+          config={{
+            profileKey: "patchwork",
+            label: "The Patchwork Operator",
+            tagline: "the pieces are there, but the gaps are costing you.",
+            description:
+              "You have some processes and automations in place, but there are still points where work falls through the cracks, data gets duplicated, or things depend on the right person remembering what to do. These hidden gaps compound as the business grows.",
+            accentColor: "bg-amber-100 text-amber-800",
+          }}
+        />
+      </main>
+      <Footer />
+    </div>
   );
 }

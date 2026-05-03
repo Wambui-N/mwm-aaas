@@ -5,10 +5,13 @@ const MAILERLITE_API = "https://connect.mailerlite.com/api";
 export type AssessmentSubmitPayload = {
   name: string;
   email: string;
+  businessName?: string;
   industry: string;
+  role?: string;
+  teamSize?: string;
   profile: string;      // "manual" | "patchwork" | "systems"
   profileLabel: string; // "The Manual Machine" etc.
-  scoreOverall: number; // 0-100
+  scoreOverall: number; // 0-100 (used for lead qualification, not shown to user)
   answers?: Record<string, number>;
   answerLabels?: Record<string, string>;
 };
@@ -28,7 +31,10 @@ export async function POST(req: NextRequest) {
   const {
     name,
     email,
+    businessName,
     industry,
+    role,
+    teamSize,
     profile,
     profileLabel,
     scoreOverall,
@@ -47,6 +53,9 @@ export async function POST(req: NextRequest) {
       name,
       // Custom fields — create these in MailerLite > Subscribers > Fields if not already there
       audit_industry: industry,
+      audit_business_name: businessName,  // create field: audit_business_name (text)
+      audit_role: role,                   // create field: audit_role (text)
+      audit_team_size: teamSize,          // create field: audit_team_size (text)
       audit_profile: profile,
       audit_profile_label: profileLabel,
       audit_score_overall: scoreOverall,
@@ -84,7 +93,10 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           name,
           email,
+          businessName,
           industry,
+          role,
+          teamSize,
           profile,
           profileLabel,
           scoreOverall,

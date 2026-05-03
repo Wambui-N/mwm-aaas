@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { AssessmentResult } from "@/components/assessment/AssessmentResult";
+import NavigationWrapper from "@/components/layout/NavigationWrapper";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Your Result: The Systems Builder | The Automation Gap Audit",
@@ -10,18 +12,21 @@ export const metadata: Metadata = {
 
 export default function SystemsBuilderPage() {
   return (
-    <AssessmentResult
-      config={{
-        profileKey: "systems",
-        label: "The Systems Builder",
-        tagline: "you think in systems, now it's about refinement.",
-        description:
-          "You already have solid processes and some automations in place. The next step is identifying the highest-leverage workflows left to optimise and designing a clear roadmap for where to go next. At this stage, the gains come from compounding what you've already built.",
-        scoreRange: "Score: 65–100%",
-        accentColor: "bg-emerald-100 text-emerald-800",
-        accentBg: "bg-emerald-50/60",
-        borderColor: "border-emerald-100",
-      }}
-    />
+    <div className="min-h-screen bg-brand-grey/10">
+      <NavigationWrapper />
+      <main className="pt-12 pb-24">
+        <AssessmentResult
+          config={{
+            profileKey: "systems",
+            label: "The Systems Builder",
+            tagline: "strong foundations — the gains come from what's left.",
+            description:
+              "You already think in systems and have solid processes in place. The highest-leverage moves now are identifying the workflows left to optimise and designing a clear roadmap before the business complexity grows beyond them.",
+            accentColor: "bg-emerald-100 text-emerald-800",
+          }}
+        />
+      </main>
+      <Footer />
+    </div>
   );
 }

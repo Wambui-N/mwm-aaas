@@ -5,7 +5,7 @@ date: "2026-03-08"
 author: "Wambui Ndung'u"
 image: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=800&q=80"
 category: "Operations"
-tags: ["automation", "Calendly", "Cal.com", "scheduling", "Make.com"]
+tags: ["Automation", "Make.com", "Client Management"]
 ---
 
 *"Does Tuesday work? Actually Wednesday is better — how about 2pm? I have something at 2, maybe 3? Can we do Thursday instead?"*
@@ -168,22 +168,22 @@ Use Make.com to trigger this sequence based on the meeting end time:
 1. **Schedule a delayed action** — set Make.com to wait until 30 minutes after the meeting end time
 2. **Send the follow-up email** — with a personalised message referencing the meeting topic
 3. **Update the Airtable record** — move status from "Discovery Call Scheduled" to "Proposal Needed" (or whatever fits your pipeline)
-4. **Create a task in ClickUp** — "Follow up with {{client_name}} on proposal"
+4. **Create a task in ClickUp** — "Follow up with &#123;&#123;client_name&#125;&#125; on proposal"
 
 > 📸 *Screenshot: Make.com delay module set to 30 minutes after meeting end time, followed by a Gmail module*
 
 Here's a simple follow-up email template:
 
-> *Hi {{first_name}},*
+> *Hi &#123;&#123;first_name&#125;&#125;,*
 >
 > *Great speaking with you today. Here's a quick summary of what we covered and the next steps:*
 >
 > *[Next step 1]*
 > *[Next step 2]*
 >
-> *I'll be in touch by {{follow_up_date}}. In the meantime, feel free to reply if anything comes to mind.*
+> *I'll be in touch by &#123;&#123;follow_up_date&#125;&#125;. In the meantime, feel free to reply if anything comes to mind.*
 >
-> *{{your_name}}*
+> *&#123;&#123;your_name&#125;&#125;*
 
 > 💡 **Pro tip:** You can write a generic version of this in Make.com and then personalise it manually before it sends — using the same "review before sending" step from the proposal automation. Or, if your calls follow a consistent structure, the generic version is often good enough.
 

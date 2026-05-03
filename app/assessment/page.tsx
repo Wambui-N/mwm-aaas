@@ -1,6 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import { AutomationAssessment } from "@/components/assessment/AutomationAssessment";
+import NavigationWrapper from "@/components/layout/NavigationWrapper";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "The Automation Gap Audit | Made with Make",
@@ -11,11 +13,13 @@ export const metadata: Metadata = {
 export default function AssessmentPage() {
   return (
     <div className="min-h-screen bg-brand-grey/10">
-      <main className="w-full h-screen flex items-center justify-center">
-        <div className="w-full max-w-3xl px-4">
-          <AutomationAssessment fullPage />
+      <NavigationWrapper />
+      <main className="pt-12 pb-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <AutomationAssessment />
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

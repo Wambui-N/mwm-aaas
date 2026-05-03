@@ -5,7 +5,7 @@ date: "2026-03-07"
 author: "Wambui Ndung'u"
 image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80"
 category: "Automation"
-tags: ["automation", "Make.com", "proposals", "document creation", "agencies"]
+tags: ["Automation", "Make.com", "Client Management"]
 ---
 
 Picture this: a hot lead just filled in your contact form. They want a proposal by end of week. You open your last proposal, start deleting their old client's name, search for where you wrote the budget figure, realise the scope section needs updating, and spend the next hour copy-pasting, reformatting, and second-guessing whether you saved the right version.
@@ -62,18 +62,18 @@ Open Google Docs and build your standard proposal layout. This should be your *b
 Wherever client-specific information goes, replace it with a **placeholder variable** in double curly braces. These are the spots the automation will fill in automatically.
 
 ```
-{{client_name}}
-{{company_name}}
-{{project_scope}}
-{{budget}}
-{{start_date}}
-{{delivery_date}}
-{{your_name}}
+&#123;&#123;client_name&#125;&#125;
+&#123;&#123;company_name&#125;&#125;
+&#123;&#123;project_scope&#125;&#125;
+&#123;&#123;budget&#125;&#125;
+&#123;&#123;start_date&#125;&#125;
+&#123;&#123;delivery_date&#125;&#125;
+&#123;&#123;your_name&#125;&#125;
 ```
 
 > 📸 *Screenshot: Google Doc proposal template with placeholder variables highlighted in yellow*
 
-> 💡 **Pro tip:** Keep your variables consistent. If you use `{{client_name}}` in one place, don't use `{{Client Name}}` in another — the automation is case-sensitive. Write them down in a list so you remember them all.
+> 💡 **Pro tip:** Keep your variables consistent. If you use `&#123;&#123;client_name&#125;&#125;` in one place, don't use `&#123;&#123;Client Name&#125;&#125;` in another — the automation is case-sensitive. Write them down in a list so you remember them all.
 
 Once your template is saved, note the **File ID** from the Google Docs URL — you'll need it in Make.com later.
 
@@ -89,18 +89,18 @@ Your form fields should map **directly** to the variables in your template. One 
 
 | Template Variable | Form Field Label |
 |---|---|
-| `{{client_name}}` | Client's Full Name |
-| `{{company_name}}` | Company / Organisation |
-| `{{project_scope}}` | What does this project involve? |
-| `{{budget}}` | Project Budget |
-| `{{start_date}}` | Desired Start Date |
-| `{{delivery_date}}` | Expected Delivery Date |
+| `&#123;&#123;client_name&#125;&#125;` | Client's Full Name |
+| `&#123;&#123;company_name&#125;&#125;` | Company / Organisation |
+| `&#123;&#123;project_scope&#125;&#125;` | What does this project involve? |
+| `&#123;&#123;budget&#125;&#125;` | Project Budget |
+| `&#123;&#123;start_date&#125;&#125;` | Desired Start Date |
+| `&#123;&#123;delivery_date&#125;&#125;` | Expected Delivery Date |
 
 Keep the form focused. Only ask for what the *document* needs. You can ask additional discovery questions separately.
 
 > 📸 *Screenshot: Tally form showing the fields above, with field labels visible*
 
-> 💡 **Pro tip:** In Tally, you can use hidden fields to pre-populate things like today's date or your own name — useful for variables like `{{proposal_date}}` and `{{your_name}}` so you don't have to type them every time.
+> 💡 **Pro tip:** In Tally, you can use hidden fields to pre-populate things like today's date or your own name — useful for variables like `&#123;&#123;proposal_date&#125;&#125;` and `&#123;&#123;your_name&#125;&#125;` so you don't have to type them every time.
 
 > ✅ **After this step:** You have a form that, when submitted, contains all the information needed to build a complete proposal.
 
@@ -116,12 +116,12 @@ This is your trigger. Make.com watches your Tally form and fires the scenario ev
 **Module 2 — Google Drive: Copy a File**
 Make.com creates a fresh copy of your proposal template in Google Drive. This is important — you never edit the original template, only copies.
 
-Set the destination folder to wherever you store client proposals. Name the copy something like: `Proposal — {{client_name}} — {{today's date}}`.
+Set the destination folder to wherever you store client proposals. Name the copy something like: `Proposal — &#123;&#123;client_name&#125;&#125; — &#123;&#123;today's date&#125;&#125;`.
 
 **Module 3 — Google Docs: Replace Text in a Document**
 This is where the placeholders get swapped out. For each variable in your template, map the corresponding form field response.
 
-Make.com will go through the document and replace every instance of `{{client_name}}` with the actual name from the form, `{{budget}}` with the actual budget, and so on.
+Make.com will go through the document and replace every instance of `&#123;&#123;client_name&#125;&#125;` with the actual name from the form, `&#123;&#123;budget&#125;&#125;` with the actual budget, and so on.
 
 **Module 4 — Gmail (Optional): Send the Document**
 If you want the proposal delivered automatically — to yourself for review, or directly to the client — add a Gmail module here. Attach the newly created Google Doc as a PDF and send.
@@ -140,7 +140,7 @@ If you want the proposal delivered automatically — to yourself for review, or 
 
 Speed is great — but accuracy matters more. Before your proposal goes to a client automatically, you probably want to check it first.
 
-Add an intermediate step: instead of emailing the client directly, have Make.com send the document **to you** first, with a short note: *"New proposal created for {{client_name}} — review here: [link]"*.
+Add an intermediate step: instead of emailing the client directly, have Make.com send the document **to you** first, with a short note: *"New proposal created for &#123;&#123;client_name&#125;&#125; — review here: [link]"*.
 
 You review it. If it looks good, you forward it to the client manually. If something needs adjusting, you do it in the copy.
 
@@ -173,7 +173,7 @@ If your proposals are all different shapes and sizes, automation will just make 
 Every variable is a field on the form. The longer the form, the more friction there is to fill it in. Start with the essentials — name, company, scope, price, date. You can always add more later.
 
 **Mismatched variable names.**
-`{{client_name}}` and `{{Client_Name}}` are different things to Google Docs. Make sure every placeholder in your template matches exactly what you've mapped in Make.com.
+`&#123;&#123;client_name&#125;&#125;` and `&#123;&#123;Client_Name&#125;&#125;` are different things to Google Docs. Make sure every placeholder in your template matches exactly what you've mapped in Make.com.
 
 **Skipping the review step on launch day.**
 Run the automation at least five times with real data before trusting it completely. Check that the formatting looks right, all variables populated correctly, and nothing was skipped.

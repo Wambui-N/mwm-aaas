@@ -18,11 +18,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const { data } = post;
   const url = `${siteConfig.url}/blog/${slug}`;
-  const ogImage = data.image ?? siteConfig.ogImage;
+
+  // SEO overrides take precedence; fall back to base fields
+  const metaTitle = data.seoTitle || data.title;
+  const metaDescription = data.seoDescription || data.description;
+  const ogImage = data.seoImage ?? data.image ?? siteConfig.ogImage;
 
   return {
-    title: `${data.title} | ${siteConfig.name}`,
-    description: data.description,
+    title: `${metaTitle} | ${siteConfig.name}`,
+    description: metaDescription,
+    robots: data.noIndex ? "noindex, nofollow" : "index, follow",
     alternates: {
       canonical: data.canonical ?? url,
     },
@@ -30,17 +35,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: "article",
       url,
-      title: data.title,
-      description: data.description,
+      title: metaTitle,
+      description: metaDescription,
       publishedTime: data.date,
       authors: data.author ? [data.author] : undefined,
       tags: data.tags.length > 0 ? data.tags : undefined,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: data.title }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: metaTitle }],
     },
     twitter: {
       card: "summary_large_image",
-      title: data.title,
-      description: data.description,
+      title: metaTitle,
+      description: metaDescription,
       images: [ogImage],
     },
   };

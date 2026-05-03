@@ -16,25 +16,28 @@ interface Props {
 export default function PostLayout({ post, content, relatedPosts }: Props) {
   return (
     <>
-      {/* JSON-LD Article schema */}
+      {/* JSON-LD BlogPosting schema — picked up by Google rich results and LLM crawlers */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Article",
-            headline: post.title,
-            description: post.description,
-            image: post.image ?? undefined,
+            "@type": post.category === "Case Study" ? "Article" : "BlogPosting",
+            headline: post.seoTitle ?? post.title,
+            description: post.seoDescription ?? post.description,
+            image: post.seoImage ?? post.image ?? undefined,
             datePublished: post.date,
             dateModified: post.date,
+            url: `https://madewithmake.com/blog/${post.slug}`,
             author: {
               "@type": "Person",
-              name: post.author ?? "Made with Make",
+              name: post.author ?? "Wambui Ndung'u",
+              url: "https://madewithmake.com",
             },
             publisher: {
               "@type": "Organization",
               name: "Made with Make",
+              url: "https://madewithmake.com",
               logo: {
                 "@type": "ImageObject",
                 url: "https://madewithmake.com/logo.png",
@@ -45,6 +48,7 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
               "@id": `https://madewithmake.com/blog/${post.slug}`,
             },
             ...(post.tags.length > 0 && { keywords: post.tags.join(", ") }),
+            ...(post.category && { articleSection: post.category }),
           }),
         }}
       />

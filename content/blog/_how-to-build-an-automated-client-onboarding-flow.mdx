@@ -5,7 +5,7 @@ date: "2026-03-05"
 author: "Wambui Ndung'u"
 image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
 category: "Client Management"
-tags: ["automation", "Make.com", "onboarding", "client management", "agencies"]
+tags: ["Automation", "Make.com", "Client Management"]
 ---
 
 The moment a client signs is your first real chance to show them what working with you is like.
@@ -121,7 +121,7 @@ Your first action after the trigger fires is the welcome email. This sets the to
 
 Here's a simple structure that works:
 
-> *Hi {{first_name}},*
+> *Hi &#123;&#123;first_name&#125;&#125;,*
 >
 > *Welcome — we're so glad to have you on board. This is the beginning of something good.*
 >
@@ -200,7 +200,7 @@ Not every client submits the intake form right away. Build in a contingency: if 
 To set this up:
 1. After sending the intake form, Make.com writes the submission time to a field in Airtable (or a Google Sheet)
 2. A separate scheduled scenario runs daily and checks for clients where "Intake Form Submitted = No" and "Days Since Onboarding > 3"
-3. If found, it sends a short follow-up email: *"Hi {{first_name}}, just a quick reminder to fill in the intake form before our kickoff call — it really helps us prepare. Here's the link: [link]"*
+3. If found, it sends a short follow-up email: *"Hi &#123;&#123;first_name&#125;&#125;, just a quick reminder to fill in the intake form before our kickoff call — it really helps us prepare. Here's the link: [link]"*
 
 > 📸 *Screenshot: Make.com scheduled scenario checking for unsubmitted intake forms and sending follow-up emails*
 

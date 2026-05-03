@@ -23,10 +23,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/case-studies`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/resources`,
       lastModified: currentDate,
       changeFrequency: "weekly",
-      priority: 0.9,
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/privacy`,
@@ -42,12 +48,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const blogPosts: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: currentDate,
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+  const blogPosts: MetadataRoute.Sitemap = getAllPosts()
+    .filter((post) => !post.noIndex)
+    .map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      // Use the post's own publish date for accurate lastModified
+      lastModified: post.date ? new Date(post.date).toISOString() : currentDate,
+      changeFrequency: "monthly" as const,
+      // Case studies are higher-value pages
+      priority: post.category === "Case Study" ? 0.9 : 0.8,
+    }));
 
   const resources: MetadataRoute.Sitemap = getAllResources().map((r) => ({
     url: `${baseUrl}/resources/${r.type}/${r.slug}`,

@@ -15,6 +15,12 @@ export interface BlogPost {
   category?: string;
   tags: string[];
   canonical?: string;
+  published?: boolean;
+  // Optional SEO overrides — when set, these take precedence over the base fields
+  seoTitle?: string;
+  seoDescription?: string;
+  seoImage?: string;
+  noIndex?: boolean;
 }
 
 function parsePost(filename: string): BlogPost {
@@ -32,6 +38,12 @@ function parsePost(filename: string): BlogPost {
     category: data.category,
     tags: Array.isArray(data.tags) ? data.tags : [],
     canonical: data.canonical,
+    // If the field is absent (old posts), treat as published
+    published: data.published !== false,
+    seoTitle: data.seoTitle,
+    seoDescription: data.seoDescription,
+    seoImage: data.seoImage,
+    noIndex: data.noIndex === true,
   };
 }
 
@@ -42,6 +54,7 @@ export function getAllPosts(): BlogPost[] {
   );
   return files
     .map(parsePost)
+    .filter((p) => p.published !== false)
     .sort((a, b) => (b.date > a.date ? 1 : -1));
 }
 
@@ -64,6 +77,11 @@ export function getPost(
           category: data.category,
           tags: Array.isArray(data.tags) ? data.tags : [],
           canonical: data.canonical,
+          published: data.published !== false,
+          seoTitle: data.seoTitle,
+          seoDescription: data.seoDescription,
+          seoImage: data.seoImage,
+          noIndex: data.noIndex === true,
         },
         content,
       };

@@ -1,7 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { ArrowRight } from "lucide-react";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import type { IntakeData } from "./AutomationAssessment";
 
 const INDUSTRIES = [
@@ -16,154 +38,236 @@ const INDUSTRIES = [
   "Other",
 ];
 
-type Errors = Partial<Record<keyof IntakeData, string>>;
+const ROLES = ["Founder", "Director", "Partner", "Other"] as const;
 
-function validateEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
+const TEAM_SIZES = ["Solo", "2–5", "6–15", "16+"] as const;
+
+const schema = z.object({
+  name: z.string().trim().min(1, "Please enter your first name."),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Please enter your work email.")
+    .email("Please enter a valid email address."),
+  businessName: z.string().trim().min(1, "Please enter your business name."),
+  industry: z.string().min(1, "Please select your industry."),
+  role: z.string().min(1, "Please select your role."),
+  teamSize: z.string().min(1, "Please select your team size."),
+});
 
 interface IntakeFormProps {
   onComplete: (data: IntakeData) => void;
 }
 
 export function IntakeForm({ onComplete }: IntakeFormProps) {
-  const [form, setForm] = useState<IntakeData>({
-    name: "",
-    email: "",
-    industry: "",
+  const form = useForm<IntakeData>({
+    resolver: zodResolver(schema),
+    mode: "onTouched",
+    defaultValues: {
+      name: "",
+      email: "",
+      businessName: "",
+      industry: "",
+      role: "",
+      teamSize: "",
+    },
   });
-  const [errors, setErrors] = useState<Errors>({});
-  const [touched, setTouched] = useState<Partial<Record<keyof IntakeData, boolean>>>({});
-
-  const validate = (data: IntakeData): Errors => {
-    const errs: Errors = {};
-    if (!data.name.trim()) errs.name = "Please enter your first name.";
-    if (!data.email.trim()) {
-      errs.email = "Please enter your work email.";
-    } else if (!validateEmail(data.email)) {
-      errs.email = "Please enter a valid email address.";
-    }
-    if (!data.industry) errs.industry = "Please select your industry.";
-    return errs;
-  };
-
-  const handleChange = (key: keyof IntakeData, value: string) => {
-    const updated = { ...form, [key]: value };
-    setForm(updated);
-    if (touched[key]) {
-      const errs = validate(updated);
-      setErrors((prev) => ({ ...prev, [key]: errs[key] }));
-    }
-  };
-
-  const handleBlur = (key: keyof IntakeData) => {
-    setTouched((prev) => ({ ...prev, [key]: true }));
-    const errs = validate(form);
-    setErrors((prev) => ({ ...prev, [key]: errs[key] }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const errs = validate(form);
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      setTouched({ name: true, email: true, industry: true });
-      return;
-    }
-    onComplete(form);
-  };
-
-  const inputBase =
-    "w-full rounded-lg border px-4 py-3 text-sm text-brand-black placeholder-gray-400 outline-none transition-colors focus:ring-2 focus:ring-brand-orange/30 focus:border-brand-orange";
-  const inputOk = "border-gray-200 bg-white";
-  const inputErr = "border-red-400 bg-red-50";
 
   return (
     <div className="rounded-2xl border border-gray-100 bg-white px-6 py-8 shadow-sm">
       <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-orange mb-3">
-        Before we start
+        Before we begin
       </p>
-      <h2 className="text-lg md:text-xl font-semibold text-brand-black mb-2 leading-snug">
-        Tell us a little about your business.
+      <h2 className="text-lg md:text-xl font-semibold text-brand-black mb-6 leading-snug">
+        Let&apos;s start with the basics.
       </h2>
-      <p className="text-sm text-gray-500 mb-6">
-        This helps us tailor your results to your situation.
-      </p>
 
-      <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
-        {/* Name */}
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1.5">
-            First name
-          </label>
-          <input
-            type="text"
-            autoComplete="given-name"
-            placeholder="Your first name"
-            value={form.name}
-            onChange={(e) => handleChange("name", e.target.value)}
-            onBlur={() => handleBlur("name")}
-            className={`${inputBase} ${errors.name ? inputErr : inputOk}`}
-          />
-          {errors.name && (
-            <p className="mt-1 text-xs text-red-600">{errors.name}</p>
-          )}
-        </div>
-
-        {/* Email */}
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1.5">
-            Work email
-          </label>
-          <input
-            type="email"
-            autoComplete="email"
-            placeholder="you@company.com"
-            value={form.email}
-            onChange={(e) => handleChange("email", e.target.value)}
-            onBlur={() => handleBlur("email")}
-            className={`${inputBase} ${errors.email ? inputErr : inputOk}`}
-          />
-          {errors.email && (
-            <p className="mt-1 text-xs text-red-600">{errors.email}</p>
-          )}
-        </div>
-
-        {/* Industry */}
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1.5">
-            Industry
-          </label>
-          <select
-            value={form.industry}
-            onChange={(e) => handleChange("industry", e.target.value)}
-            onBlur={() => handleBlur("industry")}
-            className={`${inputBase} ${errors.industry ? inputErr : inputOk}`}
-          >
-            <option value="">Select your industry…</option>
-            {INDUSTRIES.map((ind) => (
-              <option key={ind} value={ind}>
-                {ind}
-              </option>
-            ))}
-          </select>
-          {errors.industry && (
-            <p className="mt-1 text-xs text-red-600">{errors.industry}</p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3.5 text-sm font-bold text-white transition-colors hover:bg-brand-orange/90"
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onComplete)}
+          noValidate
+          className="flex flex-col gap-4"
         >
-          Start the audit
-          <ArrowRight className="h-4 w-4" />
-        </button>
+          {/* Row 1: Name + Email */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    First name <span className="text-brand-orange">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      autoComplete="given-name"
+                      placeholder="Your first name"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <p className="text-center text-xs text-gray-400">
-          Takes about 5 minutes · Results emailed to you
-        </p>
-      </form>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Work email <span className="text-brand-orange">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      autoComplete="email"
+                      placeholder="you@company.com"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          {/* Row 2: Business Name + Industry */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="businessName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Business name <span className="text-brand-orange">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      autoComplete="organization"
+                      placeholder="Your business name"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="industry"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Industry <span className="text-brand-orange">*</span>
+                  </FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    onOpenChange={() => field.onBlur()}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your industry…" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {INDUSTRIES.map((ind) => (
+                        <SelectItem key={ind} value={ind}>
+                          {ind}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          {/* Row 3: Role + Team Size */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Role <span className="text-brand-orange">*</span>
+                  </FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    onOpenChange={() => field.onBlur()}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your role…" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {ROLES.map((r) => (
+                        <SelectItem key={r} value={r}>
+                          {r}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="teamSize"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Team size <span className="text-brand-orange">*</span>
+                  </FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    onOpenChange={() => field.onBlur()}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your team size…" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {TEAM_SIZES.map((s) => (
+                        <SelectItem key={s} value={s}>
+                          {s}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <Button
+            type="submit"
+            variant="accent"
+            size="lg"
+            className="mt-2 w-full sm:w-auto gap-2"
+          >
+            Start the audit
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+
+          <p className="text-center text-xs text-gray-400">
+            Takes about 5 minutes · Results emailed to you
+          </p>
+        </form>
+      </Form>
     </div>
   );
 }

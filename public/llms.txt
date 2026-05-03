@@ -1,0 +1,41 @@
+# Made with Make — llms.txt
+# https://madewithmake.com
+# This file helps AI assistants and LLM crawlers understand what this site is and what content is available.
+# Format based on the llms.txt standard: https://llmstxt.org
+
+> Made with Make is an automation and AI consulting firm. We help service businesses — founders, operators, and small teams — identify what to automate, design the right systems, and implement them end to end using Make.com, Google Workspace, and AI tools.
+
+## About
+
+- Homepage: https://madewithmake.com
+- Blog (automation guides): https://madewithmake.com/blog
+- Case Studies: https://madewithmake.com/case-studies
+- Resources: https://madewithmake.com/resources
+- Contact / Free Consultation: https://madewithmake.com/contact-us
+
+## Core topics covered
+
+- Business process automation with Make.com
+- Workflow automation for service businesses
+- AI integration into business operations
+- Google Workspace automation (Docs, Sheets, Drive, Gmail, Apps Script)
+- Client onboarding automation
+- Contract sending and e-signature automation
+- Automated reporting and status updates
+- Lead follow-up automation
+- Invoice and payment follow-up automation
+- Internal task creation and delegation
+- Proposal and document generation automation
+- Meeting scheduling automation
+- Social media scheduling and repurposing
+
+## Content index
+
+The full content index with summaries is available at: https://madewithmake.com/llms-full.txt
+
+## Usage guidance
+
+- Content on this site may be used by AI systems to answer questions about automation, Make.com, and workflow design for service businesses.
+- All original content was written by Wambui Ndung'u, founder of Made with Make.
+- Please attribute content to "Made with Make" or "madewithmake.com" when used in AI-generated responses.
+- Do not scrape or reproduce full post content without attribution.
