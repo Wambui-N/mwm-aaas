@@ -1,15 +1,43 @@
 import { config, collection, fields } from '@keystatic/core'
 
-export default config({
-  storage: process.env.NODE_ENV === 'development'
-    ? { kind: 'local' }
-    : {
-        kind: 'github',
-        repo: {
-          owner: 'Wambui-N',
-          name: 'mwm-aaas',
-        },
+function keystaticStorage():
+  | { kind: 'local' }
+  | {
+      kind: 'github'
+      repo: { owner: string; name: string }
+    } {
+  if (process.env.NODE_ENV === 'development') {
+    return { kind: 'local' }
+  }
+
+  const id = process.env.KEYSTATIC_GITHUB_CLIENT_ID
+  const clientSecret = process.env.KEYSTATIC_GITHUB_CLIENT_SECRET
+  const secret = process.env.KEYSTATIC_SECRET
+
+  if (id && clientSecret && secret) {
+    return {
+      kind: 'github',
+      repo: {
+        owner: 'Wambui-N',
+        name: 'mwm-aaas',
       },
+    }
+  }
+
+  // `next build` runs with NODE_ENV=production but often without OAuth secrets (local/CI).
+  // GitHub mode throws at init if these are missing — fall back so the build can finish.
+  // Set KEYSTATIC_* + GitHub app vars on the host (e.g. Vercel) for the Keystatic admin.
+  if (process.env.VERCEL === '1' || process.env.CI) {
+    console.warn(
+      '[keystatic] GitHub storage skipped: set KEYSTATIC_GITHUB_CLIENT_ID, KEYSTATIC_GITHUB_CLIENT_SECRET, and KEYSTATIC_SECRET for production CMS auth.'
+    )
+  }
+
+  return { kind: 'local' }
+}
+
+export default config({
+  storage: keystaticStorage(),
   ui: {
     brand: {
       name: 'Made with Make — Blog',
