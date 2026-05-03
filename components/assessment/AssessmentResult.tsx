@@ -151,23 +151,24 @@ export function AssessmentResult({ config }: { config: ResultConfig }) {
           {/* ── Book-a-call CTA ───────────────────────────── */}
           <motion.div variants={fadeUp}>
             <aside className="rounded-2xl bg-brand-black px-6 py-6 text-white">
-              <div className="grid gap-4 md:grid-cols-[1.6fr,auto] md:items-center">
+              <div className="grid gap-4 md:grid-cols-[1.6fr,auto] md:gap-6">
                 <div>
                   <h2 className="text-xl font-display font-semibold mb-2">
-                    Let&apos;s walk through your results together.
+                    Here&apos;s what I&apos;d do with your results.
                   </h2>
-                  <p className="mt-1 text-sm text-gray-300">
-                    This is a free 30-minute diagnostic call — we&apos;ll look at your answers together and give you a clear picture of exactly where to focus first.
+                  <p className="mt-1 text-sm text-gray-300 leading-relaxed">
+                  You&apos;ve identified the gaps. Now let&apos;s make sense of them together.
+                  Book a 30-minute call and I&apos;ll have your audit results in front of me so we can talk through what&apos;s actually going on, what&apos;s worth fixing first, and whether working together makes sense.
                   </p>
                 </div>
-                <div>
+                <div className="flex flex-col justify-end md:items-end">
                   <a
-                    href="https://calendar.app.google/gPVfLMV1agnjMBUd6"
+                    href="https://calendar.app.google/2NrpG6HXaqkdSURXA"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center rounded-lg bg-brand-orange px-4 py-2.5 text-xs font-medium text-brand-black transition-colors hover:bg-brand-orange/90 whitespace-nowrap"
                   >
-                    Book your diagnostic call
+                    Book your 20-minute audit review
                     <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                   </a>
                 </div>
