@@ -107,6 +107,18 @@ export function getTopTags(count = 4): string[] {
     .map(([tag]) => tag);
 }
 
+export function getCaseStudyPosts(count = 2): BlogPost[] {
+  return getAllPosts()
+    .filter(
+      (p) =>
+        p.category === "Case Study" ||
+        p.tags.some(
+          (t) => t.toLowerCase() === "case-study" || t.toLowerCase() === "case study"
+        )
+    )
+    .slice(0, count);
+}
+
 export function getRelatedPosts(currentSlug: string, count = 2): BlogPost[] {
   const current = getPost(currentSlug);
   if (!current) return [];

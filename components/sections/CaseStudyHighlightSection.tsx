@@ -4,23 +4,13 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import type { BlogPost } from "@/lib/content/blog";
 
-const EXAMPLE_CASE_STUDIES = [
-  {
-    title: "From Lead Chaos to Reliable Follow-up",
-    summary:
-      "A service business was missing warm leads because follow-up depended on memory. We rebuilt intake and follow-up into one flow and recovered high-intent opportunities.",
-    href: "/blog?tag=Case%20Study",
-  },
-  {
-    title: "Reporting Cut from Hours to Minutes",
-    summary:
-      "Weekly updates were stitched together manually across tools. We automated data collection and delivery, giving the team faster decisions with less admin work.",
-    href: "/blog?tag=Case%20Study",
-  },
-];
+type Props = {
+  posts?: BlogPost[];
+};
 
-export default function CaseStudyHighlightSection() {
+export default function CaseStudyHighlightSection({ posts = [] }: Props) {
   return (
     <section className="py-10 border-t border-brand-grey/20">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
@@ -46,28 +36,30 @@ export default function CaseStudyHighlightSection() {
             </p>
           </div>
 
-          <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-2">
-            {EXAMPLE_CASE_STUDIES.map((study) => (
-              <article
-                key={study.title}
-                className="group rounded-xl border border-brand-grey/50 bg-white p-5 sm:p-6"
-              >
-                <h3 className="text-xl font-display font-semibold leading-snug text-brand-black">
-                  {study.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-gray-700">
-                  {study.summary}
-                </p>
-                <Link
-                  href={study.href}
-                  className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-brand-orange hover:underline"
+          {posts.length > 0 && (
+            <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-2">
+              {posts.map((post) => (
+                <article
+                  key={post.slug}
+                  className="group rounded-xl border border-brand-grey/50 bg-white p-5 sm:p-6"
                 >
-                  Read case study
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </article>
-            ))}
-          </div>
+                  <h3 className="text-xl font-display font-semibold leading-snug text-brand-black">
+                    {post.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-700">
+                    {post.description}
+                  </p>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-brand-orange hover:underline"
+                  >
+                    Read case study
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                </article>
+              ))}
+            </div>
+          )}
         </motion.div>
       </div>
     </section>

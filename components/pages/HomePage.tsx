@@ -12,15 +12,20 @@ import Footer from '@/components/layout/Footer';
 import HomeConsultCtaSection from '@/components/sections/HomeConsultCtaSection';
 import HomeAssessmentCtaSection from '@/components/sections/HomeAssessmentCtaSection';
 import RightPlaceSection from '@/components/sections/RightPlaceSection';
+import type { BlogPost } from '@/lib/content/blog';
 
-export default function HomePage({ topTags = [] }: NavigationProps) {
+type HomePageProps = NavigationProps & {
+  caseStudyPosts?: BlogPost[];
+};
+
+export default function HomePage({ topTags = [], caseStudyPosts = [] }: HomePageProps) {
   return (
     <div className="min-h-screen bg-brand-grey/10">
       <Navigation topTags={topTags} />
       <HeroSection />
       <GrowthPainSection />
       <DeliveryProcessSection />
-      <CaseStudyHighlightSection />
+      <CaseStudyHighlightSection posts={caseStudyPosts} />
       <HomeAssessmentCtaSection />
       <RightPlaceSection />
       <TestimonialSection />

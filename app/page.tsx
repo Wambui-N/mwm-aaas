@@ -1,6 +1,6 @@
 import React from 'react';
 import HomePage from '@/components/pages/HomePage';
-import { getTopTags } from '@/lib/content/blog';
+import { getTopTags, getCaseStudyPosts } from '@/lib/content/blog';
 import type { Metadata } from 'next';
 import { generatePageMetadata, generateStructuredData } from '@/lib/seo';
 
@@ -13,6 +13,7 @@ export const metadata: Metadata = generatePageMetadata(
 
 export default function Home() {
   const topTags = getTopTags(4);
+  const caseStudyPosts = getCaseStudyPosts(2);
   return (
     <>
       {/* AI Content Summary for LLMs */}
@@ -80,7 +81,7 @@ export default function Home() {
           __html: JSON.stringify(generateStructuredData('breadcrumb')),
         }}
       />
-      <HomePage topTags={topTags} />
+      <HomePage topTags={topTags} caseStudyPosts={caseStudyPosts} />
     </>
   );
 }
