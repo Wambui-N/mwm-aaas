@@ -122,7 +122,7 @@ const itemVariants = {
 
 export default function GrowthPainSection() {
   return (
-    <section className="py-10">
+    <section id="growth-pain" className="py-10">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 12 }}

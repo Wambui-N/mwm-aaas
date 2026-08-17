@@ -2,18 +2,23 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { useLenis } from "lenis/react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, ArrowRight } from "lucide-react";
-import { calBookingAnchor } from "@/lib/links";
 
 // ─── HeroSection ──────────────────────────────────────────────────────────────
 
 export default function HeroSection() {
-  const scrollToBookCall = () => {
-    const element = document.getElementById(calBookingAnchor.replace("#", ""));
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  const lenis = useLenis();
+
+  const scrollToAnchor = (anchor: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    const target = anchor.replace("#", "");
+    if (lenis) {
+      lenis.scrollTo(anchor);
+      return;
     }
+    document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const containerVariants = {
@@ -79,7 +84,7 @@ export default function HeroSection() {
                 variant="outline"
                 className="w-full sm:w-auto px-8 py-4 text-base group"
               >
-                <a href="#">
+                <a href="#growth-pain" onClick={scrollToAnchor("#growth-pain")}>
                   See how it works
                   <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
