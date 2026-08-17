@@ -10,95 +10,94 @@ published: true
 seoTitle: "Proposal & Onboarding Automation Case Study: Founders Freedom Africa"
 seoDescription: "How Google Forms, Google Docs, ClickUp, and Make.com automated Founders Freedom Africa's full client pipeline, from proposal generation to onboarding, with automated follow-up built in at every stage."
 ---
-Founders Freedom Africa is an organisation dedicated to empowering African entrepreneurs ,providing the tools, resources, and support needed to build and grow their businesses. Their own work depends on being able to move new clients from first enquiry to signed agreement quickly and consistently. Before this project, that pipeline was running almost entirely on memory.
+
+Founders Freedom Africa is an organisation dedicated to empowering African entrepreneurs, providing the tools, resources, and support needed to build and grow their businesses. Their own work depends on being able to move new clients from first enquiry to signed agreement quickly and consistently. Before this project, that pipeline was running almost entirely on memory.
 
 ---
 
 ## The Problem
 
-Finding those listings was entirely manual. Someone on the team would go site by site, searching the job boards they knew to check, copying down what looked relevant. It was slow, repetitive work that competed with everything else the team needed to be doing — and it capped out at around 50 listings a week, regardless of how many relevant roles were actually posted.
+Two parts of the same pipeline just hadn't grown with the business.
 
-That ceiling wasn't about how many jobs existed. It was about how many a person could find and log by hand in the time available.
+**Proposals** were built from scratch every time ,a blank document, client-specific details written in by hand, then a full manual review to catch anything off. It routinely took several hours per proposal.
 
----
+**Follow-up** after a proposal went out had no system behind it. It happened when someone remembered. Leads went cold simply because nobody had circled back.
 
-## Why It Wasn't a Quick Fix
+**Onboarding**, once a client did say yes, had the same problem in a different form. The experience depended entirely on who was handling it and how busy that week was. Some clients got a prompt welcome and clear next steps. Others waited. Meeting reminders went out inconsistently ,or not at all.
 
-The team already had a working list of the sites they normally checked — so this wasn't about discovering new sources, it was about removing the manual bottleneck across all of them at once, reliably, every single week, without anyone having to remember to run it.
+In their own words:
 
----
+> "We always had to create proposals from scratch and review every section to make sure it was fine. Sometimes, potential clients fell through the cracks because we did not have a standard way of following up, and we would forget."
+> 
 
-## What We Built
-
-- Took the list of job sites the team already used and built scrapers for each using Apify.
-- Used Make.com as the orchestration layer to run the whole process automatically at the end of each week:
-    - Make triggers the Apify scrapers over the weekend
-    - Retrieves the listings once scraping is complete
-    - Selects that week's new Excel sheet
-    - Populates it with the listings found
-- No manual step anywhere in the chain — from trigger to a fully populated sheet.
-- Every Monday morning, the team opened a fresh sheet with that week's listings already waiting, with volume naturally fluctuating with however many relevant roles had actually been posted that week.
-
-**Result:** listings sourced per week jumped from roughly 50 (manual ceiling) to as many as 500, depending on what was posted — with zero manual searching required.
-
----
-
-## What This Unlocked
-
-The team stopped spending hours a week hunting for listings one site at a time, and started every week with a complete, current picture of what was actually available — letting them focus their time on matching candidates and building relationships rather than sourcing.
-
----
-
-## A Note on This One
-
-This automation ran for several months and isn't currently active. There's no formal client testimonial on file for this project — if you'd like, I can draft a short feedback request to send to your contact at We Are Kusudi, the same way you did for Founders Freedom Africa, in case they're open to giving a quote for the site.
-
----
-
-## Facing something similar?
-
-If manual research or data-gathering is capping how much your team can get done, let's talk about what a version of this could look like for your business.
-
----
-
-We Are Kusudi is a social venture connecting Kenyan software engineers to global opportunities — matching candidates from a rigorous selection process with tech companies abroad, primarily in the UK. Part of that work depends on a steady pipeline of relevant, up-to-date job listings to source roles for candidates and share with their community.
-
----
-
-## The Problem
-
-Finding those listings was entirely manual. Someone on the team would go site by site, searching the job boards they knew to check, copying down what looked relevant. It was slow, repetitive work that competed with everything else the team needed to be doing — and it capped out at around 50 listings a week, regardless of how many relevant roles were actually posted.
-
-That ceiling wasn't about how many jobs existed. It was about how many a person could find and log by hand in the time available.
+The two problems were connected ,a proposal that got no follow-up and an onboarding that felt inconsistent were both symptoms of the same gap: nothing carried a client from one stage to the next automatically.
 
 ---
 
 ## Why It Wasn't a Quick Fix
 
-The team already had a working list of the sites they normally checked — so this wasn't about discovering new sources, it was about removing the manual bottleneck across all of them at once, reliably, every single week, without anyone having to remember to run it.
+This wasn't a single automation ,it was two interlocking systems that needed to hand off to each other cleanly. The proposal system had to generate a document *and* trigger the right follow-up cadence. The onboarding system had to pick up the moment a proposal was accepted and carry the client through discovery, negotiation, and signing ,inside ClickUp, the tool the team was already living in, with no new platform to learn.
+
+Building one without the other would have just moved the dropped-lead problem further down the pipeline.
 
 ---
 
 ## What We Built
 
-- Took the list of job sites the team already used and built scrapers for each using Apify.
-- Set the scrapers to run automatically on a weekly schedule, over the weekend.
-- Output landed directly in an Excel/Google Sheet, structured and ready to use — no manual copying or formatting.
-- Every Monday morning, the team opened a fresh sheet with that week's listings already waiting, with volume naturally fluctuating with however many relevant roles had actually been posted that week.
+### Phase 1 - Proposal Automation
 
-**Result:** listings sourced per week jumped from roughly 50 (manual ceiling) to as many as 500, depending on what was posted — with zero manual searching required.
+- Rebuilt their existing proposals into a standardised Google Docs template ,locking in everything that stays the same across clients (structure, legal language, positioning) so only client-specific fields change.
+- Built a short Google Form (client info, project details, investment info) that feeds the template directly.
+- Connected form to template via Make.com ,a submission auto-generates a fully populated proposal and saves it straight to Drive, ready to send.
+- Layered in automated follow-up reminders so every sent proposal gets chased at the right time, without anyone tracking it manually.
+
+**Result:** proposal creation dropped from several hours to a few minutes, every proposal follows the same structure, and no sent proposal goes unfollowed.
+
+### Phase 2 ,Client Onboarding Automation
+
+- Built an automated onboarding flow inside ClickUp, triggered by pipeline stage changes:
+    - **Intake →** automatic welcome email the moment a client is added
+    - **Discovery meeting scheduled →** automated reminder ahead of the call
+    - **Proposal stage →** tracked automatically inside ClickUp, connected directly to the Phase 1 system so the two flows hand off without manual input
+    - **Negotiation meeting scheduled →** automated reminder so clients arrive ready to decide
+- All of it running inside ClickUp and Gmail ,no new tools for the team to adopt.
+
+**Result:** every client gets the same high-quality onboarding regardless of who's managing them or how busy the week is, meeting attendance improved, and the full journey from enquiry to signed agreement runs without anyone manually triggering the next step.
+
+---
+
+## Why It Kept Going
+
+The proposal system was never meant to be the whole fix ,it was Phase 1 of a larger pipeline. Once it was live, the next gap became obvious: getting accepted proposals into a consistent onboarding flow. That became Phase 2, built to plug directly into what already existed rather than as a separate project.
+
+That's the shape retainer work with Made With Make tends to take ,a first build surfaces the next bottleneck, and the systems get built to connect rather than sit in isolation.
 
 ---
 
 ## What This Unlocked
 
-The team stopped spending hours a week hunting for listings one site at a time, and started every week with a complete, current picture of what was actually available — letting them focus their time on matching candidates and building relationships rather than sourcing.
+Founders Freedom Africa can now take on more clients without worrying that something in the process gets missed. Proposals go out fast and consistent. Every one gets followed up. First impressions on onboarding are the same regardless of who's handling it. And the whole journey ,first enquiry to signed agreement ,runs without anyone having to remember the next step.
+
+There was also an unexpected insight along the way: building the automation made visible something the team hadn't realised ,their proposals were already far more standardised than they thought. What felt like fully custom work each time was mostly consistent; it just hadn't been formalised.
+
+> "Even processes perceived as unique can often be standardised. Recognising and implementing these standards can lead to greater efficiency and effectiveness."
+> 
 
 ---
 
-## A Note on This One
+## What the Client Said
 
-This automation ran for several months and isn't currently active. There's no formal client testimonial on file for this project — if you'd like, I can draft a short feedback request to send to your contact at We Are Kusudi, the same way you did for Founders Freedom Africa, in case they're open to giving a quote for the site.
+> "Your professionalism, confidence, and knowledge of what you're doing stood out to me."
+> 
+
+> "You are friendly, honest, and did not give up on ensuring we finished the project, even when we sometimes got busy."
+> 
+
+> "I enjoyed working with Wambui on automating our proposal process. She is honest, professional, and ensures that she follows through on what she promises. I would definitely recommend working with her."
+> 
+> 
+> **Joyce Kayima -** Founder, Founders Freedom Africa
+>
 ---
 
 ## Facing something similar?

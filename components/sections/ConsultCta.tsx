@@ -16,7 +16,7 @@ type ConsultCtaProps = {
 const DEFAULT_HEADING = "Want more customised help?";
 const DEFAULT_BODY =
   "If you’d like to talk through how this could work in your own business, you can request a free consultation and we’ll figure out what makes sense together.";
-const DEFAULT_CTA = "Get a free consultation";
+const DEFAULT_CTA = "Book a consultation";
 const DEFAULT_HREF = "/contact-us";
 
 export function ConsultCta({

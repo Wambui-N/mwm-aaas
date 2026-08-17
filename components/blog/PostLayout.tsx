@@ -273,7 +273,7 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
             href="/contact-us"
             className="inline-flex items-center justify-center rounded-lg bg-brand-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-orange/90"
           >
-            Get a free consultation
+            Book a consultation
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </aside>

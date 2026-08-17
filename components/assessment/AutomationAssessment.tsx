@@ -410,7 +410,7 @@ export function AutomationAssessment() {
           The Automation Gap Audit
         </h1>
         <p className="text-lg text-gray-600 leading-relaxed">
-          10 quick questions to find out where your operations are leaking time, money, and leads — and exactly what to do next.
+          10 quick questions to find out where your operations are leaking time, money, and leads, and exactly what to do next.
         </p>
       </header>
 

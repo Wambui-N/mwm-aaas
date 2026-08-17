@@ -7,7 +7,7 @@ import ContactPanel from '@/components/contact/ContactPanel';
 
 export const metadata: Metadata = generatePageMetadata(
   'Contact Us - Made with Make',
-  'Get a free consultation to see if automation is right for your business, or book a discovery call directly.',
+  'Book a free consultation to see if automation is right for your business, or book a discovery call directly.',
   'contact-us',
   ['automation consultation', 'book a call', 'Made with Make', 'workflow audit']
 );
