@@ -4,6 +4,7 @@ import { brule } from "../fonts/fonts";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from '@vercel/analytics/next';
 import { defaultMetadata, generateStructuredData } from '@/lib/seo';
+import SmoothScrollProvider from '@/components/layout/SmoothScrollProvider';
 
 export const metadata: Metadata = defaultMetadata;
 
@@ -75,7 +76,7 @@ export default function RootLayout({
       <body
         className={`${brule.variable} font-sans`}
       >
-        {children}
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
         <SpeedInsights />
         <Analytics />
       </body>

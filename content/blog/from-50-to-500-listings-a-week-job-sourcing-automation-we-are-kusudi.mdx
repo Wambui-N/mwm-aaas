@@ -1,0 +1,55 @@
+---
+title: "From 50 to 500 Listings a Week: Automating Job Sourcing for We Are Kusudi"
+description: "How we automated We Are Kusudi's job listing search using Apify, scaling from roughly 50 manually-found listings a week to up to 500, delivered fresh every Monday."
+date: "2026-01-17"
+author: "Wambui Ndung'u"
+image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80"
+category: "Case Study"
+tags: ["case-study", "Automation", "Make.com", "Apify", "Web Scraping"]
+published: true
+seoTitle: "Job Listing Scraping Automation Case Study: We Are Kusudi"
+seoDescription: "How Apify and Make.com automated We Are Kusudi's weekly job search process scaling from 50 manually-found listings a week to up to 500, ready every Monday morning."
+---
+
+We Are Kusudi is a social venture connecting Kenyan software engineers to global opportunities, matching candidates from a rigorous selection process with tech companies abroad, primarily in the UK. Part of that work depends on a steady pipeline of relevant, up-to-date job listings to source roles for candidates and share with their community.
+
+---
+
+## The Problem
+
+Finding those listings was entirely manual. Someone on the team would go site by site, searching the job boards they knew to check, copying down what looked relevant. It was slow, repetitive work that competed with everything else the team needed to be doing, and it capped out at around 50 listings a week, regardless of how many relevant roles were actually posted.
+
+That ceiling wasn't about how many jobs existed. It was about how many a person could find and log by hand in the time available.
+
+---
+
+## The Approach
+
+The team already had a working list of the sites they normally checked. So this wasn't about discovering new sources, it was about removing the manual bottleneck across all of them at once, reliably, every single week, without anyone having to remember to run it.
+
+---
+
+## What We Built
+
+- Took the list of job sites the team already used and built scrapers for each using Apify.
+- Used Make.com as the orchestration layer to run the whole process automatically at the end of each week:
+    - Make triggers the Apify scrapers over the weekend
+    - Retrieves the listings once scraping is complete
+    - Selects that week's new Excel sheet
+    - Populates it with the listings found
+- No manual step anywhere in the chain, from trigger to a fully populated sheet.
+- Every Monday morning, the team opened a fresh sheet with that week's listings already waiting, with volume naturally fluctuating with however many relevant roles had actually been posted that week.
+
+**Result:** listings sourced per week jumped from roughly 50 (manual ceiling) to as many as 500, depending on what was posted, with zero manual searching required.
+
+---
+
+## What This Unlocked
+
+The team stopped spending hours a week hunting for listings one site at a time, and started every week with a complete, current picture of what was actually available, letting them focus their time on matching candidates and building relationships rather than sourcing.
+
+---
+
+## Facing something similar?
+
+If manual research or data-gathering is capping how much your team can get done, [let's talk about what a version of this could look like for you](https://calendar.app.google/1ZuzsosKEfQwf2DG6)

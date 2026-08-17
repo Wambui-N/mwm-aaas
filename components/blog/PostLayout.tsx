@@ -1,10 +1,15 @@
-import React from "react";
+"use client";
+
+import React, { useRef } from "react";
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { format } from "date-fns";
 import { ArrowRight, Tag } from "lucide-react";
 import NewsletterSection from "@/components/sections/NewsletterSection";
+import ReadingProgressBar from "@/components/blog/ReadingProgressBar";
+import { useHeavyScrollFeel } from "@/components/blog/useHeavyScrollFeel";
 import type { BlogPost } from "@/lib/content/blog";
 
 interface Props {
@@ -13,7 +18,66 @@ interface Props {
   relatedPosts: BlogPost[];
 }
 
+const revealTransition = {
+  initial: { opacity: 0, y: 14 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" } as const,
+  transition: { duration: 0.5, ease: "easeOut" as const },
+};
+
+function getPlainText(node: React.ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(getPlainText).join("");
+  if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
+    return getPlainText(node.props.children);
+  }
+  return "";
+}
+
+function AnimatedBlockquote({ children, className }: { children?: React.ReactNode; className?: string }) {
+  return (
+    <motion.blockquote {...revealTransition} className={className}>
+      {children}
+    </motion.blockquote>
+  );
+}
+
+function ResultParagraph({ children, className }: { children?: React.ReactNode; className?: string }) {
+  const childArray = React.Children.toArray(children);
+  const firstChild = childArray[0];
+  const isResultLine =
+    React.isValidElement(firstChild) &&
+    firstChild.type === "strong" &&
+    getPlainText(firstChild).trim().toLowerCase() === "result:";
+
+  if (!isResultLine) {
+    return <p className={className}>{children}</p>;
+  }
+
+  return (
+    <motion.p {...revealTransition} className={className}>
+      {children}
+    </motion.p>
+  );
+}
+
 export default function PostLayout({ post, content, relatedPosts }: Props) {
+  const headerRef = useRef<HTMLElement>(null);
+  const articleRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: headerRef,
+    offset: ["start start", "end start"],
+  });
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
+
+  useHeavyScrollFeel();
+
+  const isCaseStudy = post.category === "Case Study";
+  const markdownComponents: Components | undefined = isCaseStudy
+    ? { blockquote: AnimatedBlockquote, p: ResultParagraph }
+    : undefined;
+
   return (
     <>
       {/* JSON-LD BlogPosting schema — picked up by Google rich results and LLM crawlers */}
@@ -53,7 +117,9 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
         }}
       />
 
-      <article className="max-w-3xl mx-auto px-6">
+      <article ref={articleRef} className="max-w-3xl mx-auto px-6">
+        <ReadingProgressBar targetRef={articleRef} />
+
         {/* Back link */}
         <Link
           href="/blog"
@@ -63,7 +129,7 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
         </Link>
 
         {/* Post header */}
-        <header className="mt-8 mb-10">
+        <header ref={headerRef} className="mt-8 mb-10">
           <div className="flex flex-wrap items-center gap-3 mb-4">
             {post.category && (
               <span className="text-xs font-semibold text-brand-orange uppercase tracking-widest">
@@ -106,19 +172,22 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
 
           {/* Hero image */}
           {post.image && (
-            <div className="w-full h-64 md:h-80 rounded-2xl overflow-hidden">
+            <motion.div
+              style={{ scale: heroScale, opacity: heroOpacity }}
+              className="w-full h-64 md:h-80 rounded-2xl overflow-hidden"
+            >
               <img
                 src={post.image}
                 alt={post.title}
                 className="w-full h-full object-cover grayscale"
               />
-            </div>
+            </motion.div>
           )}
         </header>
 
         {/* Body */}
         <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-brand-black prose-p:text-gray-700 prose-li:text-gray-700 prose-a:text-brand-orange prose-a:no-underline hover:prose-a:underline prose-strong:text-brand-black prose-code:text-brand-orange prose-code:bg-brand-grey/20 prose-code:rounded prose-code:px-1">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{content}</ReactMarkdown>
         </div>
 
         {/* Tags footer */}

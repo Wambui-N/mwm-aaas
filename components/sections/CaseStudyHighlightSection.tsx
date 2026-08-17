@@ -1,14 +1,45 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import type { BlogPost } from "@/lib/content/blog";
 
 type Props = {
   posts?: BlogPost[];
 };
+
+function CaseStudyCard({ post }: { post: BlogPost }) {
+  const cardRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [16, -16]);
+
+  return (
+    <motion.article
+      ref={cardRef}
+      style={{ y }}
+      className="group rounded-xl border border-brand-grey/50 bg-white p-5 sm:p-6"
+    >
+      <h3 className="text-xl font-display font-semibold leading-snug text-brand-black">
+        {post.title}
+      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-gray-700">
+        {post.description}
+      </p>
+      <Link
+        href={`/blog/${post.slug}`}
+        className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-brand-orange hover:underline"
+      >
+        Read case study
+        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+      </Link>
+    </motion.article>
+  );
+}
 
 export default function CaseStudyHighlightSection({ posts = [] }: Props) {
   return (
@@ -39,24 +70,7 @@ export default function CaseStudyHighlightSection({ posts = [] }: Props) {
           {posts.length > 0 && (
             <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-2">
               {posts.map((post) => (
-                <article
-                  key={post.slug}
-                  className="group rounded-xl border border-brand-grey/50 bg-white p-5 sm:p-6"
-                >
-                  <h3 className="text-xl font-display font-semibold leading-snug text-brand-black">
-                    {post.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-gray-700">
-                    {post.description}
-                  </p>
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-brand-orange hover:underline"
-                  >
-                    Read case study
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </Link>
-                </article>
+                <CaseStudyCard key={post.slug} post={post} />
               ))}
             </div>
           )}
