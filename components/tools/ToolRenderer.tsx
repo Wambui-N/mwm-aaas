@@ -18,13 +18,6 @@ const toolComponents: Record<string, React.ComponentType<any>> = {
     ssr: false,
     loading: Loading,
   }) as React.ComponentType,
-  WorkflowsToAutomateChecklist: dynamic(
-    () => import("@/components/checklists/WorkflowsToAutomateChecklist"),
-    {
-      ssr: false,
-      loading: Loading,
-    }
-  ) as React.ComponentType,
 };
 
 export default function ToolRenderer({ componentKey }: { componentKey: string }) {

@@ -23,7 +23,7 @@ const resourcesData: Resource[] = [
     slug: "shelfcue",
     title: "ShelfCue",
     description:
-      "Beautiful branded intake & booking forms that write directly to Google Sheets and sync with Google Calendar. Collect client info and let them book a call, all in one flow. Free to use.",
+      "ShelfCue is a collection of free, fast text tools designed for writers, developers, marketers, students, and anyone who works with text every day.",
     type: "tool",
     url: "https://www.shelfcue.com/?utm_source=madewithmake&utm_medium=site&utm_campaign=tools_listing",
     external: true,
@@ -48,16 +48,6 @@ const resourcesData: Resource[] = [
     url: "#",
     external: false,
     component: "DocumentSigner",
-  },
-  {
-    slug: "10-workflows-to-automate-first",
-    title: "10 Workflows to Automate First",
-    description:
-      "The highest-impact manual tasks to automate in your business, what each one is, why it matters, and exactly how to get started.",
-    type: "checklist",
-    url: "#",
-    external: false,
-    component: "WorkflowsToAutomateChecklist",
   },
 ];
 
