@@ -9,7 +9,7 @@ import { format } from "date-fns";
 import { ArrowRight } from "lucide-react";
 import ReadingProgressBar from "@/components/blog/ReadingProgressBar";
 import { useHeavyScrollFeel } from "@/components/blog/useHeavyScrollFeel";
-import { SketchButton } from "@/components/site/SketchButton";
+import { ConsultCard } from "@/components/site/ConsultCard";
 import type { BlogPost } from "@/lib/content/blog";
 
 interface Props {
@@ -209,24 +209,11 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
         )}
 
         {/* booking CTA */}
-        <aside className="mt-12 max-w-[60rem] bg-ink p-6 text-sage md:p-8">
-          <h2 className="font-[family-name:var(--font-brule)] text-[clamp(1.4rem,2vw,1.8rem)] font-semibold leading-tight">
-            Want help automating your business?
-          </h2>
-          <p className="calm-body mt-4 max-w-xl text-sage/90">
-            If you&apos;d like to talk through how this could work in your own
-            business, you can request a free consultation and we&apos;ll figure
-            out what makes sense together.
-          </p>
-          <div className="mt-6">
-            <SketchButton href="/contact-us" variant="marker" seed={14} className="text-lg">
-              <span className="inline-flex items-center gap-2">
-                Book a consultation
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </span>
-            </SketchButton>
-          </div>
-        </aside>
+        <ConsultCard
+          heading="Want help automating your business?"
+          body="If you'd like to talk through how this could work in your own business, you can request a free consultation and we'll figure out what makes sense together."
+          className="mt-12 max-w-[60rem]"
+        />
       </article>
     </>
   );

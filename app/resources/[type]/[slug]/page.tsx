@@ -6,13 +6,12 @@ import { generatePageMetadata } from "@/lib/seo";
 import {
   getResource,
   getAllResources,
-  type Resource,
   type ResourceType,
 } from "@/lib/content/resources";
-import { scorecardUrl, bookingUrl } from "@/lib/links";
-import NavigationWrapper from "@/components/layout/NavigationWrapper";
-import Footer from "@/components/layout/Footer";
-import { ConsultCta } from "@/components/sections/ConsultCta";
+import { SiteShell } from "@/components/site/SiteShell";
+import { SectionLabel } from "@/components/site/SectionLabel";
+import { SketchButton } from "@/components/site/SketchButton";
+import { ConsultCard } from "@/components/site/ConsultCard";
 import ToolRenderer from "@/components/tools/ToolRenderer";
 import { Calculator, FileCheck, ListChecks, ArrowRight } from "lucide-react";
 
@@ -51,57 +50,54 @@ export default async function ResourceDetailPage({ params }: Props) {
   if (!resource) notFound();
 
   const { label, icon: Icon } = typeConfig[resource.type];
-  const otherTools = getAllResources().filter(
-    (r: Resource) => !(r.type === resource.type && r.slug === resource.slug)
-  );
 
   return (
-    <div className="min-h-screen bg-brand-grey/10">
-      <NavigationWrapper />
-      <main className="pt-12 pb-24">
-        <div className="max-w-3xl mx-auto px-6">
+    <SiteShell>
+      <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
+        <div className="mx-auto max-w-[81.25rem]">
           <Link
             href="/resources"
-            className="text-sm text-gray-500 hover:text-brand-black mb-8 inline-flex items-center gap-1 transition-colors"
+            className="gl-mono inline-block py-2 text-ink/70 underline-offset-4 hover:text-ink hover:underline focus-visible:underline"
           >
             ← Back to Resources
           </Link>
 
-          <article>
-            <div className="flex items-center gap-3 mb-6 mt-6">
-              <div className="w-12 h-12 bg-brand-grey/30 border border-brand-grey/60 rounded-xl flex items-center justify-center">
-                <Icon className="w-6 h-6 text-brand-black" />
-              </div>
-              <span className="text-xs font-semibold text-brand-orange uppercase tracking-widest">
+          <article className="mt-6">
+            <SectionLabel className="mb-4">
+              <span className="inline-flex items-center gap-2">
+                <Icon className="h-3.5 w-3.5" aria-hidden />
                 {label}
               </span>
-            </div>
+            </SectionLabel>
 
-            <h1 className="text-4xl md:text-5xl font-display font-semibold text-brand-black mb-4">
-              {resource.title}
-            </h1>
-            <p className="text-lg text-gray-600 mb-10">{resource.description}</p>
+            <h1 className="sk-title">{resource.title}</h1>
+            <p className="pg-lede mt-5">{resource.description}</p>
 
             {/* Interactive tool or fallback */}
             {resource.component ? (
-              <div className="mb-16">
-                <ToolRenderer componentKey={resource.component} />
+              <div className="calm-card mt-10 overflow-hidden p-3 md:p-5">
+                <div className="tool-zoom">
+                  <ToolRenderer componentKey={resource.component} />
+                </div>
               </div>
             ) : resource.url !== "#" ? (
-              <div className="p-6 bg-brand-grey/20 rounded-2xl border border-brand-grey/50 mb-16">
-                <a
+              <div className="calm-card mt-10 max-w-[41rem] p-6">
+                <SketchButton
                   href={resource.url}
-                  target={resource.external ? "_blank" : undefined}
-                  rel={resource.external ? "noopener noreferrer" : undefined}
-                  className="inline-flex items-center justify-center px-8 py-4 bg-brand-orange text-white font-medium rounded-lg hover:bg-brand-orange/90 transition-colors"
+                  {...(resource.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  variant="marker"
+                  seed={16}
+                  className="text-lg"
                 >
-                  {resource.external ? "Open Resource" : "Download"}
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </a>
+                  <span className="inline-flex items-center gap-2">
+                    {resource.external ? "Open Resource" : "Download"}
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </span>
+                </SketchButton>
               </div>
             ) : (
-              <div className="p-6 bg-brand-grey/20 rounded-2xl border border-brand-grey/50 mb-16">
-                <p className="text-gray-500 text-sm">
+              <div className="calm-card mt-10 max-w-[41rem] p-6">
+                <p className="calm-body text-ink/75">
                   This resource is coming soon. Contact us if you&apos;d like
                   early access.
                 </p>
@@ -109,49 +105,8 @@ export default async function ResourceDetailPage({ params }: Props) {
             )}
           </article>
 
-          {/* Other tools */}
-          {/* {otherTools.length > 0 && (
-            <section className="mb-10">
-              <p className="text-sm font-bold text-brand-black mb-4 uppercase tracking-wide">
-                Other tools —{" "}
-                <span className="font-normal normal-case text-gray-500">
-                  Try our other tools!
-                </span>
-              </p>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {otherTools.map((t: Resource) => {
-                  const { label: tLabel, icon: TIcon } = typeConfig[t.type];
-                  return (
-                    <Link
-                      key={`${t.type}-${t.slug}`}
-                      href={`/resources/${t.type}/${t.slug}`}
-                      className="group flex items-start gap-3 p-4 border border-gray-100 rounded-xl hover:border-brand-grey hover:shadow-sm transition-all"
-                    >
-                      <div className="w-9 h-9 bg-brand-grey/20 border border-brand-grey/40 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-brand-grey/40 transition-colors">
-                        <TIcon className="w-4 h-4 text-brand-black" />
-                      </div>
-                      <div className="min-w-0">
-                        <span className="text-[10px] font-semibold text-brand-orange uppercase tracking-widest block">
-                          {tLabel}
-                        </span>
-                        <span className="text-sm font-medium text-brand-black group-hover:text-brand-orange transition-colors block leading-snug">
-                          {t.title}
-                        </span>
-                        <span className="text-xs text-gray-500 line-clamp-1">
-                          {t.description}
-                        </span>
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-brand-orange transition-colors flex-shrink-0 mt-0.5" />
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
-          )} */}
-
-          
           {/* booking CTA */}
-          <ConsultCta
+          <ConsultCard
             heading={
               resource.type === "checklist"
                 ? "Want help actually building these workflows?"
@@ -162,12 +117,10 @@ export default async function ResourceDetailPage({ params }: Props) {
                 ? "If you’d like to talk through which of these workflows make the most sense for your business, you can request a free consultation and we’ll prioritise the first 2–3 together."
                 : undefined
             }
-            variant="dark"
-            className="mt-8"
+            className="mt-12 max-w-[60rem]"
           />
         </div>
       </main>
-      <Footer />
-    </div>
+    </SiteShell>
   );
 }

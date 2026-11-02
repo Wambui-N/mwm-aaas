@@ -417,6 +417,14 @@
   border-bottom: 1px solid rgb(20 16 16 / 0.2);
 }
 
+/* interactive tools (webhook tester, document signer) were built for a 16px root: scale their subtree
+   by 4/3 so their rem sizes read exactly as designed. Browsers without `zoom` keep the 12px-root sizes. */
+@supports (zoom: 1) {
+  [data-sketch][data-calm] .tool-zoom {
+    zoom: 1.3333;
+  }
+}
+
 /* ======================================================================
    GLOBAL BLOCK: this rule is not scoped to the wrapper (it only matches while the wrapper is on the page).
    ====================================================================== */
