@@ -4,12 +4,12 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { format } from "date-fns";
-import { ArrowRight, Tag } from "lucide-react";
-import NewsletterSection from "@/components/sections/NewsletterSection";
+import { ArrowRight } from "lucide-react";
 import ReadingProgressBar from "@/components/blog/ReadingProgressBar";
 import { useHeavyScrollFeel } from "@/components/blog/useHeavyScrollFeel";
+import { SketchButton } from "@/components/site/SketchButton";
 import type { BlogPost } from "@/lib/content/blog";
 
 interface Props {
@@ -61,22 +61,25 @@ function ResultParagraph({ children, className }: { children?: React.ReactNode; 
   );
 }
 
+// Every post: tables scroll sideways instead of overflowing the page; images load lazily.
+const baseComponents: Components = {
+  table: ({ node: _node, ...props }) => (
+    <div className="rd-table">
+      <table {...props} />
+    </div>
+  ),
+  img: ({ node: _node, ...props }) => <img loading="lazy" {...props} />,
+};
+
 export default function PostLayout({ post, content, relatedPosts }: Props) {
-  const headerRef = useRef<HTMLElement>(null);
   const articleRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: headerRef,
-    offset: ["start start", "end start"],
-  });
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
 
   useHeavyScrollFeel();
 
   const isCaseStudy = post.category === "Case Study";
-  const markdownComponents: Components | undefined = isCaseStudy
-    ? { blockquote: AnimatedBlockquote, p: ResultParagraph }
-    : undefined;
+  const markdownComponents: Components = isCaseStudy
+    ? { ...baseComponents, blockquote: AnimatedBlockquote, p: ResultParagraph }
+    : baseComponents;
 
   return (
     <>
@@ -117,136 +120,87 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
         }}
       />
 
-      <article ref={articleRef} className="max-w-3xl mx-auto px-6">
+      <article ref={articleRef} className="mx-auto max-w-[81.25rem]">
         <ReadingProgressBar targetRef={articleRef} />
 
         {/* Back link */}
         <Link
           href="/blog"
-          className="text-sm text-gray-500 hover:text-brand-black inline-flex items-center gap-1 transition-colors"
+          className="gl-mono inline-block py-2 text-ink/70 underline-offset-4 hover:text-ink hover:underline focus-visible:underline"
         >
           ← Making IT Make Sense
         </Link>
 
         {/* Post header */}
-        <header ref={headerRef} className="mt-8 mb-10">
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            {post.category && (
-              <span className="text-xs font-semibold text-brand-orange uppercase tracking-widest">
-                {post.category}
-              </span>
-            )}
-            <time
-              dateTime={post.date}
-              className="text-sm text-gray-400"
-            >
+        <header className="mb-10 mt-6">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            {post.category && <span className="gl-mono text-ink/70">{post.category}</span>}
+            <time dateTime={post.date} className="gl-mono text-ink/60">
               {format(new Date(post.date), "MMMM d, yyyy")}
             </time>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-display font-semibold text-brand-black mb-4 leading-tight">
-            {post.title}
-          </h1>
-          <p className="text-lg text-gray-500 leading-relaxed mb-6">
-            {post.description}
-          </p>
+          <h1 className="sk-title mt-4 max-w-[30ch]">{post.title}</h1>
+          <p className="pg-lede mt-5">{post.description}</p>
 
-          {post.author && (
-            <p className="text-sm text-gray-400 mb-6">{post.author}</p>
-          )}
-
-          {/* Tags */}
-          {/* {post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-8">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-brand-grey/30 border border-brand-grey/60 text-brand-black rounded-full text-xs font-medium"
-                >
-                  <Tag className="w-3 h-3" />
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )} */}
+          {post.author && <p className="gl-mono mt-5 text-ink/60">{post.author}</p>}
 
           {/* Hero image */}
           {post.image && (
-            <motion.div
-              style={{ scale: heroScale, opacity: heroOpacity }}
-              className="w-full h-64 md:h-80 rounded-2xl overflow-hidden"
-            >
-              <img
-                src={post.image}
-                alt={post.title}
-                className="w-full h-full object-cover grayscale"
-              />
-            </motion.div>
+            <div className="mt-8 overflow-hidden border border-ink/20">
+              <img src={post.image} alt={post.title} className="h-56 w-full object-cover grayscale md:h-72" />
+            </div>
           )}
         </header>
 
         {/* Body */}
-        <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-brand-black prose-p:text-gray-700 prose-li:text-gray-700 prose-a:text-brand-orange prose-a:no-underline hover:prose-a:underline prose-strong:text-brand-black prose-code:text-brand-orange prose-code:bg-brand-grey/20 prose-code:rounded prose-code:px-1">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{content}</ReactMarkdown>
+        <div className="rd-prose">
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+            {content}
+          </ReactMarkdown>
         </div>
 
         {/* Tags footer */}
         {post.tags.length > 0 && (
-          <div className="mt-10 pt-8 border-t border-gray-100 flex flex-wrap items-center gap-2">
-            <span className="text-xs text-gray-400 uppercase tracking-wide font-medium mr-1">
-              Tagged:
-            </span>
+          <div className="mt-12 flex max-w-[41rem] flex-wrap items-center gap-2 border-t border-ink/25 pt-6">
+            <span className="gl-mono mr-1 text-ink/60">Tagged:</span>
             {post.tags.map((tag) => (
-              <span
+              <Link
                 key={tag}
-                className="inline-flex items-center gap-1 px-2.5 py-1 bg-brand-grey/20 border border-brand-grey/50 text-gray-600 rounded-full text-xs"
+                href={`/blog?tag=${encodeURIComponent(tag)}`}
+                className="gl-mono border border-ink/30 px-2 py-1 text-ink/80 hover:border-ink hover:bg-sage/40"
               >
                 {tag}
-              </span>
+              </Link>
             ))}
           </div>
         )}
 
         {/* Related posts */}
         {relatedPosts.length > 0 && (
-          <section className="mt-16">
-            <p className="text-xs font-bold text-brand-black uppercase tracking-widest mb-6">
-              Keep reading —{" "}
-              <span className="font-normal normal-case text-gray-500">
-                you might also like these
-              </span>
+          <section className="mt-16 max-w-[60rem]">
+            <p className="gl-mono mb-5 text-ink/70">
+              Keep reading — <span className="normal-case">you might also like these</span>
             </p>
             <div className="grid gap-5 sm:grid-cols-2">
               {relatedPosts.map((related) => (
                 <Link
                   key={related.slug}
                   href={`/blog/${related.slug}`}
-                  className="group flex flex-col border border-gray-100 rounded-xl overflow-hidden hover:border-brand-grey hover:shadow-sm transition-all"
+                  className="calm-card group flex flex-col"
                 >
                   {related.image && (
-                    <div className="w-full h-36 overflow-hidden">
-                      <img
-                        src={related.image}
-                        alt={related.title}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                      />
+                    <div className="h-36 w-full overflow-hidden border-b border-ink/20">
+                      <img src={related.image} alt={related.title} loading="lazy" className="h-full w-full object-cover grayscale" />
                     </div>
                   )}
-                  <div className="p-5 flex flex-col flex-1">
-                    {related.category && (
-                      <span className="text-[10px] font-semibold text-brand-orange uppercase tracking-widest mb-1">
-                        {related.category}
-                      </span>
-                    )}
-                    <h3 className="text-base font-display font-semibold text-brand-black group-hover:text-brand-orange transition-colors leading-snug mb-2">
-                      {related.title}
-                    </h3>
-                    <p className="text-sm text-gray-500 leading-relaxed flex-1 line-clamp-2">
-                      {related.description}
-                    </p>
-                    <div className="mt-3 flex items-center gap-1 text-xs font-medium text-brand-orange">
-                      Read <ArrowRight className="w-3.5 h-3.5" />
-                    </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    {related.category && <span className="gl-mono mb-2 text-ink/60">{related.category}</span>}
+                    <h3 className="calm-h3 underline-offset-4 group-hover:underline group-focus-visible:underline">{related.title}</h3>
+                    <p className="calm-body mt-2 flex-1 text-ink/75">{related.description}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 font-bold">
+                      Read <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                    </span>
                   </div>
                 </Link>
               ))}
@@ -254,28 +208,24 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
           </section>
         )}
 
-        {/* Newsletter subscribe */}
-        {/* <div className="mt-16 -mx-6">
-          <NewsletterSection />
-        </div> */}
-
         {/* booking CTA */}
-        <aside className="mt-8 rounded-2xl bg-brand-black p-8 text-white">
-          <h2 className="text-xl font-display font-semibold text-brand-white mb-3">
-          Want help automating your business?
+        <aside className="mt-12 max-w-[60rem] bg-ink p-6 text-sage md:p-8">
+          <h2 className="font-[family-name:var(--font-brule)] text-[clamp(1.4rem,2vw,1.8rem)] font-semibold leading-tight">
+            Want help automating your business?
           </h2>
-          <p className="text-brand-grey mb-6">
+          <p className="calm-body mt-4 max-w-xl text-sage/90">
             If you&apos;d like to talk through how this could work in your own
             business, you can request a free consultation and we&apos;ll figure
             out what makes sense together.
           </p>
-          <Link
-            href="/contact-us"
-            className="inline-flex items-center justify-center rounded-lg bg-brand-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-orange/90"
-          >
-            Book a consultation
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
+          <div className="mt-6">
+            <SketchButton href="/contact-us" variant="marker" seed={14} className="text-lg">
+              <span className="inline-flex items-center gap-2">
+                Book a consultation
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </span>
+            </SketchButton>
+          </div>
         </aside>
       </article>
     </>

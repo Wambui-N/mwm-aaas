@@ -4,15 +4,15 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import { ReactLenis } from 'lenis/react';
 
-// The assessment funnel is form-heavy — eased scroll physics makes inputs feel
-// laggy there, so it stays on native scroll.
-const EXCLUDED_PREFIX = '/assessment';
+// Routes that have moved onto the shared shell (components/site) run their own scroll provider there.
+// The assessment funnel is form-heavy, so it stays on native scroll.
+const SHELL_PREFIXES = ['/assessment', '/blog', '/case-studies'];
 
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   // The shared shell (components/site/providers) runs its own Lenis instance, so "/" must not get a second one.
-  if (pathname === '/' || pathname?.startsWith(EXCLUDED_PREFIX)) {
+  if (pathname === '/' || SHELL_PREFIXES.some((p) => pathname?.startsWith(p))) {
     return <>{children}</>;
   }
 

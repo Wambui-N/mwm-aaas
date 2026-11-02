@@ -1,8 +1,5 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { ArrowRight } from "lucide-react";
 import type { BlogPost } from "@/lib/content/blog";
@@ -11,68 +8,47 @@ type Props = {
   caseStudies: BlogPost[];
 };
 
+const isCaseStudyTag = (t: string) => t.toLowerCase() === "case-study" || t.toLowerCase() === "case study";
+
 export default function CaseStudyGrid({ caseStudies }: Props) {
   return (
-    <div className="grid gap-8 sm:grid-cols-2">
+    <div className="grid gap-5 sm:grid-cols-2 md:gap-6">
       {caseStudies.map((post) => (
-        <motion.article
-          key={post.slug}
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.45, ease: "easeOut" }}
-          className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-100 bg-white transition-all hover:border-brand-grey hover:shadow-sm"
-        >
+        <article key={post.slug} className="calm-card group flex h-full flex-col">
           <Link href={`/blog/${post.slug}`} className="flex flex-1 flex-col">
             {post.image ? (
-              <div className="h-52 w-full overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
-                />
+              <div className="h-52 w-full overflow-hidden border-b border-ink/20">
+                <img src={post.image} alt={post.title} loading="lazy" className="h-full w-full object-cover grayscale" />
               </div>
             ) : (
-              <div className="h-52 w-full bg-brand-grey/20" />
+              <div className="h-52 w-full border-b border-ink/20 bg-sage/30" />
             )}
 
-            <div className="flex flex-1 flex-col p-6">
-              <time
-                dateTime={post.date}
-                className="mb-3 block text-xs text-gray-400"
-              >
+            <div className="flex flex-1 flex-col p-5 md:p-6">
+              <time dateTime={post.date} className="gl-mono text-ink/60">
                 {format(new Date(post.date), "MMMM d, yyyy")}
               </time>
-              <h2 className="mb-3 text-xl font-display font-semibold leading-snug text-brand-black transition-colors group-hover:text-brand-orange">
-                {post.title}
-              </h2>
-              <p className="flex-1 text-sm leading-relaxed text-gray-500">
-                {post.description}
-              </p>
+              <h2 className="calm-h3 mt-3 underline-offset-4 group-hover:underline group-focus-within:underline">{post.title}</h2>
+              <p className="calm-body mt-3 flex-1 text-ink/75">{post.description}</p>
+              <span className="mt-5 inline-flex items-center gap-2 font-bold">
+                Read <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+              </span>
             </div>
           </Link>
 
-          <div className="flex items-center justify-between px-6 pb-5">
-            {post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1">
-                {post.tags.filter((t) => t.toLowerCase() !== "case-study" && t.toLowerCase() !== "case study").slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-2 py-0.5 rounded-full bg-brand-grey/30 text-brand-black"
-                  >
+          {post.tags.some((t) => !isCaseStudyTag(t)) && (
+            <div className="flex flex-wrap gap-1.5 px-5 pb-5 md:px-6 md:pb-6">
+              {post.tags
+                .filter((t) => !isCaseStudyTag(t))
+                .slice(0, 3)
+                .map((tag) => (
+                  <span key={tag} className="gl-mono border border-ink/30 px-2 py-1 text-ink/80">
                     {tag}
                   </span>
                 ))}
-              </div>
-            )}
-            <Link
-              href={`/blog/${post.slug}`}
-              className="ml-auto flex items-center gap-1 text-xs font-medium text-brand-orange"
-            >
-              Read <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-        </motion.article>
+            </div>
+          )}
+        </article>
       ))}
     </div>
   );

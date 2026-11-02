@@ -16,7 +16,7 @@ export default function ReadingProgressBar({ targetRef }: Props) {
   return (
     <motion.div
       style={{ scaleX: scrollYProgress }}
-      className="fixed top-0 left-0 right-0 h-[2px] md:h-[3px] bg-brand-orange origin-left z-[60]"
+      className="fixed top-0 left-0 right-0 h-[2px] md:h-[3px] bg-ink origin-left z-[60]"
     />
   );
 }
