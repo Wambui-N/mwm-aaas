@@ -6,7 +6,7 @@ import { ReactLenis } from 'lenis/react';
 
 // Routes that have moved onto the shared shell (components/site) run their own scroll provider there.
 // The assessment funnel is form-heavy, so it stays on native scroll.
-const SHELL_PREFIXES = ['/assessment', '/blog', '/case-studies', '/resources'];
+const SHELL_PREFIXES = ['/assessment', '/blog', '/case-studies', '/resources', '/contact-us'];
 
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

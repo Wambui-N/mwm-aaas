@@ -24,7 +24,7 @@ export default function TallyEmbed() {
   }, [loadEmbeds]);
 
   return (
-    <div className="relative w-full rounded-xl overflow-hidden border border-gray-100 bg-white">
+    <div className="relative w-full overflow-hidden border border-ink/25 bg-white">
       <Script
         src="https://tally.so/widgets/embed.js"
         strategy="afterInteractive"
@@ -32,8 +32,8 @@ export default function TallyEmbed() {
       />
       {!loaded && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-white">
-          <div className="flex flex-col items-center gap-3 text-gray-400">
-            <div className="h-6 w-6 animate-spin rounded-full border-2 border-brand-orange border-t-transparent" />
+          <div className="flex flex-col items-center gap-3 text-ink/60">
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-ink border-t-transparent" />
             <span className="text-sm">Loading form…</span>
           </div>
         </div>

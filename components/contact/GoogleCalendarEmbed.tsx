@@ -6,11 +6,11 @@ export default function GoogleCalendarEmbed() {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative w-full rounded-xl overflow-hidden border border-gray-100 bg-white">
+    <div className="relative w-full overflow-hidden border border-ink/25 bg-white">
       {!loaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-white" style={{ height: 600 }}>
-          <div className="flex flex-col items-center gap-3 text-gray-400">
-            <div className="w-6 h-6 border-2 border-brand-orange border-t-transparent rounded-full animate-spin" />
+          <div className="flex flex-col items-center gap-3 text-ink/60">
+            <div className="w-6 h-6 border-2 border-ink border-t-transparent rounded-full animate-spin" />
             <span className="text-sm">Loading calendar…</span>
           </div>
         </div>
