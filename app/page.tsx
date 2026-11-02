@@ -1,6 +1,5 @@
 import React from 'react';
-import HomePage from '@/components/pages/HomePage';
-import { getTopTags, getCaseStudyPosts } from '@/lib/content/blog';
+import { HomeShell } from '@/components/homepage/HomeShell';
 import type { Metadata } from 'next';
 import { generatePageMetadata, generateStructuredData } from '@/lib/seo';
 
@@ -11,17 +10,40 @@ export const metadata: Metadata = generatePageMetadata(
   ['Wambui Ndung\'u', 'discovery call', 'automation consulting', 'automation implementation', 'AI consulting']
 );
 
+// Person structured data (moved here from the old FounderSection, unchanged).
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Wambui Ndung'u",
+  "jobTitle": "Founder & Automation Specialist",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Made with Make"
+  },
+  "description": "Founder of Made with Make, helping founders streamline operations through automation",
+  "image": "https://madewithmake.com/founder.png",
+  "url": "https://madewithmake.com",
+  "sameAs": [
+    "https://www.linkedin.com/in/wambui-ndungu-210409193/"
+  ],
+  "knowsAbout": [
+    "Business Automation",
+    "Workflow Optimization",
+    "Make.com",
+    "Process Automation",
+    "Founder Operations"
+  ]
+};
+
 export default function Home() {
-  const topTags = getTopTags(4);
-  const caseStudyPosts = getCaseStudyPosts(2);
   return (
     <>
-      {/* AI Content Summary for LLMs */}
+      {/* AI Content Summary for LLMs (content unchanged; the visible H1 now lives in the Hero, so this one is a <p>) */}
       <div style={{ display: 'none' }} aria-hidden="true">
-        <h1>Made with Make - Automation & AI Consulting with Execution</h1>
+        <p>Made with Make - Automation & AI Consulting with Execution</p>
         <h2>Service Overview</h2>
         <p>Made with Make is an automation and AI consulting firm that combines strategy with execution. We help teams identify what to automate, design the right systems, and implement scalable AI-powered workflows , end to end.</p>
-        
+
         <h2>Service Approach</h2>
         <p>Strategy-led. Execution-driven. No handoffs. From insight to implementation.</p>
         <ul>
@@ -31,7 +53,7 @@ export default function Home() {
           <li>Execution & Implementation: Build, test, and deploy automations</li>
           <li>Review & Handover: Validate performance and document systems</li>
         </ul>
-        
+
         <h2>Services Offered</h2>
         <h3>Automation & AI Consulting</h3>
         <ul>
@@ -53,16 +75,16 @@ export default function Home() {
           <li>System refinement</li>
           <li>Expansion as business grows</li>
         </ul>
-        
+
         <h2>Target Audience</h2>
         <p>Founders and leadership teams, growing businesses, organizations seeking operational efficiency, teams that want a partner not just advice.</p>
-        
+
         <h2>Technology Stack</h2>
         <p>Primary platform: Make.com (formerly Integromat). We also work with AI tools, APIs, and modern automation platforms. Integrates with 500+ business tools including Salesforce, HubSpot, Slack, Airtable, Notion, Google Workspace, Microsoft 365, Stripe, and any tool with an API.</p>
-        
+
         <h2>Founder</h2>
         <p>Wambui Ndung'u - Founder & Automation Consultant. Based in Kenya, serving clients worldwide.</p>
-        
+
         <h2>Contact Information</h2>
         <p>Email: wambui@madewithmake.com</p>
         <p>Website: https://madewithmake.com</p>
@@ -81,7 +103,13 @@ export default function Home() {
           __html: JSON.stringify(generateStructuredData('breadcrumb')),
         }}
       />
-      <HomePage topTags={topTags} caseStudyPosts={caseStudyPosts} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(personJsonLd),
+        }}
+      />
+      <HomeShell />
     </>
   );
 }

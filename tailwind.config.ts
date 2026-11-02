@@ -70,6 +70,10 @@ const config: Config = {
           grey: '#c5d6d0',
           black: '#141010',
         },
+        // Homepage redesign tokens (same hex values as brand.*)
+        ink: '#141010',
+        sage: '#c5d6d0',
+        signal: '#e65032',
       },
       keyframes: {
         'accordion-down': {
