@@ -4,8 +4,8 @@ import { Fragment, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Annotate } from "@/components/homepage/draw/Annotate";
-import { MONO } from "@/lib/homepage/labels";
+import { Annotate } from "@/components/site/draw/Annotate";
+import { MONO } from "@/lib/site/labels";
 import { testimonial, testimonials } from "@/lib/homepage/copy";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);

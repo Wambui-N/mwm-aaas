@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { boxPaths, underlinePaths } from "@/lib/homepage/rough";
+import { boxPaths, underlinePaths } from "@/lib/site/rough";
 
 /**
  * Hand-drawn primitives. Server-safe: geometry comes from seeded rough.js generators, so server

@@ -11,7 +11,7 @@ const EXCLUDED_PREFIX = '/assessment';
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // The homepage runs its own Lenis instance (components/homepage/providers), so "/" must not get a second one.
+  // The shared shell (components/site/providers) runs its own Lenis instance, so "/" must not get a second one.
   if (pathname === '/' || pathname?.startsWith(EXCLUDED_PREFIX)) {
     return <>{children}</>;
   }

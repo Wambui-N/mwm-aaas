@@ -3,9 +3,9 @@
 import { Fragment, useEffect, useRef } from "react";
 import { annotate } from "rough-notation";
 import type { RoughAnnotation } from "rough-notation/lib/model";
-import { DrawIn } from "@/components/homepage/draw/DrawIn";
-import { ScrawlUnderline } from "@/components/homepage/ScrawlStrike";
 import { pain } from "@/lib/homepage/copy";
+import { Underlined } from "@/components/site/Underlined";
+import { SectionLabel } from "@/components/site/SectionLabel";
 
 // The one orange highlight in this section: card 02, an exact phrase from lib/copy.ts.
 const HIGHLIGHT_CARD = 1;
@@ -80,17 +80,12 @@ export function Pain() {
   return (
     <section id={pain.id} ref={root} className="px-4 py-[4.5rem] md:px-8 md:py-[6.75rem]">
       <div className="mx-auto max-w-[81.25rem]">
-        <p className="gl-mono mb-5 text-ink/60">{pain.label}</p>
+        <SectionLabel>{pain.label}</SectionLabel>
 
         {/* one orange marker underline, under "processes" only */}
         <h2 className="sk-h2 max-w-[20ch]">
           {h1}
-          <span className="relative inline-block">
-            processes
-            <DrawIn as="span" on="scroll" start="top 85%" duration={0.5} stagger={0.2} className="pointer-events-none absolute -inset-x-[0.05em] -bottom-[0.14em] block h-[0.3em]">
-              <ScrawlUnderline seed={8} />
-            </DrawIn>
-          </span>
+          <Underlined seed={8} start="top 85%">processes</Underlined>
           {h2}
         </h2>
         <p className="calm-body mt-6 max-w-xl">{pain.intro}</p>

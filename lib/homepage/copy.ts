@@ -1,13 +1,5 @@
-export const AUDIT_HREF = "/assessment";
+export { AUDIT_HREF } from "@/lib/site/shell";
 
-export const nav = {
-  brand: "Made with Make",
-  links: [
-    { label: "Articles", href: "/blog" },
-    { label: "Resources", href: "/resources" },
-    { label: "Contact us", href: "/contact-us" },
-  ],
-};
 
 export const hero = {
   label: "[00] Automation & AI Consulting, with Execution",
@@ -177,18 +169,4 @@ export const finalCta = {
   heading: "Find out exactly where your business is leaking time.",
   body: "The audit takes five minutes. The results stay with you forever.",
   cta: "Take the Free Automation Gap Audit",
-};
-
-export const footer = {
-  brand: "Made with Make",
-  tagline: "Consult. Build. Execute.",
-  links: [
-    { label: "Blog", href: "/blog" },
-    { label: "Resources", href: "/resources" },
-    { label: "Contact us", href: "/contact-us" },
-    { label: "Terms", href: "/terms" },
-    { label: "Privacy", href: "/privacy" },
-  ],
-  linkedin: "https://www.linkedin.com/company/made-with-make/",
-  email: "wambui@madewithmake.com",
 };

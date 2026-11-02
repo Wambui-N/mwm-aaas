@@ -5,12 +5,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
-import { Annotate } from "@/components/homepage/draw/Annotate";
-import { DrawIn } from "@/components/homepage/draw/DrawIn";
-import { ScrawlUnderline } from "@/components/homepage/ScrawlStrike";
+import { Annotate } from "@/components/site/draw/Annotate";
 import { TypedMono } from "@/components/homepage/TypedMono";
-import { MONO } from "@/lib/homepage/labels";
+import { MONO } from "@/lib/site/labels";
 import { cases } from "@/lib/homepage/copy";
+import { Underlined } from "@/components/site/Underlined";
+import { SectionLabel } from "@/components/site/SectionLabel";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -50,17 +50,12 @@ export function Cases() {
   return (
     <section ref={root} className="px-4 py-[4.5rem] md:px-8 md:py-[6.75rem]">
       <div className="mx-auto max-w-[81.25rem]">
-        <p className="gl-mono mb-5 text-ink/60">{cases.label}</p>
+        <SectionLabel>{cases.label}</SectionLabel>
 
         {/* one orange marker underline, under "before and after" only */}
         <h2 className="sk-h2">
           {before}
-          <span className="relative inline-block">
-            before and after
-            <DrawIn as="span" on="scroll" duration={0.5} stagger={0.2} className="pointer-events-none absolute -inset-x-[0.05em] -bottom-[0.14em] block h-[0.3em]">
-              <ScrawlUnderline seed={17} />
-            </DrawIn>
-          </span>
+          <Underlined seed={17}>before and after</Underlined>
           {after}
           <br />
           {cases.heading[1]}

@@ -5,9 +5,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { useGSAP } from "@gsap/react";
-import { DrawIn } from "@/components/homepage/draw/DrawIn";
-import { ScrawlUnderline } from "@/components/homepage/ScrawlStrike";
 import { fit } from "@/lib/homepage/copy";
+import { Underlined } from "@/components/site/Underlined";
+import { SectionLabel } from "@/components/site/SectionLabel";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, DrawSVGPlugin);
 
@@ -36,17 +36,12 @@ export function Checklist() {
     <section ref={root} className="px-4 py-[4.5rem] md:px-8 md:py-[6.75rem]">
       <div className="mx-auto grid max-w-[81.25rem] gap-10 md:grid-cols-12 md:gap-x-6">
         <div className="md:col-span-5">
-          <p className="gl-mono mb-5 text-ink/60">{fit.label}</p>
+          <SectionLabel>{fit.label}</SectionLabel>
 
           {/* one orange marker underline, under "right place" only */}
           <h2 className="sk-h2">
             {before}
-            <span className="relative inline-block">
-              right place
-              <DrawIn as="span" on="scroll" duration={0.5} stagger={0.2} className="pointer-events-none absolute -inset-x-[0.05em] -bottom-[0.14em] block h-[0.3em]">
-                <ScrawlUnderline seed={23} />
-              </DrawIn>
-            </span>
+            <Underlined seed={23}>right place</Underlined>
             {after}
           </h2>
         </div>

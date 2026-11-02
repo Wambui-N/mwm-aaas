@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { useGSAP } from "@gsap/react";
-import { useReady } from "@/components/homepage/providers/SmoothScrollProvider";
+import { useReady } from "@/components/site/providers/SmoothScrollProvider";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, DrawSVGPlugin);
 

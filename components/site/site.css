@@ -1,7 +1,7 @@
 /*
- * Homepage design ("sketch-calm"). Every rule is scoped to the wrapper [data-sketch][data-calm]
- * that components/homepage/HomeShell.tsx renders, except one clearly marked block at the bottom
- * (the html font-size rule). Nothing here styles other routes.
+ * Site design ("sketch-calm"). Every rule is scoped to the wrapper [data-sketch][data-calm] that
+ * components/site/SiteShell.tsx renders, except one clearly marked block at the bottom (the html
+ * font-size rule, which only matches while the wrapper is on the page).
  */
 
 /* ---------- tokens ---------- */

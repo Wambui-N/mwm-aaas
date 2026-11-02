@@ -1,9 +1,9 @@
 "use client";
 
 import ScrollVelocity from "@/components/homepage/reactbits/ScrollVelocity";
-import { DrawIn } from "@/components/homepage/draw/DrawIn";
-import { ScrawlUnderline } from "@/components/homepage/ScrawlStrike";
 import { tools } from "@/lib/homepage/copy";
+import { Underlined } from "@/components/site/Underlined";
+import { SectionLabel } from "@/components/site/SectionLabel";
 
 // Proper SVG logos only (no favicons), all drawn in one ink tone. Tools without an SVG show as a text chip.
 const LOGOS: Record<string, string> = {
@@ -44,17 +44,12 @@ export function Tools() {
   return (
     <section className="py-[3.75rem] md:py-[5.25rem]">
       <div className="mx-auto mb-8 max-w-[81.25rem] px-4 md:px-8">
-        <p className="gl-mono mb-5 text-ink/60">{tools.label}</p>
+        <SectionLabel>{tools.label}</SectionLabel>
 
         {/* one orange marker underline, under "tools" only */}
         <h2 className="sk-h2">
           {before}
-          <span className="relative inline-block">
-            tools
-            <DrawIn as="span" on="scroll" duration={0.5} stagger={0.2} className="pointer-events-none absolute -inset-x-[0.05em] -bottom-[0.14em] block h-[0.3em]">
-              <ScrawlUnderline seed={12} />
-            </DrawIn>
-          </span>
+          <Underlined seed={12}>tools</Underlined>
           {after}
         </h2>
       </div>

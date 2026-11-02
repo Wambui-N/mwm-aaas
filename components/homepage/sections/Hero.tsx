@@ -5,10 +5,10 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import Magnet from "@/components/homepage/reactbits/Magnet";
-import { DrawIn } from "@/components/homepage/draw/DrawIn";
-import { useLenis, useReady } from "@/components/homepage/providers/SmoothScrollProvider";
-import { SketchButton } from "@/components/homepage/SketchButton";
-import { ScrawlStrike } from "@/components/homepage/ScrawlStrike";
+import { DrawIn } from "@/components/site/draw/DrawIn";
+import { useLenis, useReady } from "@/components/site/providers/SmoothScrollProvider";
+import { SketchButton } from "@/components/site/SketchButton";
+import { ScrawlStrike } from "@/components/site/ScrawlStrike";
 import { AUDIT_HREF, hero, pain } from "@/lib/homepage/copy";
 
 gsap.registerPlugin(useGSAP, SplitText);

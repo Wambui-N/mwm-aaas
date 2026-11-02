@@ -6,11 +6,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { useGSAP } from "@gsap/react";
 import Magnet from "@/components/homepage/reactbits/Magnet";
-import { DrawIn } from "@/components/homepage/draw/DrawIn";
-import { SketchButton } from "@/components/homepage/SketchButton";
-import { ScrawlUnderline } from "@/components/homepage/ScrawlStrike";
-import { tornTopBottom } from "@/lib/homepage/torn";
+import { SketchButton } from "@/components/site/SketchButton";
+import { tornTopBottom } from "@/lib/site/torn";
 import { AUDIT_HREF, audit } from "@/lib/homepage/copy";
+import { Underlined } from "@/components/site/Underlined";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, DrawSVGPlugin);
 
@@ -61,12 +60,7 @@ export function Audit() {
             {audit.heading[0]}
             <br />
             {before}
-            <span className="relative inline-block">
-              bottleneck
-              <DrawIn as="span" on="scroll" duration={0.5} stagger={0.2} className="pointer-events-none absolute -inset-x-[0.05em] -bottom-[0.14em] block h-[0.3em]">
-                <ScrawlUnderline seed={19} />
-              </DrawIn>
-            </span>
+            <Underlined seed={19}>bottleneck</Underlined>
             {after}
           </h2>
           <p className="calm-body mt-6 max-w-2xl">{audit.body}</p>

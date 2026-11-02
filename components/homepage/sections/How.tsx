@@ -5,9 +5,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { useGSAP } from "@gsap/react";
-import { DrawIn } from "@/components/homepage/draw/DrawIn";
-import { ScrawlUnderline } from "@/components/homepage/ScrawlStrike";
 import { how } from "@/lib/homepage/copy";
+import { Underlined } from "@/components/site/Underlined";
+import { SectionLabel } from "@/components/site/SectionLabel";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, DrawSVGPlugin);
 
@@ -59,19 +59,14 @@ export function How() {
   return (
     <section ref={root} className="px-4 py-[4.5rem] md:px-8 md:py-[6.75rem]">
       <div className="mx-auto max-w-[81.25rem]">
-        <p className="gl-mono mb-5 text-ink/60">{how.label}</p>
+        <SectionLabel>{how.label}</SectionLabel>
 
         {/* one orange marker underline, under "it just runs" only */}
         <h2 className="sk-h2">
           {how.heading[0]}
           <br />
           {how.heading[1].split("it just runs")[0]}
-          <span className="relative inline-block">
-            it just runs
-            <DrawIn as="span" on="scroll" duration={0.5} stagger={0.2} className="pointer-events-none absolute -inset-x-[0.05em] -bottom-[0.14em] block h-[0.3em]">
-              <ScrawlUnderline seed={15} />
-            </DrawIn>
-          </span>
+          <Underlined seed={15}>it just runs</Underlined>
           {how.heading[1].split("it just runs")[1]}
         </h2>
         <p className="calm-body mt-6 max-w-xl">{how.intro}</p>

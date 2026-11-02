@@ -5,10 +5,10 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { SketchButton } from "@/components/homepage/SketchButton";
-import { DrawIn } from "@/components/homepage/draw/DrawIn";
-import { ScrawlUnderline } from "@/components/homepage/ScrawlStrike";
+import { SketchButton } from "@/components/site/SketchButton";
 import { AUDIT_HREF, founder } from "@/lib/homepage/copy";
+import { Underlined } from "@/components/site/Underlined";
+import { SectionLabel } from "@/components/site/SectionLabel";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -35,16 +35,11 @@ export function Founder() {
         </figure>
 
         <div className="md:col-span-6 md:col-start-7 md:self-center">
-          <p className="gl-mono mb-5 text-ink/60">{founder.label}</p>
+          <SectionLabel>{founder.label}</SectionLabel>
 
           {/* one orange marker underline, under the name */}
           <h2 className="sk-h2">
-            <span className="relative inline-block">
-              {founder.name}
-              <DrawIn as="span" on="scroll" duration={0.5} stagger={0.2} className="pointer-events-none absolute -inset-x-[0.05em] -bottom-[0.14em] block h-[0.3em]">
-                <ScrawlUnderline seed={27} />
-              </DrawIn>
-            </span>
+            <Underlined seed={27}>{founder.name}</Underlined>
           </h2>
           <p className="mt-5 text-lg font-bold">{founder.title}</p>
           <div className="calm-body mt-6 max-w-xl space-y-4">

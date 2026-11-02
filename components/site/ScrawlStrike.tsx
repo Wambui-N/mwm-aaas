@@ -1,4 +1,4 @@
-import { scrawlPaths, scrawlUnderlinePaths } from "@/lib/homepage/scrawl";
+import { scrawlPaths, scrawlUnderlinePaths } from "@/lib/site/scrawl";
 
 /**
  * Orange marker scrawl to cancel a word: two thin, messy strokes. Place it inside a

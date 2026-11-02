@@ -3,7 +3,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { annotate } from "rough-notation";
 import type { RoughAnnotationType } from "rough-notation/lib/model";
-import { useReady } from "@/components/homepage/providers/SmoothScrollProvider";
+import { useReady } from "@/components/site/providers/SmoothScrollProvider";
 
 type Props = {
   children: ReactNode;

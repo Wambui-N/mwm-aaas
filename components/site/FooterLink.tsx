@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
-import { markerUnderlinePaths } from "@/lib/homepage/scrawl";
+import { markerUnderlinePaths } from "@/lib/site/scrawl";
 
 gsap.registerPlugin(useGSAP, DrawSVGPlugin);
 
