@@ -290,7 +290,8 @@
   font-size: 1.25rem; /* 15px */
   line-height: 1.7;
 }
-[data-sketch][data-calm] .rd-prose > * + * {
+[data-sketch][data-calm] .rd-prose > * + *,
+[data-sketch][data-calm] .rd-prose section > * + * {
   margin-top: 1.25em;
 }
 [data-sketch][data-calm] .rd-prose h2,

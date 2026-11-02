@@ -423,7 +423,7 @@ export function AutomationAssessment() {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={shownPercent}
-          className="h-[3px] w-full bg-ink/15"
+          className="h-[3px] w-full bg-ink/[0.15]"
         >
           <div className="h-full bg-ink transition-[width] duration-300" style={{ width: `${shownPercent}%` }} />
         </div>
