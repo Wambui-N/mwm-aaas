@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { AssessmentResult } from "@/components/assessment/AssessmentResult";
-import NavigationWrapper from "@/components/layout/NavigationWrapper";
-import Footer from "@/components/layout/Footer";
+import { SiteShell } from "@/components/site/SiteShell";
 
 export const metadata: Metadata = {
   title: "Your Result: The Manual Machine | The Automation Gap Audit",
@@ -12,9 +11,9 @@ export const metadata: Metadata = {
 
 export default function ManualMachinePage() {
   return (
-    <div className="min-h-screen bg-brand-grey/10">
-      <NavigationWrapper />
-      <main className="pt-12 pb-24">
+    <SiteShell smoothScroll={false}>
+      <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
+        <div className="mx-auto max-w-[81.25rem]">
         <AssessmentResult
           config={{
             profileKey: "manual",
@@ -22,11 +21,11 @@ export default function ManualMachinePage() {
             tagline: "your operations are running on effort, not systems.",
             description:
               "Right now your team is keeping everything moving through memory, goodwill, and one-off fixes. That's a growth ceiling with a hard limit — and it's probably closer than it feels. The good news: this is exactly where targeted automation pays off fastest.",
-            accentColor: "bg-red-100 text-red-800",
+            accentColor: "bg-ink text-sage",
           }}
         />
+        </div>
       </main>
-      <Footer />
-    </div>
+    </SiteShell>
   );
 }

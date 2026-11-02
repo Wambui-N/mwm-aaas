@@ -17,7 +17,7 @@ export const useLenis = () => useContext(LenisContext);
 export const useReady = () => useContext(ReadyContext);
 export const useSetReady = () => useContext(SetReadyContext);
 
-export function SmoothScrollProvider({ children }: { children: ReactNode }) {
+export function SmoothScrollProvider({ children, enabled = true }: { children: ReactNode; enabled?: boolean }) {
   const [lenis, setLenis] = useState<Lenis | null>(null);
   const [ready, setReady] = useState(false);
 
@@ -30,7 +30,8 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // `enabled={false}` keeps native scrolling (form-heavy and embed pages); reduced motion does too.
+    if (!enabled || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const instance = new Lenis({ autoRaf: false });
     const tick = (time: number) => instance.raf(time * 1000);
@@ -46,7 +47,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       instance.destroy();
       setLenis(null);
     };
-  }, []);
+  }, [enabled]);
 
   return (
     <LenisContext.Provider value={lenis}>

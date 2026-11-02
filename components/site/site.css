@@ -170,6 +170,254 @@
 }
 
 /* ======================================================================
+   INNER PAGES (reading, filters, forms). Same fonts, colours and hairlines as the homepage,
+   calmer: no tilt, no tape, at most one orange marker underline per page title.
+   Sizes assume the 12px root (rem x 12).
+   ====================================================================== */
+
+/* page title: the homepage's h2 weight, a little larger */
+[data-sketch][data-calm] .sk-title {
+  font-family: var(--font-brule), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.25rem, 4.2vw, 3.5rem); /* 27px to 42px */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+/* the sentence under a page title */
+[data-sketch][data-calm] .pg-lede {
+  font-size: 1.25rem; /* 15px */
+  line-height: 1.55;
+  max-width: 38rem;
+  color: rgb(20 16 16 / 0.78);
+}
+
+/* mono filter row: ALL / CASE STUDIES / tags. The active chip is inverted ink; never orange. */
+[data-sketch][data-calm] .fl-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+[data-sketch][data-calm] .fl-chip {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 0.95rem;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgb(20 16 16 / 0.4);
+  background: transparent;
+  color: var(--ink);
+  transition: background-color 0.15s ease-out, color 0.15s ease-out, border-color 0.15s ease-out;
+}
+[data-sketch][data-calm] .fl-chip:hover {
+  border-color: var(--ink);
+  background: rgb(197 214 208 / 0.45);
+}
+[data-sketch][data-calm] .fl-chip[aria-current="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* form controls: hairline boxes, 16px text (stops iOS zoom), 44px tap height */
+[data-sketch][data-calm] .fm-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgb(20 16 16 / 0.7);
+}
+[data-sketch][data-calm] .fm-control {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.3;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid rgb(20 16 16 / 0.45);
+  border-radius: 0;
+}
+[data-sketch][data-calm] .fm-control::placeholder {
+  color: rgb(20 16 16 / 0.45);
+}
+[data-sketch][data-calm] .fm-control[aria-invalid="true"] {
+  border: 2px solid var(--ink);
+}
+[data-sketch][data-calm] .fm-error {
+  margin-top: 0.4rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+/* a pick-one answer: a full-width hairline button; the chosen one is solid ink */
+[data-sketch][data-calm] .fm-option {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-size: 1.2rem; /* 14.4px */
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid rgb(20 16 16 / 0.3);
+  cursor: pointer;
+  transition: background-color 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out;
+}
+[data-sketch][data-calm] .fm-option:hover {
+  border-color: var(--ink);
+  background: rgb(197 214 208 / 0.35);
+}
+[data-sketch][data-calm] .fm-option[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* long-form reading: posts, case studies, legal pages. ~66 characters per line. */
+[data-sketch][data-calm] .rd-prose {
+  max-width: 41rem; /* 492px */
+  font-size: 1.25rem; /* 15px */
+  line-height: 1.7;
+}
+[data-sketch][data-calm] .rd-prose > * + * {
+  margin-top: 1.25em;
+}
+[data-sketch][data-calm] .rd-prose h2,
+[data-sketch][data-calm] .rd-prose h3,
+[data-sketch][data-calm] .rd-prose h4 {
+  font-family: var(--font-brule), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+[data-sketch][data-calm] .rd-prose h2 {
+  font-size: 1.9rem; /* 22.8px */
+  margin-top: 2.3em;
+}
+[data-sketch][data-calm] .rd-prose h3 {
+  font-size: 1.45rem; /* 17.4px */
+  margin-top: 1.9em;
+}
+[data-sketch][data-calm] .rd-prose h4 {
+  font-size: 1.25rem;
+  margin-top: 1.6em;
+}
+[data-sketch][data-calm] .rd-prose h2 + *,
+[data-sketch][data-calm] .rd-prose h3 + *,
+[data-sketch][data-calm] .rd-prose h4 + * {
+  margin-top: 0.7em;
+}
+[data-sketch][data-calm] .rd-prose ul,
+[data-sketch][data-calm] .rd-prose ol {
+  padding-left: 1.4em;
+}
+[data-sketch][data-calm] .rd-prose ul {
+  list-style: square;
+}
+[data-sketch][data-calm] .rd-prose ol {
+  list-style: decimal;
+}
+[data-sketch][data-calm] .rd-prose li + li {
+  margin-top: 0.4em;
+}
+[data-sketch][data-calm] .rd-prose li > ul,
+[data-sketch][data-calm] .rd-prose li > ol {
+  margin-top: 0.4em;
+}
+[data-sketch][data-calm] .rd-prose a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+[data-sketch][data-calm] .rd-prose a:hover {
+  text-decoration-thickness: 2px;
+}
+[data-sketch][data-calm] .rd-prose strong {
+  font-weight: 700;
+}
+[data-sketch][data-calm] .rd-prose blockquote {
+  border-left: 2px solid var(--ink);
+  padding-left: 1.1em;
+  font-family: var(--font-brule), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+[data-sketch][data-calm] .rd-prose blockquote p + p {
+  margin-top: 0.8em;
+}
+[data-sketch][data-calm] .rd-prose code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.88em;
+  background: rgb(197 214 208 / 0.4);
+  padding: 0.1em 0.35em;
+}
+[data-sketch][data-calm] .rd-prose pre {
+  background: var(--ink);
+  color: var(--sage);
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+[data-sketch][data-calm] .rd-prose pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+[data-sketch][data-calm] .rd-prose hr {
+  border: 0;
+  border-top: 1px solid rgb(20 16 16 / 0.25);
+  margin: 2.5em 0;
+}
+[data-sketch][data-calm] .rd-prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid rgb(20 16 16 / 0.22);
+}
+[data-sketch][data-calm] .rd-table {
+  overflow-x: auto;
+}
+[data-sketch][data-calm] .rd-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+[data-sketch][data-calm] .rd-prose th {
+  text-align: left;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 0.9rem 0.6rem 0;
+  border-bottom: 1px solid rgb(20 16 16 / 0.55);
+}
+[data-sketch][data-calm] .rd-prose td {
+  padding: 0.7rem 0.9rem 0.7rem 0;
+  vertical-align: top;
+  border-bottom: 1px solid rgb(20 16 16 / 0.2);
+}
+
+/* ======================================================================
    GLOBAL BLOCK: this rule is not scoped to the wrapper (it only matches while the wrapper is on the page).
    ====================================================================== */
 

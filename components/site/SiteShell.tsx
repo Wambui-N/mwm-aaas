@@ -20,15 +20,18 @@ export function SiteShell({
   children,
   footer = "static",
   grid = true,
+  smoothScroll = true,
 }: {
   children: ReactNode;
   footer?: "curtain" | "static";
   /** The 12-column hairline grid behind the content (static variant only; the curtain sheet always has it). */
   grid?: boolean;
+  /** Lenis smooth scrolling. Off for form-heavy and embed pages, which keep native scrolling. */
+  smoothScroll?: boolean;
 }) {
   return (
     <div data-sketch data-calm className={`${brule.variable} ${satoshi.variable} ${geistMono.variable}`}>
-      <SmoothScrollProvider>
+      <SmoothScrollProvider enabled={smoothScroll}>
         <ReadyOnMount />
         <SiteNav />
         {footer === "curtain" ? (
