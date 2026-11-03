@@ -444,6 +444,14 @@
   }
 }
 
+/* exactly 8 of the 12 columns (8 columns + 7 gutters of 1.5rem) of the parent container; centre it with mx-auto
+   to sit on columns 3-10. Full width below the desktop breakpoint, like the grid itself. */
+@media (min-width: 768px) {
+  [data-sketch][data-calm] .cols-8 {
+    width: calc((100% - 16.5rem) / 12 * 8 + 10.5rem);
+  }
+}
+
 /* hand-drawn "Read ->" arrow on cards (.pc): on hover or keyboard focus the shaft redraws itself, the
    head pops in and the whole arrow nudges right. CSS only; off when the user prefers reduced motion. */
 [data-sketch][data-calm] .sk-arrow {

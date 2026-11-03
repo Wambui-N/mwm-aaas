@@ -93,7 +93,7 @@ export function AssessmentResult({ config }: { config: ResultConfig }) {
       : FALLBACK_GAPS[config.profileKey];
 
   return (
-    <article className="max-w-2xl">
+    <article className="cols-8">
       <Link
         href="/assessment"
         className="gl-mono inline-block py-2 text-ink/70 underline-offset-4 hover:text-ink hover:underline focus-visible:underline"

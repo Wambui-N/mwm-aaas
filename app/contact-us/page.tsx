@@ -26,7 +26,7 @@ export default function ContactPage() {
           />
 
           {/* Contact options */}
-          <div className="mt-10 max-w-3xl">
+          <div className="mt-10">
             <ContactPanel />
           </div>
         </div>

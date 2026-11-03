@@ -66,7 +66,7 @@ export default function ContactPanel() {
   return (
     <div className="space-y-8">
       {/* Option cards: hairline boxes, the chosen one is solid ink */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="site-grid gap-y-4">
         {OPTIONS.map(({ id, icon: Icon, label, tagline, badge }) => {
           const on = selected === id;
           return (
@@ -75,7 +75,7 @@ export default function ContactPanel() {
               type="button"
               aria-pressed={on}
               onClick={() => setSelected(id)}
-              className={`relative flex flex-col items-start gap-3 border p-5 text-left transition-colors md:p-6 ${
+              className={`relative col-span-4 flex flex-col items-start gap-3 border p-5 text-left transition-colors sm:col-span-2 md:col-span-6 md:p-6 ${
                 on ? 'border-ink bg-ink text-sage' : 'border-ink/30 bg-white text-ink hover:border-ink hover:bg-sage/30'
               }`}
             >

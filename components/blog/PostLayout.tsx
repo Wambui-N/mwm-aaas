@@ -195,6 +195,7 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
                       eyebrow={related.category ?? format(new Date(related.date), "MMMM d, yyyy")}
                       title={related.title}
                       description={related.description}
+                      headingAs="h3"
                     />
                   ))}
                 </div>

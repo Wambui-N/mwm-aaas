@@ -20,6 +20,7 @@ export function PostCard({
   description,
   cta = "Read",
   tone = "dark",
+  headingAs: Heading = "h2",
   footer,
 }: {
   href: string;
@@ -32,6 +33,8 @@ export function PostCard({
   description: string;
   cta?: string;
   tone?: "dark" | "sage";
+  /** Heading level of the title, so the page's outline stays as it was (h3 for related posts). */
+  headingAs?: "h2" | "h3";
   footer?: ReactNode;
 }) {
   const dark = tone === "dark";
@@ -50,11 +53,11 @@ export function PostCard({
           <span className={`gl-mono ${dark ? "text-sage/70" : "text-ink/70"}`}>{eyebrow}</span>
           {badge}
         </div>
-        <h2
+        <Heading
           className={`calm-h3 mt-3 underline-offset-4 group-hover:underline ${dark ? "text-[color:var(--paper)]" : "text-ink"}`}
         >
           {title}
-        </h2>
+        </Heading>
         <p className={`calm-body mt-3 flex-1 ${dark ? "text-sage/85" : "text-ink/80"}`}>{description}</p>
         <span className={`mt-5 inline-flex items-center gap-2 font-bold ${dark ? "text-signal" : "text-ink"}`}>
           {cta}

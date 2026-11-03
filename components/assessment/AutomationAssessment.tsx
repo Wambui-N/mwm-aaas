@@ -399,7 +399,7 @@ export function AutomationAssessment() {
   const shownPercent = step === "intake" ? 0 : progressPercent;
 
   return (
-    <div className="max-w-2xl">
+    <div className="cols-8">
       <PageHeader
         label="Free diagnostic"
         title="The Automation Gap Audit"

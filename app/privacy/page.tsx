@@ -60,6 +60,8 @@ export default function PrivacyPage() {
       />
       <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
         <div className="mx-auto max-w-[81.25rem]">
+          {/* columns 3-10 of the grid, like posts */}
+          <div className="cols-8 mx-auto">
           {/* Header */}
           <div className="mb-10">
             <h1 className="sk-title">
@@ -182,6 +184,7 @@ export default function PrivacyPage() {
                 </p>
               </section>
             </div>
+          </div>
           </div>
         </div>
       </main>
