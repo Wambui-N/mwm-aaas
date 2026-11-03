@@ -20,7 +20,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, DrawSVGPlugin);
  */
 export function Audit() {
   const root = useRef<HTMLElement>(null);
-  const [before, after] = audit.heading[1].split("bottleneck");
+  const [before, after] = audit.heading.split("how fast");
 
   useGSAP(
     () => {
@@ -55,12 +55,10 @@ export function Audit() {
         <div className="sk-paper relative px-6 py-12 md:px-12 md:py-16" style={{ clipPath: tornTopBottom(11) }}>
           <p className="gl-mono text-ink/60">{audit.label}</p>
 
-          {/* one orange marker underline, under "bottleneck" only */}
-          <h2 className="sk-h2 mt-4">
-            {audit.heading[0]}
-            <br />
+          {/* one orange marker underline, under "how fast" only */}
+          <h2 className="sk-h2 mt-4 max-w-3xl">
             {before}
-            <Underlined seed={19}>bottleneck</Underlined>
+            <Underlined seed={19}>how fast</Underlined>
             {after}
           </h2>
           <p className="calm-body mt-6 max-w-2xl">{audit.body}</p>
