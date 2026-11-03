@@ -1,7 +1,6 @@
 import React from "react";
-import Link from "next/link";
 import { format } from "date-fns";
-import { ArrowRight } from "lucide-react";
+import { PostCard, CardTag } from "@/components/site/PostCard";
 import type { BlogPost } from "@/lib/content/blog";
 
 type Props = {
@@ -12,44 +11,32 @@ const isCaseStudyTag = (t: string) => t.toLowerCase() === "case-study" || t.toLo
 
 export default function CaseStudyGrid({ caseStudies }: Props) {
   return (
-    <div className="grid gap-5 sm:grid-cols-2 md:gap-6">
-      {caseStudies.map((post) => (
-        <article key={post.slug} className="calm-card group flex h-full flex-col">
-          <Link href={`/blog/${post.slug}`} className="flex flex-1 flex-col">
-            {post.image ? (
-              <div className="h-52 w-full overflow-hidden border-b border-ink/20">
-                <img src={post.image} alt={post.title} loading="lazy" className="h-full w-full object-cover grayscale" />
-              </div>
-            ) : (
-              <div className="h-52 w-full border-b border-ink/20 bg-sage/30" />
-            )}
-
-            <div className="flex flex-1 flex-col p-5 md:p-6">
-              <time dateTime={post.date} className="gl-mono text-ink/60">
-                {format(new Date(post.date), "MMMM d, yyyy")}
-              </time>
-              <h2 className="calm-h3 mt-3 underline-offset-4 group-hover:underline group-focus-within:underline">{post.title}</h2>
-              <p className="calm-body mt-3 flex-1 text-ink/75">{post.description}</p>
-              <span className="mt-5 inline-flex items-center gap-2 font-bold">
-                Read <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-              </span>
-            </div>
-          </Link>
-
-          {post.tags.some((t) => !isCaseStudyTag(t)) && (
-            <div className="flex flex-wrap gap-1.5 px-5 pb-5 md:px-6 md:pb-6">
-              {post.tags
-                .filter((t) => !isCaseStudyTag(t))
-                .slice(0, 3)
-                .map((tag) => (
-                  <span key={tag} className="gl-mono border border-ink/30 px-2 py-1 text-ink/80">
-                    {tag}
-                  </span>
-                ))}
-            </div>
-          )}
-        </article>
-      ))}
+    // two across on desktop: each card spans 6 of the 12 columns
+    <div className="site-grid gap-y-4 md:gap-y-6">
+      {caseStudies.map((post) => {
+        const tags = post.tags.filter((t) => !isCaseStudyTag(t)).slice(0, 3);
+        return (
+          <div key={post.slug} className="col-span-4 sm:col-span-2 md:col-span-6">
+            <PostCard
+              href={`/blog/${post.slug}`}
+              image={post.image ?? null}
+              imageAlt={post.title}
+              eyebrow={<time dateTime={post.date}>{format(new Date(post.date), "MMMM d, yyyy")}</time>}
+              title={post.title}
+              description={post.description}
+              footer={
+                tags.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {tags.map((tag) => (
+                      <CardTag key={tag}>{tag}</CardTag>
+                    ))}
+                  </div>
+                ) : undefined
+              }
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }

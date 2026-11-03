@@ -6,7 +6,8 @@ import { getAllResources, type ResourceType } from "@/lib/content/resources";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { MonoFilterRow, type FilterItem } from "@/components/site/MonoFilterRow";
-import { ArrowRight, Wrench, FileText, ExternalLink } from "lucide-react";
+import { PostCard } from "@/components/site/PostCard";
+import { Wrench, FileText } from "lucide-react";
 
 export const metadata: Metadata = generatePageMetadata(
   "Resources - Made with Make",
@@ -116,49 +117,34 @@ export default async function ResourcesPage({
               )}
             </div>
           ) : (
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
+            // three across on desktop: each card spans 4 of the 12 columns, so edges sit on the background lines
+            <div className="site-grid mt-10 gap-y-4 md:gap-y-6">
               {visibleResources.map((resource) => {
                 const Icon = TYPE_ICONS[resource.type];
                 const isExternal = !!(resource.external && resource.url && resource.url !== "#");
                 const href = isExternal
                   ? resource.url
                   : `/resources/${resource.type}/${resource.slug}`;
-                const body = (
-                  <>
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="gl-mono inline-flex items-center gap-2 text-ink/70">
-                        <Icon className="h-3.5 w-3.5" aria-hidden />
-                        {TYPE_LABELS[resource.type]}
-                      </span>
-                      {resource.featured && <span className="gl-mono bg-ink px-2 py-1 text-sage">Featured</span>}
-                    </div>
-
-                    <h2 className="calm-h3 mt-4 underline-offset-4 group-hover:underline group-focus-visible:underline">{resource.title}</h2>
-                    <p className="calm-body mt-3 flex-1 text-ink/75">{resource.description}</p>
-
-                    <span className="mt-5 inline-flex items-center gap-2 font-bold">
-                      {isExternal ? (
-                        <>Visit site <ExternalLink className="h-3.5 w-3.5" aria-hidden /></>
-                      ) : (
-                        <>Open <ArrowRight className="h-3.5 w-3.5" aria-hidden /></>
-                      )}
-                    </span>
-                  </>
-                );
-                const cardClass = `calm-card group flex h-full flex-col p-5 md:p-6 ${resource.featured ? "!border-ink/70" : ""}`;
 
                 return (
-                  <article key={`${resource.type}-${resource.slug}`} className="h-full">
-                    {isExternal ? (
-                      <a href={href} target="_blank" rel="noopener noreferrer" className={cardClass}>
-                        {body}
-                      </a>
-                    ) : (
-                      <Link href={href} className={cardClass}>
-                        {body}
-                      </Link>
-                    )}
-                  </article>
+                  <div key={`${resource.type}-${resource.slug}`} className="col-span-4 sm:col-span-2 md:col-span-4">
+                    <PostCard
+                      href={href}
+                      external={isExternal}
+                      // the featured resource is the one light card among dark ones, with a solid orange tag
+                      tone={resource.featured ? "sage" : "dark"}
+                      eyebrow={
+                        <span className="inline-flex items-center gap-2">
+                          <Icon className="h-3.5 w-3.5" aria-hidden />
+                          {TYPE_LABELS[resource.type]}
+                        </span>
+                      }
+                      badge={resource.featured ? <span className="gl-mono bg-signal px-2 py-1 text-ink">Featured</span> : undefined}
+                      title={resource.title}
+                      description={resource.description}
+                      cta={isExternal ? "Visit site" : "Open"}
+                    />
+                  </div>
                 );
               })}
             </div>
