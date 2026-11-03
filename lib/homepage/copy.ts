@@ -7,7 +7,7 @@ export const hero = {
   body: "You've built a real business. But somewhere between growing from 5 people to 25, the operations stopped keeping up. Now your best people are spending their mornings on admin that a well-built system could do overnight.",
   // Phrases the live site shows in bold inside `body` (exact substrings).
   bodyBold: ["the operations stopped keeping up", "a well-built system could do overnight"],
-  cta: "Take the Automation Gap Audit",
+  cta: "Find My Proposal Gaps",
   secondary: "See how it works",
 };
 
@@ -161,12 +161,12 @@ export const founder = {
   ],
   linkedin: "https://www.linkedin.com/in/wambui-ndungu-210409193/",
   caption: "FIG. 01 / WAMBUI NDUNG'U, FOUNDER",
-  cta: "Take the Automation Gap Audit",
+  cta: "Find My Proposal Gaps",
 };
 
 export const finalCta = {
   label: "[09] Is this for you?",
   heading: "Find out exactly where your business is leaking time.",
   body: "The audit takes five minutes. The results stay with you forever.",
-  cta: "Take the Free Automation Gap Audit",
+  cta: "Find My Proposal Gaps",
 };

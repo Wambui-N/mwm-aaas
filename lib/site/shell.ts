@@ -3,7 +3,7 @@
  * only what the shell itself renders is here.
  */
 export const AUDIT_HREF = "/assessment";
-export const AUDIT_CTA = "Take the Free Audit";
+export const AUDIT_CTA = "Find My Proposal Gaps";
 
 export const siteNav = {
   brand: "Made with Make",
