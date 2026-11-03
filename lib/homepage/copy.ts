@@ -3,7 +3,7 @@ export { AUDIT_HREF } from "@/lib/site/shell";
 
 export const hero = {
   label: "[00] Automation & AI Consulting, with Execution",
-  lines: ["Your team is too good", "to be doing this manually."],
+  lines: ["Your team is too good", "to be doing things manually."],
   body: "You've built a real business. But somewhere between growing from 5 people to 25, the operations stopped keeping up. Now your best people are spending their mornings on admin that a well-built system could do overnight.",
   // Phrases the live site shows in bold inside `body` (exact substrings).
   bodyBold: ["the operations stopped keeping up", "a well-built system could do overnight"],
