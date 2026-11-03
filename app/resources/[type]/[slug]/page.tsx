@@ -117,7 +117,7 @@ export default async function ResourceDetailPage({ params }: Props) {
                 ? "If you’d like to talk through which of these workflows make the most sense for your business, you can request a free consultation and we’ll prioritise the first 2–3 together."
                 : undefined
             }
-            className="mt-12 max-w-[60rem]"
+            className="mt-12"
           />
         </div>
       </main>

@@ -289,7 +289,7 @@
 
 /* long-form reading: posts, case studies, legal pages. ~66 characters per line. */
 [data-sketch][data-calm] .rd-prose {
-  max-width: 49rem; /* 588px */
+  /* fills its column; pages put it in an 8-column block (about 644px, ~75 characters) */
   font-size: 1.375rem; /* 16.5px */
   line-height: 1.7;
 }
