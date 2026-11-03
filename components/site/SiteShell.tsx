@@ -6,6 +6,7 @@ import { ReadyOnMount } from "@/components/site/providers/ReadyOnMount";
 import { SiteNav } from "@/components/site/SiteNav";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { GridBackground } from "@/components/site/GridBackground";
+import { getNavMenus } from "@/lib/site/menus";
 
 /**
  * The one shell for every page on the redesigned site: the scoped wrapper (design tokens, the three
@@ -33,7 +34,7 @@ export function SiteShell({
     <div data-sketch data-calm className={`${brule.variable} ${satoshi.variable} ${geistMono.variable}`}>
       <SmoothScrollProvider enabled={smoothScroll}>
         <ReadyOnMount />
-        <SiteNav />
+        <SiteNav menus={getNavMenus()} />
         {footer === "curtain" ? (
           <div className="relative z-10">
             <SiteFooter variant="curtain">{children}</SiteFooter>

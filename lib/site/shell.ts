@@ -8,9 +8,9 @@ export const AUDIT_CTA = "Take the Free Audit";
 export const siteNav = {
   brand: "Made with Make",
   links: [
-    { label: "Articles", href: "/blog" },
-    { label: "Resources", href: "/resources" },
-    { label: "Contact us", href: "/contact-us" },
+    { label: "Articles", href: "/blog", menu: "articles" as "articles" | "resources" | undefined },
+    { label: "Resources", href: "/resources", menu: "resources" as "articles" | "resources" | undefined },
+    { label: "Contact us", href: "/contact-us", menu: undefined as "articles" | "resources" | undefined },
   ],
 };
 

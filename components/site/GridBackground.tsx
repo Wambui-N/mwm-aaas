@@ -4,7 +4,7 @@
  * positioned inside its parent so it scrolls with the sheet that carries it.
  */
 export function GridBackground({ tone = "ink", className = "" }: { tone?: "ink" | "sage"; className?: string }) {
-  const line = tone === "ink" ? "border-ink/[0.08]" : "border-sage/[0.07]";
+  const line = tone === "ink" ? "border-ink/[0.05]" : "border-sage/[0.045]";
   return (
     <div aria-hidden className={`pointer-events-none absolute inset-0 z-0 px-4 md:px-8 ${className}`}>
       <div className="mx-auto grid h-full max-w-[81.25rem] grid-cols-4 gap-x-4 md:grid-cols-12 md:gap-x-6">

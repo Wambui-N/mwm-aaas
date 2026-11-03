@@ -94,7 +94,7 @@ export function Hero() {
           {after}
         </h1>
 
-        <p className="hero-after mt-8 max-w-[52ch] text-lg leading-relaxed text-ink/80">
+        <p className="hero-after mt-8 max-w-[52ch] text-[1.3125rem] leading-relaxed text-ink/80">
           <BoldPhrases text={hero.body} bold={hero.bodyBold} />
         </p>
 

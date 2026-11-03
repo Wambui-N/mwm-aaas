@@ -10,6 +10,8 @@
   --ink: #141010;
   --sage: #c5d6d0;
   --signal: #e65032;
+  /* orange used for text links on paper; #e65032 is 3.6:1 on paper, #c4391f would be 5.1:1 (AA) */
+  --signal-text: #e65032;
 
   /* surfaces */
   --paper: #f9fbfa; /* page background and nav strip */
@@ -49,8 +51,8 @@
   letter-spacing: -0.01em;
 }
 [data-sketch][data-calm] .calm-body {
-  font-size: 1.0625rem; /* 12.75px */
-  line-height: 1.5;
+  font-size: 1.25rem; /* 15px */
+  line-height: 1.55;
 }
 /* mono labels: a fixed 12px floor so they stay legible at the 75% root */
 [data-sketch][data-calm] .gl-mono {
@@ -185,9 +187,9 @@
 }
 /* the sentence under a page title */
 [data-sketch][data-calm] .pg-lede {
-  font-size: 1.25rem; /* 15px */
+  font-size: 1.375rem; /* 16.5px */
   line-height: 1.55;
-  max-width: 38rem;
+  max-width: 44rem;
   color: rgb(20 16 16 / 0.78);
 }
 
@@ -207,19 +209,20 @@
   min-height: 36px;
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgb(20 16 16 / 0.4);
-  background: transparent;
+  border: 1px solid transparent;
+  background: var(--sage);
   color: var(--ink);
   transition: background-color 0.15s ease-out, color 0.15s ease-out, border-color 0.15s ease-out;
 }
 [data-sketch][data-calm] .fl-chip:hover {
   border-color: var(--ink);
-  background: rgb(197 214 208 / 0.45);
+  background: #b3c9c1;
 }
-[data-sketch][data-calm] .fl-chip[aria-current="true"] {
-  background: var(--ink);
+[data-sketch][data-calm] .fl-chip[aria-current="true"],
+[data-sketch][data-calm] .fl-chip[aria-current="true"]:hover {
+  background: var(--signal);
   border-color: var(--ink);
-  color: var(--paper);
+  color: var(--ink);
 }
 
 /* form controls: hairline boxes, 16px text (stops iOS zoom), 44px tap height */
@@ -265,7 +268,7 @@
   padding: 0.85rem 1rem;
   text-align: left;
   font-family: var(--font-satoshi), system-ui, sans-serif;
-  font-size: 1.2rem; /* 14.4px */
+  font-size: 1.3rem; /* 15.6px */
   font-weight: 500;
   line-height: 1.4;
   color: var(--ink);
@@ -286,8 +289,8 @@
 
 /* long-form reading: posts, case studies, legal pages. ~66 characters per line. */
 [data-sketch][data-calm] .rd-prose {
-  max-width: 41rem; /* 492px */
-  font-size: 1.25rem; /* 15px */
+  max-width: 49rem; /* 588px */
+  font-size: 1.375rem; /* 16.5px */
   line-height: 1.7;
 }
 [data-sketch][data-calm] .rd-prose > * + *,
@@ -338,7 +341,8 @@
   margin-top: 0.4em;
 }
 [data-sketch][data-calm] .rd-prose a {
-  color: inherit;
+  color: var(--signal-text);
+  font-weight: 500;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.22em;
@@ -350,7 +354,7 @@
   font-weight: 700;
 }
 [data-sketch][data-calm] .rd-prose blockquote {
-  border-left: 2px solid var(--ink);
+  border-left: 3px solid var(--signal);
   padding-left: 1.1em;
   font-family: var(--font-brule), system-ui, sans-serif;
   font-weight: 600;
@@ -423,6 +427,62 @@
 @supports (zoom: 1) {
   [data-sketch][data-calm] .tool-zoom {
     zoom: 1.3333;
+  }
+}
+
+/* the page grid as a layout: the same 12 columns (4 on mobile) and gutters as the background lines,
+   so anything placed with col-span / col-start sits exactly on them */
+[data-sketch][data-calm] .site-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 1rem;
+}
+@media (min-width: 768px) {
+  [data-sketch][data-calm] .site-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+}
+
+/* hand-drawn "Read ->" arrow on cards (.pc): on hover or keyboard focus the shaft redraws itself, the
+   head pops in and the whole arrow nudges right. CSS only; off when the user prefers reduced motion. */
+[data-sketch][data-calm] .sk-arrow {
+  overflow: visible;
+  transition: transform 0.3s ease-out;
+}
+[data-sketch][data-calm] .sk-arrow-shaft {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+@keyframes sk-arrow-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes sk-arrow-head {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-sketch][data-calm] .pc:hover .sk-arrow,
+  [data-sketch][data-calm] .pc:focus-within .sk-arrow {
+    transform: translateX(6px);
+  }
+  [data-sketch][data-calm] .pc:hover .sk-arrow-shaft,
+  [data-sketch][data-calm] .pc:focus-within .sk-arrow-shaft {
+    animation: sk-arrow-draw 0.45s ease-out;
+  }
+  [data-sketch][data-calm] .pc:hover .sk-arrow-head,
+  [data-sketch][data-calm] .pc:focus-within .sk-arrow-head {
+    animation: sk-arrow-head 0.45s ease-out;
   }
 }
 
