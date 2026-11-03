@@ -56,7 +56,7 @@ export function Audit() {
           <p className="gl-mono text-ink/60">{audit.label}</p>
 
           {/* one orange marker underline, under "how fast" only */}
-          <h2 className="sk-h2 mt-4 max-w-3xl">
+          <h2 className="sk-h2 mt-4">
             {before}
             <Underlined seed={19}>how fast</Underlined>
             {after}
@@ -75,7 +75,7 @@ export function Audit() {
                         <path className="sk-stroke" d="M2.5 8.5 6.5 12.5 13.5 3.5" />
                       </svg>
                     </span>
-                    <span className="calm-body">{b}</span>
+                    <span className="text-[1.0625rem] leading-snug">{b}</span>
                   </li>
                 ))}
               </ul>
