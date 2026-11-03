@@ -131,8 +131,8 @@ export default async function ResourcesPage({
                     <PostCard
                       href={href}
                       external={isExternal}
-                      // the featured resource is the one light card among dark ones, with a solid orange tag
-                      tone={resource.featured ? "sage" : "dark"}
+                      // the featured resource is the sage card with a heavier border and a solid orange tag
+                      tone={resource.featured ? "sage" : "white"}
                       eyebrow={
                         <span className="inline-flex items-center gap-2">
                           <Icon className="h-3.5 w-3.5" aria-hidden />

@@ -94,7 +94,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                               ))}
                             </div>
                           )}
-                          {post.author && <p className="gl-mono mt-4 border-t border-sage/20 pt-3 text-sage/60">{post.author}</p>}
+                          {post.author && <p className="gl-mono mt-4 border-t border-ink/20 pt-3 text-ink/60">{post.author}</p>}
                         </>
                       ) : undefined
                     }

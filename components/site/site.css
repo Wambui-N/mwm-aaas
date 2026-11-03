@@ -330,6 +330,10 @@
 [data-sketch][data-calm] .rd-prose ul {
   list-style: square;
 }
+/* the bullet squares are orange; numbered lists keep ink numbers */
+[data-sketch][data-calm] .rd-prose ul > li::marker {
+  color: var(--signal);
+}
 [data-sketch][data-calm] .rd-prose ol {
   list-style: decimal;
 }
