@@ -7,7 +7,7 @@ export const hero = {
   body: "You've built a real business. But somewhere between growing from 5 people to 25, the operations stopped keeping up. Now your best people are spending their mornings on admin that a well-built system could do overnight.",
   // Phrases the live site shows in bold inside `body` (exact substrings).
   bodyBold: ["the operations stopped keeping up", "a well-built system could do overnight"],
-  cta: "Find My Proposal Gaps",
+  cta: "Is Your Proposal Process Costing You?",
   secondary: "See how it works",
 };
 
