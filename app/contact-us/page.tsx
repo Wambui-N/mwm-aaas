@@ -1,8 +1,8 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { generatePageMetadata } from '@/lib/seo';
-import NavigationWrapper from '@/components/layout/NavigationWrapper';
-import Footer from '@/components/layout/Footer';
+import { SiteShell } from '@/components/site/SiteShell';
+import { PageHeader } from '@/components/site/PageHeader';
 import ContactPanel from '@/components/contact/ContactPanel';
 
 export const metadata: Metadata = generatePageMetadata(
@@ -14,35 +14,23 @@ export const metadata: Metadata = generatePageMetadata(
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-brand-grey/10">
-      <NavigationWrapper />
-
-      <main className="pt-12 pb-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-
-          {/* Header */}
-          <div className="mb-12 text-center">
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-brand-orange">
-              Get in touch
-            </p>
-            <h1 className="mb-3 text-4xl font-display font-semibold text-brand-black md:text-5xl">
-              Let&apos;s talk about your business
-            </h1>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">
-              Not sure if automation is right for you? The consultation is free. Fill the short
-              form and we&apos;ll use our 30 minutes to figure that out together.
-            </p>
-          </div>
+    <SiteShell>
+      <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
+        <div className="mx-auto max-w-[81.25rem]">
+          <PageHeader
+            label="Get in touch"
+            title="Let's talk about your business"
+            mark="business"
+            seed={51}
+            lede="Not sure if automation is right for you? The consultation is free. Fill the short form and we'll use our 30 minutes to figure that out together."
+          />
 
           {/* Contact options */}
-          <div className="max-w-3xl mx-auto mt-10">
+          <div className="mt-10">
             <ContactPanel />
           </div>
-
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </SiteShell>
   );
 }

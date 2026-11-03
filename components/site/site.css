@@ -1,0 +1,513 @@
+/*
+ * Site design ("sketch-calm"). Every rule is scoped to the wrapper [data-sketch][data-calm] that
+ * components/site/SiteShell.tsx renders, except one clearly marked block at the bottom (the html
+ * font-size rule, which only matches while the wrapper is on the page).
+ */
+
+/* ---------- tokens ---------- */
+[data-sketch][data-calm] {
+  /* brand */
+  --ink: #141010;
+  --sage: #c5d6d0;
+  --signal: #e65032;
+  /* orange used for text links on paper; #e65032 is 3.6:1 on paper, #c4391f would be 5.1:1 (AA) */
+  --signal-text: #e65032;
+
+  /* surfaces */
+  --paper: #f9fbfa; /* page background and nav strip */
+  --paper-2: #e6eeeb; /* button base */
+  --card-green: #d2e0db; /* the torn Audit sheet */
+  --paper-shadow: 0 1px 0 rgb(20 16 16 / 0.08), 0 8px 16px -6px rgb(20 16 16 / 0.18);
+
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  /* `clip`, not `hidden`: keeps position:sticky and ScrollTrigger working */
+  overflow-x: clip;
+}
+
+/* ---------- type ---------- */
+[data-sketch][data-calm] .sk-display {
+  font-family: var(--font-brule), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: clamp(2.5rem, 5.2vw, 5rem); /* 30px to 60px at the 12px root */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+[data-sketch][data-calm] .sk-h2 {
+  font-family: var(--font-brule), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 3.4vw, 3rem); /* 24px to 36px */
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+[data-sketch][data-calm] .calm-h3 {
+  font-family: var(--font-brule), system-ui, sans-serif;
+  font-size: clamp(1.3rem, 1.6vw, 1.65rem); /* 15.6px to 19.8px */
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+[data-sketch][data-calm] .calm-body {
+  font-size: 1.25rem; /* 15px */
+  line-height: 1.55;
+}
+/* mono labels: a fixed 12px floor so they stay legible at the 75% root */
+[data-sketch][data-calm] .gl-mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- surfaces ---------- */
+/* nav strip and the opaque sheet that lifts off the footer */
+[data-sketch][data-calm] .sk-sheet,
+[data-sketch][data-calm] .gl-sheet {
+  background-color: var(--paper);
+}
+[data-sketch][data-calm] .gl-sheet {
+  position: relative;
+}
+/* the torn Audit sheet */
+[data-sketch][data-calm] .sk-paper {
+  background-color: var(--card-green);
+  color: var(--ink);
+  box-shadow: var(--paper-shadow);
+  position: relative;
+}
+/* hairline card: a white sheet with a 1px rule, no shadow, no tilt */
+[data-sketch][data-calm] .calm-card {
+  background: #fff;
+  border: 1px solid rgb(20 16 16 / 0.22);
+}
+/* tool logos in one ink tone (CSS mask), so they read as one family */
+[data-sketch][data-calm] .calm-logo {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1.9rem;
+  height: 1.9rem;
+  background: var(--ink);
+  opacity: 0.72;
+  -webkit-mask: var(--src) center / contain no-repeat;
+  mask: var(--src) center / contain no-repeat;
+}
+
+/* ---------- drawings are decoration: never block clicks, never read aloud ---------- */
+[data-sketch][data-calm] .sk-draw {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* ---------- nav link underline: clip-path wipe on hover, left to right ---------- */
+[data-sketch][data-calm] .sk-scribble {
+  position: relative;
+  display: inline-block;
+}
+[data-sketch][data-calm] .sk-scribble > .sk-draw {
+  top: auto;
+  bottom: -0.55rem;
+  height: 0.9rem;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.35s ease-out;
+}
+[data-sketch][data-calm] a:hover > .sk-scribble > .sk-draw,
+[data-sketch][data-calm] a:focus-visible > .sk-scribble > .sk-draw {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ---------- rough-bordered button ---------- */
+[data-sketch][data-calm] .sk-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--paper-2);
+  border-radius: 6px 10px 7px 11px;
+  cursor: pointer;
+  transition: translate 0.2s ease-out, rotate 0.2s ease-out;
+}
+[data-sketch][data-calm] .sk-btn--marker {
+  background: var(--signal); /* orange fill; text stays ink */
+}
+[data-sketch][data-calm] .sk-btn--ink {
+  background: var(--ink);
+  color: var(--sage);
+}
+[data-sketch][data-calm] .sk-btn:hover {
+  translate: 0 -2px;
+  rotate: -0.8deg; /* the only rotation on the page, and only while hovering a button */
+}
+
+/* ---------- focus: orange outline with an ink gap ---------- */
+[data-sketch][data-calm] :focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 2px var(--ink);
+}
+/* on the dark footer the ring is sage */
+[data-sketch][data-calm] .gl-footer a:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 5px;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-sketch][data-calm] .sk-scribble > .sk-draw,
+  [data-sketch][data-calm] .sk-btn {
+    transition: none;
+  }
+}
+
+/* ======================================================================
+   INNER PAGES (reading, filters, forms). Same fonts, colours and hairlines as the homepage,
+   calmer: no tilt, no tape, at most one orange marker underline per page title.
+   Sizes assume the 12px root (rem x 12).
+   ====================================================================== */
+
+/* page title: the homepage's h2 weight, a little larger */
+[data-sketch][data-calm] .sk-title {
+  font-family: var(--font-brule), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.25rem, 4.2vw, 3.5rem); /* 27px to 42px */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+/* the sentence under a page title */
+[data-sketch][data-calm] .pg-lede {
+  font-size: 1.375rem; /* 16.5px */
+  line-height: 1.55;
+  max-width: 44rem;
+  color: rgb(20 16 16 / 0.78);
+}
+
+/* mono filter row: ALL / CASE STUDIES / tags. The active chip is inverted ink; never orange. */
+[data-sketch][data-calm] .fl-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+[data-sketch][data-calm] .fl-chip {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 0.95rem;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  background: var(--sage);
+  color: var(--ink);
+  transition: background-color 0.15s ease-out, color 0.15s ease-out, border-color 0.15s ease-out;
+}
+[data-sketch][data-calm] .fl-chip:hover {
+  border-color: var(--ink);
+  background: #b3c9c1;
+}
+[data-sketch][data-calm] .fl-chip[aria-current="true"],
+[data-sketch][data-calm] .fl-chip[aria-current="true"]:hover {
+  background: var(--signal);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* form controls: hairline boxes, 16px text (stops iOS zoom), 44px tap height */
+[data-sketch][data-calm] .fm-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgb(20 16 16 / 0.7);
+}
+[data-sketch][data-calm] .fm-control {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.3;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid rgb(20 16 16 / 0.45);
+  border-radius: 0;
+}
+[data-sketch][data-calm] .fm-control::placeholder {
+  color: rgb(20 16 16 / 0.45);
+}
+[data-sketch][data-calm] .fm-control[aria-invalid="true"] {
+  border: 2px solid var(--ink);
+}
+[data-sketch][data-calm] .fm-error {
+  margin-top: 0.4rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+/* a pick-one answer: a full-width hairline button; the chosen one is solid ink */
+[data-sketch][data-calm] .fm-option {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-size: 1.3rem; /* 15.6px */
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid rgb(20 16 16 / 0.3);
+  cursor: pointer;
+  transition: background-color 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out;
+}
+[data-sketch][data-calm] .fm-option:hover {
+  border-color: var(--ink);
+  background: rgb(197 214 208 / 0.35);
+}
+[data-sketch][data-calm] .fm-option[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* long-form reading: posts, case studies, legal pages. ~66 characters per line. */
+[data-sketch][data-calm] .rd-prose {
+  /* fills its column; pages put it in an 8-column block (about 644px, ~75 characters) */
+  font-size: 1.375rem; /* 16.5px */
+  line-height: 1.7;
+}
+[data-sketch][data-calm] .rd-prose > * + *,
+[data-sketch][data-calm] .rd-prose section > * + * {
+  margin-top: 1.25em;
+}
+[data-sketch][data-calm] .rd-prose h2,
+[data-sketch][data-calm] .rd-prose h3,
+[data-sketch][data-calm] .rd-prose h4 {
+  font-family: var(--font-brule), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+[data-sketch][data-calm] .rd-prose h2 {
+  font-size: 1.9rem; /* 22.8px */
+  margin-top: 2.3em;
+}
+[data-sketch][data-calm] .rd-prose h3 {
+  font-size: 1.45rem; /* 17.4px */
+  margin-top: 1.9em;
+}
+[data-sketch][data-calm] .rd-prose h4 {
+  font-size: 1.25rem;
+  margin-top: 1.6em;
+}
+[data-sketch][data-calm] .rd-prose h2 + *,
+[data-sketch][data-calm] .rd-prose h3 + *,
+[data-sketch][data-calm] .rd-prose h4 + * {
+  margin-top: 0.7em;
+}
+[data-sketch][data-calm] .rd-prose ul,
+[data-sketch][data-calm] .rd-prose ol {
+  padding-left: 1.4em;
+}
+[data-sketch][data-calm] .rd-prose ul {
+  list-style: square;
+}
+/* the bullet squares are orange; numbered lists keep ink numbers */
+[data-sketch][data-calm] .rd-prose ul > li::marker {
+  color: var(--signal);
+}
+[data-sketch][data-calm] .rd-prose ol {
+  list-style: decimal;
+}
+[data-sketch][data-calm] .rd-prose li + li {
+  margin-top: 0.4em;
+}
+[data-sketch][data-calm] .rd-prose li > ul,
+[data-sketch][data-calm] .rd-prose li > ol {
+  margin-top: 0.4em;
+}
+[data-sketch][data-calm] .rd-prose a {
+  color: var(--signal-text);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+[data-sketch][data-calm] .rd-prose a:hover {
+  text-decoration-thickness: 2px;
+}
+[data-sketch][data-calm] .rd-prose strong {
+  font-weight: 700;
+}
+[data-sketch][data-calm] .rd-prose blockquote {
+  border-left: 3px solid var(--signal);
+  padding-left: 1.1em;
+  font-family: var(--font-brule), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+[data-sketch][data-calm] .rd-prose blockquote p + p {
+  margin-top: 0.8em;
+}
+[data-sketch][data-calm] .rd-prose code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.88em;
+  background: rgb(197 214 208 / 0.4);
+  padding: 0.1em 0.35em;
+}
+[data-sketch][data-calm] .rd-prose pre {
+  background: var(--ink);
+  color: var(--sage);
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+[data-sketch][data-calm] .rd-prose pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+[data-sketch][data-calm] .rd-prose hr {
+  border: 0;
+  border-top: 1px solid rgb(20 16 16 / 0.25);
+  margin: 2.5em 0;
+}
+[data-sketch][data-calm] .rd-prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid rgb(20 16 16 / 0.22);
+}
+[data-sketch][data-calm] .rd-table {
+  overflow-x: auto;
+}
+[data-sketch][data-calm] .rd-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+[data-sketch][data-calm] .rd-prose th {
+  text-align: left;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 0.9rem 0.6rem 0;
+  border-bottom: 1px solid rgb(20 16 16 / 0.55);
+}
+[data-sketch][data-calm] .rd-prose td {
+  padding: 0.7rem 0.9rem 0.7rem 0;
+  vertical-align: top;
+  border-bottom: 1px solid rgb(20 16 16 / 0.2);
+}
+
+/* interactive tools (webhook tester, document signer) were built for a 16px root: scale their subtree
+   by 4/3 so their rem sizes read exactly as designed. Browsers without `zoom` keep the 12px-root sizes. */
+@supports (zoom: 1) {
+  [data-sketch][data-calm] .tool-zoom {
+    zoom: 1.3333;
+  }
+}
+
+/* the page grid as a layout: the same 12 columns (4 on mobile) and gutters as the background lines,
+   so anything placed with col-span / col-start sits exactly on them */
+[data-sketch][data-calm] .site-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 1rem;
+}
+@media (min-width: 768px) {
+  [data-sketch][data-calm] .site-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+}
+
+/* exactly 8 of the 12 columns (8 columns + 7 gutters of 1.5rem) of the parent container; centre it with mx-auto
+   to sit on columns 3-10. Full width below the desktop breakpoint, like the grid itself. */
+@media (min-width: 768px) {
+  [data-sketch][data-calm] .cols-8 {
+    width: calc((100% - 16.5rem) / 12 * 8 + 10.5rem);
+  }
+}
+
+/* hand-drawn "Read ->" arrow on cards (.pc): on hover or keyboard focus the shaft redraws itself, the
+   head pops in and the whole arrow nudges right. CSS only; off when the user prefers reduced motion. */
+[data-sketch][data-calm] .sk-arrow {
+  overflow: visible;
+  transition: transform 0.3s ease-out;
+}
+[data-sketch][data-calm] .sk-arrow-shaft {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+@keyframes sk-arrow-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes sk-arrow-head {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-sketch][data-calm] .pc:hover .sk-arrow,
+  [data-sketch][data-calm] .pc:focus-within .sk-arrow {
+    transform: translateX(6px);
+  }
+  [data-sketch][data-calm] .pc:hover .sk-arrow-shaft,
+  [data-sketch][data-calm] .pc:focus-within .sk-arrow-shaft {
+    animation: sk-arrow-draw 0.45s ease-out;
+  }
+  [data-sketch][data-calm] .pc:hover .sk-arrow-head,
+  [data-sketch][data-calm] .pc:focus-within .sk-arrow-head {
+    animation: sk-arrow-head 0.45s ease-out;
+  }
+}
+
+/* ======================================================================
+   GLOBAL BLOCK: this rule is not scoped to the wrapper (it only matches while the wrapper is on the page).
+   ====================================================================== */
+
+/* The 75% look: while the homepage wrapper is on the page, the root font size is 75% (12px), so every
+   rem value (Tailwind spacing and type, the clamp() scales, the container caps) is a quarter smaller.
+   :has() stops matching on other routes, so the root size returns to normal when you navigate away. */
+html:has([data-calm]) {
+  font-size: 75%;
+}
+
+/* Lenis helper classes (.lenis, .lenis-smooth, .lenis-stopped) already come from `lenis/dist/lenis.css`,
+   which app/globals.css imports for the whole site, so they are not repeated here. */

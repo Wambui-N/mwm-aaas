@@ -3,9 +3,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { generatePageMetadata } from "@/lib/seo";
 import { getAllResources, type ResourceType } from "@/lib/content/resources";
-import NavigationWrapper from "@/components/layout/NavigationWrapper";
-import Footer from "@/components/layout/Footer";
-import { ArrowRight, Wrench, FileText, ExternalLink } from "lucide-react";
+import { SiteShell } from "@/components/site/SiteShell";
+import { PageHeader } from "@/components/site/PageHeader";
+import { MonoFilterRow, type FilterItem } from "@/components/site/MonoFilterRow";
+import { PostCard } from "@/components/site/PostCard";
+import { Wrench, FileText } from "lucide-react";
 
 export const metadata: Metadata = generatePageMetadata(
   "Resources - Made with Make",
@@ -37,6 +39,12 @@ const TYPE_LABELS: Record<ResourceType, string> = {
   checklist: "Checklist",
 };
 
+const TYPE_FILTER_LABELS: Record<ResourceType, string> = {
+  tool: "Tools",
+  template: "Templates",
+  checklist: "Checklists",
+};
+
 export default async function ResourcesPage({
   searchParams,
 }: ResourcesPageProps) {
@@ -62,171 +70,87 @@ export default async function ResourcesPage({
     ...filtered.filter((r) => !r.featured),
   ];
 
-  return (
-    <div className="min-h-screen bg-brand-grey/10">
-      <NavigationWrapper />
-      <main className="pt-12 pb-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+  // ALL plus one chip per type that has resources (the active type is always shown).
+  const filterItems: FilterItem[] = [
+    { label: "All", href: "/resources", active: !activeType },
+    ...VALID_FILTER_TYPES.filter((t) => t === activeType || allResources.some((r) => r.type === t)).map((t) => ({
+      label: TYPE_FILTER_LABELS[t],
+      href: `/resources?type=${t}`,
+      active: activeType === t,
+    })),
+  ];
 
-          {/* Header */}
-          <div className="mb-10 text-center">
-            <h1 className="mb-3 text-4xl font-display font-semibold text-brand-black md:text-5xl">
-              {activeType
-                ? activeType === "tool"
-                  ? "Tools"
-                  : activeType === "template"
-                  ? "Templates"
-                  : "Checklists"
-                : "Resources"}
-            </h1>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">
-              {activeType === "tool"
+  const title = activeType ? TYPE_FILTER_LABELS[activeType] : "Resources";
+
+  return (
+    <SiteShell>
+      <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
+        <div className="mx-auto max-w-[81.25rem]">
+          <PageHeader
+            title={title}
+            mark={title}
+            seed={49}
+            lede={
+              activeType === "tool"
                 ? "Interactive utilities to make your work easier."
                 : activeType === "template"
                 ? "Ready-made structures you can download and adapt to your own workflows."
                 : activeType === "checklist"
                 ? "Step-by-step checklists to help you decide what to automate first."
-                : "Free tools and templates to help you work smarter and automate faster."}
-            </p>
-          </div>
+                : "Free tools and templates to help you work smarter and automate faster."
+            }
+          />
 
-          {/* Filter pills */}
-          <div className="mb-12">
-            <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-400">
-              Filter by type
-            </p>
-            <div className="flex flex-wrap justify-center gap-2">
-              <Link
-                href="/resources"
-                className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
-                  !activeType
-                    ? "bg-brand-black text-white"
-                    : "bg-brand-grey/30 text-brand-black hover:bg-brand-orange/10 hover:text-brand-orange"
-                }`}
-              >
-                All
-              </Link>
-              <Link
-                href="/resources?type=tool"
-                className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
-                  activeType === "tool"
-                    ? "bg-brand-orange text-white"
-                    : "bg-brand-grey/30 text-brand-black hover:bg-brand-orange/10 hover:text-brand-orange"
-                }`}
-              >
-                Tools
-              </Link>
-              <Link
-                href="/resources?type=template"
-                className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
-                  activeType === "template"
-                    ? "bg-brand-orange text-white"
-                    : "bg-brand-grey/30 text-brand-black hover:bg-brand-orange/10 hover:text-brand-orange"
-                }`}
-              >
-                Templates
-              </Link>
-              <Link
-                href="/resources?type=checklist"
-                className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
-                  activeType === "checklist"
-                    ? "bg-brand-orange text-white"
-                    : "bg-brand-grey/30 text-brand-black hover:bg-brand-orange/10 hover:text-brand-orange"
-                }`}
-              >
-                Checklists
-              </Link>
-            </div>
-          </div>
+          <MonoFilterRow className="mt-10" label="Filter by type" items={filterItems} />
 
-          {/* Grid */}
           {visibleResources.length === 0 ? (
-            <div className="py-20 text-center">
-              <p className="text-gray-500">
+            <div className="mt-12">
+              <p className="calm-body">
                 {activeType
                   ? `No ${TYPE_LABELS[activeType].toLowerCase()}s yet,  check back soon.`
                   : "Resources coming soon."}
               </p>
               {activeType && (
-                <Link
-                  href="/resources"
-                  className="mt-4 inline-block text-sm text-brand-orange hover:underline"
-                >
+                <Link href="/resources" className="mt-4 inline-block font-bold underline underline-offset-4 hover:no-underline">
                   View all resources
                 </Link>
               )}
             </div>
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            // three across on desktop: each card spans 4 of the 12 columns, so edges sit on the background lines
+            <div className="site-grid mt-10 gap-y-4 md:gap-y-6">
               {visibleResources.map((resource) => {
                 const Icon = TYPE_ICONS[resource.type];
-                const isExternal = resource.external && resource.url && resource.url !== "#";
+                const isExternal = !!(resource.external && resource.url && resource.url !== "#");
                 const href = isExternal
                   ? resource.url
                   : `/resources/${resource.type}/${resource.slug}`;
 
                 return (
-                  <article
-                    key={`${resource.type}-${resource.slug}`}
-                    className={`group relative flex h-full flex-col overflow-hidden rounded-xl border transition-all hover:shadow-sm ${
-                      resource.featured
-                        ? "border-brand-orange/30 bg-brand-orange/[0.03] hover:border-brand-orange/60"
-                        : "border-gray-100 hover:border-brand-grey"
-                    }`}
-                  >
-                    {/* Featured badge */}
-                    {resource.featured && (
-                      <span className="absolute right-4 top-4 rounded-full bg-brand-orange px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                        Featured
-                      </span>
-                    )}
-
-                    <a
+                  <div key={`${resource.type}-${resource.slug}`} className="col-span-4 sm:col-span-2 md:col-span-4">
+                    <PostCard
                       href={href}
-                      {...(isExternal
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
-                      className="flex flex-1 flex-col p-6"
-                    >
-                      {/* Icon + type badge */}
-                      <div className="mb-4 flex items-center gap-3">
-                        <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-colors ${
-                          resource.featured
-                            ? "border-brand-orange/30 bg-brand-orange/10 group-hover:border-brand-orange/50 group-hover:bg-brand-orange/20"
-                            : "border-brand-grey/40 bg-brand-grey/20 group-hover:border-brand-orange/30 group-hover:bg-brand-orange/10"
-                        }`}>
-                          <Icon className="h-4 w-4 text-brand-black transition-colors group-hover:text-brand-orange" />
-                        </div>
-                        <span className="text-xs font-semibold uppercase tracking-widest text-brand-orange">
+                      external={isExternal}
+                      // the featured resource is the sage card with a heavier border and a solid orange tag
+                      tone={resource.featured ? "sage" : "white"}
+                      eyebrow={
+                        <span className="inline-flex items-center gap-2">
+                          <Icon className="h-3.5 w-3.5" aria-hidden />
                           {TYPE_LABELS[resource.type]}
                         </span>
-                      </div>
-
-                      {/* Title + description */}
-                      <h2 className="mb-2 text-lg font-display font-semibold leading-snug text-brand-black transition-colors group-hover:text-brand-orange">
-                        {resource.title}
-                      </h2>
-                      <p className="flex-1 text-sm leading-relaxed text-gray-500">
-                        {resource.description}
-                      </p>
-
-                      {/* CTA indicator */}
-                      <div className="mt-4 flex items-center gap-1 text-xs font-medium text-brand-orange opacity-0 transition-opacity group-hover:opacity-100">
-                        {isExternal ? (
-                          <>Visit site <ExternalLink className="h-3.5 w-3.5" /></>
-                        ) : (
-                          <>Open <ArrowRight className="h-3.5 w-3.5" /></>
-                        )}
-                      </div>
-                    </a>
-                  </article>
+                      }
+                      badge={resource.featured ? <span className="gl-mono bg-signal px-2 py-1 text-ink">Featured</span> : undefined}
+                      title={resource.title}
+                      description={resource.description}
+                      cta={isExternal ? "Visit site" : "Open"}
+                    />
+                  </div>
                 );
               })}
             </div>
           )}
         </div>
       </main>
-      <Footer />
-    </div>
+    </SiteShell>
   );
 }

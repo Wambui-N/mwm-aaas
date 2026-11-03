@@ -1,13 +1,12 @@
 import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { generatePageMetadata } from "@/lib/seo";
 import { getAllPosts } from "@/lib/content/blog";
-import NavigationWrapper from "@/components/layout/NavigationWrapper";
-import Footer from "@/components/layout/Footer";
+import { SiteShell } from "@/components/site/SiteShell";
+import { PageHeader } from "@/components/site/PageHeader";
+import { MonoFilterRow, type FilterItem } from "@/components/site/MonoFilterRow";
+import { PostCard, CardTag } from "@/components/site/PostCard";
 import { format } from "date-fns";
-import { ArrowRight } from "lucide-react";
-import NewsletterSection from "@/components/sections/NewsletterSection";
 
 export const metadata: Metadata = generatePageMetadata(
   "Making IT Make Sense - Made with Make",
@@ -20,6 +19,8 @@ type BlogPageProps = {
   searchParams?: Promise<{ tag?: string }>;
 };
 
+const CASE_STUDY_TAG = "case-study";
+
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const resolvedParams: { tag?: string } = await (searchParams ?? Promise.resolve({}));
   const activeTag = resolvedParams.tag ?? null;
@@ -29,7 +30,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     ? allPosts.filter((p) => p.tags.includes(activeTag))
     : allPosts;
 
-  // Compute most-used tags for the filter pills
+  // Compute most-used tags for the filter row
   const tagFrequency: Record<string, number> = {};
   for (const post of allPosts) {
     for (const tag of post.tags) {
@@ -41,132 +42,69 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     .map(([tag]) => tag)
     .slice(0, 6);
 
+  // ALL, CASE STUDIES (the old nav's "Case studies" link), then the most-used tags.
+  const filterItems: FilterItem[] = [
+    { label: "All", href: "/blog", active: !activeTag },
+    { label: "Case studies", href: `/blog?tag=${CASE_STUDY_TAG}`, active: activeTag === CASE_STUDY_TAG },
+    ...tagChips
+      .filter((tag) => tag !== CASE_STUDY_TAG)
+      .map((tag) => ({ label: tag, href: `/blog?tag=${encodeURIComponent(tag)}`, active: activeTag === tag })),
+  ];
+
   return (
-    <div className="min-h-screen bg-brand-grey/10">
-      <NavigationWrapper />
-      <main className="pt-12 pb-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-
-          {/* Header */}
-          <div className="mb-12 text-center">
-            <h1 className="mb-3 text-4xl font-display font-semibold text-brand-black md:text-5xl">
-              Making IT Make Sense
-            </h1>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">
-              {activeTag
+    <SiteShell>
+      <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
+        <div className="mx-auto max-w-[81.25rem]">
+          <PageHeader
+            title="Making IT Make Sense"
+            mark="Sense"
+            seed={45}
+            lede={
+              activeTag
                 ? "Browse articles on this topic, or switch back to all posts to keep exploring."
-                : "Follow along as I share what I'm learning about automation, AI, and building smoother systems."}
-            </p>
-          </div>
+                : "Follow along as I share what I'm learning about automation, AI, and building smoother systems."
+            }
+          />
 
-          {/* Tag filter pills */}
-          {tagChips.length > 0 && (
-            <div className="mb-12">
-              <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-brand-black/70">
-                Topics
-              </p>
-              <div className="flex flex-wrap justify-center gap-2">
-                <Link
-                  href="/blog"
-                  className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${!activeTag
-                      ? "bg-brand-orange text-white"
-                      : "bg-brand-grey/30 text-brand-black hover:bg-brand-orange/10 hover:text-brand-orange"
-                    }`}
-                >
-                  All
-                </Link>
-                {tagChips.map((tag) => {
-                  const isActive = activeTag === tag;
-                  return (
-                    <Link
-                      key={tag}
-                      href={`/blog?tag=${encodeURIComponent(tag)}`}
-                      className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${isActive
-                          ? "bg-brand-orange text-white"
-                          : "bg-brand-grey/30 text-brand-black hover:bg-brand-orange/10 hover:text-brand-orange"
-                        }`}
-                    >
-                      {tag}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+          <MonoFilterRow className="mt-10" label="Topics" items={filterItems} />
 
           {posts.length === 0 ? (
-            <p className="text-gray-500">No posts yet. Check back soon.</p>
+            <p className="calm-body mt-12">No posts yet. Check back soon.</p>
           ) : (
-            <>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {posts.map((post) => (
-                  <article
-                    key={post.slug}
-                    className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-100 transition-all hover:border-brand-grey hover:shadow-sm"
-                  >
-                    <Link href={`/blog/${post.slug}`} className="flex flex-1 flex-col">
-                      {post.image ? (
-                        <div className="h-44 w-full overflow-hidden">
-                          <img
-                            src={post.image}
-                            alt={post.title}
-                            className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
-                          />
-                        </div>
-                      ) : (
-                        <div className="h-44 w-full bg-brand-grey/20" />
-                      )}
-                      <div className="flex flex-1 flex-col p-6">
-                        <time
-                          dateTime={post.date}
-                          className="mb-3 block text-xs text-gray-400"
-                        >
-                          {format(new Date(post.date), "MMMM d, yyyy")}
-                        </time>
-                        <h2 className="mb-2 text-lg font-display font-semibold leading-snug text-brand-black transition-colors group-hover:text-brand-orange">
-                          {post.title}
-                        </h2>
-                        <p className="flex-1 text-sm leading-relaxed text-gray-500">
-                          {post.description}
-                        </p>
-                      </div>
-                    </Link>
-
-                    <div className="flex flex-col px-6 pb-4">
-                      {post.tags.length > 0 && (
-                        <div className="mt-1 flex flex-wrap gap-1">
-                          {post.tags.slice(0, 3).map((tag) => (
-                            <Link
-                              key={tag}
-                              href={`/blog?tag=${encodeURIComponent(tag)}`}
-                              className="text-xs px-2 py-0.5 rounded-full bg-brand-grey/30 text-brand-black hover:bg-brand-orange/10 hover:text-brand-orange transition-colors"
-                            >
-                              {tag}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                      <div className="mt-3 flex items-center gap-1 text-xs font-medium text-brand-orange opacity-0 transition-opacity group-hover:opacity-100">
-                        Read <ArrowRight className="h-3.5 w-3.5" />
-                      </div>
-                      {post.author && (
-                        <p className="mt-3 border-t border-gray-50 pt-3 text-xs text-gray-400">
-                          {post.author}
-                        </p>
-                      )}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </>
+            // three across on desktop: each card spans 4 of the 12 columns, so edges sit on the background lines
+            <div className="site-grid mt-10 gap-y-4 md:gap-y-6">
+              {posts.map((post) => (
+                <div key={post.slug} className="col-span-4 sm:col-span-2 md:col-span-4">
+                  <PostCard
+                    href={`/blog/${post.slug}`}
+                    image={post.image ?? null}
+                    imageAlt={post.title}
+                    eyebrow={<time dateTime={post.date}>{format(new Date(post.date), "MMMM d, yyyy")}</time>}
+                    title={post.title}
+                    description={post.description}
+                    footer={
+                      post.tags.length > 0 || post.author ? (
+                        <>
+                          {post.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5">
+                              {post.tags.slice(0, 3).map((tag) => (
+                                <CardTag key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
+                                  {tag}
+                                </CardTag>
+                              ))}
+                            </div>
+                          )}
+                          {post.author && <p className="gl-mono mt-4 border-t border-ink/20 pt-3 text-ink/60">{post.author}</p>}
+                        </>
+                      ) : undefined
+                    }
+                  />
+                </div>
+              ))}
+            </div>
           )}
         </div>
-        {/* Newsletter subscribe */}
-        <div className="mt-16 -mx-6">
-          <NewsletterSection />
-        </div>``
       </main>
-      <Footer />
-    </div>
+    </SiteShell>
   );
 }

@@ -317,7 +317,13 @@ export default function DocumentSigner() {
   // Returns the rendered dimensions of the preview container
   const getRenderedDim = () => {
     const el = previewRef.current;
-    if (el) return { w: el.clientWidth, h: el.clientHeight };
+    if (el) {
+      // Pointer positions come from getBoundingClientRect(), which is in on-screen pixels. When the tool sits
+      // inside a CSS-zoomed frame, clientWidth/Height are in unzoomed layout pixels, so convert by the measured
+      // scale (exactly 1 when there is no zoom, which leaves the original behaviour untouched).
+      const scale = el.offsetWidth ? el.getBoundingClientRect().width / el.offsetWidth : 1;
+      return { w: el.clientWidth * scale, h: el.clientHeight * scale };
+    }
     return previewDim();
   };
 

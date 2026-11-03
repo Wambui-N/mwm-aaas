@@ -1,8 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { AutomationAssessment } from "@/components/assessment/AutomationAssessment";
-import NavigationWrapper from "@/components/layout/NavigationWrapper";
-import Footer from "@/components/layout/Footer";
+import { SiteShell } from "@/components/site/SiteShell";
 
 export const metadata: Metadata = {
   title: "The Automation Gap Audit | Made with Make",
@@ -12,15 +11,13 @@ export const metadata: Metadata = {
 
 export default function AssessmentPage() {
   return (
-    <div className="min-h-screen bg-brand-grey/10">
-      <NavigationWrapper />
-      <main className="pt-12 pb-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+    // Native scrolling here: eased scroll physics makes form inputs feel laggy.
+    <SiteShell smoothScroll={false}>
+      <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
+        <div className="mx-auto max-w-[81.25rem]">
           <AutomationAssessment />
         </div>
       </main>
-      <Footer />
-    </div>
+    </SiteShell>
   );
 }
-

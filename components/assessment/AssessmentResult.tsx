@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { AlertCircle, ArrowRight, RotateCcw } from "lucide-react";
+import { ArrowRight, RotateCcw } from "lucide-react";
+import { SketchButton } from "@/components/site/SketchButton";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -92,57 +93,34 @@ export function AssessmentResult({ config }: { config: ResultConfig }) {
       : FALLBACK_GAPS[config.profileKey];
 
   return (
-    <article className="max-w-3xl mx-auto px-6">
-      {/* Back link — matches blog/resources detail style */}
+    <article className="cols-8">
       <Link
         href="/assessment"
-        className="text-sm text-gray-500 hover:text-brand-black inline-flex items-center gap-1 transition-colors"
+        className="gl-mono inline-block py-2 text-ink/70 underline-offset-4 hover:text-ink hover:underline focus-visible:underline"
       >
         ← The Automation Gap Audit
       </Link>
 
       {loaded && (
-        <motion.div
-          initial="initial"
-          animate="animate"
-          variants={stagger}
-          className="mt-8 space-y-6"
-        >
-          {/* ── Page-style result header ───────────────────── */}
+        <motion.div initial="initial" animate="animate" variants={stagger} className="mt-6 space-y-8">
+          {/* ── Result header ─────────────────────────────── */}
           <motion.header variants={fadeUp}>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-3">
-              The Automation Gap Audit · Your diagnostic
-            </p>
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span
-                className={`inline-block rounded-full px-3.5 py-1 text-xs font-bold uppercase tracking-wide ${config.accentColor}`}
-              >
-                {config.label}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold text-brand-black leading-tight mb-4">
-              {firstName
-                ? `${firstName}, ${config.tagline}`
-                : config.tagline}
+            <p className="gl-mono text-ink/60">The Automation Gap Audit · Your diagnostic</p>
+            <p className={`gl-mono mt-4 inline-block px-3 py-1.5 ${config.accentColor}`}>{config.label}</p>
+            <h1 className="sk-title mt-5">
+              {firstName ? `${firstName}, ${config.tagline}` : config.tagline}
             </h1>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              {config.description}
-            </p>
+            <p className="pg-lede mt-5">{config.description}</p>
           </motion.header>
 
-          {/* ── Gaps diagnostic card ──────────────────────── */}
-          <motion.div
-            variants={fadeUp}
-            className="rounded-2xl border border-gray-100 bg-white px-6 py-6 shadow-sm"
-          >
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-4">
-              What your answers tell us
-            </p>
-            <ul className="flex flex-col gap-3">
+          {/* ── Gaps diagnostic ───────────────────────────── */}
+          <motion.div variants={fadeUp} className="calm-card p-6 md:p-7">
+            <p className="gl-mono text-ink/60">What your answers tell us</p>
+            <ul className="mt-5 flex flex-col gap-4">
               {detectedGaps.map((gap, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <AlertCircle className="h-4 w-4 shrink-0 mt-0.5 text-brand-orange" />
-                  <span className="text-sm text-gray-700 leading-relaxed">{gap}</span>
+                  <span aria-hidden className="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-ink" />
+                  <span className="calm-body">{gap}</span>
                 </li>
               ))}
             </ul>
@@ -150,42 +128,39 @@ export function AssessmentResult({ config }: { config: ResultConfig }) {
 
           {/* ── Book-a-call CTA ───────────────────────────── */}
           <motion.div variants={fadeUp}>
-            <aside className="rounded-2xl bg-brand-black px-6 py-6 text-white">
-              <div className="grid gap-4 md:grid-cols-[1.6fr,auto] md:gap-6">
-                <div>
-                  <h2 className="text-xl font-display font-semibold mb-2">
-                    Here&apos;s what I&apos;d do with your results.
-                  </h2>
-                  <p className="mt-1 text-sm text-gray-300 leading-relaxed">
-                  You&apos;ve identified the gaps. Now let&apos;s make sense of them together.
-                  Book a 30-minute call and I&apos;ll have your audit results in front of me so we can talk through what&apos;s actually going on, what&apos;s worth fixing first, and whether working together makes sense.
-                  </p>
-                </div>
-                <div className="flex flex-col justify-end md:items-end">
-                  <a
-                    href="https://calendar.app.google/2NrpG6HXaqkdSURXA"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-lg bg-brand-orange px-4 py-2.5 text-xs font-medium text-brand-black transition-colors hover:bg-brand-orange/90 whitespace-nowrap"
-                  >
+            <aside className="bg-ink p-6 text-sage md:p-8">
+              <h2 className="font-[family-name:var(--font-brule)] text-[clamp(1.5rem,2.2vw,1.9rem)] font-semibold leading-tight">
+                Here&apos;s what I&apos;d do with your results.
+              </h2>
+              <p className="calm-body mt-4 max-w-xl text-sage/90">
+                You&apos;ve identified the gaps. Now let&apos;s make sense of them together.
+                Book a 30-minute call and I&apos;ll have your audit results in front of me so we can talk through what&apos;s actually going on, what&apos;s worth fixing first, and whether working together makes sense.
+              </p>
+              <div className="mt-6">
+                <SketchButton
+                  href="https://calendar.app.google/2NrpG6HXaqkdSURXA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="marker"
+                  seed={12}
+                  className="text-lg"
+                >
+                  <span className="inline-flex items-center gap-2">
                     Book your 20-minute audit review
-                    <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-                  </a>
-                </div>
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </span>
+                </SketchButton>
               </div>
             </aside>
           </motion.div>
 
           {/* ── Retake link ───────────────────────────────── */}
-          <motion.div
-            variants={fadeUp}
-            className="flex items-center gap-4 pb-8"
-          >
+          <motion.div variants={fadeUp} className="pb-8">
             <Link
               href="/assessment"
-              className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-brand-black transition-colors"
+              className="gl-mono inline-flex items-center gap-2 py-2 text-ink/70 underline-offset-4 hover:text-ink hover:underline focus-visible:underline"
             >
-              <RotateCcw className="h-3.5 w-3.5" />
+              <RotateCcw className="h-3.5 w-3.5" aria-hidden />
               Retake the audit
             </Link>
           </motion.div>

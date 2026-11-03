@@ -3,14 +3,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ClipboardList, CalendarDays, ArrowRight, CheckCircle2, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { ClipboardList, CalendarDays, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const TallyEmbed = dynamic(() => import('./TallyEmbed'), {
   ssr: false,
   loading: () => (
-    <div className="flex items-center justify-center py-24 text-gray-400 text-sm">
+    <div className="flex items-center justify-center py-24 text-sm text-ink/60">
       Loading form…
     </div>
   ),
@@ -19,7 +17,7 @@ const TallyEmbed = dynamic(() => import('./TallyEmbed'), {
 const GoogleCalendarEmbed = dynamic(() => import('./GoogleCalendarEmbed'), {
   ssr: false,
   loading: () => (
-    <div className="flex items-center justify-center py-24 text-gray-400 text-sm">
+    <div className="flex items-center justify-center py-24 text-sm text-ink/60">
       Loading calendar…
     </div>
   ),
@@ -66,56 +64,43 @@ export default function ContactPanel() {
   }, [selected]);
 
   return (
-    <div className="mt-10 space-y-8">
-      {/* Option cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {OPTIONS.map(({ id, icon: Icon, label, tagline, badge }) => (
-          <button
-            key={id}
-            onClick={() => setSelected(id)}
-            className={cn(
-              'group relative flex flex-col items-start gap-3 rounded-2xl border p-5 text-left transition-all duration-200 sm:p-6',
-              selected === id
-                ? 'border-brand-orange bg-brand-orange/5 shadow-sm'
-                : 'border-gray-200 bg-white hover:border-brand-grey hover:shadow-sm'
-            )}
-          >
-            {badge && (
-              <span className="absolute top-4 right-4 rounded-full bg-brand-orange/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-brand-orange">
-                {badge}
-              </span>
-            )}
-            <div
-              className={cn(
-                'flex h-10 w-10 items-center justify-center rounded-xl transition-colors',
-                selected === id
-                  ? 'bg-brand-orange text-white'
-                  : 'bg-brand-grey/30 text-brand-black group-hover:bg-brand-orange/10 group-hover:text-brand-orange'
-              )}
+    <div className="space-y-8">
+      {/* Option cards: hairline boxes, the chosen one is solid ink */}
+      <div className="site-grid gap-y-4">
+        {OPTIONS.map(({ id, icon: Icon, label, tagline, badge }) => {
+          const on = selected === id;
+          return (
+            <button
+              key={id}
+              type="button"
+              aria-pressed={on}
+              onClick={() => setSelected(id)}
+              className={`relative col-span-4 flex flex-col items-start gap-3 border p-5 text-left transition-colors sm:col-span-2 md:col-span-6 md:p-6 ${
+                on ? 'border-ink bg-ink text-sage' : 'border-ink/30 bg-white text-ink hover:border-ink hover:bg-sage/30'
+              }`}
             >
-              <Icon className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="font-semibold text-brand-black text-sm leading-snug">{label}</p>
-              <p className="mt-1 text-xs text-gray-500 leading-relaxed">{tagline}</p>
-            </div>
-            <span className="absolute bottom-4 right-4 flex items-center gap-1 text-brand-orange opacity-80 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">
-              {selected === id ? (
-                <CheckCircle2 className="h-4 w-4" />
-              ) : (
-                <ChevronRight className="h-5 w-5" />
-              )}
-            </span>
-          </button>
-        ))}
+              <span className="flex w-full items-center justify-between gap-3">
+                <Icon className="h-5 w-5" aria-hidden />
+                {badge && (
+                  <span className={`gl-mono border px-2 py-1 ${on ? 'border-sage/60 text-sage' : 'border-ink/40 text-ink/80'}`}>{badge}</span>
+                )}
+              </span>
+              <span>
+                <span className="block font-[family-name:var(--font-brule)] text-[1.5rem] font-semibold leading-tight">{label}</span>
+                <span className={`calm-body mt-2 block ${on ? 'text-sage/90' : 'text-ink/75'}`}>{tagline}</span>
+              </span>
+              {on && <CheckCircle2 className="absolute bottom-4 right-4 h-4 w-4" aria-hidden />}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Why fill the form — shown when no choice made or form selected */}
+      {/* Why fill the form: shown when no choice made or form selected */}
       {selected !== 'book' && (
-        <div className="flex gap-3 rounded-xl border border-brand-grey/40 bg-brand-grey/10 px-5 py-4">
-          <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
-          <p className="text-sm text-gray-600 leading-relaxed">
-            <span className="font-medium text-brand-black">Why fill the form?</span> It takes less
+        <div className="flex gap-3 border border-ink/20 bg-sage/25 px-5 py-4">
+          <ArrowRight className="mt-[0.2rem] h-4 w-4 shrink-0" aria-hidden />
+          <p className="calm-body">
+            <span className="font-bold">Why fill the form?</span> It takes less
             than 3 minutes and helps me understand your setup before we meet, so we spend the call
             solving your problems, not collecting background.
           </p>
@@ -124,49 +109,50 @@ export default function ContactPanel() {
 
       {/* Embed area */}
       <div ref={embedRef}>
-      <AnimatePresence mode="wait">
-        {selected === 'form' && (
-          <motion.div
-            key="tally"
-            variants={panelVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <p className="mb-4 text-sm text-gray-500">
-              At the end of the form you&apos;ll be prompted to pick a time for our call.
-            </p>
-            <TallyEmbed />
-          </motion.div>
-        )}
-
-        {selected === 'book' && (
-          <motion.div
-            key="calendar"
-            variants={panelVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <GoogleCalendarEmbed />
-
-            {/* Nudge to fill the form after booking */}
-            <div className="mt-6 flex gap-3 rounded-xl border border-brand-grey/40 bg-brand-grey/10 px-5 py-4">
-              <ClipboardList className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
-              <p className="text-sm text-gray-600 leading-relaxed">
-                <span className="font-medium text-brand-black">Make our meeting count.</span>{' '}
-                <button
-                  onClick={() => setSelected('form')}
-                  className="underline underline-offset-2 text-brand-orange hover:text-brand-orange/80 transition-colors"
-                >
-                  Fill the short form
-                </button>{' '}
-                so I can tailor the conversation to your business before we connect.
+        <AnimatePresence mode="wait">
+          {selected === 'form' && (
+            <motion.div
+              key="tally"
+              variants={panelVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <p className="calm-body mb-4 text-ink/75">
+                At the end of the form you&apos;ll be prompted to pick a time for our call.
               </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <TallyEmbed />
+            </motion.div>
+          )}
+
+          {selected === 'book' && (
+            <motion.div
+              key="calendar"
+              variants={panelVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <GoogleCalendarEmbed />
+
+              {/* Nudge to fill the form after booking */}
+              <div className="mt-6 flex gap-3 border border-ink/20 bg-sage/25 px-5 py-4">
+                <ClipboardList className="mt-[0.2rem] h-4 w-4 shrink-0" aria-hidden />
+                <p className="calm-body">
+                  <span className="font-bold">Make our meeting count.</span>{' '}
+                  <button
+                    type="button"
+                    onClick={() => setSelected('form')}
+                    className="font-bold underline underline-offset-4 hover:no-underline"
+                  >
+                    Fill the short form
+                  </button>{' '}
+                  so I can tailor the conversation to your business before we connect.
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

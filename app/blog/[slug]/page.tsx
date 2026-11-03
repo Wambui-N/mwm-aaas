@@ -3,8 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { siteConfig } from "@/lib/seo";
 import { getPost, getAllPosts, getRelatedPosts } from "@/lib/content/blog";
-import NavigationWrapper from "@/components/layout/NavigationWrapper";
-import Footer from "@/components/layout/Footer";
+import { SiteShell } from "@/components/site/SiteShell";
 import PostLayout from "@/components/blog/PostLayout";
 
 type Props = {
@@ -63,16 +62,14 @@ export default async function BlogPostPage({ params }: Props) {
   const related = getRelatedPosts(slug, 2);
 
   return (
-    <div className="min-h-screen">
-      <NavigationWrapper />
-      <main className="pt-12 pb-24">
+    <SiteShell>
+      <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
         <PostLayout
           post={post.data}
           content={post.content}
           relatedPosts={related}
         />
       </main>
-      <Footer />
-    </div>
+    </SiteShell>
   );
 }

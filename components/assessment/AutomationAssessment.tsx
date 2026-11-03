@@ -4,9 +4,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { IntakeForm } from "./IntakeForm";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
+import { PageHeader } from "@/components/site/PageHeader";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -398,36 +396,37 @@ export function AutomationAssessment() {
   };
 
   const currentQ = QUESTIONS[currentQuestion];
+  const shownPercent = step === "intake" ? 0 : progressPercent;
 
   return (
-    <div className="mx-auto max-w-2xl">
-      {/* Page-style content header */}
-      <header className="mb-10">
-        <p className="text-xs font-semibold text-brand-orange uppercase tracking-[0.25em] mb-3">
-          Free diagnostic
-        </p>
-        <h1 className="text-4xl md:text-5xl font-display font-semibold text-brand-black mb-4 leading-tight">
-          The Automation Gap Audit
-        </h1>
-        <p className="text-lg text-gray-600 leading-relaxed">
-          10 quick questions to find out where your operations are leaking time, money, and leads, and exactly what to do next.
-        </p>
-      </header>
+    <div className="cols-8">
+      <PageHeader
+        label="Free diagnostic"
+        title="The Automation Gap Audit"
+        mark="Gap"
+        seed={43}
+        lede="10 quick questions to find out where your operations are leaking time, money, and leads, and exactly what to do next."
+        className="mb-10"
+      />
 
-      {/* Progress bar */}
+      {/* Progress: a thin ink bar on a hairline track */}
       <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-            {step === "intake" ? "About you" : "The Audit"}
-          </p>
-          <p className="text-xs text-gray-400 tabular-nums">
+        <div className="mb-2 flex items-center justify-between">
+          <p className="gl-mono text-ink/70">{step === "intake" ? "About you" : "The Audit"}</p>
+          <p className="gl-mono tabular-nums text-ink/60">
             {auditStepDisplay} / {QUESTIONS.length}
           </p>
         </div>
-        <Progress
-          value={step === "intake" ? 0 : progressPercent}
-          className="h-1 bg-gray-100 [&>div]:bg-brand-orange [&>div]:transition-all [&>div]:duration-300"
-        />
+        <div
+          role="progressbar"
+          aria-label="Audit progress"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={shownPercent}
+          className="h-[3px] w-full bg-ink/[0.15]"
+        >
+          <div className="h-full bg-ink transition-[width] duration-300" style={{ width: `${shownPercent}%` }} />
+        </div>
       </div>
 
       <AnimatePresence mode="wait">
@@ -453,57 +452,40 @@ export function AutomationAssessment() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
           >
-            <Card className="rounded-2xl border-gray-100 shadow-sm">
-              <CardHeader className="pb-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-orange">
-                  Question {currentQuestion + 1} of {QUESTIONS.length}
-                </p>
-                <h2 className="text-lg md:text-xl font-display font-semibold text-brand-black leading-snug">
-                  {currentQ.label}
-                </h2>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-2">
-                {currentQ.options.map((opt) => {
-                  const selected = answers[currentQ.id] === opt.value;
-                  return (
-                    <motion.div
-                      key={opt.label}
-                      whileHover={{ scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
-                    >
-                      <Button
-                        type="button"
-                        variant={selected ? "default" : "outline"}
-                        onClick={() => handleAnswer(currentQ.id, opt.value)}
-                        className={`w-full justify-start text-left whitespace-normal h-auto py-3.5 text-sm font-medium rounded-xl${
-                          selected
-                            ? " bg-brand-black border-brand-black text-white hover:bg-brand-black/90"
-                            : " border-gray-100 text-gray-800 hover:border-brand-orange/60 hover:bg-brand-orange/5"
-                        }`}
-                      >
-                        {opt.label}
-                      </Button>
-                    </motion.div>
-                  );
-                })}
-              </CardContent>
-            </Card>
+            <div className="calm-card p-6 md:p-7">
+              <p className="gl-mono text-ink/60">
+                Question {currentQuestion + 1} of {QUESTIONS.length}
+              </p>
+              <h2 className="calm-h3 mt-3">{currentQ.label}</h2>
+              <div className="mt-6 flex flex-col gap-2.5">
+                {currentQ.options.map((opt) => (
+                  <button
+                    key={opt.label}
+                    type="button"
+                    aria-pressed={answers[currentQ.id] === opt.value}
+                    onClick={() => handleAnswer(currentQ.id, opt.value)}
+                    className="fm-option"
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Back button — only on questions, only goes to previous question */}
+      {/* Back button: only on questions, only goes to previous question */}
       {step === "questions" && (
         <div className="mt-4">
-          <Button
-            variant="ghost"
-            size="sm"
+          <button
+            type="button"
             onClick={() => setCurrentQuestion((i) => Math.max(0, i - 1))}
             disabled={currentQuestion === 0}
-            className="text-brand-black/50 hover:text-brand-black/80 px-0"
+            className="gl-mono -ml-1 px-1 py-3 text-ink/60 underline-offset-4 hover:text-ink hover:underline focus-visible:underline disabled:cursor-default disabled:opacity-40 disabled:no-underline"
           >
             ← Previous question
-          </Button>
+          </button>
         </div>
       )}
     </div>
