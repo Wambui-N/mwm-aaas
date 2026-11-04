@@ -20,7 +20,7 @@ export function Faq({ items }: { items: readonly (readonly string[])[] }) {
               aria-expanded={isOpen}
               aria-controls={`faq-a-${i}`}
               onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-center justify-between gap-4 py-4 text-left font-bold"
+              className="flex min-h-[44px] w-full items-center justify-between gap-4 py-4 text-left font-bold"
             >
               <span>{q}</span>
               <span aria-hidden className={`shrink-0 ${isOpen ? "text-signal" : "text-ink/50"}`}>

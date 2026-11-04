@@ -125,8 +125,6 @@ const faqs = [
   ["What if it doesn’t work for us?", "You pay the second half of the setup fee only after your first complete draft. The monthly plan is cancel-anytime, and you keep everything we built."],
 ];
 
-const card = "border border-ink/[0.22] bg-white p-5 md:p-6";
-
 /** A homepage-rhythm section: full-width, 4.5rem (6.75rem from md) above and below. `id` goes on the inner column so jumps land with the heading near the top. */
 function Section({ id, labelledby, children }: { id?: string; labelledby?: string; children: React.ReactNode }) {
   return (
@@ -156,7 +154,7 @@ export default function ProposalPipelinePage() {
               <JumpButton to={FORM_ID} seed={62}>
                 Try It Free on Your Next RFP →
               </JumpButton>
-              <JumpLink to={HOW_ID} className="font-bold underline-offset-4 hover:underline focus-visible:underline">
+              <JumpLink to={HOW_ID} className="inline-flex min-h-[44px] items-center font-bold underline-offset-4 hover:underline focus-visible:underline">
                 See how it works ↓
               </JumpLink>
             </div>
