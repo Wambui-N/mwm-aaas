@@ -8,8 +8,13 @@ import { useGSAP } from "@gsap/react";
 import Magnet from "@/components/homepage/reactbits/Magnet";
 import { SketchButton } from "@/components/site/SketchButton";
 import { tornTopBottom } from "@/lib/site/torn";
-import { AUDIT_HREF, audit } from "@/lib/homepage/copy";
+import { AUDIT_HREF, audit as auditCopy } from "@/lib/homepage/copy";
+import { SCORECARD_LIVE } from "@/lib/scorecard/config";
+import { scorecardAudit } from "@/lib/scorecard/homepageCopy";
 import { Underlined } from "@/components/site/Underlined";
+
+/** The scorecard copy once the launch flag is on; the audit copy until then. */
+const audit: typeof auditCopy & { note?: string } = SCORECARD_LIVE ? scorecardAudit : auditCopy;
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, DrawSVGPlugin);
 
@@ -86,6 +91,7 @@ export function Audit() {
                     {audit.cta} -&gt;
                   </SketchButton>
                 </Magnet>
+                {audit.note && <p className="gl-mono mt-4 text-ink/60">{audit.note}</p>}
               </div>
             </div>
 

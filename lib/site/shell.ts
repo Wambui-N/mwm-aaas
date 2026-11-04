@@ -2,7 +2,10 @@
  * Data for the shared site shell (nav and footer on every route). Page copy lives with each page;
  * only what the shell itself renders is here.
  */
-export const AUDIT_HREF = "/assessment";
+import { SCORECARD_LIVE, SCORECARD_PATH } from "@/lib/scorecard/config";
+
+/** Where every "Find My Proposal Gaps" link goes: the old audit until the scorecard launch flag is on. */
+export const AUDIT_HREF = SCORECARD_LIVE ? SCORECARD_PATH : "/assessment";
 export const AUDIT_CTA = "Find My Proposal Gaps";
 
 export const siteNav = {

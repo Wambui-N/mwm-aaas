@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/seo";
 import { getAllPosts, getTopTags } from "@/lib/content/blog";
 import { getAllResources } from "@/lib/content/resources";
+import { SCORECARD_LIVE } from "@/lib/scorecard/config";
 
 export const dynamic = "force-static";
 
@@ -34,6 +35,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    // the scorecard is listed only once it is live
+    ...(SCORECARD_LIVE
+      ? [{ url: `${baseUrl}/scorecard`, lastModified: currentDate, changeFrequency: "monthly" as const, priority: 0.9 }]
+      : []),
     {
       url: `${baseUrl}/blog`,
       lastModified: currentDate,
