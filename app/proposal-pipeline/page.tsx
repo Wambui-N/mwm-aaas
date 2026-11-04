@@ -8,9 +8,11 @@ import { Underlined } from "@/components/site/Underlined";
 import { JumpButton, JumpLink } from "@/components/proposal-pipeline/Jump";
 import { BeforeAfter } from "@/components/proposal-pipeline/BeforeAfter";
 import { HowSteps } from "@/components/proposal-pipeline/HowSteps";
+import { Quote } from "@/components/proposal-pipeline/Quote";
+import { Guarantee } from "@/components/proposal-pipeline/Guarantee";
 import { BuildChecklist } from "@/components/proposal-pipeline/BuildChecklist";
 import ProposalForm from "@/components/proposal-pipeline/ProposalForm";
-import { testimonial } from "@/lib/homepage/copy";
+import { testimonial, testimonials } from "@/lib/homepage/copy";
 import { AUDIT_HREF } from "@/lib/site/shell";
 
 export const metadata: Metadata = {
@@ -219,25 +221,13 @@ export default function ProposalPipelinePage() {
               ))}
             </ul>
 
-            <aside className="mt-10 border border-ink bg-ink p-2 text-sage">
-              <div className="border border-sage/30 p-5 md:p-7">
-                <h3 className="font-[family-name:var(--font-brule)] text-[clamp(1.4rem,2vw,1.8rem)] font-semibold leading-tight text-[color:var(--paper)]">
-                  The Sounds-Like-You Guarantee
-                </h3>
-                <ul className="calm-body mt-4 list-disc space-y-2 pl-5 marker:text-signal">
-                  {guarantee.map((g) => (
-                    <li key={g}>{g}</li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
+            <div className="mt-12">
+              <Guarantee name="The Sounds-Like-You Guarantee" items={guarantee} />
+            </div>
 
-            <figure className="mt-10 border border-ink/[0.22] bg-white p-6 md:p-8">
-              <blockquote className="rd-prose border-l-4 border-signal pl-5">“{testimonial.quote}”</blockquote>
-              <figcaption className="gl-mono mt-4 text-ink/70">
-                {testimonial.name}, {testimonial.company}
-              </figcaption>
-            </figure>
+            <div className="mt-12">
+              <Quote quote={testimonial.quote} name={testimonial.name} company={testimonial.company} highlight={testimonials[0].highlights[0]} />
+            </div>
 
             <div className="mt-8">
               <JumpButton to={FORM_ID} seed={67}>
@@ -254,37 +244,38 @@ export default function ProposalPipelinePage() {
               Send one live RFP and a couple of your past proposals. In under 20 minutes, a complete first draft lands in your inbox, built from your own work.
             </p>
 
-            <div className="site-grid mt-8 gap-y-4 md:gap-y-6">
-              <div className={`col-span-4 md:col-span-6 ${card}`}>
-                <h3 className="calm-h3">Is this for you?</h3>
-                <ul className="calm-body mt-3 list-disc space-y-2 pl-5 marker:text-signal">
-                  {fit.map((f) => (
-                    <li key={f}>{f}</li>
-                  ))}
+            <div className="mt-10">
+              <h3 className="calm-h3">Is this for you?</h3>
+              <ul className="mt-4 max-w-[48rem] border-b border-ink/20">
+                {fit.map((f) => (
+                  <li key={f} className="calm-body border-t border-ink/20 py-4">
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <p className="calm-body mt-4 font-bold">If you said yes, this was built for you. Try it on your next RFP.</p>
+            </div>
+
+            <div className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2">
+              <div>
+                <h3 className="gl-mono text-ink/60">You send</h3>
+                <ul className="mt-3 border-b border-ink/20">
+                  <li className="calm-body border-t border-ink/20 py-4">One live RFP or ToR</li>
+                  <li className="calm-body border-t border-ink/20 py-4">1–3 past proposals</li>
+                  <li className="calm-body border-t border-ink/20 py-4">Your company profile (optional)</li>
                 </ul>
-                <p className="calm-body mt-4 font-bold">If you said yes, this was built for you. Try it on your next RFP.</p>
               </div>
-              <div className="col-span-4 grid grid-cols-2 gap-4 md:col-span-6">
-                <div className={card}>
-                  <h3 className="gl-mono text-ink/70">You send</h3>
-                  <ul className="calm-body mt-3 list-disc space-y-2 pl-5">
-                    <li>One live RFP or ToR</li>
-                    <li>1–3 past proposals</li>
-                    <li>Your company profile (optional)</li>
-                  </ul>
-                </div>
-                <div className="border-2 border-ink bg-sage p-5 md:p-6">
-                  <h3 className="gl-mono text-ink/70">You get</h3>
-                  <ul className="calm-body mt-3 list-disc space-y-2 pl-5">
-                    <li>A complete first draft of your technical proposal</li>
-                    <li>Written in your firm’s voice, from your own past work</li>
-                    <li>In your inbox in under 20 minutes</li>
-                  </ul>
-                </div>
+              <div>
+                <h3 className="gl-mono text-ink/60">You get</h3>
+                <ul className="mt-3 border-b border-ink/20">
+                  <li className="calm-body border-t border-ink/20 py-4">A complete first draft of your technical proposal</li>
+                  <li className="calm-body border-t border-ink/20 py-4">Written in your firm’s voice, from your own past work</li>
+                  <li className="calm-body border-t border-ink/20 py-4">In your inbox in under 20 minutes</li>
+                </ul>
               </div>
             </div>
 
-            <div className="mt-6 max-w-[56rem]">
+            <div className="mt-12 max-w-[56rem]">
               <ProposalForm />
             </div>
           </Section>
