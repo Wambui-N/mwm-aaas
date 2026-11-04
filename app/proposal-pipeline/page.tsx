@@ -120,14 +120,14 @@ export default function ProposalPipelinePage() {
           <header>
             <SectionLabel>[00] The Proposal Pipeline · For development consultancies</SectionLabel>
             <h1 className="sk-title mt-4 max-w-[60rem]">
-              Send us one RFP. Get a <Underlined seed={61}>complete first draft</Underlined> back in under 20 minutes.
+              Complete proposals <Underlined seed={61}>in minutes</Underlined>, written in your firm’s voice.
             </h1>
             <p className="pg-lede mt-5 max-w-[46rem]">
-              Upload a live RFP and a couple of your past proposals. The system reads the ToR, pulls from your own past work and emails you a complete first draft, written in your firm’s voice, in under 20 minutes. It’s free, one per firm, and no call is needed.
+              The Proposal Pipeline finds the RFPs that fit your firm, reads the ToR and writes a complete first draft from your own past proposals in about 15 minutes. It runs quietly inside the tools you already use, so your team stops starting from scratch and spends its time on the parts that win.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
               <SketchButton href={`#${FORM_ID}`} variant="marker" seed={62} className="text-lg">
-                Get My Free First Draft →
+                Try It Free on Your Next RFP →
               </SketchButton>
               <a href={`#${DEMO_ID}`} className="font-bold underline underline-offset-4 hover:no-underline">
                 Watch the 15-minute demo ↓
