@@ -10,45 +10,73 @@ import { AUDIT_CTA, AUDIT_HREF } from "@/lib/site/shell";
 export const metadata: Metadata = {
   ...generatePageMetadata(
     "Services — Made with Make",
-    "Automation consulting, Make.com builds and ongoing optimisation for service businesses. I find what to automate, build it, and hand over a system your team can run.",
+    "Three ways I can help: a proposal pipeline that sends proposals in minutes, web scraping that collects data for you, and websites built to bring in work.",
     "services",
-    ["automation consulting", "Make.com consultant", "workflow automation services", "proposal automation", "AI integrations"]
+    ["proposal automation", "web scraping services", "web development", "Make.com consultant", "workflow automation services"]
   ),
   alternates: {
     canonical: `${siteConfig.url}/services`,
   },
 };
 
-const services = [
+type Service = {
+  n: string;
+  title: string;
+  popular?: boolean;
+  summary: string;
+  forWho: string;
+  gets: string[];
+  result: string;
+  cta: { label: string; href: string };
+};
+
+const services: Service[] = [
   {
     n: "01",
-    tag: "Consult",
-    title: "Automation & AI Consulting",
-    body: "Before anything is built, I work out what is worth automating and what is not, so you spend time and money where it pays back.",
-    items: ["Process audits", "Automation opportunity assessment", "Architecture and tool selection", "Strategy and roadmap design"],
+    title: "Proposal Pipeline",
+    popular: true,
+    summary:
+      "A system that takes a new enquiry and turns it into a sent proposal and a signed agreement, without you retyping the same details.",
+    forWho: "Service businesses that win work through proposals and lose hours writing them.",
+    gets: [
+      "Enquiry form that captures the right details",
+      "Proposals generated automatically from your template",
+      "Follow-ups and onboarding set up after sign-off",
+      "Built on tools you already use, and documented for your team",
+    ],
+    result: "Proposal creation went from several hours to a few minutes for Founders Freedom Africa.",
+    cta: { label: AUDIT_CTA, href: AUDIT_HREF },
   },
   {
     n: "02",
-    tag: "Build",
-    title: "Automation Execution",
-    body: "I build the systems myself, on Make.com and the tools your team already uses, then test them and document how they work.",
-    items: ["Make.com workflows", "AI integrations", "API connections", "Process automation"],
+    title: "Web Scraping",
+    summary:
+      "I collect data from websites for you, on a schedule, and deliver it clean and ready to use, so nobody has to copy and paste it by hand.",
+    forWho: "Teams that need listings, prices, leads or research gathered regularly.",
+    gets: [
+      "Scrapers built for the sites and data you care about",
+      "Data cleaned and sent to a sheet, database or inbox",
+      "Runs automatically, daily or weekly",
+      "Set up so it keeps working when you are not watching",
+    ],
+    result: "We Are Kusudi went from about 50 hand-found job listings a week to up to 500.",
+    cta: { label: "Tell me what you need", href: "/contact-us" },
   },
   {
     n: "03",
-    tag: "Improve",
-    title: "Optimisation & Scaling",
-    body: "Once a system is live I can keep improving it, and extend it as your business grows.",
-    items: ["Performance improvements", "System refinement", "Expansion as you grow"],
+    title: "Web Development",
+    summary:
+      "A fast, clear website that explains what you do and makes it easy for the right people to get in touch.",
+    forWho: "Founders who need a new site or a rebuild of one that is not working for them.",
+    gets: [
+      "Design and build, mobile-friendly and quick to load",
+      "Clear structure and copy guidance so visitors understand your offer",
+      "Contact forms and booking connected to your tools",
+      "Handover so you can keep it updated yourself",
+    ],
+    result: "A site that supports your sales process instead of sitting beside it.",
+    cta: { label: "Start a conversation", href: "/contact-us" },
   },
-];
-
-const process = [
-  { title: "Discovery", body: "A deep dive into your operations, goals and constraints." },
-  { title: "Strategy & roadmap", body: "Map the opportunities and prioritise them by impact." },
-  { title: "System design", body: "Design the workflows, integrations and data flows." },
-  { title: "Build & deploy", body: "Build, test and launch the automations." },
-  { title: "Review & handover", body: "Validate performance and document everything for your team." },
 ];
 
 export default function ServicesPage() {
@@ -61,7 +89,7 @@ export default function ServicesPage() {
             title="Services"
             mark="Services"
             seed={53}
-            lede="Strategy-led and execution-driven, with no handoffs. I find the opportunities, build the systems, and leave you with something your team can maintain."
+            lede="Three ways I can help. Each one is built around a real problem, comes with a clear outcome, and is handed over so your team can run it."
           />
 
           <section aria-label="Services" className="mt-10">
@@ -69,61 +97,49 @@ export default function ServicesPage() {
               {services.map((s) => (
                 <article
                   key={s.n}
-                  className="col-span-4 flex flex-col border border-ink/[0.22] bg-white p-5 text-ink md:col-span-4 md:p-6"
+                  className={`col-span-4 flex flex-col p-5 text-ink md:p-6 ${
+                    s.popular ? "border-2 border-ink bg-sage" : "border border-ink/[0.22] bg-white"
+                  }`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <span className="gl-mono text-ink/70">[{s.n}]</span>
-                    <span className="gl-mono bg-sage px-2 py-1 text-ink">{s.tag}</span>
+                    {s.popular && <span className="gl-mono bg-signal px-2 py-1 text-ink">Popular</span>}
                   </div>
                   <h2 className="calm-h3 mt-3">{s.title}</h2>
-                  <p className="calm-body mt-3 text-ink/80">{s.body}</p>
-                  <ul className="rd-prose mt-4 list-disc space-y-1 pl-5 text-ink/80">
-                    {s.items.map((i) => (
-                      <li key={i}>{i}</li>
+                  <p className="calm-body mt-3 text-ink/85">{s.summary}</p>
+
+                  <h3 className="gl-mono mt-5 text-ink/70">Who it is for</h3>
+                  <p className="calm-body mt-1 text-ink/85">{s.forWho}</p>
+
+                  <h3 className="gl-mono mt-5 text-ink/70">What you get</h3>
+                  <ul className="rd-prose mt-1 list-disc space-y-1 pl-5 text-ink/85">
+                    {s.gets.map((g) => (
+                      <li key={g}>{g}</li>
                     ))}
                   </ul>
+
+                  <h3 className="gl-mono mt-5 text-ink/70">{s.n === "03" ? "The goal" : "Example result"}</h3>
+                  <p className="calm-body mt-1 flex-1 text-ink/85">{s.result}</p>
+
+                  <div className="mt-6">
+                    <SketchButton
+                      href={s.cta.href}
+                      variant={s.popular ? "marker" : "paper"}
+                      seed={20 + Number(s.n)}
+                      className="text-base"
+                    >
+                      {s.cta.label} {"->"}
+                    </SketchButton>
+                  </div>
                 </article>
               ))}
             </div>
           </section>
 
-          <section aria-labelledby="how-i-work" className="mt-16">
-            <h2 id="how-i-work" className="sk-h2">
-              How an engagement runs
-            </h2>
-            <ol className="site-grid mt-6 gap-y-4 md:gap-y-6">
-              {process.map((p, i) => (
-                <li
-                  key={p.title}
-                  className="col-span-4 border border-ink/[0.22] bg-white p-5 md:col-span-4 md:p-6 lg:col-span-4"
-                >
-                  <span className="gl-mono text-signal">Step {i + 1}</span>
-                  <h3 className="calm-h3 mt-2">{p.title}</h3>
-                  <p className="calm-body mt-2 text-ink/80">{p.body}</p>
-                </li>
-              ))}
-            </ol>
-          </section>
-
-          <section className="mt-16 border border-ink bg-sage p-6 md:p-8">
-            <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
-              <div>
-                <h2 className="calm-h3">Not sure where to start?</h2>
-                <p className="calm-body mt-2 max-w-xl text-ink/85">
-                  The Proposal Pipeline Scorecard takes about three minutes and shows where your proposal process is
-                  losing time.
-                </p>
-              </div>
-              <SketchButton href={AUDIT_HREF} variant="marker" seed={21} className="whitespace-nowrap text-lg">
-                {AUDIT_CTA} {"->"}
-              </SketchButton>
-            </div>
-          </section>
-
           <ConsultCard
-            className="mt-10"
-            heading="Ready to talk it through?"
-            body="Book a free consultation and we can work out together what is worth automating in your business."
+            className="mt-12"
+            heading="Not sure which one you need?"
+            body="Tell me what is slowing you down and I will point you to the right fit. The first conversation is free."
           />
         </div>
       </main>
