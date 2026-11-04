@@ -10,6 +10,7 @@ import { BeforeAfter } from "@/components/proposal-pipeline/BeforeAfter";
 import { HowSteps } from "@/components/proposal-pipeline/HowSteps";
 import { Quote } from "@/components/proposal-pipeline/Quote";
 import { Guarantee } from "@/components/proposal-pipeline/Guarantee";
+import { Faq } from "@/components/proposal-pipeline/Faq";
 import { BuildChecklist } from "@/components/proposal-pipeline/BuildChecklist";
 import ProposalForm from "@/components/proposal-pipeline/ProposalForm";
 import { testimonial, testimonials } from "@/lib/homepage/copy";
@@ -284,18 +285,7 @@ export default function ProposalPipelinePage() {
           <Section labelledby="faq-h">
             <SectionLabel>{num(5)} Questions</SectionLabel>
             <H2 id="faq-h" text="Questions directors ask before they try it." seed={69} />
-            <div className="mt-6 max-w-[56rem] border-t border-ink/30">
-              {faqs.map(([q, a]) => (
-                <details key={q} className="group border-b border-ink/30 py-1">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-bold [&::-webkit-details-marker]:hidden">
-                    <span>{q}</span>
-                    <span aria-hidden className="shrink-0 text-signal [details[open]_&]:hidden">+</span>
-                    <span aria-hidden className="hidden shrink-0 text-signal [details[open]_&]:inline">−</span>
-                  </summary>
-                  <p className="calm-body pb-4 pr-8 text-ink/85">{a}</p>
-                </details>
-              ))}
-            </div>
+            <Faq items={faqs} />
           </Section>
 
           {/* 7. Final call to action: the one dark panel */}
@@ -312,7 +302,7 @@ export default function ProposalPipelinePage() {
                 </div>
                 <p className="calm-body mt-6 text-sage/85">
                   Not ready yet?{" "}
-                  <a href={AUDIT_HREF} className="font-bold text-[color:var(--paper)] underline underline-offset-4 hover:no-underline">
+                  <a href={AUDIT_HREF} className="text-sage underline underline-offset-4 hover:text-[color:var(--paper)]">
                     Find your proposal gaps with the free scorecard →
                   </a>
                 </p>
