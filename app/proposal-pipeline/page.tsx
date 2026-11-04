@@ -7,6 +7,8 @@ import { SectionLabel } from "@/components/site/SectionLabel";
 import { Underlined } from "@/components/site/Underlined";
 import { JumpButton, JumpLink } from "@/components/proposal-pipeline/Jump";
 import { BeforeAfter } from "@/components/proposal-pipeline/BeforeAfter";
+import { HowSteps } from "@/components/proposal-pipeline/HowSteps";
+import { BuildChecklist } from "@/components/proposal-pipeline/BuildChecklist";
 import ProposalForm from "@/components/proposal-pipeline/ProposalForm";
 import { testimonial } from "@/lib/homepage/copy";
 import { AUDIT_HREF } from "@/lib/site/shell";
@@ -194,15 +196,7 @@ export default function ProposalPipelinePage() {
             <BeforeAfter rows={beforeAfter as { before: [string, string]; after: [string, string] }[]} />
 
             <h3 id={HOW_ID} className="calm-h3 mt-12 scroll-mt-24">How it works</h3>
-            <ol className="site-grid mt-4 gap-y-4 md:gap-y-6">
-              {steps.map(([t, b], i) => (
-                <li key={t} className={`col-span-4 ${card}`}>
-                  <span className="gl-mono text-signal">Step {i + 1}</span>
-                  <p className="calm-h3 mt-2">{t}</p>
-                  <p className="calm-body mt-2 text-ink/80">{b}</p>
-                </li>
-              ))}
-            </ol>
+            <HowSteps steps={steps} />
           </Section>
 
           {/* 4. What you get */}
@@ -212,22 +206,15 @@ export default function ProposalPipelinePage() {
             <p className="calm-body mt-4 max-w-[46rem] text-ink/85">Built inside the tools your team already uses, around the way you already work.</p>
 
             <h3 className="calm-h3 mt-8">Every build includes</h3>
-            <ul className="site-grid mt-4 gap-y-4 md:gap-y-6">
-              {includes.map(([t, b]) => (
-                <li key={t} className={`col-span-4 md:col-span-6 ${card}`}>
-                  <p className="font-bold">{t}</p>
-                  <p className="calm-body mt-1 text-ink/80">{b.charAt(0).toUpperCase() + b.slice(1)}.</p>
-                </li>
-              ))}
-            </ul>
+            <BuildChecklist items={includes} />
 
             <h3 className="calm-h3 mt-10">Plus two bonuses</h3>
-            <ul className="site-grid mt-4 gap-y-4 md:gap-y-6">
+            <ul className="mt-4 border-b border-ink/20">
               {bonuses.map(([t, b]) => (
-                <li key={t} className="col-span-4 border-2 border-ink bg-sage p-5 md:col-span-6 md:p-6">
-                  <span className="gl-mono bg-signal px-2 py-1 text-ink">Bonus</span>
-                  <p className="mt-3 font-bold">{t}</p>
-                  <p className="calm-body mt-1 text-ink/85">{b.charAt(0).toUpperCase() + b.slice(1)}.</p>
+                <li key={t} className="grid gap-y-1 border-t border-ink/20 py-5 md:grid-cols-12 md:gap-x-6">
+                  <p className="gl-mono pt-1 text-ink/60 md:col-span-2">Bonus</p>
+                  <p className="font-bold md:col-span-4">{t}</p>
+                  <p className="calm-body text-ink/80 md:col-span-6">{b.charAt(0).toUpperCase() + b.slice(1)}.</p>
                 </li>
               ))}
             </ul>
