@@ -6,6 +6,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { SectionLabel } from "@/components/site/SectionLabel";
 import { Underlined } from "@/components/site/Underlined";
 import { JumpButton, JumpLink } from "@/components/proposal-pipeline/Jump";
+import { BeforeAfter } from "@/components/proposal-pipeline/BeforeAfter";
 import ProposalForm from "@/components/proposal-pipeline/ProposalForm";
 import { testimonial } from "@/lib/homepage/copy";
 import { AUDIT_HREF } from "@/lib/site/shell";
@@ -19,6 +20,15 @@ export const metadata: Metadata = {
   ),
   alternates: { canonical: `${siteConfig.url}/proposal-pipeline` },
 };
+
+/**
+ * The demo video section (and its anchor) is hidden until the video exists. Flip to true to bring it back; the
+ * section numbers below shift back to their original values automatically.
+ */
+const SHOW_DEMO = false;
+
+/** Section label number: with the demo hidden, [02] becomes [01] and so on, so there is no gap. */
+const num = (n: number) => `[${String(SHOW_DEMO ? n : n - 1).padStart(2, "0")}]`;
 
 /** Set to the demo video's file or embed URL once it is recorded; until then the frame shows a placeholder. */
 const DEMO_VIDEO_SRC = "";
@@ -152,8 +162,9 @@ export default function ProposalPipelinePage() {
         </section>
 
           {/* 2. Demo video */}
+          {SHOW_DEMO && (
           <Section id={DEMO_ID} labelledby="demo-h">
-            <SectionLabel>[01] See it work</SectionLabel>
+            <SectionLabel>{num(1)} See it work</SectionLabel>
             <H2 id="demo-h" text="Watch: how a proposal goes from RFP to complete first draft in 15 minutes." mark="complete first draft" seed={63} />
             <p className="calm-body mt-4 max-w-[46rem] text-ink/85">
               No slides. No pitch. Just a real public RFP, a sample consultancy’s past proposals and the system doing its job, start to finish.
@@ -172,29 +183,15 @@ export default function ProposalPipelinePage() {
             </div>
             <p className="gl-mono mt-3 text-ink/70">Shown with a fictional consultancy and a real public RFP. Your free draft uses your own past work.</p>
           </Section>
+          )}
 
           {/* 3. Before / after */}
           <Section labelledby="ba-h">
-            <SectionLabel>[02] Before → After</SectionLabel>
+            <SectionLabel>{num(2)} Before → After</SectionLabel>
             <H2 id="ba-h" text="Your experts should be winning projects, not formatting proposals." mark="winning projects" seed={65} />
             <p className="calm-body mt-4 max-w-[46rem] text-ink/85">Every RFP still costs your team days of work that has nothing to do with expertise. Here’s what changes.</p>
 
-            <div className="site-grid mt-8 gap-y-4 md:gap-y-6">
-              {beforeAfter.map((row) => (
-                <React.Fragment key={row.before[0]}>
-                  <div className={`col-span-4 md:col-span-6 ${card}`}>
-                    <span className="gl-mono text-ink/70">Before</span>
-                    <p className="calm-h3 mt-2">{row.before[0]}</p>
-                    <p className="calm-body mt-2 text-ink/80">{row.before[1]}</p>
-                  </div>
-                  <div className="col-span-4 border-2 border-ink bg-sage p-5 md:col-span-6 md:p-6">
-                    <span className="gl-mono bg-signal px-2 py-1 text-ink">After</span>
-                    <p className="calm-h3 mt-3">{row.after[0]}</p>
-                    <p className="calm-body mt-2 text-ink/85">{row.after[1]}</p>
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
+            <BeforeAfter rows={beforeAfter as { before: [string, string]; after: [string, string] }[]} />
 
             <h3 id={HOW_ID} className="calm-h3 mt-12 scroll-mt-24">How it works</h3>
             <ol className="site-grid mt-4 gap-y-4 md:gap-y-6">
@@ -210,7 +207,7 @@ export default function ProposalPipelinePage() {
 
           {/* 4. What you get */}
           <Section labelledby="get-h">
-            <SectionLabel>[03] What you get</SectionLabel>
+            <SectionLabel>{num(3)} What you get</SectionLabel>
             <H2 id="get-h" text="One system. Every proposal starts done." mark="starts done" seed={66} />
             <p className="calm-body mt-4 max-w-[46rem] text-ink/85">Built inside the tools your team already uses, around the way you already work.</p>
 
@@ -264,7 +261,7 @@ export default function ProposalPipelinePage() {
 
           {/* 5. Free first draft */}
           <Section id={FORM_ID} labelledby="try-h">
-            <SectionLabel>[04] Try it free</SectionLabel>
+            <SectionLabel>{num(4)} Try it free</SectionLabel>
             <H2 id="try-h" text="See your next proposal written before your coffee gets cold." mark="before your coffee gets cold" seed={68} />
             <p className="calm-body mt-4 max-w-[46rem] text-ink/85">
               Send one live RFP and a couple of your past proposals. In under 20 minutes, a complete first draft lands in your inbox, built from your own work.
@@ -307,7 +304,7 @@ export default function ProposalPipelinePage() {
 
           {/* 6. FAQ and final call to action */}
           <Section labelledby="faq-h">
-            <SectionLabel>[05] Questions</SectionLabel>
+            <SectionLabel>{num(5)} Questions</SectionLabel>
             <H2 id="faq-h" text="Questions directors ask before they try it." seed={69} />
             <div className="mt-6 max-w-[56rem] border-t border-ink/30">
               {faqs.map(([q, a]) => (
