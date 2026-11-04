@@ -2,7 +2,7 @@ export { AUDIT_HREF } from "@/lib/site/shell";
 
 
 export const hero = {
-  label: "[00] Automation & AI Consulting, with Execution",
+  label: "[00] Proposal Automation for Service Businesses",
   lines: ["Your team is too good", "to be doing things manually."],
   body: "You've built a real business. But somewhere between growing from 5 people to 25, the operations stopped keeping up. Now your best people are spending their mornings on admin that a well-built system could do overnight.",
   // Phrases the live site shows in bold inside `body` (exact substrings).
@@ -56,15 +56,15 @@ export const how = {
   steps: [
     {
       title: "Find where you're bleeding time and money",
-      body: "We start with the Automation Gap Audit - a fast diagnostic that shows exactly which processes are costing you the most, and which ones are ready to automate right now. No fluff, no 40-page report.",
+      body: "I start with the Automation Gap Audit - a fast diagnostic that shows exactly which processes are costing you the most, and which ones are ready to automate right now. No fluff, no 40-page report.",
     },
     {
-      title: "Fix the process before we automate it",
-      body: "Most automations break because people automate a broken process. Before anything gets built, we map out what the workflow should actually look like - so the system we build doesn't just run faster, it runs right.",
+      title: "Fix the process before I automate it",
+      body: "Most automations break because people automate a broken process. Before anything gets built, I map out what the workflow should actually look like - so the system I build doesn't just run faster, it runs right.",
     },
     {
       title: "Build it. Test it. Hand it over.",
-      body: "Then we build - on Make.com, Google Workspace, and whatever tools your team already uses. Everything gets documented so your non-technical team can maintain it without calling anyone.",
+      body: "Then I build - on Make.com, Google Workspace, and whatever tools your team already uses. Everything gets documented so your non-technical team can maintain it without calling anyone.",
     },
     {
       title: "Your team focuses on work that actually needs them",
@@ -77,13 +77,13 @@ export const cases = {
   label: "[04] Proof it works",
   heading: ["What a real before and after", "looks like."],
   intro:
-    "Numbers matter more than promises. Here's what actually changed for a client after we built their system.",
+    "Numbers matter more than promises. Here's what actually changed for a client after I built their system.",
   items: [
     {
       client: "Founders Freedom Africa",
       title:
         "From First Contact to Signed Client: Automating Founders Freedom Africa's Growth Engine",
-      body: "How we automated Founders Freedom Africa's proposal-to-onboarding pipeline using Google Forms, Google Docs, ClickUp, and Make.com, cutting proposal creation from hours to minutes and closing every gap between first contact and signed agreement.",
+      body: "How I automated Founders Freedom Africa's proposal-to-onboarding pipeline using Google Forms, Google Docs, ClickUp, and Make.com, cutting proposal creation from hours to minutes and closing every gap between first contact and signed agreement.",
       stack: "Google Forms, Google Docs, ClickUp, Make.com",
       // Wording from the post's own "Result:" line ("from several hours to a few minutes").
       result: "Several hours -> a few minutes",
@@ -93,7 +93,7 @@ export const cases = {
     {
       client: "We Are Kusudi",
       title: "From 50 to 500 Listings a Week: Automating Job Sourcing for We Are Kusudi",
-      body: "How we automated We Are Kusudi's job listing search using Apify, scaling from roughly 50 manually-found listings a week to up to 500, delivered fresh every Monday.",
+      body: "How I automated We Are Kusudi's job listing search using Apify, scaling from roughly 50 manually-found listings a week to up to 500, delivered fresh every Monday.",
       // The post builds the scrapers in Apify and runs them from Make.com ("What We Built").
       stack: "Apify, Make.com",
       result: "Listings / week",
