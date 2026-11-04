@@ -5,7 +5,7 @@ import { generatePageMetadata, siteConfig } from "@/lib/seo";
 import { SiteShell } from "@/components/site/SiteShell";
 import { SectionLabel } from "@/components/site/SectionLabel";
 import { Underlined } from "@/components/site/Underlined";
-import { SketchButton } from "@/components/site/SketchButton";
+import { JumpButton, JumpLink } from "@/components/proposal-pipeline/Jump";
 import ProposalForm from "@/components/proposal-pipeline/ProposalForm";
 import { testimonial } from "@/lib/homepage/copy";
 import { AUDIT_HREF } from "@/lib/site/shell";
@@ -25,12 +25,13 @@ const DEMO_VIDEO_SRC = "";
 
 const FORM_ID = "free-draft";
 const DEMO_ID = "demo";
+const HOW_ID = "how-it-works";
 
 /** A section heading with at most one orange marker underline under `mark`. */
 function H2({ id, text, mark, seed }: { id?: string; text: string; mark?: string; seed: number }) {
   const at = mark ? text.indexOf(mark) : -1;
   return (
-    <h2 id={id} className="sk-h2 mt-4 max-w-[48rem]">
+    <h2 id={id} className="sk-h2 max-w-[48rem]">
       {at >= 0 && mark ? (
         <>
           {text.slice(0, at)}
@@ -111,35 +112,47 @@ const faqs = [
 
 const card = "border border-ink/[0.22] bg-white p-5 md:p-6";
 
+/** A homepage-rhythm section: full-width, 4.5rem (6.75rem from md) above and below. `id` goes on the inner column so jumps land with the heading near the top. */
+function Section({ id, labelledby, children }: { id?: string; labelledby?: string; children: React.ReactNode }) {
+  return (
+    <section aria-labelledby={labelledby} className="px-4 py-[4.5rem] md:px-8 md:py-[6.75rem]">
+      <div id={id} className="mx-auto max-w-[81.25rem] scroll-mt-24">
+        {children}
+      </div>
+    </section>
+  );
+}
+
 export default function ProposalPipelinePage() {
   return (
     <SiteShell>
-      <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
-        <div className="mx-auto max-w-[81.25rem]">
-          {/* 1. Hero */}
-          <header>
-            <SectionLabel>[00] The Proposal Pipeline · For development consultancies</SectionLabel>
-            <h1 className="sk-title mt-4 max-w-[60rem]">
-              Complete proposals <Underlined seed={61}>in minutes</Underlined>, written in your firm’s voice.
+      <main>
+        {/* 1. Hero: one screen of its own (the shell already pads 5rem for the nav), centred, one button */}
+        <section className="flex min-h-[calc(100svh-5rem)] flex-col justify-center px-4 pb-[4.5rem] pt-8 md:px-8">
+          <div className="mx-auto w-full max-w-[81.25rem]">
+            <SectionLabel className="mb-0">[00] The Proposal Pipeline · For development consultancies</SectionLabel>
+            <h1 className="sk-display mt-6 max-w-[22ch]">
+              Complete proposals in <Underlined seed={61}>20 minutes</Underlined>, written in your firm’s voice.
             </h1>
-            <p className="pg-lede mt-5 max-w-[46rem]">
+            <p className="mt-8 max-w-[52ch] text-[1.3125rem] leading-relaxed text-ink/80">
               The Proposal Pipeline finds the RFPs that fit your firm, reads the ToR and writes a complete first draft from your own past proposals in about 15 minutes. It runs quietly inside the tools you already use, so your team stops starting from scratch and spends its time on the parts that win.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
-              <SketchButton href={`#${FORM_ID}`} variant="marker" seed={62} className="text-lg">
+            <div className="mt-8 flex flex-wrap items-center gap-x-10 gap-y-5">
+              <JumpButton to={FORM_ID} seed={62}>
                 Try It Free on Your Next RFP →
-              </SketchButton>
-              <a href={`#${DEMO_ID}`} className="font-bold underline underline-offset-4 hover:no-underline">
-                Watch the 15-minute demo ↓
-              </a>
+              </JumpButton>
+              <JumpLink to={HOW_ID} className="font-bold underline-offset-4 hover:underline focus-visible:underline">
+                See how it works ↓
+              </JumpLink>
             </div>
-            <p className="calm-body mt-6 text-ink/80">
+            <p className="calm-body mt-8 text-ink/80">
               “Proposal creation went from several hours to a few minutes.” <span className="font-bold text-ink">Founders Freedom Africa</span>
             </p>
-          </header>
+          </div>
+        </section>
 
           {/* 2. Demo video */}
-          <section id={DEMO_ID} aria-labelledby="demo-h" className="mt-20 scroll-mt-24">
+          <Section id={DEMO_ID} labelledby="demo-h">
             <SectionLabel>[01] See it work</SectionLabel>
             <H2 id="demo-h" text="Watch: how a proposal goes from RFP to complete first draft in 15 minutes." mark="complete first draft" seed={63} />
             <p className="calm-body mt-4 max-w-[46rem] text-ink/85">
@@ -158,15 +171,10 @@ export default function ProposalPipelinePage() {
               )}
             </div>
             <p className="gl-mono mt-3 text-ink/70">Shown with a fictional consultancy and a real public RFP. Your free draft uses your own past work.</p>
-            <div className="mt-6">
-              <SketchButton href={`#${FORM_ID}`} variant="marker" seed={64} className="text-lg">
-                Try It With Your Own RFP →
-              </SketchButton>
-            </div>
-          </section>
+          </Section>
 
           {/* 3. Before / after */}
-          <section aria-labelledby="ba-h" className="mt-20">
+          <Section labelledby="ba-h">
             <SectionLabel>[02] Before → After</SectionLabel>
             <H2 id="ba-h" text="Your experts should be winning projects, not formatting proposals." mark="winning projects" seed={65} />
             <p className="calm-body mt-4 max-w-[46rem] text-ink/85">Every RFP still costs your team days of work that has nothing to do with expertise. Here’s what changes.</p>
@@ -188,7 +196,7 @@ export default function ProposalPipelinePage() {
               ))}
             </div>
 
-            <h3 className="calm-h3 mt-12">How it works</h3>
+            <h3 id={HOW_ID} className="calm-h3 mt-12 scroll-mt-24">How it works</h3>
             <ol className="site-grid mt-4 gap-y-4 md:gap-y-6">
               {steps.map(([t, b], i) => (
                 <li key={t} className={`col-span-4 ${card}`}>
@@ -198,10 +206,10 @@ export default function ProposalPipelinePage() {
                 </li>
               ))}
             </ol>
-          </section>
+          </Section>
 
           {/* 4. What you get */}
-          <section aria-labelledby="get-h" className="mt-20">
+          <Section labelledby="get-h">
             <SectionLabel>[03] What you get</SectionLabel>
             <H2 id="get-h" text="One system. Every proposal starts done." mark="starts done" seed={66} />
             <p className="calm-body mt-4 max-w-[46rem] text-ink/85">Built inside the tools your team already uses, around the way you already work.</p>
@@ -248,14 +256,14 @@ export default function ProposalPipelinePage() {
             </figure>
 
             <div className="mt-8">
-              <SketchButton href={`#${FORM_ID}`} variant="marker" seed={67} className="text-lg">
+              <JumpButton to={FORM_ID} seed={67}>
                 Get My Free First Draft →
-              </SketchButton>
+              </JumpButton>
             </div>
-          </section>
+          </Section>
 
           {/* 5. Free first draft */}
-          <section id={FORM_ID} aria-labelledby="try-h" className="mt-20 scroll-mt-24">
+          <Section id={FORM_ID} labelledby="try-h">
             <SectionLabel>[04] Try it free</SectionLabel>
             <H2 id="try-h" text="See your next proposal written before your coffee gets cold." mark="before your coffee gets cold" seed={68} />
             <p className="calm-body mt-4 max-w-[46rem] text-ink/85">
@@ -295,10 +303,10 @@ export default function ProposalPipelinePage() {
             <div className="mt-6 max-w-[56rem]">
               <ProposalForm />
             </div>
-          </section>
+          </Section>
 
           {/* 6. FAQ and final call to action */}
-          <section aria-labelledby="faq-h" className="mt-20">
+          <Section labelledby="faq-h">
             <SectionLabel>[05] Questions</SectionLabel>
             <H2 id="faq-h" text="Questions directors ask before they try it." seed={69} />
             <div className="mt-6 max-w-[56rem] border-t border-ink/30">
@@ -313,16 +321,19 @@ export default function ProposalPipelinePage() {
                 </details>
               ))}
             </div>
+          </Section>
 
-            <aside className="mt-14 border border-ink bg-ink p-2 text-sage">
+          {/* 7. Final call to action: the one dark panel */}
+          <Section>
+            <aside className="border border-ink bg-ink p-2 text-sage">
               <div className="border border-sage/30 p-6 text-center md:p-10">
                 <h2 className="mx-auto max-w-[44rem] font-[family-name:var(--font-brule)] text-[clamp(1.8rem,3vw,2.6rem)] font-semibold leading-tight text-[color:var(--paper)]">
                   Your next RFP is already out there. See it drafted in <Underlined seed={70}>under 20 minutes</Underlined>.
                 </h2>
                 <div className="mt-8">
-                  <SketchButton href={`#${FORM_ID}`} variant="marker" seed={71} className="text-lg">
+                  <JumpButton to={FORM_ID} seed={71}>
                     Get My Free First Draft →
-                  </SketchButton>
+                  </JumpButton>
                 </div>
                 <p className="calm-body mt-6 text-sage/85">
                   Not ready yet?{" "}
@@ -332,8 +343,7 @@ export default function ProposalPipelinePage() {
                 </p>
               </div>
             </aside>
-          </section>
-        </div>
+          </Section>
       </main>
     </SiteShell>
   );
