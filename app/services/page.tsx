@@ -5,7 +5,6 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { SketchButton } from "@/components/site/SketchButton";
 import { ConsultCard } from "@/components/site/ConsultCard";
-import { AUDIT_CTA, AUDIT_HREF } from "@/lib/site/shell";
 
 export const metadata: Metadata = {
   ...generatePageMetadata(
@@ -36,16 +35,16 @@ const services: Service[] = [
     title: "Proposal Pipeline",
     popular: true,
     summary:
-      "A system that takes a new enquiry and turns it into a sent proposal and a signed agreement, without you retyping the same details.",
-    forWho: "Service businesses that win work through proposals and lose hours writing them.",
+      "Send one RFP and get a complete first draft back in under 20 minutes, written in your firm's voice from your own past work.",
+    forWho: "Development consultancies sending 4+ proposals a month without a dedicated proposal team.",
     gets: [
-      "Enquiry form that captures the right details",
-      "Proposals generated automatically from your template",
-      "Follow-ups and onboarding set up after sign-off",
-      "Built on tools you already use, and documented for your team",
+      "Complete first drafts in minutes, in your firm's voice",
+      "Your ToR read for you: requirements, scoring and expert roles",
+      "The right experts matched, with CVs in the donor's format",
+      "Go/no-go scoring and a compliance checklist",
     ],
     result: "Proposal creation went from several hours to a few minutes for Founders Freedom Africa.",
-    cta: { label: AUDIT_CTA, href: AUDIT_HREF },
+    cta: { label: "See how it works", href: "/proposal-pipeline" },
   },
   {
     n: "02",
