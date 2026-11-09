@@ -17,7 +17,7 @@ import { getNavMenus } from "@/lib/site/menus";
  *
  * Pages pass their own <main>. All CSS is scoped to [data-sketch][data-calm].
  */
-export function SiteShell({
+export async function SiteShell({
   children,
   footer = "static",
   grid = true,
@@ -34,7 +34,7 @@ export function SiteShell({
     <div data-sketch data-calm className={`${brule.variable} ${satoshi.variable} ${geistMono.variable}`}>
       <SmoothScrollProvider enabled={smoothScroll}>
         <ReadyOnMount />
-        <SiteNav menus={getNavMenus()} />
+        <SiteNav menus={await getNavMenus()} />
         {footer === "curtain" ? (
           <div className="relative z-10">
             <SiteFooter variant="curtain">{children}</SiteFooter>

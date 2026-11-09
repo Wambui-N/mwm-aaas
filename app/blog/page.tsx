@@ -25,7 +25,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const resolvedParams: { tag?: string } = await (searchParams ?? Promise.resolve({}));
   const activeTag = resolvedParams.tag ?? null;
 
-  const allPosts = getAllPosts();
+  const allPosts = await getAllPosts();
   const posts = activeTag
     ? allPosts.filter((p) => p.tags.includes(activeTag))
     : allPosts;

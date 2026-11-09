@@ -151,7 +151,7 @@ export default function PostLayout({ post, content, relatedPosts }: Props) {
               {/* Hero image */}
               {post.image && (
                 <div className="mt-8 overflow-hidden border border-ink/20">
-                  <img src={post.image} alt={post.title} className="h-56 w-full object-cover grayscale md:h-72" />
+                  <img src={post.image} alt={post.imageAlt ?? post.title} className="h-56 w-full object-cover grayscale md:h-72" />
                 </div>
               )}
             </header>
