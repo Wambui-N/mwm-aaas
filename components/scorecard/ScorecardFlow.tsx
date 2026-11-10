@@ -776,7 +776,9 @@ export function ScorecardFlow() {
       </header>
 
       <main className="mx-auto flex min-h-[100dvh] w-full max-w-[46rem] flex-col justify-center px-6 pb-28 pt-24">
-        {ready && phase === "flow" && (
+        {/* The welcome screen renders straight away (and on the server) so crawlers and slow connections see it; any
+            other starting point waits for the saved-progress check so a resume never flashes the wrong screen. */}
+        {(ready || idx === 0) && phase === "flow" && (
           <AnimatePresence mode="wait" initial={false} custom={dir.current}>
             <motion.div key={idx} custom={dir.current} variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.28, ease: "easeOut" }}>
               {body}
