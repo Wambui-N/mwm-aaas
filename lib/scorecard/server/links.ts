@@ -23,7 +23,7 @@ const env = {
 };
 export const demoVideoUrl = env.demo;
 
-/** Links hidden when their env var is empty (booking, checklist, demo). */
+/** Links hidden when their env var is empty (booking, checklist). */
 export function nextLinks(segment: Segment): NextLink[] {
   const out: NextLink[] = [];
   const add = (l: NextLink | null) => l && out.push(l);
@@ -39,12 +39,13 @@ export function nextLinks(segment: Segment): NextLink[] {
       add(book ? { ...book, primary: true } : null);
       break;
     case "ideal":
+      // equal visual weight: both primary
       add({ ...draft, primary: true });
-      add(book);
+      add(book ? { ...book, primary: true } : null);
       break;
     default:
       add({ ...draft, primary: true });
-      add(env.demo() ? { key: "demo", label: nextSteps.demo, href: env.demo() } : null);
+      add(book);
   }
   return out;
 }

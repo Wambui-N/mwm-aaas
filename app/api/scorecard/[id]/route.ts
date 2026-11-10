@@ -12,9 +12,9 @@ export async function GET(_req: NextRequest, { params }: Ctx) {
   const { id } = await params;
   if (!isUuid(id) || !dbConfigured()) return NextResponse.json({ ok: false }, { status: 404, headers: NO_STORE });
   try {
-    const row = await getSubmission(id, "status,answers,firm_answers");
+    const row = await getSubmission(id, "status,answers,firm_answers,country,donors");
     if (!row) return NextResponse.json({ ok: false }, { status: 404, headers: NO_STORE });
-    return NextResponse.json({ ok: true, status: row.status, answers: row.answers ?? {}, firmAnswers: row.firm_answers ?? {} }, { headers: NO_STORE });
+    return NextResponse.json({ ok: true, status: row.status, answers: row.answers ?? {}, firmAnswers: row.firm_answers ?? {}, country: row.country ?? "", donors: row.donors ?? [] }, { headers: NO_STORE });
   } catch (err) {
     console.error("[scorecard/get]", err);
     return NextResponse.json({ ok: false }, { status: 500, headers: NO_STORE });
@@ -47,6 +47,8 @@ export async function PATCH(req: NextRequest, { params }: Ctx) {
     if (!f) return NextResponse.json({ ok: false, error: "invalid_answers" }, { status: 400 });
     patch.firm_answers = f;
   }
+  if (parsed.data.country !== undefined) patch.country = parsed.data.country;
+  if (parsed.data.donors !== undefined) patch.donors = parsed.data.donors;
   if (!Object.keys(patch).length) return NextResponse.json({ ok: true });
 
   try {
