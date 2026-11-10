@@ -4,11 +4,11 @@
  */
 
 /**
- * Launch flag. While false: the nav, homepage and /assessment stay on the Automation Gap Audit, /scorecard works
- * but is noindex and out of the sitemap. When "true": the audit links point to /scorecard, the homepage [05]
- * section uses the scorecard copy, and /assessment redirects (301) to /scorecard. Flipping it needs one deploy.
+ * Launch flag. On by default: the nav and every "Find My Proposal Gaps" button go to /scorecard, the homepage [05]
+ * section uses the scorecard copy, /assessment redirects (301) to /scorecard, and /scorecard is indexed and in the
+ * sitemap. Set NEXT_PUBLIC_SCORECARD_LIVE=false (and redeploy) to switch everything back to the Automation Gap Audit.
  */
-export const SCORECARD_LIVE = process.env.NEXT_PUBLIC_SCORECARD_LIVE === "true";
+export const SCORECARD_LIVE = process.env.NEXT_PUBLIC_SCORECARD_LIVE !== "false";
 
 export const SCORECARD_PATH = "/scorecard";
 

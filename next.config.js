@@ -15,9 +15,9 @@ const nextConfig = {
     };
     return config;
   },
-  // Scorecard launch: /assessment moves to /scorecard (301) when NEXT_PUBLIC_SCORECARD_LIVE=true.
+  // Scorecard: /assessment moves to /scorecard (301) unless NEXT_PUBLIC_SCORECARD_LIVE=false.
   async redirects() {
-    return process.env.NEXT_PUBLIC_SCORECARD_LIVE === "true"
+    return process.env.NEXT_PUBLIC_SCORECARD_LIVE !== "false"
       ? [{ source: "/assessment", destination: "/scorecard", statusCode: 301 }]
       : [];
   },
