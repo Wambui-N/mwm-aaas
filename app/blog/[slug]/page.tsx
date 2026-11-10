@@ -6,13 +6,16 @@ import { getPost, getAllPosts, getRelatedPosts } from "@/lib/content/blog";
 import { SiteShell } from "@/components/site/SiteShell";
 import PostLayout from "@/components/blog/PostLayout";
 
+// Re-check Contentful every 5 minutes; new slugs published after the build are rendered on first visit.
+export const revalidate = 300;
+
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
   if (!post) return { title: "Post Not Found" };
 
   const { data } = post;
@@ -39,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: data.date,
       authors: data.author ? [data.author] : undefined,
       tags: data.tags.length > 0 ? data.tags : undefined,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: metaTitle }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: data.imageAlt ?? metaTitle }],
     },
     twitter: {
       card: "summary_large_image",
@@ -51,18 +54,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  return getAllPosts().map((p) => ({ slug: p.slug }));
+  return (await getAllPosts()).map((p) => ({ slug: p.slug }));
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
   if (!post) notFound();
 
-  const related = getRelatedPosts(slug, 2);
+  const related = await getRelatedPosts(slug, 2);
 
   return (
-    <SiteShell>
+    <SiteShell grid={false}>
       <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
         <PostLayout
           post={post.data}

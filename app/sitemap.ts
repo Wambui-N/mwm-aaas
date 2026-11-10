@@ -6,7 +6,9 @@ import { SCORECARD_LIVE } from "@/lib/scorecard/config";
 
 export const dynamic = "force-static";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 300;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
   const currentDate = new Date().toISOString();
 
@@ -71,7 +73,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const blogPosts: MetadataRoute.Sitemap = getAllPosts()
+  const blogPosts: MetadataRoute.Sitemap = (await getAllPosts())
     .filter((post) => !post.noIndex)
     .map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,
@@ -90,7 +92,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Tag filter pages (navigated to via /blog?tag=...)
-  const tagPages: MetadataRoute.Sitemap = getTopTags(10).map((tag) => ({
+  const tagPages: MetadataRoute.Sitemap = (await getTopTags(10)).map((tag) => ({
     url: `${baseUrl}/blog?tag=${encodeURIComponent(tag)}`,
     lastModified: currentDate,
     changeFrequency: "weekly" as const,

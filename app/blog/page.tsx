@@ -25,7 +25,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const resolvedParams: { tag?: string } = await (searchParams ?? Promise.resolve({}));
   const activeTag = resolvedParams.tag ?? null;
 
-  const allPosts = getAllPosts();
+  const allPosts = await getAllPosts();
   const posts = activeTag
     ? allPosts.filter((p) => p.tags.includes(activeTag))
     : allPosts;
@@ -52,7 +52,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   ];
 
   return (
-    <SiteShell>
+    <SiteShell grid={false}>
       <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
         <div className="mx-auto max-w-[81.25rem]">
           <PageHeader

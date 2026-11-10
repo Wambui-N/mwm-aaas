@@ -42,11 +42,11 @@ export function PostCard({
     <>
       {image !== undefined &&
         (image ? (
-          <div className="h-44 w-full overflow-hidden border-b border-ink/20">
-            <img src={image} alt={imageAlt} loading="lazy" className="h-full w-full object-cover grayscale" />
+          <div className="aspect-[1200/630] w-full overflow-hidden border-b border-ink/20">
+            <img src={image} alt={imageAlt} loading="lazy" className="h-full w-full object-cover" />
           </div>
         ) : (
-          <div className={`h-44 w-full border-b border-ink/20 ${featured ? "bg-ink/10" : "bg-sage/30"}`} />
+          <div className={`aspect-[1200/630] w-full border-b border-ink/20 ${featured ? "bg-ink/10" : "bg-sage/30"}`} />
         ))}
       <div className="flex flex-1 flex-col p-5 md:p-6">
         <div className="flex items-start justify-between gap-3">
