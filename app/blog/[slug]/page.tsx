@@ -65,7 +65,7 @@ export default async function BlogPostPage({ params }: Props) {
   const related = await getRelatedPosts(slug, 2);
 
   return (
-    <SiteShell>
+    <SiteShell grid={false}>
       <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
         <PostLayout
           post={post.data}
