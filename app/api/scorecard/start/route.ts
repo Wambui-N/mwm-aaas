@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
   if (d.website) return NextResponse.json({ ok: true, id: randomUUID() });
 
   if (!dbConfigured()) {
-    console.warn("[scorecard/start] SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set.");
+    console.warn("[scorecard/start] DATABASE_URL is not set.");
     return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
   }
 

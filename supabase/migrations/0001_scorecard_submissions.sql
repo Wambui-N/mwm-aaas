@@ -1,6 +1,7 @@
 -- Proposal Pipeline Scorecard: one row per submission.
--- All access goes through the Next.js server with the service role key. RLS is on with NO policies,
--- so the anon and authenticated roles cannot read or write anything.
+-- Plain Postgres: runs as is in the Neon SQL editor. All access goes through the Next.js server using the
+-- DATABASE_URL connection string, which must stay server-only. RLS is on with NO policies; Neon's owner role
+-- bypasses it, so the connection string is the real protection.
 
 create table if not exists public.scorecard_submissions (
   id uuid primary key default gen_random_uuid(),
@@ -67,16 +68,7 @@ create trigger scorecard_touch_updated_at
   for each row execute function public.scorecard_touch_updated_at();
 
 -- ---------------------------------------------------------------------------------------------
--- Abandon reminder schedule (every 15 minutes). Vercel Hobby only allows daily crons, so this uses
--- Supabase pg_cron + pg_net to call the site's cron route. Run once, after enabling both extensions
--- (Database > Extensions) and replacing the two placeholders. If you are on Vercel Pro you can use a
--- vercel.json cron instead: { "crons": [{ "path": "/api/cron/scorecard-abandon", "schedule": "*/15 * * * *" }] }
---
--- select cron.schedule(
---   'scorecard-abandon',
---   '*/15 * * * *',
---   $$ select net.http_get(
---        url := 'https://YOUR-DOMAIN/api/cron/scorecard-abandon',
---        headers := jsonb_build_object('Authorization', 'Bearer YOUR_CRON_SECRET')
---      ); $$
--- );
+-- Abandon reminder schedule (every 15 minutes). Neon has no built-in scheduler, so call the site's cron route
+-- from outside: Vercel Cron on Pro (vercel.json: { "crons": [{ "path": "/api/cron/scorecard-abandon",
+-- "schedule": "*/15 * * * *" }] }), or on Hobby a free scheduler (cron-job.org, or a GitHub Actions schedule)
+-- sending GET https://YOUR-DOMAIN/api/cron/scorecard-abandon with the header "Authorization: Bearer YOUR_CRON_SECRET".
