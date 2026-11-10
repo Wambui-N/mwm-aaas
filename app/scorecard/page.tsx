@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { SiteShell } from "@/components/site/SiteShell";
+import { FlowShell } from "@/components/scorecard/FlowShell";
 import { ScorecardFlow } from "@/components/scorecard/ScorecardFlow";
 import { SCORECARD_LIVE } from "@/lib/scorecard/config";
 import { landing } from "@/lib/scorecard/copy";
 import { siteConfig } from "@/lib/seo";
-import { Landing } from "./Landing";
 
 export const metadata: Metadata = {
   title: "The Proposal Pipeline Scorecard | Made with Make",
@@ -16,16 +15,11 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
+/** Full-screen flow: no site header or footer. The flow draws its own logo and close button. */
 export default function ScorecardPage() {
-  const demoUrl = process.env.DEMO_VIDEO_URL?.trim() || "";
   return (
-    // Native scrolling here: eased scroll physics makes form inputs feel laggy.
-    <SiteShell smoothScroll={false}>
-      <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
-        <div className="mx-auto max-w-[81.25rem]">
-          <ScorecardFlow landing={<Landing demoUrl={demoUrl} />} />
-        </div>
-      </main>
-    </SiteShell>
+    <FlowShell>
+      <ScorecardFlow />
+    </FlowShell>
   );
 }

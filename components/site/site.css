@@ -511,3 +511,85 @@ html:has([data-calm]) {
 
 /* Lenis helper classes (.lenis, .lenis-smooth, .lenis-stopped) already come from `lenis/dist/lenis.css`,
    which app/globals.css imports for the whole site, so they are not repeated here. */
+
+/* ---------- scorecard: full-screen, one-question-per-screen flow ---------- */
+[data-sketch][data-calm] .sc-title {
+  font-family: var(--font-brule), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5vw, 4rem); /* about 26px to 48px at the 75% root */
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+[data-sketch][data-calm] .sc-mark {
+  background: linear-gradient(transparent 78%, var(--signal) 78%, var(--signal) 92%, transparent 92%);
+}
+/* big text input: a single ink rule, no box */
+[data-sketch][data-calm] .sc-input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0.4rem 0;
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  line-height: 1.2;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid rgb(20 16 16 / 0.35);
+  border-radius: 0;
+  outline: none;
+  resize: none;
+}
+[data-sketch][data-calm] .sc-input:focus {
+  border-bottom-color: var(--ink);
+}
+[data-sketch][data-calm] .sc-input::placeholder {
+  color: rgb(20 16 16 / 0.3);
+}
+[data-sketch][data-calm] .sc-input[aria-invalid="true"] {
+  border-bottom-color: var(--signal);
+}
+/* answer button with a keyboard letter badge */
+[data-sketch][data-calm] .sc-option {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 56px;
+  padding: 0.75rem 1rem;
+}
+[data-sketch][data-calm] .sc-key {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  border: 1px solid rgb(20 16 16 / 0.5);
+  background: var(--paper);
+  color: var(--ink);
+}
+[data-sketch][data-calm] .fm-option[aria-pressed="true"] .sc-key {
+  background: var(--signal);
+  border-color: var(--signal);
+}
+[data-sketch][data-calm] .sc-option:focus-visible,
+[data-sketch][data-calm] .sc-icon-btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+[data-sketch][data-calm] .sc-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+[data-sketch][data-calm] .sc-icon-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}

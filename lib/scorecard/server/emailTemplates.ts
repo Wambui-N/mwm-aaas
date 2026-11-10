@@ -1,7 +1,7 @@
 /** Plain HTML emails. Every user-supplied value is escaped. Server only. */
-import { costBlock, emailCopy, stageInsights, tiers } from "../copy";
+import { costBlock, emailCopy, nextSteps, stageInsights, tiers } from "../copy";
 import { FIRM_QUESTIONS, SCORED_QUESTIONS, STAGES, STAGE_NAMES, type Stage } from "../questions";
-import { formatUsd, type ScoreResult } from "../scoring";
+import { formatUsd, weakestStages, type ScoreResult } from "../scoring";
 import type { SubmissionRow } from "./db";
 import { absolute, nextLinks, resultsUrl, resumeUrl } from "./links";
 
@@ -38,6 +38,9 @@ export function resultsEmail(row: Pick<SubmissionRow, "id" | "first_name">, resu
     ? `Your stages are evenly matched. Your three priority fixes start with ${STAGE_NAMES[result.fixes[0].stage]}.`
     : `Your strongest stage is ${STAGE_NAMES[top]}. The one costing you most is ${STAGE_NAMES[weakest]}. Your three priority fixes start there.`;
 
+  const [w1, w2] = weakestStages(result.stageScores, 2);
+  const notFit = result.segment === "not_fit" ? nextSteps.notFitNote(STAGE_NAMES[w1], STAGE_NAMES[w2]) : "";
+
   const stageRows = STAGES.map((s) => `${STAGE_NAMES[s]}: ${result.stageScores[s].pct}% (${result.stageScores[s].label})`);
   const subject = emailCopy.resultsSubject(result.totalPct, tier);
 
@@ -48,6 +51,7 @@ export function resultsEmail(row: Pick<SubmissionRow, "id" | "first_name">, resu
       `<ul style="padding-left:18px;margin:8px 0">${stageRows.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>` +
       `<p>${esc(cost)}</p>` +
       `<p>${esc(intro)}</p>` +
+      (notFit ? `<p>${esc(notFit)}</p>` : "") +
       links.map((l) => button(l.href.startsWith("/") ? absolute(l.href) : l.href, l.label)).join("") +
       `<p>Wambui</p>`,
   );
@@ -62,6 +66,7 @@ export function resultsEmail(row: Pick<SubmissionRow, "id" | "first_name">, resu
     cost,
     "",
     intro,
+    ...(notFit ? ["", notFit] : []),
     "",
     ...links.map((l) => `${l.label}: ${l.href.startsWith("/") ? absolute(l.href) : l.href}`),
     "",

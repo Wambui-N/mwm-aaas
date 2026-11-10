@@ -50,8 +50,9 @@ export async function POST(req: NextRequest) {
       firm_name: d.firmName,
       role: d.role,
       firm_size: d.firmSize,
-      country: d.country,
-      donors: d.donors,
+      // country and donors are asked after the scored questions and saved by PATCH
+      country: "",
+      donors: [],
       consent: d.consent,
       utm_source: d.utmSource || null,
       utm_medium: d.utmMedium || null,

@@ -2,48 +2,26 @@
 import type { Stage } from "./questions";
 import type { TierKey } from "./scoring";
 
+/** The welcome screen of the full-screen flow. */
 export const landing = {
-  label: "The Proposal Pipeline Scorecard",
   headline: "Is your proposal process costing you contracts you should be winning?",
   headlineMark: "costing you contracts",
-  sub: "Check your proposal process across 5 stages in about 4 minutes and get your Proposal Pipeline Score. You'll see where your proposals lose time and what manual proposal work costs your firm each month.",
-  button: "Get my Proposal Pipeline Score (takes about 4 minutes)",
-  buttonRepeat: "Get my Proposal Pipeline Score",
+  sub: "5 stages. About 4 minutes. No call needed.",
+  button: "Start",
   resume: "Pick up where you left off",
-  familiarTitle: "Sound familiar?",
-  familiar: [
-    "You find a strong RFP ten days before the deadline.",
-    "The same methodology section gets rewritten for every proposal.",
-    "Experts' CVs are chased by email, then retyped into the donor's format.",
-    "The weekend before submission goes on compliance checks.",
-  ],
-  getTitle: "What you'll get",
-  gets: [
-    "Your overall score and where you sit: Manual Mode, Patched Together, Connected or Proposal Machine.",
-    "A score for each stage: Find, Filter, Draft, Staff, Submit.",
-    "An estimate of the hours and money your firm spends on proposals each month.",
-    "Your three highest-impact fixes, in order.",
-  ],
-  noPrep: "No preparation needed. Every question can be answered from memory.",
-  builtTitle: "Who built this",
-  built:
-    "Wambui Ndung'u, founder of Made With Make. Wambui designs AI-powered proposal pipelines for consulting firms, from finding RFPs and EOIs to send-ready drafts. Computer Science and Mathematics background. Based in Nairobi, working with firms worldwide.",
   proofQuote: "Proposal creation went from several hours to a few minutes.",
   proofName: "Founders Freedom Africa",
-  demoTitle: "Watch the 3-minute demo",
-  faqTitle: "Questions",
-  faqs: [
-    ["Who is this for?", "Consultancies that respond to donor-funded RFPs and EOIs, especially teams without a dedicated proposal department."],
-    ["Is it free?", "Yes. Your results appear on screen and are emailed to you."],
-    ["What happens to my answers?", "They're used only to prepare your results and any follow-up you ask for. Never shared or sold."],
-  ] as readonly (readonly string[])[],
 };
 
-export const leadForm = {
-  label: "Before we begin",
-  title: "Let's start with the basics.",
-  button: "Start the scorecard",
-  note: "Takes about 4 minutes · Results shown on screen and emailed to you",
+/** Lead screens, one question each. */
+export const leadScreens = {
+  firstName: "What's your first name?",
+  email: "What's your work email?",
+  firmName: "What's your firm called?",
+  role: "What's your role?",
+  firmSize: "How big is your firm?",
+  country: "Which country is your firm based in?",
+  donors: "Which donors do you submit proposals to? (optional)",
 };
 
 export const tiers: Record<TierKey, { name: string; copy: string }> = {
@@ -106,14 +84,16 @@ export const resultsLabels = {
 
 /** Next-step copy per segment (results page and email share these labels). */
 export const nextSteps = {
-  freeDraft: "Get your free first draft",
-  book: "Book a discovery call",
-  checklist: "Get the 5-Stage Proposal Pipeline Checklist",
+  freeDraft: "Get your free proposal draft",
+  book: "Book a call",
+  checklist: "Get the 5-Stage Proposal Pipeline Playbook",
   linkedin: "Follow Wambui on LinkedIn",
   secondOpinion: "Want a second pair of eyes?",
   referTitle: "Know a firm that's struggling?",
   referLine: "Send them this scorecard.",
   demo: "Watch the demo",
+  notFitNote: (a: string, b: string) =>
+    `Your two weakest stages are ${a} and ${b}. The playbook shows what to fix first in each.`,
 };
 
 export const emailCopy = {

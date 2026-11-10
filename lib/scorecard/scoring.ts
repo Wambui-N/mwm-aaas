@@ -77,6 +77,14 @@ export function priorityFixes(stageScores: Record<Stage, StageScore>, helpFlags:
     .map((x) => x.r);
 }
 
+/** The n lowest-scoring stages, lowest first; ties keep Find → Submit order. */
+export function weakestStages(stageScores: Record<Stage, StageScore>, n = 2): Stage[] {
+  return STAGES.map((s, i) => ({ s, i, pct: stageScores[s].pct }))
+    .sort((a, b) => a.pct - b.pct || a.i - b.i)
+    .slice(0, n)
+    .map((x) => x.s);
+}
+
 export function segmentFor(args: { totalPct: number; firmSize: string; firm: FirmAnswers }): Segment {
   const sizeIdx = FIRM_SIZES.indexOf(args.firmSize as (typeof FIRM_SIZES)[number]);
   const c1 = FIRM_QUESTIONS.find((q) => q.id === "c1")!.options.map((o) => o.value);
