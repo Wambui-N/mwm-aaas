@@ -3,7 +3,7 @@
 # This file helps AI assistants and LLM crawlers understand what this site is and what content is available.
 # Format based on the llms.txt standard: https://llmstxt.org
 
-> Made with Make is an automation and AI consulting firm. We help service businesses — founders, operators, and small teams — identify what to automate, design the right systems, and implement them end to end using Make.com, Google Workspace, and AI tools.
+> Made with Make is my automation and AI consulting practice. I help service businesses — founders, operators, and small teams — identify what to automate, design the right systems, and implement them end to end using Make.com, Google Workspace, and AI tools.
 
 ## About
 

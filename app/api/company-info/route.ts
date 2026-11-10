@@ -9,7 +9,7 @@ export async function GET() {
     "name": "Made with Make",
     "url": "https://madewithmake.com",
     "logo": "https://madewithmake.com/Vector.svg",
-    "description": "Automation and AI consulting firm that combines strategy with execution. We help teams identify automation opportunities, design systems, and implement scalable workflows.",
+    "description": "Automation and AI consulting that combines strategy with execution. I help teams identify automation opportunities, design systems, and implement scalable workflows.",
     "foundingDate": "2024",
     "founder": {
       "@type": "Person",

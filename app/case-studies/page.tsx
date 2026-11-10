@@ -10,7 +10,7 @@ import CaseStudyGrid from "@/components/case-studies/CaseStudyGrid";
 export const metadata: Metadata = {
   ...generatePageMetadata(
     "Case Studies — Made with Make",
-    "Real automation results for real service businesses. Before and after breakdowns of how we've helped founders and operators build smarter systems.",
+    "Real automation results for real service businesses. Before and after breakdowns of how I've helped founders and operators build smarter systems.",
     "case-studies",
     ["automation case study", "Make.com case study", "workflow automation results", "business automation examples"]
   ),
@@ -40,7 +40,7 @@ export default async function CaseStudiesPage() {
             title="Case Studies"
             mark="Studies"
             seed={47}
-            lede="Real automation builds, real before-and-after numbers. How we've helped service businesses stop doing manually what a system can do for them."
+            lede="Real automation builds, real before-and-after numbers. How I've helped service businesses stop doing manually what a system can do for them."
           />
 
           <div className="mt-10">

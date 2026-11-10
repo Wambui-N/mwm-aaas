@@ -5,9 +5,14 @@ import { tools } from "@/lib/homepage/copy";
 import { Underlined } from "@/components/site/Underlined";
 import { SectionLabel } from "@/components/site/SectionLabel";
 
-// Proper SVG logos only (no favicons), all drawn in one ink tone. Tools without an SVG show as a text chip.
+// Full-colour brand logos (vector where one exists; Tally and ShelfCue only publish a favicon). Every tool has one.
 const LOGOS: Record<string, string> = {
   "Make.com": "/logos/make.svg",
+  ShelfCue: "/logos/shelfcue.png",
+  Airtable: "/logos/airtable.svg",
+  Tally: "/logos/tally.png",
+  Typeform: "/logos/typeform.svg",
+  "Google Forms": "/logos/google-forms.svg",
   "Google Sheets": "/logos/google-sheets.svg",
   Slack: "/logos/slack.svg",
   Notion: "/logos/notion.svg",
@@ -32,7 +37,7 @@ function Chip({ name }: { name: string }) {
   const src = LOGOS[name];
   return (
     <span className="calm-card mx-2 inline-flex items-center gap-3 px-4 py-3 align-middle md:mx-3">
-      {src && <span aria-hidden className="calm-logo" style={{ ["--src" as string]: `url(${src})` }} />}
+      {src && <img src={src} alt="" aria-hidden width={24} height={24} loading="lazy" className="h-[1.9rem] w-[1.9rem] shrink-0 object-contain" />}
       <span className="gl-mono">{name}</span>
     </span>
   );

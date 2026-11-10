@@ -8,8 +8,13 @@ import { useGSAP } from "@gsap/react";
 import Magnet from "@/components/homepage/reactbits/Magnet";
 import { SketchButton } from "@/components/site/SketchButton";
 import { tornTopBottom } from "@/lib/site/torn";
-import { AUDIT_HREF, audit } from "@/lib/homepage/copy";
+import { AUDIT_HREF, audit as auditCopy } from "@/lib/homepage/copy";
+import { SCORECARD_LIVE } from "@/lib/scorecard/config";
+import { scorecardAudit } from "@/lib/scorecard/homepageCopy";
 import { Underlined } from "@/components/site/Underlined";
+
+/** The scorecard copy once the launch flag is on; the audit copy until then. */
+const audit: typeof auditCopy & { note?: string } = SCORECARD_LIVE ? scorecardAudit : auditCopy;
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, DrawSVGPlugin);
 
@@ -20,7 +25,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, DrawSVGPlugin);
  */
 export function Audit() {
   const root = useRef<HTMLElement>(null);
-  const [before, after] = audit.heading[1].split("bottleneck");
+  const [before, after] = audit.heading.split("how fast");
 
   useGSAP(
     () => {
@@ -55,12 +60,10 @@ export function Audit() {
         <div className="sk-paper relative px-6 py-12 md:px-12 md:py-16" style={{ clipPath: tornTopBottom(11) }}>
           <p className="gl-mono text-ink/60">{audit.label}</p>
 
-          {/* one orange marker underline, under "bottleneck" only */}
+          {/* one orange marker underline, under "how fast" only */}
           <h2 className="sk-h2 mt-4">
-            {audit.heading[0]}
-            <br />
             {before}
-            <Underlined seed={19}>bottleneck</Underlined>
+            <Underlined seed={19}>how fast</Underlined>
             {after}
           </h2>
           <p className="calm-body mt-6 max-w-2xl">{audit.body}</p>
@@ -77,7 +80,7 @@ export function Audit() {
                         <path className="sk-stroke" d="M2.5 8.5 6.5 12.5 13.5 3.5" />
                       </svg>
                     </span>
-                    <span className="calm-body">{b}</span>
+                    <span className="text-[1.0625rem] leading-snug">{b}</span>
                   </li>
                 ))}
               </ul>
@@ -88,6 +91,7 @@ export function Audit() {
                     {audit.cta} -&gt;
                   </SketchButton>
                 </Magnet>
+                {audit.note && <p className="gl-mono mt-4 text-ink/60">{audit.note}</p>}
               </div>
             </div>
 

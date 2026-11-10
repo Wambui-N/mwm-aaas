@@ -15,6 +15,12 @@ const nextConfig = {
     };
     return config;
   },
+  // Scorecard launch: /assessment moves to /scorecard (301) when NEXT_PUBLIC_SCORECARD_LIVE=true.
+  async redirects() {
+    return process.env.NEXT_PUBLIC_SCORECARD_LIVE === "true"
+      ? [{ source: "/assessment", destination: "/scorecard", statusCode: 301 }]
+      : [];
+  },
   env: {
     // Make sure environment variables are available at build time
     NEXT_PUBLIC_CALCOM_API_KEY: process.env.NEXT_PUBLIC_CALCOM_API_KEY,

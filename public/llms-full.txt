@@ -7,11 +7,11 @@
 
 ## Site overview
 
-Made with Make is an automation and AI consulting firm founded by Wambui Ndung'u, based in Nairobi, Kenya, serving clients worldwide.
+Made with Make is an automation and AI consulting practice founded by Wambui Ndung'u, based in Nairobi, Kenya, serving clients worldwide.
 
-We help service businesses — consultants, agencies, staffing firms, and professional services teams — automate the manual, repetitive work that slows them down. We use Make.com (formerly Integromat) as our primary automation platform, combined with Google Workspace, AI tools like Gemini, and any tool with an API.
+I help service businesses — consultants, agencies, staffing firms, and professional services teams — automate the manual, repetitive work that slows them down. I use Make.com (formerly Integromat) as my primary automation platform, combined with Google Workspace, AI tools like Gemini, and any tool with an API.
 
-We do both strategy (what to automate and how) and execution (building and deploying the actual systems).
+I do both strategy (what to automate and how) and execution (building and deploying the actual systems).
 
 Contact: wambui@madewithmake.com
 Free consultation: https://madewithmake.com/contact-us

@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/seo";
 import { getAllPosts, getTopTags } from "@/lib/content/blog";
 import { getAllResources } from "@/lib/content/resources";
+import { SCORECARD_LIVE } from "@/lib/scorecard/config";
 
 export const dynamic = "force-static";
 
@@ -18,6 +19,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 1,
     },
+    {
+      url: `${baseUrl}/services`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    ...["web-scraping", "web-development", "custom-automations"].map((slug) => ({
+      url: `${baseUrl}/services/${slug}`,
+      lastModified: currentDate,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    {
+      url: `${baseUrl}/proposal-pipeline`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    // the scorecard is listed only once it is live
+    ...(SCORECARD_LIVE
+      ? [{ url: `${baseUrl}/scorecard`, lastModified: currentDate, changeFrequency: "monthly" as const, priority: 0.9 }]
+      : []),
     {
       url: `${baseUrl}/blog`,
       lastModified: currentDate,

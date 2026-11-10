@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 
 export const siteConfig = {
   name: 'Made with Make',
-  description: 'Automation & AI Consulting , with Execution',
+  description: 'Proposal Automation for Service Businesses',
   url: 'https://madewithmake.com',
-  ogImage: 'https://madewithmake.com/api/og?title=Made%20with%20Make&subtitle=Automation%20%26%20AI%20Consulting%20%E2%80%94%20with%20Execution',
+  ogImage: 'https://madewithmake.com/api/og?title=Made%20with%20Make&subtitle=Proposal%20Automation%20for%20Service%20Businesses',
   links: {
     twitter: 'https://twitter.com/madewithmake',
     linkedin: 'https://www.linkedin.com/company/made-with-make/',
@@ -29,7 +29,7 @@ export const defaultMetadata: Metadata = {
     default: `${siteConfig.name} - ${siteConfig.description}`,
     template: `%s | ${siteConfig.name}`,
   },
-  description: 'We consult and execute automation solutions that work. From identifying opportunities to implementing scalable AI-powered workflows , end to end.',
+  description: 'I consult on and build automation that works. From finding the opportunities to implementing scalable AI-powered workflows, end to end.',
   keywords: [
     'automation consulting',
     'automation execution',
@@ -76,7 +76,7 @@ export const defaultMetadata: Metadata = {
     url: siteConfig.url,
     siteName: siteConfig.name,
     title: `${siteConfig.name} - ${siteConfig.description}`,
-    description: 'We consult and execute automation solutions that work. From identifying opportunities to implementing scalable AI-powered workflows , end to end.',
+    description: 'I consult on and build automation that works. From finding the opportunities to implementing scalable AI-powered workflows, end to end.',
     images: [
       {
         url: siteConfig.ogImage,
@@ -89,7 +89,7 @@ export const defaultMetadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: `${siteConfig.name} - ${siteConfig.description}`,
-    description: 'We consult and execute automation solutions that work. Strategy-led. Execution-driven. No handoffs.',
+    description: 'I consult on and build automation that works. Strategy-led. Execution-driven. No handoffs.',
     images: [siteConfig.ogImage],
     creator: '@madewithmake',
     site: '@madewithmake',
@@ -104,11 +104,6 @@ export const defaultMetadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'your-google-verification-code', // Add your actual verification codes
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
   },
   alternates: {
     canonical: siteConfig.url,
@@ -131,7 +126,7 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
         "name": siteConfig.name,
         "url": siteConfig.url,
         "logo": `${siteConfig.url}/Vector.svg`,
-        "description": "Automation and AI consulting firm that combines strategy with execution. We help teams identify automation opportunities, design systems, and implement scalable workflows.",
+        "description": "Automation and AI consulting that combines strategy with execution. I help teams identify automation opportunities, design systems, and implement scalable workflows.",
         "foundingDate": siteConfig.business.founded,
         "founder": {
           "@type": "Person",
@@ -146,9 +141,9 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
             "AI Integration",
             "Process Automation"
           ],
-          "url": `${siteConfig.url}/about`,
+          "url": siteConfig.url,
           "sameAs": [
-            "https://www.linkedin.com/in/wambui-ndungu/",
+            "https://www.linkedin.com/in/wambui-ndungu-210409193/",
             "https://twitter.com/madewithmake"
           ]
         },
@@ -297,7 +292,7 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
             "name": "What is Made with Make?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Made with Make is an automation and AI consulting firm that combines strategy with execution. We help teams identify what to automate, design the right systems, and implement scalable workflows end to end."
+              "text": "Made with Make is my automation and AI consulting practice. I combine strategy with execution: I help teams identify what to automate, design the right systems, and implement scalable workflows end to end."
             }
           },
           {
@@ -305,7 +300,7 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
             "name": "What's the difference between consulting and execution?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Consulting includes process audits, opportunity assessment, and strategy design. Execution means we actually build, test, and deploy the systems ourselves. We do both , from insight to implementation."
+              "text": "Consulting includes process audits, opportunity assessment, and strategy design. Execution means I actually build, test, and deploy the systems myself. I do both, from insight to implementation."
             }
           },
           {
@@ -313,7 +308,7 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
             "name": "What tools do you integrate with?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "We primarily use Make.com which integrates with 500+ business tools including Salesforce, HubSpot, Slack, Airtable, Notion, Google Workspace, Microsoft 365, Stripe, and any tool with an API."
+              "text": "I primarily use Make.com which integrates with 500+ business tools including Salesforce, HubSpot, Slack, Airtable, Notion, Google Workspace, Microsoft 365, Stripe, and any tool with an API."
             }
           },
           {
@@ -329,7 +324,7 @@ export const generateStructuredData = (type: 'organization' | 'service' | 'bread
             "name": "Do you provide strategy only or implementation too?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "We provide both. Unlike traditional consultants, we own the execution. We don't hand you a deck and disappear , we build, test, and deploy the systems ourselves."
+              "text": "I provide both. Unlike traditional consultants, I own the execution. I don't hand you a deck and disappear, I build, test, and deploy the systems myself."
             }
           }
         ]

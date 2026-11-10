@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const title = searchParams.get('title') || 'Made with Make';
-    const subtitle = searchParams.get('subtitle') || 'Automation & AI Consulting , with Execution';
+    const subtitle = searchParams.get('subtitle') || 'Proposal Automation for Service Businesses';
 
     return new ImageResponse(
       (
