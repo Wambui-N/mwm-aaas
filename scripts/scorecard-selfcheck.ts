@@ -2,7 +2,7 @@
  * Acceptance cases A–G from the scorecard spec. Run: npx tsx scripts/scorecard-selfcheck.ts
  * (tsx is fetched on demand, not a project dependency).
  */
-import { computeResult, formatUsd, stageLabelFor, tierFor, type Answers, type FirmAnswers } from "../lib/scorecard/scoring";
+import { computeResult, formatUsd, weakestStages, stageLabelFor, tierFor, type Answers, type FirmAnswers } from "../lib/scorecard/scoring";
 import { SCORED_IDS, type AnswerValue } from "../lib/scorecard/questions";
 
 let failed = 0;
@@ -82,4 +82,12 @@ check("stage max 7/7/8/7/6 total 35", (() => {
 })());
 
 console.log(failed ? `\n${failed} check(s) failed` : "\nAll checks passed");
+
+// H: two weakest stages (ties keep Find → Submit order)
+check("H weakest two on all-no", weakestStages(b.stageScores, 2).join() === "find,filter", weakestStages(b.stageScores, 2));
+const hAns = all("yes");
+hAns.q10 = "no"; hAns.q11 = "no"; hAns.q12 = "no"; hAns.q7 = "no"; hAns.q8 = "partly";
+const h = computeResult({ answers: hAns, firm: base, firmSize: "1–4" });
+check("H weakest two picks staff then draft", weakestStages(h.stageScores, 2).join() === "staff,draft", weakestStages(h.stageScores, 2));
+
 process.exit(failed ? 1 : 0);

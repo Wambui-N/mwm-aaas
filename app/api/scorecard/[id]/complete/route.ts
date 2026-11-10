@@ -25,7 +25,7 @@ export async function POST(_req: NextRequest, { params }: Ctx) {
     if (!row) return NextResponse.json({ ok: false, error: "not_found" }, { status: 404 });
     if (row.status === "completed") return NextResponse.json({ ok: true, url });
 
-    const missing = missingIds(row.answers ?? {}, row.firm_answers ?? {});
+    const missing = missingIds(row.answers ?? {}, row.firm_answers ?? {}, row.country);
     if (missing.length) return NextResponse.json({ ok: false, error: "incomplete", missing }, { status: 400 });
 
     const hourly = Number(process.env.HOURLY_RATE);

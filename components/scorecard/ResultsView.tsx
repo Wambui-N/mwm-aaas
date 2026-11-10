@@ -3,7 +3,7 @@ import { Underlined } from "@/components/site/Underlined";
 import { CtaLink } from "@/components/scorecard/CtaLink";
 import { costBlock, helpFlagLine, nextSteps, resultsHeading, resultsLabels, stageInsights, strongLine, tiers } from "@/lib/scorecard/copy";
 import { STAGES, STAGE_NAMES, type Stage } from "@/lib/scorecard/questions";
-import { formatUsd, priorityFixes, type Segment, type StageLabel, type TierKey } from "@/lib/scorecard/scoring";
+import { formatUsd, priorityFixes, weakestStages, type Segment, type StageLabel, type TierKey } from "@/lib/scorecard/scoring";
 import type { NextLink } from "@/lib/scorecard/server/links";
 
 export type ResultsData = {
@@ -122,6 +122,11 @@ export function ResultsView({ data, links, demoUrl, shareHref }: { data: Results
         <h2 id="rs-next" className="calm-h3">
           {machine ? nextSteps.secondOpinion : resultsLabels.next}
         </h2>
+        {data.segment === "not_fit" && (
+          <p className="calm-body mt-4 max-w-[46rem] text-ink/85">
+            {nextSteps.notFitNote(...(weakestStages(data.stageScores).map((s) => STAGE_NAMES[s]) as [string, string]))}
+          </p>
+        )}
         <div className="mt-6 flex flex-wrap items-center gap-x-10 gap-y-5">
           {links.map((l, n) => (
             <CtaLink key={l.key} href={l.href} cta={l.key} primary={l.primary} seed={20 + n}>

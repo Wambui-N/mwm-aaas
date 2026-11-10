@@ -19,8 +19,6 @@ export const startSchema = z.object({
   firmName: short(150).min(1),
   role: z.enum(ROLES),
   firmSize: z.enum(FIRM_SIZES),
-  country: z.string().refine((c) => COUNTRIES.includes(c), "unknown country"),
-  donors: z.array(z.enum(DONORS)).max(DONORS.length).default([]),
   consent: z.literal(true),
   utmSource: short(200).optional(),
   utmMedium: short(200).optional(),
@@ -59,11 +57,17 @@ export function parseFirmAnswers(input: unknown): Record<string, string> | null 
   return out;
 }
 
-export const patchSchema = z.object({ answers: z.unknown().optional(), firmAnswers: z.unknown().optional() });
+export const patchSchema = z.object({
+  answers: z.unknown().optional(),
+  firmAnswers: z.unknown().optional(),
+  /** collected after the scored questions, so saved here rather than at /start */
+  country: z.string().refine((c) => COUNTRIES.includes(c), "unknown country").optional(),
+  donors: z.array(z.enum(DONORS)).max(DONORS.length).optional(),
+});
 
 /** Required ids before a submission can be completed (q6x is optional). */
 export const REQUIRED_FIRM_IDS = FIRM_QUESTIONS.filter((q) => !q.optionalText).map((q) => q.id);
 
-export function missingIds(answers: Record<string, string>, firm: Record<string, string>): string[] {
-  return [...SCORED_IDS.filter((id) => !answers[id]), ...REQUIRED_FIRM_IDS.filter((id) => !firm[id])];
+export function missingIds(answers: Record<string, string>, firm: Record<string, string>, country = ""): string[] {
+  return [...SCORED_IDS.filter((id) => !answers[id]), ...(country ? [] : ["country"]), ...REQUIRED_FIRM_IDS.filter((id) => !firm[id])];
 }
