@@ -34,6 +34,8 @@ type EntryFields = {
   image?: Link;
   tags?: string[];
   series?: string;
+  seoTitle?: string;
+  seoDescription?: string;
   content?: RichNode;
 };
 
@@ -254,6 +256,8 @@ export async function getContentfulPosts(): Promise<ContentfulPost[]> {
           image: sizedImage(hero, 1600),
           imageAlt: hero?.fields.description || undefined,
           category: f.series,
+          seoTitle: f.seoTitle || undefined,
+          seoDescription: f.seoDescription || undefined,
           tags: f.tags ?? [],
           published: true,
           source: "contentful" as const,
