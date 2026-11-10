@@ -22,7 +22,7 @@ export function BeforeAfter({ rows }: { rows: Row[] }) {
             <div className="md:col-span-6">
               <p className="gl-mono text-ink/60 md:hidden">Before</p>
               <p className="calm-h3 mt-2 text-ink/60 md:mt-0">
-                <Annotate type="strike-through" color="#141010" strokeWidth={2} iterations={1} padding={2} multiline>
+                <Annotate type="strike-through" color="#141010" strokeWidth={1} iterations={1} padding={2} multiline>
                   {r.before[0]}
                 </Annotate>
               </p>

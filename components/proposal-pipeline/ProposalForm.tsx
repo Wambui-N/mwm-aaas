@@ -294,7 +294,7 @@ export default function ProposalForm() {
             One free draft per firm. This draft is built from your past proposals before any voice tuning. Client drafts get even closer to your voice after setup.
           </p>
           <p className="calm-body mt-3 text-ink/80">
-            Your files stay locked in our secure drive for 30 days. Partly because that&rsquo;s where they&rsquo;re safest, and partly because I&rsquo;m pretty sure you&rsquo;ll want to keep going. When you do, we start with everything already in hand. If not, they&rsquo;re deleted. No questions, no follow-up spam.
+            Your files stay locked in my secure drive for 30 days. Partly because that&rsquo;s where they&rsquo;re safest, and partly because I&rsquo;m pretty sure you&rsquo;ll want to keep going. When you do, I start with everything already in hand. If not, they&rsquo;re deleted. No questions, no follow-up spam.
           </p>
         </form>
       )}

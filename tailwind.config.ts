@@ -66,14 +66,14 @@ const config: Config = {
           '5': 'hsl(var(--chart-5))',
         },
         brand: {
-          orange: '#e65032',
+          orange: '#CF3E1E',
           grey: '#c5d6d0',
           black: '#141010',
         },
         // Homepage redesign tokens (same hex values as brand.*)
         ink: '#141010',
         sage: '#c5d6d0',
-        signal: '#e65032',
+        signal: '#CF3E1E',
       },
       keyframes: {
         'accordion-down': {

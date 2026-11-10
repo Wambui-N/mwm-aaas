@@ -12,6 +12,7 @@ import { Quote } from "@/components/proposal-pipeline/Quote";
 import { Guarantee } from "@/components/proposal-pipeline/Guarantee";
 import { Faq } from "@/components/proposal-pipeline/Faq";
 import { BuildChecklist } from "@/components/proposal-pipeline/BuildChecklist";
+import { TrySheet } from "@/components/proposal-pipeline/TrySheet";
 import ProposalForm from "@/components/proposal-pipeline/ProposalForm";
 import { testimonial, testimonials } from "@/lib/homepage/copy";
 import { AUDIT_HREF } from "@/lib/site/shell";
@@ -81,7 +82,7 @@ const beforeAfter = [
 
 const steps = [
   ["Find it.", "A new RFP lands in your inbox, already matched to your firm."],
-  ["Draft it.", "One click, and a complete first draft is ready in about 15 minutes, in your firm’s voice."],
+  ["Draft it.", "One click, and a complete first draft is ready in under 20 minutes, in your firm’s voice."],
   ["Polish it and send it.", "Your team spends its time on the parts that win."],
 ];
 
@@ -93,7 +94,7 @@ const includes = [
   ["Go/no-go scoring", "know in minutes which opportunities are worth your time"],
   ["No more midnight deadlines", "a compliance checklist and missing items flagged early"],
   ["Win/loss tracking", "see your win rate and what works"],
-  ["Set up for you", "we organise your files, tune the voice and train your team"],
+  ["Set up for you", "I organise your files, tune the voice and train your team"],
 ];
 
 const bonuses = [
@@ -102,27 +103,21 @@ const bonuses = [
 ];
 
 const guarantee = [
-  "If your drafts don’t sound like your firm, we keep refining them for free until they do.",
+  "If your drafts don’t sound like your firm, I keep refining them for free until they do.",
   "You pay the second half of the setup fee only after your first complete draft.",
-  "No lock-in. Cancel the monthly plan anytime, and keep everything we built.",
-];
-
-const fit = [
-  "Do you respond to World Bank, EU, UN or other donor RFPs and EOIs?",
-  "Does your team send 4+ proposals a month?",
-  "Is proposal writing squeezed in around everyone’s “real” job?",
+  "No lock-in. Cancel the monthly plan anytime, and keep everything I built.",
 ];
 
 const faqs = [
-  ["Will it sound like generic AI?", "No. Every draft is built from your own past proposals, methodologies and projects, not from the internet. During setup, we tune it on your best proposals until your team can’t tell the difference. If it still doesn’t sound like you, we keep refining for free."],
+  ["Will it sound like generic AI?", "No. Every draft is built from your own past proposals, methodologies and projects, not from the internet. During setup, I tune it on your best proposals until your team can’t tell the difference. If it still doesn’t sound like you, I keep refining for free."],
   ["Is our data safe?", "Your system is built inside your own accounts, so you own everything. The AI runs under commercial terms that don’t allow your content to be used for training, and the automation runs on independently audited infrastructure (SOC 2 Type II, ISO 27001, GDPR)."],
   ["Who is this for, and who isn’t it for?", "It’s for development consultancies that send 4+ proposals a month without a dedicated proposal team. It’s not for firms that bid once or twice a year, or for large firms with full bid departments and software already in place."],
-  ["Which donors and formats does it work with?", "World Bank, EU, AfDB, ADB, UN agencies, bilateral donors and foundations. We set it up for the donors you bid to most."],
+  ["Which donors and formats does it work with?", "World Bank, EU, AfDB, ADB, UN agencies, bilateral donors and foundations. I set it up for the donors you bid to most."],
   ["What tools do we need?", "The ones you already have. It works inside Google Workspace or Microsoft 365. There’s no new app for your team to learn."],
   ["How long does setup take, and how much of our time?", "Your first complete draft arrives within 14 days of receiving your documents. Your team spends a few hours on it in total: sending files and one voice-tuning session."],
-  ["What does it cost?", "Every firm’s setup is different, so pricing is shared on the discovery call. We take on 2 new builds a month, and founding places are limited."],
-  ["What happens after my free draft?", "If you like what you see, book a discovery call. We’ll look at your proposal process and show you what it looks like for every RFP. If not, no follow-up spam."],
-  ["What if it doesn’t work for us?", "You pay the second half of the setup fee only after your first complete draft. The monthly plan is cancel-anytime, and you keep everything we built."],
+  ["What does it cost?", "Every firm’s setup is different, so pricing is shared on the discovery call. I take on 2 new builds a month, and founding places are limited."],
+  ["What happens after my free draft?", "If you like what you see, book a discovery call. I’ll look at your proposal process and show you what it looks like for every RFP. If not, no follow-up spam."],
+  ["What if it doesn’t work for us?", "You pay the second half of the setup fee only after your first complete draft. The monthly plan is cancel-anytime, and you keep everything I built."],
 ];
 
 /** A homepage-rhythm section: full-width, 4.5rem (6.75rem from md) above and below. `id` goes on the inner column so jumps land with the heading near the top. */
@@ -148,7 +143,10 @@ export default function ProposalPipelinePage() {
               Complete proposals in <Underlined seed={61}>20 minutes</Underlined>, written in your firm’s voice.
             </h1>
             <p className="mt-8 max-w-[52ch] text-[1.3125rem] leading-relaxed text-ink/80">
-              The Proposal Pipeline finds the RFPs that fit your firm, reads the ToR and writes a complete first draft from your own past proposals in about 15 minutes. It runs quietly inside the tools you already use, so your team stops starting from scratch and spends its time on the parts that win.
+              The Proposal Pipeline finds the RFPs that fit your firm, reads the ToR and writes <strong className="font-bold text-ink">a complete first draft from your own past proposals in under 20 minutes</strong>. It runs quietly in the background, so <strong className="font-bold text-ink">your team stops starting from scratch every single time</strong> and spends its time on the parts that win.
+            </p>
+            <p className="calm-body mt-6 max-w-[52ch] border-l-2 border-ink/30 pl-4 italic text-ink/80">
+              “Proposal creation went from several hours to a few minutes.” <span className="font-bold not-italic text-ink">Founders Freedom Africa</span>
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-x-10 gap-y-5">
               <JumpButton to={FORM_ID} seed={62}>
@@ -158,9 +156,6 @@ export default function ProposalPipelinePage() {
                 See how it works ↓
               </JumpLink>
             </div>
-            <p className="calm-body mt-8 text-ink/80">
-              “Proposal creation went from several hours to a few minutes.” <span className="font-bold text-ink">Founders Freedom Africa</span>
-            </p>
           </div>
         </section>
 
@@ -168,7 +163,7 @@ export default function ProposalPipelinePage() {
           {SHOW_DEMO && (
           <Section id={DEMO_ID} labelledby="demo-h">
             <SectionLabel>{num(1)} See it work</SectionLabel>
-            <H2 id="demo-h" text="Watch: how a proposal goes from RFP to complete first draft in 15 minutes." mark="complete first draft" seed={63} />
+            <H2 id="demo-h" text="Watch: how a proposal goes from RFP to complete first draft in under 20 minutes." mark="complete first draft" seed={63} />
             <p className="calm-body mt-4 max-w-[46rem] text-ink/85">
               No slides. No pitch. Just a real public RFP, a sample consultancy’s past proposals and the system doing its job, start to finish.
             </p>
@@ -235,48 +230,31 @@ export default function ProposalPipelinePage() {
             </div>
           </Section>
 
-          {/* 5. Free first draft */}
+          {/* 5. Free first draft: the homepage's "Start here" sheet */}
           <Section id={FORM_ID} labelledby="try-h">
-            <SectionLabel>{num(4)} Try it free</SectionLabel>
-            <H2 id="try-h" text="See your next proposal written before your coffee gets cold." mark="before your coffee gets cold" seed={68} />
-            <p className="calm-body mt-4 max-w-[46rem] text-ink/85">
-              Send one live RFP and a couple of your past proposals. In under 20 minutes, a complete first draft lands in your inbox, built from your own work.
-            </p>
-
-            <div className="mt-10">
-              <h3 className="calm-h3">Is this for you?</h3>
-              <ul className="mt-4 max-w-[48rem] border-b border-ink/20">
-                {fit.map((f) => (
-                  <li key={f} className="calm-body border-t border-ink/20 py-4">
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <p className="calm-body mt-4 font-bold">If you said yes, this was built for you. Try it on your next RFP.</p>
-            </div>
-
-            <div className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2">
-              <div>
-                <h3 className="gl-mono text-ink/60">You send</h3>
-                <ul className="mt-3 border-b border-ink/20">
-                  <li className="calm-body border-t border-ink/20 py-4">One live RFP or ToR</li>
-                  <li className="calm-body border-t border-ink/20 py-4">1–3 past proposals</li>
-                  <li className="calm-body border-t border-ink/20 py-4">Your company profile (optional)</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="gl-mono text-ink/60">You get</h3>
-                <ul className="mt-3 border-b border-ink/20">
-                  <li className="calm-body border-t border-ink/20 py-4">A complete first draft of your technical proposal</li>
-                  <li className="calm-body border-t border-ink/20 py-4">Written in your firm’s voice, from your own past work</li>
-                  <li className="calm-body border-t border-ink/20 py-4">In your inbox in under 20 minutes</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-12 max-w-[56rem]">
+            <TrySheet
+              label={`${num(4)} Try it free`}
+              heading={
+                <div className="mt-4">
+                  <H2 id="try-h" text="See your next proposal written before your coffee gets cold." mark="before your coffee gets cold" seed={68} />
+                </div>
+              }
+              body="Send one live RFP and a couple of your past proposals. Built for consultancies that answer donor RFPs and send 4+ proposals a month."
+              panelTitle="Your free first draft"
+              panelSub="Send one RFP. Get a complete draft back."
+              bullets={[
+                "A complete first draft of your technical proposal",
+                "Written in your firm’s voice, from your own past work",
+                "In your inbox in under 20 minutes",
+              ]}
+              rows={[
+                ["1", "Live RFP or ToR"],
+                ["1–3", "Past proposals"],
+                ["<20", "Minutes to your draft"],
+              ]}
+            >
               <ProposalForm />
-            </div>
+            </TrySheet>
           </Section>
 
           {/* 6. FAQ and final call to action */}

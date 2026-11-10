@@ -8,7 +8,7 @@ export const hero = {
   // Phrases the live site shows in bold inside `body` (exact substrings).
   bodyBold: ["the operations stopped keeping up", "a well-built system could do overnight"],
   cta: "Is Your Proposal Process Costing You?",
-  secondary: "See how it works",
+  secondary: "Find out more",
 };
 
 export const pain = {
