@@ -12,8 +12,8 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
  * The dropdown contents for the nav, built on the server from the content on disk:
  * Articles = all, case studies and the most-used topics; Resources = all and one entry per type that has items.
  */
-export function getNavMenus(): NavMenus {
-  const topics = getTopTags(6)
+export async function getNavMenus(): Promise<NavMenus> {
+  const topics = (await getTopTags(6))
     .filter((t) => t.toLowerCase() !== "case-study" && t.toLowerCase() !== "case study")
     .slice(0, 4);
   const resources = getAllResources();

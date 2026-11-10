@@ -19,8 +19,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CaseStudiesPage() {
-  const allPosts = getAllPosts();
+export const revalidate = 300;
+
+export default async function CaseStudiesPage() {
+  const allPosts = await getAllPosts();
 
   // Case studies are posts tagged with "case-study" OR categorised as "Case Study"
   const caseStudies = allPosts.filter(

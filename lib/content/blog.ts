@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { cache } from "react";
+import { getContentfulPosts } from "@/lib/content/contentful";
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 const SITE_URL = "https://madewithmake.com";
@@ -12,6 +14,8 @@ export interface BlogPost {
   date: string;
   author?: string;
   image?: string;
+  /** Alt text for the hero image (Contentful: the image's Description). Falls back to the title. */
+  imageAlt?: string;
   category?: string;
   tags: string[];
   canonical?: string;
@@ -21,6 +25,8 @@ export interface BlogPost {
   seoDescription?: string;
   seoImage?: string;
   noIndex?: boolean;
+  /** Where the post lives: an MDX file in content/blog, or a Contentful entry. */
+  source?: "mdx" | "contentful";
 }
 
 function parsePost(filename: string): BlogPost {
@@ -44,21 +50,57 @@ function parsePost(filename: string): BlogPost {
     seoDescription: data.seoDescription,
     seoImage: data.seoImage,
     noIndex: data.noIndex === true,
+    source: "mdx",
   };
 }
 
-export function getAllPosts(): BlogPost[] {
+function getMdxPosts(): BlogPost[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
   const files = fs.readdirSync(BLOG_DIR).filter(
     (f) => (f.endsWith(".mdx") || f.endsWith(".md")) && !f.startsWith("_")
   );
-  return files
-    .map(parsePost)
-    .filter((p) => p.published !== false)
-    .sort((a, b) => (b.date > a.date ? 1 : -1));
+  return files.map(parsePost).filter((p) => p.published !== false);
 }
 
-export function getPost(
+/**
+ * MDX posts and Contentful posts together, newest first. If both sources have the same slug, the
+ * MDX post wins so existing URLs never change. Cached per request.
+ */
+const loadAllPosts = cache(async (): Promise<{ posts: BlogPost[]; contentful: Map<string, string> }> => {
+  const mdx = getMdxPosts();
+  const mdxSlugs = new Set(mdx.map((p) => p.slug));
+  const contentful = new Map<string, string>();
+  const fromContentful: BlogPost[] = [];
+
+  for (const post of await getContentfulPosts()) {
+    if (mdxSlugs.has(post.data.slug)) {
+      console.warn(`Contentful post "${post.data.slug}" skipped: an MDX post already uses that slug.`);
+      continue;
+    }
+    contentful.set(post.data.slug, post.content);
+    fromContentful.push(post.data);
+  }
+
+  const posts = [...mdx, ...fromContentful].sort((a, b) => (b.date > a.date ? 1 : -1));
+  return { posts, contentful };
+});
+
+export async function getAllPosts(): Promise<BlogPost[]> {
+  return (await loadAllPosts()).posts;
+}
+
+export async function getPost(
+  slug: string
+): Promise<{ data: BlogPost; content: string } | null> {
+  const mdx = getMdxPost(slug);
+  if (mdx) return mdx;
+  const { posts, contentful } = await loadAllPosts();
+  const data = posts.find((p) => p.slug === slug && p.source === "contentful");
+  const content = contentful.get(slug);
+  return data && content !== undefined ? { data, content } : null;
+}
+
+function getMdxPost(
   slug: string
 ): { data: BlogPost; content: string } | null {
   for (const ext of [".mdx", ".md"]) {
@@ -82,6 +124,7 @@ export function getPost(
           seoDescription: data.seoDescription,
           seoImage: data.seoImage,
           noIndex: data.noIndex === true,
+          source: "mdx",
         },
         content,
       };
@@ -93,8 +136,8 @@ export function getPost(
 /**
  * Returns the top `count` tags sorted by frequency across all blog posts.
  */
-export function getTopTags(count = 4): string[] {
-  const posts = getAllPosts();
+export async function getTopTags(count = 4): Promise<string[]> {
+  const posts = await getAllPosts();
   const freq: Record<string, number> = {};
   for (const post of posts) {
     for (const tag of post.tags) {
@@ -107,8 +150,8 @@ export function getTopTags(count = 4): string[] {
     .map(([tag]) => tag);
 }
 
-export function getCaseStudyPosts(count = 2): BlogPost[] {
-  return getAllPosts()
+export async function getCaseStudyPosts(count = 2): Promise<BlogPost[]> {
+  return (await getAllPosts())
     .filter(
       (p) =>
         p.category === "Case Study" ||
@@ -119,12 +162,12 @@ export function getCaseStudyPosts(count = 2): BlogPost[] {
     .slice(0, count);
 }
 
-export function getRelatedPosts(currentSlug: string, count = 2): BlogPost[] {
-  const current = getPost(currentSlug);
+export async function getRelatedPosts(currentSlug: string, count = 2): Promise<BlogPost[]> {
+  const current = await getPost(currentSlug);
   if (!current) return [];
   const currentTags = new Set(current.data.tags);
 
-  return getAllPosts()
+  return (await getAllPosts())
     .filter((p) => p.slug !== currentSlug)
     .map((p) => ({
       post: p,
@@ -135,8 +178,8 @@ export function getRelatedPosts(currentSlug: string, count = 2): BlogPost[] {
     .map(({ post }) => post);
 }
 
-export function generateRss(): string {
-  const posts = getAllPosts();
+export async function generateRss(): Promise<string> {
+  const posts = await getAllPosts();
   const items = posts
     .map((post) => {
       const url = `${SITE_URL}/blog/${post.slug}`;
