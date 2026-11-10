@@ -516,6 +516,12 @@ html:has([data-calm]) {
 [data-sketch][data-calm] .sc-title {
   font-family: var(--font-brule), system-ui, sans-serif;
   font-weight: 600;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem); /* about 19px to 29px at the 75% root */
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+/* the welcome headline keeps the big size */
+[data-sketch][data-calm] .sc-title--hero {
   font-size: clamp(2.2rem, 5vw, 4rem); /* about 26px to 48px at the 75% root */
   line-height: 1.12;
   letter-spacing: -0.02em;
