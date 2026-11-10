@@ -1,6 +1,6 @@
 /**
  * Scorecard configuration. Safe to import from client and server code: only NEXT_PUBLIC_* values are read here.
- * Server-only values (Supabase, Resend, booking link and so on) are read in lib/scorecard/server.
+ * Server-only values (database, Resend, booking link and so on) are read in lib/scorecard/server.
  */
 
 /**

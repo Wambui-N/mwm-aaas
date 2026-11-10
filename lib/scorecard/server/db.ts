@@ -1,7 +1,9 @@
 /**
- * Supabase access for the scorecard, over PostgREST with the service role key. Server only: never import this
- * from a client component. RLS is on with no policies, so only this key can touch the table.
+ * Postgres access for the scorecard on Neon, over Neon's serverless driver (HTTP, so it works on Vercel and the edge).
+ * Server only: never import this from a client component. The connection string (DATABASE_URL) is the only secret
+ * that can touch the table, so it must never reach the browser.
  */
+import { neon } from "@neondatabase/serverless";
 import type { Segment, TierKey } from "../scoring";
 import type { Stage } from "../questions";
 
@@ -39,39 +41,70 @@ export type SubmissionRow = {
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export const isUuid = (s: string) => UUID.test(s);
 
-export const dbConfigured = () => Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+export const dbConfigured = () => Boolean(process.env.DATABASE_URL);
 
-async function rest<T>(path: string, init: RequestInit & { prefer?: string } = {}): Promise<T> {
-  const base = process.env.SUPABASE_URL!.replace(/\/$/, "");
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-  const { prefer, headers, ...rest } = init;
-  const res = await fetch(`${base}/rest/v1/${path}`, {
-    cache: "no-store",
-    ...rest,
-    headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-      ...(prefer ? { Prefer: prefer } : {}),
-      ...(headers as Record<string, string> | undefined),
-    },
-  });
-  if (!res.ok) throw new Error(`Supabase ${res.status}: ${(await res.text()).slice(0, 300)}`);
-  const text = await res.text();
-  return (text ? JSON.parse(text) : []) as T;
-}
+type Row = Record<string, unknown>;
+type Runner = (text: string, params: unknown[]) => Promise<Row[]>;
+
+const neonRunner: Runner = async (text, params) => {
+  const sql = neon(process.env.DATABASE_URL!);
+  return (await sql.query(text, params)) as Row[];
+};
+
+let run: Runner = neonRunner;
+/** Swap the query runner (tests run the same SQL against a local Postgres). */
+export const setQueryRunner = (r: Runner | null) => {
+  run = r ?? neonRunner;
+};
 
 const TABLE = "scorecard_submissions";
 
+/** Every column this module may read or write, and how its value is passed to Postgres. */
+const JSONB = new Set(["answers", "firm_answers", "stage_scores"]);
+const TEXT_ARRAY = new Set(["donors", "help_flags"]);
+const COLUMNS = new Set([
+  "id", "created_at", "status", "first_name", "email", "firm_name", "role", "firm_size", "country", "donors", "consent",
+  "answers", "firm_answers", "stage_scores", "total_points", "total_pct", "tier", "help_flags", "hours_month", "cost_month",
+  "saved_hours", "segment", "utm_source", "utm_medium", "utm_campaign", "referrer", "ip_hash", "abandon_email_sent_at", "completed_at",
+]);
+
+function col(name: string): string {
+  if (!COLUMNS.has(name)) throw new Error(`unknown column: ${name}`);
+  return name;
+}
+
+/** Placeholder for a value, with a cast where the driver needs one (jsonb and text[]). */
+function place(column: string, value: unknown, params: unknown[]): string {
+  if (value === null || value === undefined) params.push(null);
+  else if (JSONB.has(column)) params.push(JSON.stringify(value));
+  else params.push(value);
+  const n = `$${params.length}`;
+  return JSONB.has(column) ? `${n}::jsonb` : TEXT_ARRAY.has(column) ? `${n}::text[]` : n;
+}
+
+/** numeric comes back as a string and timestamptz as a Date; hand callers the shapes they had before. */
+function normalise<T>(row: Row | undefined): T | null {
+  if (!row) return null;
+  const out: Row = {};
+  for (const [k, v] of Object.entries(row)) {
+    out[k] = v instanceof Date ? v.toISOString() : k === "total_points" && v !== null ? Number(v) : v;
+  }
+  return out as T;
+}
+
 export async function insertSubmission(row: Record<string, unknown>): Promise<SubmissionRow> {
-  const out = await rest<SubmissionRow[]>(TABLE, { method: "POST", body: JSON.stringify(row), prefer: "return=representation" });
-  return out[0];
+  const keys = Object.keys(row).map(col);
+  const params: unknown[] = [];
+  const values = keys.map((k) => place(k, row[k], params));
+  const out = await run(`insert into ${TABLE} (${keys.join(", ")}) values (${values.join(", ")}) returning *`, params);
+  return normalise<SubmissionRow>(out[0])!;
 }
 
 export async function getSubmission(id: string, select = "*"): Promise<Partial<SubmissionRow> | null> {
   if (!isUuid(id)) return null;
-  const out = await rest<Partial<SubmissionRow>[]>(`${TABLE}?id=eq.${id}&select=${encodeURIComponent(select)}&limit=1`);
-  return out[0] ?? null;
+  const cols = select === "*" ? "*" : select.split(",").map((c) => col(c.trim())).join(", ");
+  const out = await run(`select ${cols} from ${TABLE} where id = $1 limit 1`, [id]);
+  return normalise<Partial<SubmissionRow>>(out[0]);
 }
 
 /** Updates a row. With `onlyIfStarted`, the update only applies while status is still "started" (atomic guard). */
@@ -81,40 +114,41 @@ export async function updateSubmission(
   opts: { onlyIfStarted?: boolean } = {},
 ): Promise<SubmissionRow | null> {
   if (!isUuid(id)) return null;
-  const filter = opts.onlyIfStarted ? `&status=eq.started` : "";
-  const out = await rest<SubmissionRow[]>(`${TABLE}?id=eq.${id}${filter}`, {
-    method: "PATCH",
-    body: JSON.stringify(patch),
-    prefer: "return=representation",
-  });
-  return out[0] ?? null;
+  const keys = Object.keys(patch).map(col);
+  if (!keys.length) return null;
+  const params: unknown[] = [id];
+  const sets = keys.map((k) => `${k} = ${place(k, patch[k], params)}`);
+  const guard = opts.onlyIfStarted ? " and status = 'started'" : "";
+  const out = await run(`update ${TABLE} set ${sets.join(", ")} where id = $1${guard} returning *`, params);
+  return normalise<SubmissionRow>(out[0]);
 }
 
 export async function countRecentStartsByIp(ipHash: string, sinceIso: string): Promise<number> {
-  const out = await rest<{ id: string }[]>(
-    `${TABLE}?ip_hash=eq.${encodeURIComponent(ipHash)}&created_at=gte.${encodeURIComponent(sinceIso)}&select=id&limit=100`,
-  );
-  return out.length;
+  const out = await run(`select count(*)::int as n from ${TABLE} where ip_hash = $1 and created_at >= $2`, [ipHash, sinceIso]);
+  return Number(out[0]?.n ?? 0);
 }
 
 export async function listAbandoned(beforeIso: string): Promise<Pick<SubmissionRow, "id" | "first_name" | "email" | "consent">[]> {
-  return rest(
-    `${TABLE}?status=eq.started&abandon_email_sent_at=is.null&created_at=lt.${encodeURIComponent(beforeIso)}&select=id,first_name,email,consent&order=created_at.asc&limit=100`,
+  const out = await run(
+    `select id, first_name, email, consent from ${TABLE}
+     where status = 'started' and abandon_email_sent_at is null and created_at < $1
+     order by created_at asc limit 100`,
+    [beforeIso],
   );
+  return out as Pick<SubmissionRow, "id" | "first_name" | "email" | "consent">[];
 }
 
 /** Marks the reminder as sent only if it has not been sent (so two overlapping cron runs cannot both send). */
 export async function claimAbandonReminder(id: string): Promise<boolean> {
   if (!isUuid(id)) return false;
-  const out = await rest<{ id: string }[]>(`${TABLE}?id=eq.${id}&status=eq.started&abandon_email_sent_at=is.null`, {
-    method: "PATCH",
-    body: JSON.stringify({ abandon_email_sent_at: new Date().toISOString() }),
-    prefer: "return=representation",
-  });
+  const out = await run(
+    `update ${TABLE} set abandon_email_sent_at = now() where id = $1 and status = 'started' and abandon_email_sent_at is null returning id`,
+    [id],
+  );
   return out.length === 1;
 }
 
 export async function releaseAbandonReminder(id: string): Promise<void> {
   if (!isUuid(id)) return;
-  await rest(`${TABLE}?id=eq.${id}`, { method: "PATCH", body: JSON.stringify({ abandon_email_sent_at: null }) });
+  await run(`update ${TABLE} set abandon_email_sent_at = null where id = $1`, [id]);
 }
