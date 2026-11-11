@@ -1,6 +1,7 @@
 /** Next-step links per segment, shared by the results page and the results email. Server only (reads env). */
 import { DEFAULT_BOOKING_URL, FIRST_DRAFT_PATH, SCORECARD_PATH } from "../config";
 import { nextSteps } from "../copy";
+import type { Stage } from "../questions";
 import type { Segment } from "../scoring";
 
 export type NextLink = { key: string; label: string; href: string; primary?: boolean };
@@ -16,17 +17,21 @@ export const resumeUrl = (id: string) => absolute(`${SCORECARD_PATH}?resume=${id
 
 const env = {
   booking: () => process.env.BOOKING_URL?.trim() || DEFAULT_BOOKING_URL,
-  /** The 5-Stage Proposal Pipeline Playbook. CHECKLIST_URL is the older name for the same link. */
-  playbook: () => process.env.PLAYBOOK_URL?.trim() || process.env.CHECKLIST_URL?.trim() || "",
-  getReady: () => process.env.GET_READY_CHECKLIST_URL?.trim() || "",
-  starter: () => process.env.STARTER_CHECKLIST_URL?.trim() || "",
   demo: () => process.env.DEMO_VIDEO_URL?.trim() || "",
 };
 export const demoVideoUrl = env.demo;
+
+const PLAYBOOK_PATH = "/playbook";
+const GET_READY_PATH = "/playbook/get-ready-checklist";
+const STARTER_PATH = "/playbook/starter-checklist";
+const playbookHref = (lowest?: Stage) => (lowest ? `${PLAYBOOK_PATH}?start=${lowest}` : PLAYBOOK_PATH);
 export const bookingUrl = env.booking;
 
-/** Links hidden when their env var is empty (playbook, checklists). */
-export function nextLinks(segment: Segment, auditId: string): NextLink[] {
+/**
+ * The next step for each results page. The Playbook, and the checklists, live on this site; the Playbook opens on the
+ * stage `lowest` (the visitor's lowest-scoring stage), so the first thing they read is the thing to fix first.
+ */
+export function nextLinks(segment: Segment, auditId: string, lowest?: Stage): NextLink[] {
   const out: NextLink[] = [];
   const add = (key: string, label: string, href: string, primary = true) => href && out.push({ key, label, href, primary });
 
@@ -37,12 +42,12 @@ export function nextLinks(segment: Segment, auditId: string): NextLink[] {
       add("book", nextSteps.book, env.booking());
       break;
     case "almost":
-      add("playbook", nextSteps.playbook, env.playbook());
-      add("get_ready_checklist", nextSteps.getReadyChecklist, env.getReady(), false);
+      add("playbook", nextSteps.playbook, playbookHref(lowest));
+      add("get_ready_checklist", nextSteps.getReadyChecklist, GET_READY_PATH, false);
       break;
     default:
-      add("playbook", nextSteps.playbook, env.playbook());
-      add("starter_checklist", nextSteps.starterChecklist, env.starter(), false);
+      add("playbook", nextSteps.playbook, playbookHref(lowest));
+      add("starter_checklist", nextSteps.starterChecklist, STARTER_PATH, false);
   }
   return out;
 }

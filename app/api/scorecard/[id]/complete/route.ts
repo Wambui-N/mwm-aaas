@@ -23,7 +23,7 @@ export async function POST(_req: NextRequest, { params }: Ctx) {
   try {
     const row = (await getSubmission(id)) as SubmissionRow | null;
     if (!row) return NextResponse.json({ ok: false, error: "not_found" }, { status: 404 });
-    if (row.status === "completed") return NextResponse.json({ ok: true, url });
+    if (row.status === "completed") return NextResponse.json({ ok: true, url, segment: row.segment });
 
     const missing = missingIds(row.answers ?? {}, row.firm_answers ?? {}, row.country, row.donors ?? []);
     if (missing.length) return NextResponse.json({ ok: false, error: "incomplete", missing }, { status: 400 });
@@ -55,7 +55,7 @@ export async function POST(_req: NextRequest, { params }: Ctx) {
       },
       { onlyIfStarted: true },
     );
-    if (!saved) return NextResponse.json({ ok: true, url });
+    if (!saved) return NextResponse.json({ ok: true, url, segment: result.segment });
 
     const jobs: Promise<boolean>[] = [];
     const mail = resultsEmail(saved, result);
@@ -69,7 +69,7 @@ export async function POST(_req: NextRequest, { params }: Ctx) {
       if (s.status === "rejected" || s.value === false) console.error(`[scorecard/complete] email ${i} not sent for ${id}`);
     });
 
-    return NextResponse.json({ ok: true, url });
+    return NextResponse.json({ ok: true, url, segment: result.segment });
   } catch (err) {
     console.error("[scorecard/complete]", err);
     return NextResponse.json({ ok: false, error: "server_error" }, { status: 500 });

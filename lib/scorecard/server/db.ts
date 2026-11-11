@@ -37,6 +37,7 @@ export type SubmissionRow = {
   abandon_email_sent_at: string | null;
   completed_at: string | null;
   draft_requested_at: string | null;
+  ready_nudge_sent_at: string | null;
 };
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -66,7 +67,7 @@ const TEXT_ARRAY = new Set(["donors", "help_flags"]);
 const COLUMNS = new Set([
   "id", "created_at", "status", "first_name", "email", "firm_name", "role", "firm_size", "country", "donors", "consent",
   "answers", "firm_answers", "stage_scores", "total_points", "total_pct", "tier", "help_flags", "hours_month", "cost_month",
-  "saved_hours", "segment", "utm_source", "utm_medium", "utm_campaign", "referrer", "ip_hash", "abandon_email_sent_at", "completed_at", "draft_requested_at",
+  "saved_hours", "segment", "utm_source", "utm_medium", "utm_campaign", "referrer", "ip_hash", "abandon_email_sent_at", "completed_at", "draft_requested_at", "ready_nudge_sent_at",
 ]);
 
 function col(name: string): string {
@@ -174,4 +175,35 @@ export async function claimFirstDraft(id: string): Promise<SubmissionRow | null>
 export async function releaseFirstDraft(id: string): Promise<void> {
   if (!isUuid(id)) return;
   await run(`update ${TABLE} set draft_requested_at = null where id = $1`, [id]);
+}
+
+/**
+ * "Ready" results from before `beforeIso` that have neither used their free first draft nor had the reminder yet,
+ * and that agreed to be emailed. ("ideal" is the segment name saved before the three results pages existed.)
+ */
+export async function listReadyNudges(beforeIso: string): Promise<Pick<SubmissionRow, "id" | "first_name" | "email">[]> {
+  const out = await run(
+    `select id, first_name, email from ${TABLE}
+     where status = 'completed' and segment in ('ready', 'ideal') and consent = true
+       and draft_requested_at is null and ready_nudge_sent_at is null and completed_at < $1
+     order by completed_at asc limit 100`,
+    [beforeIso],
+  );
+  return out as Pick<SubmissionRow, "id" | "first_name" | "email">[];
+}
+
+/** Marks the reminder as sent only if it has not been sent and the draft is still unused, so overlapping runs cannot both send. */
+export async function claimReadyNudge(id: string): Promise<boolean> {
+  if (!isUuid(id)) return false;
+  const out = await run(
+    `update ${TABLE} set ready_nudge_sent_at = now()
+     where id = $1 and status = 'completed' and draft_requested_at is null and ready_nudge_sent_at is null returning id`,
+    [id],
+  );
+  return out.length === 1;
+}
+
+export async function releaseReadyNudge(id: string): Promise<void> {
+  if (!isUuid(id)) return;
+  await run(`update ${TABLE} set ready_nudge_sent_at = null where id = $1`, [id]);
 }

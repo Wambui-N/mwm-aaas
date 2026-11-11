@@ -41,6 +41,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...(SCORECARD_LIVE
       ? [{ url: `${baseUrl}/audit`, lastModified: currentDate, changeFrequency: "monthly" as const, priority: 0.9 }]
       : []),
+    // the Playbook and its two checklists
+    ...["/playbook", "/playbook/get-ready-checklist", "/playbook/starter-checklist"].map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified: currentDate,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
     {
       url: `${baseUrl}/blog`,
       lastModified: currentDate,
