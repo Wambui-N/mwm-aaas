@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { SiteShell } from "@/components/site/SiteShell";
 import { ResultsView, type ResultsData } from "@/components/scorecard/ResultsView";
+import { SCORECARD_PATH } from "@/lib/scorecard/config";
 import { dbConfigured, getSubmission, isUuid, type SubmissionRow } from "@/lib/scorecard/server/db";
 import { absolute, demoVideoUrl, nextLinks } from "@/lib/scorecard/server/links";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Your Proposal Pipeline Score | Made with Make",
+  title: "Your Proposal Pipeline Score",
   robots: { index: false, follow: false },
 };
 
@@ -22,7 +23,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
     "status,first_name,total_pct,tier,stage_scores,help_flags,hours_month,cost_month,saved_hours,segment",
   ).catch(() => null)) as Partial<SubmissionRow> | null;
   if (!row) notFound();
-  if (row.status !== "completed" || !row.stage_scores || row.total_pct == null || !row.tier || !row.segment) redirect(`/scorecard?resume=${id}`);
+  if (row.status !== "completed" || !row.stage_scores || row.total_pct == null || !row.tier || !row.segment) redirect(`${SCORECARD_PATH}?resume=${id}`);
 
   const data: ResultsData = {
     firstName: row.first_name ?? "",
@@ -36,7 +37,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
     segment: row.segment,
   };
 
-  const share = `mailto:?subject=${encodeURIComponent("The Proposal Pipeline Scorecard")}&body=${encodeURIComponent(absolute("/scorecard"))}`;
+  const share = `mailto:?subject=${encodeURIComponent("The Proposal Audit")}&body=${encodeURIComponent(absolute(SCORECARD_PATH))}`;
 
   return (
     <SiteShell smoothScroll={false}>

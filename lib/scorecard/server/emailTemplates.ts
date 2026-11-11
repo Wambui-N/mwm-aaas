@@ -46,7 +46,7 @@ export function resultsEmail(row: Pick<SubmissionRow, "id" | "first_name">, resu
 
   const html = wrap(
     `<p>Hi ${esc(row.first_name)},</p>` +
-      `<p>Thanks for taking the Proposal Pipeline Scorecard. Your results are below and saved at <a href="${esc(link)}">${esc(link)}</a>.</p>` +
+      `<p>Thanks for taking the Proposal Audit. Your results are below and saved at <a href="${esc(link)}">${esc(link)}</a>.</p>` +
       `<p style="font-size:20px;margin:18px 0 4px"><strong>${result.totalPct}%: ${esc(tier)}</strong></p>` +
       `<ul style="padding-left:18px;margin:8px 0">${stageRows.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>` +
       `<p>${esc(cost)}</p>` +
@@ -58,7 +58,7 @@ export function resultsEmail(row: Pick<SubmissionRow, "id" | "first_name">, resu
   const text = [
     `Hi ${row.first_name},`,
     "",
-    `Thanks for taking the Proposal Pipeline Scorecard. Your results are below and saved at ${link}.`,
+    `Thanks for taking the Proposal Audit. Your results are below and saved at ${link}.`,
     "",
     `${result.totalPct}%: ${tier}`,
     ...stageRows,
@@ -89,7 +89,7 @@ export function abandonEmail(row: Pick<SubmissionRow, "id" | "first_name">): Mai
 export function alertEmail(row: SubmissionRow, result: ScoreResult): Mail {
   const tier = tiers[result.tier].name;
   const link = resultsUrl(row.id);
-  const subject = `Ideal-fit scorecard lead: ${row.firm_name} (${result.totalPct}%)`;
+  const subject = `Ideal-fit audit lead: ${row.firm_name} (${result.totalPct}%)`;
   const helpStages = result.helpFlags.map((s) => STAGE_NAMES[s]);
 
   const scored = SCORED_QUESTIONS.map((q) => `${q.id} (${STAGE_NAMES[q.stage]}): ${row.answers[q.id] ?? "-"}`);

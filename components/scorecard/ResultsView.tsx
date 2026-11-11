@@ -41,7 +41,7 @@ export function ResultsView({ data, links, demoUrl, shareHref }: { data: Results
   return (
     <div className="cols-8">
       <header>
-        <SectionLabel>The Proposal Pipeline Scorecard</SectionLabel>
+        <SectionLabel>The Proposal Audit</SectionLabel>
         <h1 className="sk-title">
           {heading.slice(0, at)}
           <Underlined seed={91}>{pctText}</Underlined>

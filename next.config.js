@@ -15,11 +15,16 @@ const nextConfig = {
     };
     return config;
   },
-  // Scorecard: /assessment moves to /scorecard (301) unless NEXT_PUBLIC_SCORECARD_LIVE=false.
+  // The Proposal Audit lives at /audit. The old /scorecard URLs (links in earlier results emails) always redirect.
+  // /assessment moves to /audit too, unless NEXT_PUBLIC_SCORECARD_LIVE=false.
   async redirects() {
+    const always = [
+      { source: "/scorecard", destination: "/audit", statusCode: 301 },
+      { source: "/scorecard/results/:id", destination: "/audit/results/:id", statusCode: 301 },
+    ];
     return process.env.NEXT_PUBLIC_SCORECARD_LIVE !== "false"
-      ? [{ source: "/assessment", destination: "/scorecard", statusCode: 301 }]
-      : [];
+      ? [...always, { source: "/assessment", destination: "/audit", statusCode: 301 }]
+      : always;
   },
   env: {
     // Make sure environment variables are available at build time

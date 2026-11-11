@@ -90,7 +90,7 @@ export const nextSteps = {
   linkedin: "Follow Wambui on LinkedIn",
   secondOpinion: "Want a second pair of eyes?",
   referTitle: "Know a firm that's struggling?",
-  referLine: "Send them this scorecard.",
+  referLine: "Send them this audit.",
   demo: "Watch the demo",
   notFitNote: (a: string, b: string) =>
     `Your two weakest stages are ${a} and ${b}. The playbook shows what to fix first in each.`,
