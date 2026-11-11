@@ -511,7 +511,7 @@ export function ScorecardFlow() {
         const [before, after] = landing.headline.split(landing.headlineMark);
         return (
           <div>
-            <h1 className="sc-title">
+            <h1 className="sc-title sc-title--hero">
               {before}
               <span className="sc-mark">{landing.headlineMark}</span>
               {after}
