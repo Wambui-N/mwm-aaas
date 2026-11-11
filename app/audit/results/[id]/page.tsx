@@ -8,6 +8,9 @@ import { absolute, demoVideoUrl, nextLinks } from "@/lib/scorecard/server/links"
 
 export const dynamic = "force-dynamic";
 
+/** Submissions saved before the three pages existed carry the old segment names. */
+const LEGACY: Record<string, ResultsData["segment"]> = { ideal: "ready", later: "almost", not_fit: "playbook", machine: "playbook" };
+
 export const metadata: Metadata = {
   title: "Your Proposal Pipeline Score",
   robots: { index: false, follow: false },
@@ -34,16 +37,15 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
     hoursMonth: row.hours_month ?? 0,
     costMonth: row.cost_month ?? 0,
     savedHours: row.saved_hours ?? 0,
-    segment: row.segment,
+    segment: LEGACY[row.segment] ?? (row.segment as ResultsData["segment"]),
   };
 
-  const share = `mailto:?subject=${encodeURIComponent("The Proposal Audit")}&body=${encodeURIComponent(absolute(SCORECARD_PATH))}`;
 
   return (
     <SiteShell smoothScroll={false}>
       <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
         <div className="mx-auto max-w-[81.25rem]">
-          <ResultsView data={data} links={nextLinks(data.segment)} demoUrl={demoVideoUrl()} shareHref={share} />
+          <ResultsView data={data} links={nextLinks(data.segment)} demoUrl={demoVideoUrl()} />
         </div>
       </main>
     </SiteShell>

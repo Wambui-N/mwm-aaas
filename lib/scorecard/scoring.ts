@@ -3,6 +3,7 @@ import { DEFAULT_HOURLY_RATE, SAVED_SHARE } from "./config";
 import {
   FIRM_QUESTIONS,
   FIRM_SIZES,
+  NO_DONORS,
   SCORED_QUESTIONS,
   STAGES,
   STAGE_MAX,
@@ -13,7 +14,7 @@ import {
 
 export type TierKey = "manual" | "patched" | "connected" | "machine";
 export type StageLabel = "Weak" | "Okay" | "Strong";
-export type Segment = "not_fit" | "machine" | "ideal" | "later";
+export type Segment = "ready" | "almost" | "playbook";
 
 export type Answers = Record<string, AnswerValue | undefined>;
 export type FirmAnswers = Record<string, string | undefined>;
@@ -85,22 +86,31 @@ export function weakestStages(stageScores: Record<Stage, StageScore>, n = 2): St
     .map((x) => x.s);
 }
 
-export function segmentFor(args: { totalPct: number; firmSize: string; firm: FirmAnswers }): Segment {
-  const sizeIdx = FIRM_SIZES.indexOf(args.firmSize as (typeof FIRM_SIZES)[number]);
-  const c1 = FIRM_QUESTIONS.find((q) => q.id === "c1")!.options.map((o) => o.value);
-  const c1Idx = c1.indexOf(args.firm.c1 ?? "");
-  if (sizeIdx === 0 || c1Idx === 0) return "not_fit";
-  if (args.totalPct >= 85) return "machine";
-  const soon = args.firm.q5x === "This month" || args.firm.q5x === "In the next 3 months";
-  const handsOn = args.firm.q4x === "With a specialist building it alongside us" || args.firm.q4x === "Built and run for us";
-  if (sizeIdx >= 1 && c1Idx >= 1 && soon && handsOn) return "ideal";
-  return "later";
+/**
+ * Which results page a firm sees, from the Ideal Client Profile (never shown to the visitor by these names):
+ *  - ready:    15–100 staff and 10+ proposals a month, responding to donor-funded RFPs
+ *  - playbook: no donor-funded RFPs, 1–4 staff, under 5 proposals a month, or a firm of over 100 that already
+ *              uses proposal software
+ *  - almost:   everyone else (for example 5–9 proposals a month, or 5–14 staff with high volume)
+ */
+export function segmentFor(args: { firmSize: string; firm: FirmAnswers; donors: readonly string[] }): Segment {
+  const size = FIRM_SIZES.indexOf(args.firmSize as (typeof FIRM_SIZES)[number]); // 0 = 1–4 … 4 = Over 100
+  const volumes = FIRM_QUESTIONS.find((q) => q.id === "c1")!.options.map((o) => o.value);
+  const volume = volumes.indexOf(args.firm.c1 ?? ""); // 0 = 1–4 … 3 = 20+
+
+  const donorFunded = args.donors.some((d) => d !== NO_DONORS);
+  const largeWithSoftware = size === 4 && args.firm.q1x === "We use proposal software";
+
+  if (!donorFunded || size <= 0 || volume <= 0 || largeWithSoftware) return "playbook";
+  if ((size === 2 || size === 3) && volume >= 2) return "ready";
+  return "almost";
 }
 
 export function computeResult(input: {
   answers: Answers;
   firm: FirmAnswers;
   firmSize: string;
+  donors: readonly string[];
   hourlyRate?: number;
 }): ScoreResult {
   const rate = input.hourlyRate && input.hourlyRate > 0 ? input.hourlyRate : DEFAULT_HOURLY_RATE;
@@ -138,7 +148,7 @@ export function computeResult(input: {
     hoursMonth,
     costMonth,
     savedHours,
-    segment: segmentFor({ totalPct, firmSize: input.firmSize, firm: input.firm }),
+    segment: segmentFor({ firmSize: input.firmSize, firm: input.firm, donors: input.donors }),
   };
 }
 

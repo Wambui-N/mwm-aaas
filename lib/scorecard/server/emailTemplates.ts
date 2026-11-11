@@ -39,7 +39,7 @@ export function resultsEmail(row: Pick<SubmissionRow, "id" | "first_name">, resu
     : `Your strongest stage is ${STAGE_NAMES[top]}. The one costing you most is ${STAGE_NAMES[weakest]}. Your three priority fixes start there.`;
 
   const [w1, w2] = weakestStages(result.stageScores, 2);
-  const notFit = result.segment === "not_fit" ? nextSteps.notFitNote(STAGE_NAMES[w1], STAGE_NAMES[w2]) : "";
+  const notFit = result.segment !== "ready" ? nextSteps.weakestNote(STAGE_NAMES[w1], STAGE_NAMES[w2]) : "";
 
   const stageRows = STAGES.map((s) => `${STAGE_NAMES[s]}: ${result.stageScores[s].pct}% (${result.stageScores[s].label})`);
   const subject = emailCopy.resultsSubject(result.totalPct, tier);
@@ -89,7 +89,8 @@ export function abandonEmail(row: Pick<SubmissionRow, "id" | "first_name">): Mai
 export function alertEmail(row: SubmissionRow, result: ScoreResult): Mail {
   const tier = tiers[result.tier].name;
   const link = resultsUrl(row.id);
-  const subject = `Ideal-fit audit lead: ${row.firm_name} (${result.totalPct}%)`;
+  const hot = result.helpFlags.length > 0 || row.firm_answers.q5x === "This month" || row.firm_answers.q5x === "In the next 3 months";
+  const subject = `${hot ? "HOT: " : ""}Audit lead, ready to automate: ${row.firm_name} (${result.totalPct}%)`;
   const helpStages = result.helpFlags.map((s) => STAGE_NAMES[s]);
 
   const scored = SCORED_QUESTIONS.map((q) => `${q.id} (${STAGE_NAMES[q.stage]}): ${row.answers[q.id] ?? "-"}`);

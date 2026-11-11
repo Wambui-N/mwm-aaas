@@ -13,6 +13,7 @@ import {
   ANSWER_OPTIONS,
   CONSENT_LABEL,
   DONORS,
+  NO_DONORS,
   FIRM_INTRO,
   FIRM_QUESTIONS,
   FIRM_SIZES,
@@ -64,12 +65,13 @@ const FRESH_MS = 30 * 60 * 1000; // a refresh inside this window drops you strai
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** First screen at or after the scored questions that still lacks a required answer (donors and q6x are optional). */
-function positionFrom(answers: Record<string, string>, firm: Record<string, string>, country: string): number {
+/** First screen at or after the scored questions that still lacks a required answer (only q6x is optional). */
+function positionFrom(answers: Record<string, string>, firm: Record<string, string>, country: string, donors: string[]): number {
   for (let i = FIRST_SCORED; i < SCREENS.length; i++) {
     const s = SCREENS[i];
     if (s.kind === "scored" && !answers[s.q.id]) return i;
     if (s.kind === "country" && !country) return i;
+    if (s.kind === "donors" && !donors.length) return i;
     if (s.kind === "firm" && !firm[s.q.id]) return i;
   }
   return LAST;
@@ -285,7 +287,7 @@ export function ScorecardFlow() {
           setFirm(d.firmAnswers ?? {});
           setCountry(d.country ?? "");
           setDonors(d.donors ?? []);
-          setIdx(positionFrom(d.answers ?? {}, d.firmAnswers ?? {}, d.country ?? ""));
+          setIdx(positionFrom(d.answers ?? {}, d.firmAnswers ?? {}, d.country ?? "", d.donors ?? []));
         })
         .catch(() => {})
         .finally(() => setReady(true));
@@ -417,12 +419,17 @@ export function ScorecardFlow() {
   };
 
   const submitDonors = () => {
+    if (!donors.length) return setFieldError("Please pick at least one, or the last option if you don't respond to donor-funded RFPs.");
     if (id) void autosave(id, { donors });
     track("scorecard_question_answered", { question: "donors" });
     go(idx + 1);
   };
 
-  const toggleDonor = (d: string) => setDonors((p) => (p.includes(d) ? p.filter((x) => x !== d) : [...p, d]));
+  /** The "we don't respond to donor-funded RFPs" answer is exclusive: choosing it clears the donors, and vice versa. */
+  const toggleDonor = (d: string) => {
+    setFieldError("");
+    setDonors((p) => (d === NO_DONORS ? (p.includes(d) ? [] : [d]) : p.includes(d) ? p.filter((x) => x !== d) : [...p.filter((x) => x !== NO_DONORS), d]));
+  };
 
   const submitEmail = () => {
     if (!lead.email.trim()) return setFieldError("Please enter your work email.");
@@ -680,9 +687,14 @@ export function ScorecardFlow() {
                 </button>
               ))}
             </div>
+            {fieldError && (
+              <p className="fm-error mt-4" role="alert">
+                {fieldError}
+              </p>
+            )}
             <div className="mt-8 flex items-center gap-5">
               <Next type="button" onClick={submitDonors}>
-                {donors.length ? "OK →" : "Skip →"}
+                OK →
               </Next>
               <Hint />
             </div>
