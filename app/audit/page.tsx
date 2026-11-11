@@ -6,9 +6,9 @@ import { landing } from "@/lib/scorecard/copy";
 import { siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "The Proposal Pipeline Scorecard | Made with Make",
+  title: "The Proposal Audit",
   description: landing.sub,
-  alternates: { canonical: `${siteConfig.url}/scorecard` },
+  alternates: { canonical: `${siteConfig.url}/audit` },
   // stays out of search until the launch flag is on
   robots: SCORECARD_LIVE ? { index: true, follow: true } : { index: false, follow: false },
 };

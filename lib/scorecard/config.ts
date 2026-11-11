@@ -4,13 +4,14 @@
  */
 
 /**
- * Launch flag. On by default: the nav and every "Find My Proposal Gaps" button go to /scorecard, the homepage [05]
- * section uses the scorecard copy, /assessment redirects (301) to /scorecard, and /scorecard is indexed and in the
+ * Launch flag. On by default: the nav and every "Find My Proposal Gaps" button go to /audit, the homepage [05]
+ * section uses the scorecard copy, /assessment redirects (301) to /audit, and /audit is indexed and in the
  * sitemap. Set NEXT_PUBLIC_SCORECARD_LIVE=false (and redeploy) to switch everything back to the Automation Gap Audit.
  */
 export const SCORECARD_LIVE = process.env.NEXT_PUBLIC_SCORECARD_LIVE !== "false";
 
-export const SCORECARD_PATH = "/scorecard";
+/** Public URL of the Proposal Audit (the code, API routes and database keep the internal name "scorecard"). */
+export const SCORECARD_PATH = "/audit";
 
 /** Free first draft offer page (built separately). */
 export const FREE_DRAFT_HREF = "/proposal-pipeline#free-draft";

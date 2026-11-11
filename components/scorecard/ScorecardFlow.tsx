@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, X } from "lucide-react";
 import { SketchSubmit } from "@/components/site/SketchButton";
-import { FOUNDERS_FREEDOM_POST, LOCAL_KEY } from "@/lib/scorecard/config";
+import { FOUNDERS_FREEDOM_POST, LOCAL_KEY, SCORECARD_PATH } from "@/lib/scorecard/config";
 import { landing, leadScreens } from "@/lib/scorecard/copy";
 import { COUNTRIES } from "@/lib/scorecard/countries";
 import {
@@ -279,7 +279,7 @@ export function ScorecardFlow() {
         .then((r) => (r.ok ? r.json() : null))
         .then((d) => {
           if (!d?.ok) return;
-          if (d.status === "completed") return void router.replace(`/scorecard/results/${resumeId}`);
+          if (d.status === "completed") return void router.replace(`${SCORECARD_PATH}/results/${resumeId}`);
           setId(resumeId);
           setAnswers(d.answers ?? {});
           setFirm(d.firmAnswers ?? {});
@@ -351,8 +351,8 @@ export function ScorecardFlow() {
           res.status === 429
             ? "Too many attempts from this connection. Please try again in an hour, or email wambui@madewithmake.com."
             : res.status === 503
-              ? "The scorecard isn't available right now. Please try again shortly."
-              : "Something went wrong starting the scorecard. Please pick your firm size again.",
+              ? "The audit isn't available right now. Please try again shortly."
+              : "Something went wrong starting the audit. Please pick your firm size again.",
         );
         return;
       }
@@ -754,7 +754,7 @@ export function ScorecardFlow() {
       <div
         className="fixed inset-x-0 top-0 z-10 h-[3px] bg-ink/[0.1]"
         role="progressbar"
-        aria-label="Scorecard progress"
+        aria-label="Audit progress"
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(progress * 100)}
@@ -770,7 +770,7 @@ export function ScorecardFlow() {
           </svg>
           Made with Make
         </Link>
-        <button type="button" onClick={close} className="sc-icon-btn -mr-2" aria-label="Close the scorecard">
+        <button type="button" onClick={close} className="sc-icon-btn -mr-2" aria-label="Close the audit">
           <X className="h-6 w-6" aria-hidden />
         </button>
       </header>

@@ -7,7 +7,7 @@ export const hero = {
   body: "You've built a real business. But somewhere between growing from 5 people to 25, the operations stopped keeping up. Now your best people are spending their mornings on admin that a well-built system could do overnight.",
   // Phrases the live site shows in bold inside `body` (exact substrings).
   bodyBold: ["the operations stopped keeping up", "a well-built system could do overnight"],
-  cta: "Is Your Proposal Process Costing You?",
+  cta: "Find My Proposal Gaps",
   secondary: "Find out more",
 };
 
@@ -108,8 +108,8 @@ export const cases = {
 export const audit = {
   label: "[05] Start here",
   heading: "If a great project came in today, how fast could you send a strong proposal?",
-  body: "Fix the gaps, and your team sends more proposals and wins more projects, without hiring anyone. This free scorecard finds those gaps in 3 minutes.",
-  panelTitle: "The Proposal Pipeline Scorecard",
+  body: "Fix the gaps, and your team sends more proposals and wins more projects, without hiring anyone. This free audit finds those gaps in 3 minutes.",
+  panelTitle: "The Proposal Audit",
   panelSub: "In 3 minutes, see how fast your proposal process really is.",
   bullets: [
     "Your proposal score across all 5 stages, from finding the project to hitting submit",
@@ -167,6 +167,6 @@ export const founder = {
 export const finalCta = {
   label: "[09] Is this for you?",
   heading: "Find out exactly where your business is leaking time.",
-  body: "The audit takes five minutes. The results stay with you forever.",
+  body: "The audit takes about 4 minutes. Your results appear on screen and arrive in your inbox.",
   cta: "Find My Proposal Gaps",
 };

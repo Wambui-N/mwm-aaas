@@ -5,7 +5,8 @@ import { generatePageMetadata, siteConfig } from "@/lib/seo";
 import { SiteShell } from "@/components/site/SiteShell";
 import { SectionLabel } from "@/components/site/SectionLabel";
 import { Underlined } from "@/components/site/Underlined";
-import { JumpButton, JumpLink } from "@/components/proposal-pipeline/Jump";
+import { JumpLink } from "@/components/proposal-pipeline/Jump";
+import { SketchButton } from "@/components/site/SketchButton";
 import { BeforeAfter } from "@/components/proposal-pipeline/BeforeAfter";
 import { HowSteps } from "@/components/proposal-pipeline/HowSteps";
 import { Quote } from "@/components/proposal-pipeline/Quote";
@@ -149,9 +150,9 @@ export default function ProposalPipelinePage() {
               “Proposal creation went from several hours to a few minutes.” <span className="font-bold not-italic text-ink">Founders Freedom Africa</span>
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-x-10 gap-y-5">
-              <JumpButton to={FORM_ID} seed={62}>
-                Try It Free on Your Next RFP →
-              </JumpButton>
+              <SketchButton href={AUDIT_HREF} variant="marker" seed={62} className="text-lg">
+                Find My Proposal Gaps →
+              </SketchButton>
               <JumpLink to={HOW_ID} className="inline-flex min-h-[44px] items-center font-bold underline-offset-4 hover:underline focus-visible:underline">
                 See how it works ↓
               </JumpLink>
@@ -224,9 +225,9 @@ export default function ProposalPipelinePage() {
             </div>
 
             <div className="mt-8">
-              <JumpButton to={FORM_ID} seed={67}>
-                Get My Free First Draft →
-              </JumpButton>
+              <SketchButton href={AUDIT_HREF} variant="marker" seed={67} className="text-lg">
+                Find My Proposal Gaps →
+              </SketchButton>
             </div>
           </Section>
 
@@ -272,16 +273,11 @@ export default function ProposalPipelinePage() {
                   Your next RFP is already out there. See it drafted in <Underlined seed={70}>under 20 minutes</Underlined>.
                 </h2>
                 <div className="mt-8">
-                  <JumpButton to={FORM_ID} seed={71}>
-                    Get My Free First Draft →
-                  </JumpButton>
+                  <SketchButton href={AUDIT_HREF} variant="marker" seed={71} className="text-lg">
+                    Find My Proposal Gaps →
+                  </SketchButton>
                 </div>
-                <p className="calm-body mt-6 text-sage/85">
-                  Not ready yet?{" "}
-                  <a href={AUDIT_HREF} className="text-sage underline underline-offset-4 hover:text-[color:var(--paper)]">
-                    Find your proposal gaps with the free scorecard →
-                  </a>
-                </p>
+                <p className="calm-body mt-6 text-sage/85">The free Proposal Audit takes about 4 minutes and shows where your proposals lose time.</p>
               </div>
             </aside>
           </Section>

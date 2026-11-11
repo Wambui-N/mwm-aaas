@@ -5,8 +5,8 @@
 export const scorecardAudit = {
   label: "[05] Start here",
   heading: "If a great project came in today, how fast could you send a strong proposal?",
-  body: "Fix the gaps, and your team sends more proposals and wins more projects, without hiring anyone. This free scorecard finds those gaps in 4 minutes.",
-  panelTitle: "The Proposal Pipeline Scorecard",
+  body: "Fix the gaps, and your team sends more proposals and wins more projects, without hiring anyone. This free audit finds those gaps in 4 minutes.",
+  panelTitle: "The Proposal Audit",
   panelSub: "In 4 minutes, see how fast your proposal process really is.",
   bullets: [
     "Your proposal score across all 5 stages, from finding the project to hitting submit",

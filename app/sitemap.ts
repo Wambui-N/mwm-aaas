@@ -39,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     // the scorecard is listed only once it is live
     ...(SCORECARD_LIVE
-      ? [{ url: `${baseUrl}/scorecard`, lastModified: currentDate, changeFrequency: "monthly" as const, priority: 0.9 }]
+      ? [{ url: `${baseUrl}/audit`, lastModified: currentDate, changeFrequency: "monthly" as const, priority: 0.9 }]
       : []),
     {
       url: `${baseUrl}/blog`,
