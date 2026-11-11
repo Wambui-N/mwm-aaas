@@ -382,7 +382,7 @@ export function ScorecardFlow() {
       const body = await res.json().catch(() => ({}));
       if (!res.ok || !body.url) throw new Error(body?.error || "complete failed");
       await minimum; // never flash past the loading screen, even when the API is fast
-      track("scorecard_completed");
+      track("scorecard_completed", body.segment ? { segment: String(body.segment) } : {});
       writeSaved(null);
       router.push(body.url);
     } catch {

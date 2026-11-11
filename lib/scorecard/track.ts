@@ -5,7 +5,9 @@ export type ScorecardEvent =
   | "scorecard_lead_submitted"
   | "scorecard_question_answered"
   | "scorecard_completed"
-  | "results_cta_clicked";
+  | "audit_result_viewed"
+  | "results_cta_clicked"
+  | "first_draft_requested";
 
 export function track(event: ScorecardEvent, params?: Record<string, string | number | boolean>) {
   if (typeof window === "undefined") return;

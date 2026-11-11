@@ -4,6 +4,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { ResultsView, type ResultsData } from "@/components/scorecard/ResultsView";
 import { SCORECARD_PATH } from "@/lib/scorecard/config";
 import { dbConfigured, getSubmission, isUuid, type SubmissionRow } from "@/lib/scorecard/server/db";
+import { weakestStages } from "@/lib/scorecard/scoring";
 import { absolute, demoVideoUrl, nextLinks } from "@/lib/scorecard/server/links";
 
 export const dynamic = "force-dynamic";
@@ -45,7 +46,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
     <SiteShell smoothScroll={false}>
       <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
         <div className="mx-auto max-w-[81.25rem]">
-          <ResultsView data={data} links={nextLinks(data.segment, id)} demoUrl={demoVideoUrl()} />
+          <ResultsView data={data} links={nextLinks(data.segment, id, weakestStages(data.stageScores, 1)[0])} demoUrl={demoVideoUrl()} />
         </div>
       </main>
     </SiteShell>

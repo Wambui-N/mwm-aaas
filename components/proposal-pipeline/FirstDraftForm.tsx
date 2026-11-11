@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowRight, Upload } from "lucide-react";
 import { SketchSubmit } from "@/components/site/SketchButton";
 import { DrawIn } from "@/components/site/draw/DrawIn";
+import { track } from "@/lib/scorecard/track";
 
 /** Files travel through a serverless function, which caps the request body (about 4.5 MB on Vercel). */
 const MAX_TOTAL_BYTES = 4 * 1024 * 1024;
@@ -92,6 +93,7 @@ export function FirstDraftForm({
       const res = await fetch("/api/proposal-pipeline", { method: "POST", body: fd });
       if (res.status === 409) return setFailure(`Your first draft has already been requested. Check your inbox, or email ${EMAIL} if it has not arrived.`);
       if (!res.ok) throw new Error(String(res.status));
+      track("first_draft_requested");
       setDone(true);
     } catch {
       setFailure(`Something went wrong sending your files. Please try again, or email them to ${EMAIL}.`);

@@ -118,6 +118,18 @@ export const pages = {
 };
 
 export const emailCopy = {
+  /** One short paragraph per results page, after the numbers and before the buttons. */
+  pageNote: {
+    ready:
+      "Here's the quickest way to see the Proposal Pipeline on your own work: send one live RFP and one to three of your past proposals, and a complete first draft comes back in under 20 minutes. Or book 30 minutes and we'll go through your results together.",
+    almost:
+      "A system pays off most once you're sending around 10 proposals a month. Until then, the Playbook shows what to fix first in each stage, and the Get-Ready Checklist gets you ready for when your volume grows. Questions? Just reply to this email.",
+    playbook:
+      "At your volume, a system is more than you need today. The Playbook walks through the fixes stage by stage, and the Starter Checklist gives you five habits to start with. Questions? Just reply to this email.",
+  },
+  nudgeSubject: "Your first draft is one upload away",
+  nudgeBody: (firstName: string) =>
+    `Hi ${firstName}, your audit results are saved, and your free first draft is still waiting. Send one live RFP and one to three of your past proposals, and a complete first draft comes back in under 20 minutes. If you'd rather talk it through first, book 30 minutes.`,
   resultsSubject: (pct: number, tierName: string) => `Your Proposal Pipeline Score: ${pct}% (${tierName})`,
   abandonSubject: "Your Proposal Pipeline Score is waiting",
   abandonBody: (firstName: string) =>

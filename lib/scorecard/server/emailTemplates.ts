@@ -33,13 +33,14 @@ export function resultsEmail(row: Pick<SubmissionRow, "id" | "first_name">, resu
   const link = resultsUrl(row.id);
   const { top, weakest, even } = ranked(result);
   const cost = costBlock(String(result.hoursMonth), formatUsd(result.costMonth), String(result.savedHours));
-  const links = nextLinks(result.segment, row.id);
+  const links = nextLinks(result.segment, row.id, weakestStages(result.stageScores, 1)[0]);
   const intro = even
     ? `Your stages are evenly matched. Your three priority fixes start with ${STAGE_NAMES[result.fixes[0].stage]}.`
     : `Your strongest stage is ${STAGE_NAMES[top]}. The one costing you most is ${STAGE_NAMES[weakest]}. Your three priority fixes start there.`;
 
   const [w1, w2] = weakestStages(result.stageScores, 2);
-  const notFit = result.segment !== "ready" ? nextSteps.weakestNote(STAGE_NAMES[w1], STAGE_NAMES[w2]) : "";
+  const weakestLine = result.segment !== "ready" ? nextSteps.weakestNote(STAGE_NAMES[w1], STAGE_NAMES[w2]) : "";
+  const pageNote = emailCopy.pageNote[result.segment];
 
   const stageRows = STAGES.map((s) => `${STAGE_NAMES[s]}: ${result.stageScores[s].pct}% (${result.stageScores[s].label})`);
   const subject = emailCopy.resultsSubject(result.totalPct, tier);
@@ -51,7 +52,8 @@ export function resultsEmail(row: Pick<SubmissionRow, "id" | "first_name">, resu
       `<ul style="padding-left:18px;margin:8px 0">${stageRows.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>` +
       `<p>${esc(cost)}</p>` +
       `<p>${esc(intro)}</p>` +
-      (notFit ? `<p>${esc(notFit)}</p>` : "") +
+      (weakestLine ? `<p>${esc(weakestLine)}</p>` : "") +
+      `<p>${esc(pageNote)}</p>` +
       links.map((l) => button(l.href.startsWith("/") ? absolute(l.href) : l.href, l.label)).join("") +
       `<p>Wambui</p>`,
   );
@@ -66,7 +68,9 @@ export function resultsEmail(row: Pick<SubmissionRow, "id" | "first_name">, resu
     cost,
     "",
     intro,
-    ...(notFit ? ["", notFit] : []),
+    ...(weakestLine ? ["", weakestLine] : []),
+    "",
+    pageNote,
     "",
     ...links.map((l) => `${l.label}: ${l.href.startsWith("/") ? absolute(l.href) : l.href}`),
     "",
@@ -82,6 +86,17 @@ export function abandonEmail(row: Pick<SubmissionRow, "id" | "first_name">): Mai
     subject: emailCopy.abandonSubject,
     html: wrap(`<p>${esc(body)}</p>${button(link, "Pick up where you left off")}<p>Wambui</p>`),
     text: `${body} ${link}\n\nWambui`,
+  };
+}
+
+/** The one reminder for a ready result that has not used its free first draft: the draft and a call, same two buttons. */
+export function nudgeEmail(row: Pick<SubmissionRow, "id" | "first_name">): Mail {
+  const body = emailCopy.nudgeBody(row.first_name);
+  const links = nextLinks("ready", row.id).map((l) => ({ ...l, href: l.href.startsWith("/") ? absolute(l.href) : l.href }));
+  return {
+    subject: emailCopy.nudgeSubject,
+    html: wrap(`<p>${esc(body)}</p>${links.map((l) => button(l.href, l.label)).join("")}<p>Wambui</p>`),
+    text: [body, "", ...links.map((l) => `${l.label}: ${l.href}`), "", "Wambui"].join("\n"),
   };
 }
 

@@ -1,6 +1,7 @@
 import { SectionLabel } from "@/components/site/SectionLabel";
 import { Underlined } from "@/components/site/Underlined";
 import { CtaLink } from "@/components/scorecard/CtaLink";
+import { ResultTracker } from "@/components/scorecard/ResultTracker";
 import { costBlock, helpFlagLine, nextSteps, pages, resultsHeading, resultsLabels, stageInsights, strongLine, tiers } from "@/lib/scorecard/copy";
 import { CONTACT_EMAIL, CONTACT_HREF, SCORECARD_PATH } from "@/lib/scorecard/config";
 import { STAGES, STAGE_NAMES, type Stage } from "@/lib/scorecard/questions";
@@ -45,6 +46,7 @@ export function ResultsView({ data, links, demoUrl }: { data: ResultsData; links
 
   return (
     <div className="cols-8">
+      <ResultTracker segment={data.segment} tier={data.tier} />
       <header>
         <SectionLabel>The Proposal Audit</SectionLabel>
         <h1 className="sk-title">
@@ -152,7 +154,7 @@ export function ResultsView({ data, links, demoUrl }: { data: ResultsData; links
         {links.length > 0 && (
           <div className="mt-8 flex flex-wrap items-center gap-x-10 gap-y-5">
             {links.map((l, n) => (
-              <CtaLink key={l.key} href={l.href} cta={l.key} primary={l.primary} seed={20 + n}>
+              <CtaLink key={l.key} href={l.href} cta={l.key} segment={data.segment} primary={l.primary} seed={20 + n}>
                 {l.label} →
               </CtaLink>
             ))}
