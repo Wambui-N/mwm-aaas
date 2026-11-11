@@ -68,6 +68,16 @@ export const patchSchema = z.object({
 /** Required ids before a submission can be completed (q6x is optional). */
 export const REQUIRED_FIRM_IDS = FIRM_QUESTIONS.filter((q) => !q.optionalText).map((q) => q.id);
 
-export function missingIds(answers: Record<string, string>, firm: Record<string, string>, country = ""): string[] {
-  return [...SCORED_IDS.filter((id) => !answers[id]), ...(country ? [] : ["country"]), ...REQUIRED_FIRM_IDS.filter((id) => !firm[id])];
+export function missingIds(
+  answers: Record<string, string>,
+  firm: Record<string, string>,
+  country = "",
+  donors: readonly string[] = [],
+): string[] {
+  return [
+    ...SCORED_IDS.filter((id) => !answers[id]),
+    ...(country ? [] : ["country"]),
+    ...(donors.length ? [] : ["donors"]),
+    ...REQUIRED_FIRM_IDS.filter((id) => !firm[id]),
+  ];
 }

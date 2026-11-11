@@ -1,7 +1,8 @@
 import { SectionLabel } from "@/components/site/SectionLabel";
 import { Underlined } from "@/components/site/Underlined";
 import { CtaLink } from "@/components/scorecard/CtaLink";
-import { costBlock, helpFlagLine, nextSteps, resultsHeading, resultsLabels, stageInsights, strongLine, tiers } from "@/lib/scorecard/copy";
+import { costBlock, helpFlagLine, nextSteps, pages, resultsHeading, resultsLabels, stageInsights, strongLine, tiers } from "@/lib/scorecard/copy";
+import { CONTACT_EMAIL, CONTACT_HREF, SCORECARD_PATH } from "@/lib/scorecard/config";
 import { STAGES, STAGE_NAMES, type Stage } from "@/lib/scorecard/questions";
 import { formatUsd, priorityFixes, weakestStages, type Segment, type StageLabel, type TierKey } from "@/lib/scorecard/scoring";
 import type { NextLink } from "@/lib/scorecard/server/links";
@@ -29,14 +30,18 @@ function DemoSlot({ url }: { url: string }) {
   );
 }
 
-/** The results, in the spec's order: heading, tier, stage bars, cost, three fixes, demo, next step. No prices. */
-export function ResultsView({ data, links, demoUrl, shareHref }: { data: ResultsData; links: NextLink[]; demoUrl: string; shareHref: string }) {
+/**
+ * The results: heading, tier, stage bars, cost, three fixes, then a next step that depends on the page (ready, almost,
+ * playbook). The shared parts come first so every visitor gets the same useful audit. No prices.
+ */
+export function ResultsView({ data, links, demoUrl }: { data: ResultsData; links: NextLink[]; demoUrl: string }) {
   const tier = tiers[data.tier];
   const heading = resultsHeading(data.firstName, data.totalPct, tier.name);
   const pctText = `${data.totalPct}%`;
   const at = heading.indexOf(pctText);
   const fixes = priorityFixes(data.stageScores, data.helpFlags);
-  const machine = data.segment === "machine";
+  const ready = data.segment === "ready";
+  const page = ready ? pages.ready : data.segment === "almost" ? pages.almost : pages.playbook;
 
   return (
     <div className="cols-8">
@@ -116,31 +121,64 @@ export function ResultsView({ data, links, demoUrl, shareHref }: { data: Results
         </ol>
       </section>
 
-      {demoUrl && <DemoSlot url={demoUrl} />}
+      {ready && demoUrl && <DemoSlot url={demoUrl} />}
 
       <section className="mt-[4.5rem] md:mt-[6.75rem]" aria-labelledby="rs-next">
         <h2 id="rs-next" className="calm-h3">
-          {machine ? nextSteps.secondOpinion : resultsLabels.next}
+          {page.heading}
         </h2>
-        {data.segment === "not_fit" && (
+        <p className="calm-body mt-4 max-w-[46rem] text-ink/85">{page.lede}</p>
+
+        {ready && (
+          <ol className="mt-6 border-b border-ink/20">
+            {pages.ready.steps.map((st, n) => (
+              <li key={st.title} className="grid gap-y-2 border-t border-ink/20 py-5 md:grid-cols-12 md:gap-x-6">
+                <p className="gl-mono pt-1 text-ink/60 md:col-span-2">{String(n + 1).padStart(2, "0")}</p>
+                <div className="md:col-span-10">
+                  <p className="font-bold">{st.title}</p>
+                  <p className="calm-body mt-2 text-ink/85">{st.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        )}
+
+        {!ready && (
           <p className="calm-body mt-4 max-w-[46rem] text-ink/85">
-            {nextSteps.notFitNote(...(weakestStages(data.stageScores).map((s) => STAGE_NAMES[s]) as [string, string]))}
+            {nextSteps.weakestNote(...(weakestStages(data.stageScores).map((s) => STAGE_NAMES[s]) as [string, string]))}
           </p>
         )}
-        <div className="mt-6 flex flex-wrap items-center gap-x-10 gap-y-5">
-          {links.map((l, n) => (
-            <CtaLink key={l.key} href={l.href} cta={l.key} primary={l.primary} seed={20 + n}>
-              {l.label} →
-            </CtaLink>
-          ))}
-        </div>
-        {machine && (
-          <p className="calm-body mt-8">
-            <strong>{nextSteps.referTitle}</strong>{" "}
-            <a href={shareHref} className="font-bold underline underline-offset-4 hover:no-underline focus-visible:no-underline">
-              {nextSteps.referLine}
-            </a>
-          </p>
+
+        {links.length > 0 && (
+          <div className="mt-8 flex flex-wrap items-center gap-x-10 gap-y-5">
+            {links.map((l, n) => (
+              <CtaLink key={l.key} href={l.href} cta={l.key} primary={l.primary} seed={20 + n}>
+                {l.label} →
+              </CtaLink>
+            ))}
+          </div>
+        )}
+
+        {!ready && (
+          <div className="calm-body mt-10 max-w-[46rem] border-t border-ink/20 pt-6 text-ink/85">
+            <p>
+              {"retake" in page && page.retake}{" "}
+              <a href={SCORECARD_PATH} className="font-bold underline underline-offset-4 hover:no-underline focus-visible:no-underline">
+                Start again
+              </a>
+            </p>
+            <p className="mt-3">
+              {pages.reachOut}{" "}
+              <a href={`mailto:${CONTACT_EMAIL}`} className="font-bold underline underline-offset-4 hover:no-underline focus-visible:no-underline">
+                {CONTACT_EMAIL}
+              </a>{" "}
+              or the{" "}
+              <a href={CONTACT_HREF} className="font-bold underline underline-offset-4 hover:no-underline focus-visible:no-underline">
+                contact page
+              </a>
+              .
+            </p>
+          </div>
         )}
       </section>
     </div>

@@ -13,6 +13,14 @@ export const SCORECARD_LIVE = process.env.NEXT_PUBLIC_SCORECARD_LIVE !== "false"
 /** Public URL of the Proposal Audit (the code, API routes and database keep the internal name "scorecard"). */
 export const SCORECARD_PATH = "/audit";
 
+/** The 30-minute strategy-call schedule (the same one embedded on /contact-us). BOOKING_URL overrides it. */
+export const DEFAULT_BOOKING_URL =
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ3IyUTXZbXnr4LfWUkBOCp-WVVw06GgAr1YBMsNnnObpc76RKIEtGchs8oFcvk4aldbutadnyW2?gv=true";
+
+/** Where anyone can write or book any time (the contact page has the calendar and the email address). */
+export const CONTACT_HREF = "/contact-us";
+export const CONTACT_EMAIL = "wambui@madewithmake.com";
+
 /** Free first draft offer page (built separately). */
 export const FREE_DRAFT_HREF = "/proposal-pipeline#free-draft";
 

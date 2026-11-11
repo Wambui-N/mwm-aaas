@@ -21,7 +21,7 @@ export const leadScreens = {
   role: "What's your role?",
   firmSize: "How big is your firm?",
   country: "Which country is your firm based in?",
-  donors: "Which donors do you submit proposals to? (optional)",
+  donors: "Which donors do you submit proposals to?",
 };
 
 export const tiers: Record<TierKey, { name: string; copy: string }> = {
@@ -82,18 +82,39 @@ export const resultsLabels = {
   next: "Your next step",
 };
 
-/** Next-step copy per segment (results page and email share these labels). */
+/** Next-step button labels (results page and email share these). */
 export const nextSteps = {
-  freeDraft: "Get your free proposal draft",
+  freeDraft: "Get your free first draft",
   book: "Book a call",
-  checklist: "Get the 5-Stage Proposal Pipeline Playbook",
-  linkedin: "Follow Wambui on LinkedIn",
-  secondOpinion: "Want a second pair of eyes?",
-  referTitle: "Know a firm that's struggling?",
-  referLine: "Send them this audit.",
+  playbook: "Get the 5-Stage Proposal Pipeline Playbook",
+  getReadyChecklist: "Get the Get-Ready Checklist",
+  starterChecklist: "Get the Starter Checklist",
   demo: "Watch the demo",
-  notFitNote: (a: string, b: string) =>
-    `Your two weakest stages are ${a} and ${b}. The playbook shows what to fix first in each.`,
+  weakestNote: (a: string, b: string) => `Your two weakest stages are ${a} and ${b}. The Playbook shows what to fix first in each.`,
+};
+
+/** The three results pages. Visitors never see the words "qualified" or "fit": each page says what to do next. */
+export const pages = {
+  ready: {
+    heading: "Here's how this would work for your team",
+    lede: "At your volume, the repeatable parts of proposal writing add up fast. This is how the Proposal Pipeline takes them off your team.",
+    steps: [
+      { title: "You send", body: "One live RFP and one to three of your past proposals. About 5 minutes." },
+      { title: "We run it", body: "The pipeline reads the ToR and writes a complete first draft from your own past work, in under 20 minutes." },
+      { title: "Your team reviews", body: "You polish a draft instead of starting from a blank page. If it doesn't sound like your firm yet, we keep refining it with you." },
+    ],
+  },
+  almost: {
+    heading: "Where to start",
+    lede: "A full system pays off most once you're sending around 10 proposals a month. Until then, the Playbook and the Get-Ready Checklist cover the fixes above, so you're ready when you get there.",
+    retake: "Retake the audit when you reach 10 proposals a month.",
+  },
+  playbook: {
+    heading: "Your playbook",
+    lede: "At your volume, a system is more than you need today. The Playbook walks through the fixes above, stage by stage, and the Starter Checklist gives you five habits to start with.",
+    retake: "Retake the audit if your proposal volume grows.",
+  },
+  reachOut: "Questions, or want to talk it through? Write to me any time.",
 };
 
 export const emailCopy = {

@@ -1,5 +1,5 @@
 /** Next-step links per segment, shared by the results page and the results email. Server only (reads env). */
-import { FREE_DRAFT_HREF, SCORECARD_PATH } from "../config";
+import { DEFAULT_BOOKING_URL, FREE_DRAFT_HREF, SCORECARD_PATH } from "../config";
 import { nextSteps } from "../copy";
 import type { Segment } from "../scoring";
 
@@ -15,37 +15,34 @@ export const resultsUrl = (id: string) => absolute(`${SCORECARD_PATH}/results/${
 export const resumeUrl = (id: string) => absolute(`${SCORECARD_PATH}?resume=${id}`);
 
 const env = {
-  booking: () => process.env.BOOKING_URL?.trim() || "",
+  booking: () => process.env.BOOKING_URL?.trim() || DEFAULT_BOOKING_URL,
   draft: () => process.env.FREE_DRAFT_URL?.trim() || FREE_DRAFT_HREF,
-  checklist: () => process.env.CHECKLIST_URL?.trim() || "",
+  /** The 5-Stage Proposal Pipeline Playbook. CHECKLIST_URL is the older name for the same link. */
+  playbook: () => process.env.PLAYBOOK_URL?.trim() || process.env.CHECKLIST_URL?.trim() || "",
+  getReady: () => process.env.GET_READY_CHECKLIST_URL?.trim() || "",
+  starter: () => process.env.STARTER_CHECKLIST_URL?.trim() || "",
   demo: () => process.env.DEMO_VIDEO_URL?.trim() || "",
-  linkedin: () => process.env.LINKEDIN_URL?.trim() || "https://www.linkedin.com/in/wambui-ndungu-210409193/",
 };
 export const demoVideoUrl = env.demo;
 
-/** Links hidden when their env var is empty (booking, checklist). */
+/** Links hidden when their env var is empty (playbook, checklists). */
 export function nextLinks(segment: Segment): NextLink[] {
   const out: NextLink[] = [];
-  const add = (l: NextLink | null) => l && out.push(l);
-  const book = env.booking() ? { key: "book", label: nextSteps.book, href: env.booking() } : null;
-  const draft = { key: "free_draft", label: nextSteps.freeDraft, href: env.draft() };
+  const add = (key: string, label: string, href: string, primary = true) => href && out.push({ key, label, href, primary });
 
   switch (segment) {
-    case "not_fit":
-      add(env.checklist() ? { key: "checklist", label: nextSteps.checklist, href: env.checklist(), primary: true } : null);
-      add({ key: "linkedin", label: nextSteps.linkedin, href: env.linkedin(), primary: !env.checklist() });
-      break;
-    case "machine":
-      add(book ? { ...book, primary: true } : null);
-      break;
-    case "ideal":
+    case "ready":
       // equal visual weight: both primary
-      add({ ...draft, primary: true });
-      add(book ? { ...book, primary: true } : null);
+      add("free_draft", nextSteps.freeDraft, env.draft());
+      add("book", nextSteps.book, env.booking());
+      break;
+    case "almost":
+      add("playbook", nextSteps.playbook, env.playbook());
+      add("get_ready_checklist", nextSteps.getReadyChecklist, env.getReady(), false);
       break;
     default:
-      add({ ...draft, primary: true });
-      add(book);
+      add("playbook", nextSteps.playbook, env.playbook());
+      add("starter_checklist", nextSteps.starterChecklist, env.starter(), false);
   }
   return out;
 }

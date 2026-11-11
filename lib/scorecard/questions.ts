@@ -60,10 +60,9 @@ export const FIRM_QUESTIONS: readonly FirmQuestion[] = [
     id: "c1",
     label: "About how many proposals (EOIs and full proposals) does your firm submit a month?",
     options: [
-      { value: "1–2", n: 1.5 },
-      { value: "3–5", n: 4 },
-      { value: "6–10", n: 8 },
-      { value: "11–20", n: 15 },
+      { value: "1–4", n: 2.5 },
+      { value: "5–9", n: 7 },
+      { value: "10–19", n: 15 },
       { value: "20+", n: 25 },
     ],
   },
@@ -147,7 +146,10 @@ export const ROLES = [
   "Other",
 ] as const;
 
-export const FIRM_SIZES = ["1–4", "5–15", "16–50", "51–200", "200+"] as const;
+export const FIRM_SIZES = ["1–4", "5–14", "15–49", "50–100", "Over 100"] as const;
+
+/** Exclusive answer: this firm does not respond to donor-funded RFPs. */
+export const NO_DONORS = "We don't respond to donor-funded RFPs";
 
 export const DONORS = [
   "World Bank",
@@ -158,6 +160,7 @@ export const DONORS = [
   "Bilateral (FCDO, GIZ, AFD and similar)",
   "Foundations",
   "Other",
+  NO_DONORS,
 ] as const;
 
 export const CONSENT_LABEL = "Email me my results and occasional proposal-process tips. Unsubscribe anytime.";

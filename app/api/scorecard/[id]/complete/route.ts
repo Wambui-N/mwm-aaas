@@ -25,7 +25,7 @@ export async function POST(_req: NextRequest, { params }: Ctx) {
     if (!row) return NextResponse.json({ ok: false, error: "not_found" }, { status: 404 });
     if (row.status === "completed") return NextResponse.json({ ok: true, url });
 
-    const missing = missingIds(row.answers ?? {}, row.firm_answers ?? {}, row.country);
+    const missing = missingIds(row.answers ?? {}, row.firm_answers ?? {}, row.country, row.donors ?? []);
     if (missing.length) return NextResponse.json({ ok: false, error: "incomplete", missing }, { status: 400 });
 
     const hourly = Number(process.env.HOURLY_RATE);
@@ -33,6 +33,7 @@ export async function POST(_req: NextRequest, { params }: Ctx) {
       answers: row.answers as Answers,
       firm: row.firm_answers as FirmAnswers,
       firmSize: row.firm_size,
+      donors: row.donors ?? [],
       hourlyRate: Number.isFinite(hourly) && hourly > 0 ? hourly : undefined,
     });
 
@@ -59,7 +60,7 @@ export async function POST(_req: NextRequest, { params }: Ctx) {
     const jobs: Promise<boolean>[] = [];
     const mail = resultsEmail(saved, result);
     jobs.push(sendMail({ to: saved.email, ...mail }));
-    if (result.segment === "ideal") {
+    if (result.segment === "ready") {
       const alert = alertEmail(saved, result);
       jobs.push(sendMail({ to: process.env.SCORECARD_NOTIFY_EMAIL || "wambui@madewithmake.com", ...alert }));
     }
