@@ -45,7 +45,7 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
     <SiteShell smoothScroll={false}>
       <main className="px-4 pb-[4.5rem] pt-8 md:px-8 md:pt-12">
         <div className="mx-auto max-w-[81.25rem]">
-          <ResultsView data={data} links={nextLinks(data.segment)} demoUrl={demoVideoUrl()} />
+          <ResultsView data={data} links={nextLinks(data.segment, id)} demoUrl={demoVideoUrl()} />
         </div>
       </main>
     </SiteShell>

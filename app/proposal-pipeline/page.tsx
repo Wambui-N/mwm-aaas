@@ -14,7 +14,6 @@ import { Guarantee } from "@/components/proposal-pipeline/Guarantee";
 import { Faq } from "@/components/proposal-pipeline/Faq";
 import { BuildChecklist } from "@/components/proposal-pipeline/BuildChecklist";
 import { TrySheet } from "@/components/proposal-pipeline/TrySheet";
-import ProposalForm from "@/components/proposal-pipeline/ProposalForm";
 import { testimonial, testimonials } from "@/lib/homepage/copy";
 import { AUDIT_HREF } from "@/lib/site/shell";
 
@@ -99,8 +98,8 @@ const includes = [
 ];
 
 const bonuses = [
-  ["Opportunity radar", "a daily scan of the donor portals you bid on, with a weekly digest and a one-click “Start proposal” button"],
-  ["Ready-made donor templates", "editable templates for the 5 donors you bid to most"],
+  ["Opportunity radar", "a daily scan of the donor portals you respond to, with a weekly digest and a one-click “Start proposal” button"],
+  ["Ready-made donor templates", "editable templates for the 5 donors you respond to most"],
 ];
 
 const guarantee = [
@@ -112,8 +111,8 @@ const guarantee = [
 const faqs = [
   ["Will it sound like generic AI?", "No. Every draft is built from your own past proposals, methodologies and projects, not from the internet. During setup, I tune it on your best proposals until your team can’t tell the difference. If it still doesn’t sound like you, I keep refining for free."],
   ["Is our data safe?", "Your system is built inside your own accounts, so you own everything. The AI runs under commercial terms that don’t allow your content to be used for training, and the automation runs on independently audited infrastructure (SOC 2 Type II, ISO 27001, GDPR)."],
-  ["Who is this for, and who isn’t it for?", "It’s for development consultancies that send 4+ proposals a month without a dedicated proposal team. It’s not for firms that bid once or twice a year, or for large firms with full bid departments and software already in place."],
-  ["Which donors and formats does it work with?", "World Bank, EU, AfDB, ADB, UN agencies, bilateral donors and foundations. I set it up for the donors you bid to most."],
+  ["Who is this for, and who isn’t it for?", "It’s for development consultancies that send 10+ proposals a month without a dedicated proposal team. It’s not for firms that respond to RFPs once or twice a year, or for large firms with full proposal departments and software already in place."],
+  ["Which donors and formats does it work with?", "World Bank, EU, AfDB, ADB, UN agencies, bilateral donors and foundations. I set it up for the donors you respond to most."],
   ["What tools do we need?", "The ones you already have. It works inside Google Workspace or Microsoft 365. There’s no new app for your team to learn."],
   ["How long does setup take, and how much of our time?", "Your first complete draft arrives within 14 days of receiving your documents. Your team spends a few hours on it in total: sending files and one voice-tuning session."],
   ["What does it cost?", "Every firm’s setup is different, so pricing is shared on the discovery call. I take on 2 new builds a month, and founding places are limited."],
@@ -240,7 +239,7 @@ export default function ProposalPipelinePage() {
                   <H2 id="try-h" text="See your next proposal written before your coffee gets cold." mark="before your coffee gets cold" seed={68} />
                 </div>
               }
-              body="Send one live RFP and a couple of your past proposals. Built for consultancies that answer donor RFPs and send 4+ proposals a month."
+              body="Take the free Proposal Audit. If you send 10+ donor-funded proposals a month, your results page unlocks a free first draft: send one live RFP and a couple of your past proposals."
               panelTitle="Your free first draft"
               panelSub="Send one RFP. Get a complete draft back."
               bullets={[
@@ -254,7 +253,17 @@ export default function ProposalPipelinePage() {
                 ["<20", "Minutes to your draft"],
               ]}
             >
-              <ProposalForm />
+              <div className="border border-ink/40 bg-white p-5 md:p-8">
+                <h3 className="calm-h3">Your first draft comes with your audit</h3>
+                <p className="calm-body mt-3 max-w-xl text-ink/85">
+                  The audit takes about 4 minutes and shows where your proposals lose time and what they cost you each month. Whatever your result, you get a clear next step, and no call is needed.
+                </p>
+                <div className="mt-6">
+                  <SketchButton href={AUDIT_HREF} variant="marker" seed={72} className="text-lg">
+                    Find My Proposal Gaps →
+                  </SketchButton>
+                </div>
+              </div>
             </TrySheet>
           </Section>
 

@@ -33,7 +33,7 @@ export function resultsEmail(row: Pick<SubmissionRow, "id" | "first_name">, resu
   const link = resultsUrl(row.id);
   const { top, weakest, even } = ranked(result);
   const cost = costBlock(String(result.hoursMonth), formatUsd(result.costMonth), String(result.savedHours));
-  const links = nextLinks(result.segment);
+  const links = nextLinks(result.segment, row.id);
   const intro = even
     ? `Your stages are evenly matched. Your three priority fixes start with ${STAGE_NAMES[result.fixes[0].stage]}.`
     : `Your strongest stage is ${STAGE_NAMES[top]}. The one costing you most is ${STAGE_NAMES[weakest]}. Your three priority fixes start there.`;
