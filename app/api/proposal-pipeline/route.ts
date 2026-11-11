@@ -1,39 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
+import { claimFirstDraft, dbConfigured, getSubmission, isUuid, releaseFirstDraft } from "@/lib/scorecard/server/db";
 
 /**
- * Proposal Pipeline form. Two calls:
- *  - step "lead" (JSON): the "About you" answers, sent before any upload so a drop-off is still followed up.
- *  - step "files" (multipart): the same answers plus the RFP and past proposals.
- * Both are forwarded to one Make.com webhook (PROPOSAL_PIPELINE_WEBHOOK_URL), where the scenario stores the
- * files, builds the draft, and sends the reminder emails. Nothing is stored on this server.
+ * Free first draft. Only a completed "ready" audit result can use it, once: the request must carry that result's
+ * id (`auditId`), the server claims the draft in the database, and the person's details (name, email, firm, role,
+ * size, volume) come from the saved audit, not from the browser. The files and the answers are then forwarded to one
+ * Make.com webhook (PROPOSAL_PIPELINE_WEBHOOK_URL), where the scenario stores the files and builds the draft.
+ * Nothing but the claim is stored on this server. If forwarding fails, the claim is given back so they can retry.
  */
 const MAX_TOTAL_BYTES = 4 * 1024 * 1024; // serverless request bodies are capped at about 4.5 MB
 const ALLOWED = /\.(pdf|docx?)$/i;
-
-const ABOUT_KEYS = ["firstName", "email", "firm", "role", "teamSize", "volume"] as const;
 
 const fail = (reason: string, status: number) => NextResponse.json({ ok: false, reason }, { status });
 
 export async function POST(req: NextRequest) {
   const hook = process.env.PROPOSAL_PIPELINE_WEBHOOK_URL;
-  if (!hook) return fail("not_configured", 503);
-
-  const type = req.headers.get("content-type") ?? "";
-
-  if (type.includes("application/json")) {
-    let body: Record<string, unknown>;
-    try {
-      body = await req.json();
-    } catch {
-      return fail("invalid_json", 400);
-    }
-    const email = String(body.email ?? "").trim();
-    if (!/^\S+@\S+\.\S+$/.test(email) || !String(body.firstName ?? "").trim()) return fail("missing_fields", 400);
-    const lead: Record<string, string> = { step: "lead" };
-    for (const k of ABOUT_KEYS) lead[k] = String(body[k] ?? "").trim().slice(0, 200);
-    const res = await fetch(hook, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(lead) }).catch(() => null);
-    return res?.ok ? NextResponse.json({ ok: true }) : fail("upstream_failed", 502);
-  }
+  if (!hook || !dbConfigured()) return fail("not_configured", 503);
 
   let form: FormData;
   try {
@@ -43,11 +25,11 @@ export async function POST(req: NextRequest) {
   }
   if (String(form.get("website") ?? "") !== "") return NextResponse.json({ ok: true }); // honeypot: pretend success
 
-  const email = String(form.get("email") ?? "").trim();
+  const auditId = String(form.get("auditId") ?? "");
   const rfp = form.get("rfp");
   const past = form.getAll("pastProposals").filter((f): f is File => f instanceof File);
   const profile = form.get("profile");
-  if (!/^\S+@\S+\.\S+$/.test(email) || !(rfp instanceof File) || past.length < 1 || past.length > 3 || form.get("consent") !== "yes") {
+  if (!isUuid(auditId) || !(rfp instanceof File) || past.length < 1 || past.length > 3 || form.get("consent") !== "yes") {
     return fail("missing_fields", 400);
   }
 
@@ -56,13 +38,38 @@ export async function POST(req: NextRequest) {
   if (files.some(([, f]) => !ALLOWED.test(f.name))) return fail("bad_file_type", 400);
   if (files.reduce((n, [, f]) => n + f.size, 0) > MAX_TOTAL_BYTES) return fail("too_large", 413);
 
+  // Claim before sending: only a completed "ready" result that has not used its draft gets past this line.
+  let row;
+  try {
+    row = await claimFirstDraft(auditId);
+  } catch (err) {
+    console.error("[proposal-pipeline] claim failed", err);
+    return fail("server_error", 500);
+  }
+  if (!row) {
+    const known = await getSubmission(auditId, "draft_requested_at").catch(() => null);
+    return known?.draft_requested_at ? fail("already_requested", 409) : fail("not_available", 403);
+  }
+
   const out = new FormData();
   out.append("step", "files");
-  for (const k of ABOUT_KEYS) out.append(k, String(form.get(k) ?? "").trim().slice(0, 200));
+  out.append("auditId", row.id);
+  out.append("firstName", row.first_name);
+  out.append("email", row.email);
+  out.append("firm", row.firm_name);
+  out.append("role", row.role);
+  out.append("teamSize", row.firm_size);
+  out.append("volume", row.firm_answers?.c1 ?? "");
+  out.append("score", String(row.total_pct ?? ""));
+  out.append("tier", row.tier ?? "");
   out.append("donor", String(form.get("donor") ?? "").slice(0, 100));
   out.append("consent", "yes");
   for (const [name, f] of files) out.append(name, f, f.name);
 
   const res = await fetch(hook, { method: "POST", body: out }).catch(() => null);
-  return res?.ok ? NextResponse.json({ ok: true }) : fail("upstream_failed", 502);
+  if (!res?.ok) {
+    await releaseFirstDraft(row.id).catch(() => {});
+    return fail("upstream_failed", 502);
+  }
+  return NextResponse.json({ ok: true });
 }

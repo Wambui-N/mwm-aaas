@@ -36,6 +36,7 @@ export type SubmissionRow = {
   referrer: string | null;
   abandon_email_sent_at: string | null;
   completed_at: string | null;
+  draft_requested_at: string | null;
 };
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -65,7 +66,7 @@ const TEXT_ARRAY = new Set(["donors", "help_flags"]);
 const COLUMNS = new Set([
   "id", "created_at", "status", "first_name", "email", "firm_name", "role", "firm_size", "country", "donors", "consent",
   "answers", "firm_answers", "stage_scores", "total_points", "total_pct", "tier", "help_flags", "hours_month", "cost_month",
-  "saved_hours", "segment", "utm_source", "utm_medium", "utm_campaign", "referrer", "ip_hash", "abandon_email_sent_at", "completed_at",
+  "saved_hours", "segment", "utm_source", "utm_medium", "utm_campaign", "referrer", "ip_hash", "abandon_email_sent_at", "completed_at", "draft_requested_at",
 ]);
 
 function col(name: string): string {
@@ -151,4 +152,26 @@ export async function claimAbandonReminder(id: string): Promise<boolean> {
 export async function releaseAbandonReminder(id: string): Promise<void> {
   if (!isUuid(id)) return;
   await run(`update ${TABLE} set abandon_email_sent_at = null where id = $1`, [id]);
+}
+
+/**
+ * Claims the free first draft for a completed "ready" result, once. Returns the row when this call claimed it, or null
+ * when the result is not ready, not completed, or already used. The check and the claim are one statement, so two
+ * overlapping requests cannot both succeed. ("ideal" is the segment name saved before the three pages existed.)
+ */
+export async function claimFirstDraft(id: string): Promise<SubmissionRow | null> {
+  if (!isUuid(id)) return null;
+  const out = await run(
+    `update ${TABLE} set draft_requested_at = now()
+     where id = $1 and status = 'completed' and segment in ('ready', 'ideal') and draft_requested_at is null
+     returning *`,
+    [id],
+  );
+  return normalise<SubmissionRow>(out[0]);
+}
+
+/** Gives the draft back when sending it to the pipeline failed, so the person can try again. */
+export async function releaseFirstDraft(id: string): Promise<void> {
+  if (!isUuid(id)) return;
+  await run(`update ${TABLE} set draft_requested_at = null where id = $1`, [id]);
 }

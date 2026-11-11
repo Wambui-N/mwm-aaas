@@ -21,8 +21,8 @@ export const DEFAULT_BOOKING_URL =
 export const CONTACT_HREF = "/contact-us";
 export const CONTACT_EMAIL = "wambui@madewithmake.com";
 
-/** Free first draft offer page (built separately). */
-export const FREE_DRAFT_HREF = "/proposal-pipeline#free-draft";
+/** The free first draft form. It only opens with a completed "ready" audit id: /proposal-pipeline/try?id=<audit id>. */
+export const FIRST_DRAFT_PATH = "/proposal-pipeline/try";
 
 export const FOUNDERS_FREEDOM_POST = "/blog/from-first-contact-to-signed-client-founders-freedom-africa";
 

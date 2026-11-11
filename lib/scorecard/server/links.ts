@@ -1,5 +1,5 @@
 /** Next-step links per segment, shared by the results page and the results email. Server only (reads env). */
-import { DEFAULT_BOOKING_URL, FREE_DRAFT_HREF, SCORECARD_PATH } from "../config";
+import { DEFAULT_BOOKING_URL, FIRST_DRAFT_PATH, SCORECARD_PATH } from "../config";
 import { nextSteps } from "../copy";
 import type { Segment } from "../scoring";
 
@@ -16,7 +16,6 @@ export const resumeUrl = (id: string) => absolute(`${SCORECARD_PATH}?resume=${id
 
 const env = {
   booking: () => process.env.BOOKING_URL?.trim() || DEFAULT_BOOKING_URL,
-  draft: () => process.env.FREE_DRAFT_URL?.trim() || FREE_DRAFT_HREF,
   /** The 5-Stage Proposal Pipeline Playbook. CHECKLIST_URL is the older name for the same link. */
   playbook: () => process.env.PLAYBOOK_URL?.trim() || process.env.CHECKLIST_URL?.trim() || "",
   getReady: () => process.env.GET_READY_CHECKLIST_URL?.trim() || "",
@@ -24,16 +23,17 @@ const env = {
   demo: () => process.env.DEMO_VIDEO_URL?.trim() || "",
 };
 export const demoVideoUrl = env.demo;
+export const bookingUrl = env.booking;
 
 /** Links hidden when their env var is empty (playbook, checklists). */
-export function nextLinks(segment: Segment): NextLink[] {
+export function nextLinks(segment: Segment, auditId: string): NextLink[] {
   const out: NextLink[] = [];
   const add = (key: string, label: string, href: string, primary = true) => href && out.push({ key, label, href, primary });
 
   switch (segment) {
     case "ready":
       // equal visual weight: both primary
-      add("free_draft", nextSteps.freeDraft, env.draft());
+      add("free_draft", nextSteps.freeDraft, `${FIRST_DRAFT_PATH}?id=${auditId}`);
       add("book", nextSteps.book, env.booking());
       break;
     case "almost":
